@@ -1,0 +1,121 @@
+// Sass/scss variable syntax:
+// $variable-name: #fff;
+
+$grey: #656565;
+// $black: rgba(20,20,20,1);
+$black: rgba(0,0,0,1);
+$white: rgb(255, 255, 255);
+
+// $dark-grey: rgba(120,120,120,1);
+$dark-grey: rgba(100,100,100,1);
+$light-grey: rgba(200,200,200,1);
+$lighter-grey: rgba(230,230,230,1);
+$medium-grey: rgba(150,150,150,1);
+
+$easing: cubic-bezier(0.23, 1, 0.32, 1);
+
+$fast-easing: 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+$slow-easing: 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+
+$menu-height: 70px;
+$top-space: $menu-height + 40px;
+$bottom-space: 80px;
+
+$main-margin: 15px;
+$small-margin: 5px;
+
+$font-size-small: 13px;
+$font-size-medium: 16px;
+$font-size-large: 20px;
+$font-size-larger: 24px;
+
+$mobile-factor: 1.2;
+
+$mobile-font-size-small: 12px * $mobile-factor;
+$mobile-font-size-medium: 16px * $mobile-factor;
+$mobile-font-size-large: 20px * $mobile-factor;
+$mobile-font-size-larger: 24px * $mobile-factor;
+
+$mobile-logo: 55px;
+
+$root-line-height: 20px;
+$normal-line-height: 1.3em;
+
+// $text-stack: 'Wremena', 'times new roman', serif;
+$serif-stack: 'Genath', 'times new roman', serif;
+$sans-stack: 'Antique','helvetica', 'arial', sans-serif;
+
+@mixin hide-scroll {
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    -ms-overflow-style: none;
+  }
+  
+  @mixin normal-hover-state {
+    transition: color $fast-easing;
+  
+    &:hover {
+      color: $grey; 
+    }
+  }
+  
+  @mixin media-hover-state {
+  
+    img, video {
+      transition: transform $slow-easing;
+    }
+  
+    &:hover {
+  
+      // border: 10px solid white;
+  
+      // .feed-item__arrow {
+      //   opacity: 1;
+      // }
+      // background: black;
+  
+      img, video {
+        // opacity: 0.9;
+        // filter: grayscale(1);
+        // transform: scale(1.05);
+        // width: 110%;
+      }
+    }
+  }
+  
+  $breakpoints: (
+    'small': (
+      max-width: 700px
+    ),
+    'medium': (
+      max-width: 1000px
+    ),
+    'large': (
+      max-width: 1600px
+    ),
+    'short': (
+      max-height: 700px
+    )
+  );
+  
+  /// Responsive manager.
+  /// @access public
+  /// @param {String} $breakpoint - Breakpoint
+  /// @requires $breakpoints
+  @mixin screen-size($breakpoint) {
+    $raw-query: map-get($breakpoints, $breakpoint);
+    @if $raw-query {
+      $query: if(
+        type-of($raw-query) == 'string',
+        unquote($raw-query),
+        inspect($raw-query)
+      );
+      @media #{$query} {
+        @content;
+      }
+    } @else {
+      @error 'No value found for `#{$breakpoint}`. ' + 'Please make sure it is defined in `$breakpoints` map.';
+    }
+  }
+  

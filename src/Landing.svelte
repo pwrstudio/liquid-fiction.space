@@ -1,0 +1,142 @@
+<script>
+  // # # # # # # # # # # # # #
+  //
+  //  Landing
+  //
+  // # # # # # # # # # # # # #
+
+  // *** POLYFILLS
+  // import "intersection-observer";
+  // import "whatwg-fetch";
+
+  // import "es6-shim";
+
+  // *** IMPORT
+  import { Router, Link, Route } from "svelte-routing";
+  // import MediaQuery from "svelte-media-query";
+
+  // *** STORES
+  import {
+    orbBackgroundOne,
+    orbBackgroundTwo,
+    orbColorOne,
+    orbColorTwo
+  } from "./stores.js";
+
+  orbBackgroundOne.set("rgba(0,0,0,1)");
+  orbColorOne.set("rgba(0,0,255,1)");
+
+  orbBackgroundTwo.set("rgba(0,0,255,1)");
+  orbColorTwo.set("rgba(255,255,255,1)");
+
+  // *** COMPONENTS
+  // import Navigation from "./Components/Navigation.svelte";
+  // import MobileNavigation from "./Components/MobileNavigation.svelte";
+
+  let titleAnimation = "LIQUID FICTION";
+  let titleOutput = titleAnimation;
+  let titleLength = titleAnimation.length;
+  let titleIndex = 0;
+
+  // setInterval(() => {
+  //   console.log(titleAnimation.length);
+  //   if (titleIndex <= titleLength) {
+  //     let temp = Array.from(titleAnimation).map((c, i) => {
+  //       console.log(c, i);
+  //       if (i >= titleIndex) {
+  //         return c;
+  //       } else {
+  //         return "~";
+  //       }
+  //     });
+  //     console.log(temp);
+  //     titleOutput = temp.join("");
+  //     titleIndex += 1;
+  //   } else {
+  //     titleOutput = titleAnimation;
+  //     titleIndex = 0;
+  //   }
+  // }, 400);
+</script>
+
+<style lang="scss">
+  $col: blue;
+
+  .logo2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 22vw;
+    line-height: 150px;
+    transform: translateX(-50%) translateY(-50%) scale(1);
+  }
+
+  @keyframes sweep {
+    0% {
+      clip-path: inset(0% 0% 0% 100%);
+      -webkit-clip-path: inset(0% 0% 0% 100%);
+    }
+    50% {
+      clip-path: inset(0% 0% 0% 0%);
+      -webkit-clip-path: inset(0% 0% 0% 0%);
+    }
+    100% {
+      clip-path: inset(0% 100% 0% 0%);
+      -webkit-clip-path: inset(0% 100% 0% 0%);
+    }
+  }
+
+  @keyframes sweep-mobile {
+    0% {
+      clip-path: inset(0% 0% 100% 0%);
+    }
+    50% {
+      clip-path: inset(0% 0% 0% 0%);
+    }
+    100% {
+      clip-path: inset(100% 0% 0% 0%);
+    }
+  }
+  .pane {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    font-weight: 200;
+    cursor: pointer;
+    &.top-left {
+      background: black;
+      color: $col;
+    }
+    &.top-right {
+      z-index: 100;
+      background: $col;
+      clip-path: inset(0% 0% 0% 100%);
+      animation-name: sweep;
+      animation-duration: 5s;
+      animation-timing-function: easeOut;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+      @media only screen and (max-width: 700px) {
+        animation-name: sweep-mobile;
+        animation-duration: 7s;
+        animation-timing-function: easeOut;
+        animation-iteration-count: infinite;
+        animation-direction: normal;
+      }
+    }
+  }
+</style>
+
+<svelte:head>
+  <title>{titleOutput}</title>
+</svelte:head>
+
+<div class="pane top-left">
+  <div class="logo2">LIQUID~</div>
+</div>
+
+<div class="pane top-right">
+  <div class="logo2">FICTION</div>
+</div>

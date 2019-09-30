@@ -1,0 +1,58 @@
+const TEST_JSON = {
+    config: {
+      delay: 30,
+      disabled: false
+    },
+    timeline: [
+        {
+        type: "showText",
+        duration: 20000,
+        position: "absolute",
+        text: "Как поверить в будущее, если оно плохо отрендерено?",
+        class: "erosion text-01"
+        },
+        {
+        type: "showVideo",
+        loop: true,
+        duration: 24664,
+        position: "absolute",
+        class: "erosion video-01",
+        url_mp4: "https://dev.eeefff.org/data/outsourcing-paradise-parasite/pi-02/01.mov.mp4",
+        subtitles_en: "https://dev.eeefff.org/data/outsourcing-paradise-parasite/subtitles_test.vtt"
+        },
+        {
+        type: "addClass",
+        duration: 10000,
+        id: "test-target",
+        class: "test"
+        },
+        {
+        type: "removeClass",
+        duration: 10000,
+        id: "test-target",
+        class: "test"
+        },
+        {
+        type: "assemblage",
+        duration: 40000,
+        events: [
+                {
+            type: "showVideo",
+            loop: false,
+            position: "absolute",
+            duration: 14084,
+            url_mp4: "https://dev.eeefff.org/data/outsourcing-paradise-parasite/pi-02/02.mp4.mp4",
+            subtitles_en: "https://dev.eeefff.org/data/outsourcing-paradise-parasite/subtitles_test.vtt",
+            class: "erosion video-02"
+                },
+                {
+            type: "showText",
+            duration: 10000,
+            position: "erosion",
+            text: "Утопия с применением плагинов к браузеру и ворованного диджейского софта",
+            class: "erosion text-02"
+                }
+            ]
+        }
+    ]
+};
