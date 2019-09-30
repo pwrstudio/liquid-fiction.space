@@ -181,7 +181,7 @@
         erosionMachineActive.set(true);
         timeline
           .totalProgress(0)
-          .timeScale(10)
+          .timeScale(1)
           .play();
       }
       counter += 1;
