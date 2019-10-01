@@ -1,7 +1,7 @@
 <script>
   // # # # # # # # # # # # # #
   //
-  //  Eriosion Machine
+  //  Erosion Machine
   //
   // # # # # # # # # # # # # #
 
@@ -48,36 +48,34 @@
       };
     }
 
-    // // Create DOM element
+    // +++ Create DOM element
     let elementObject = document.createElement(
       event.type === "showVideo" ? "video" : "div"
     );
 
-    // // Add ID
+    // +++ Add ID
     elementObject.id = Math.random()
       .toString(36)
       .substring(2, 15);
 
-    // Hide
+    // +++ Hide elemenmt
     elementObject.style.opacity = 0;
 
-    // Hide
+    // +++ Set z-index
     elementObject.style.zIndex = 1001;
 
-    // // Add classes
+    // +++ Add classes
     elementObject.classList = event.class ? event.class : "";
 
-    // // Add text
+    // +++ Add text
     elementObject.innerText = event.text ? event.text : "";
 
-    // // Add position
+    // +++ Add position
     elementObject.style.position = event.position ? event.position : "inherit";
 
+    // +++ Video attributes
     if (event.type === "showVideo") {
-      // Video attributes
-      // elementObject.controls = true;
       let sourceElement = document.createElement("source");
-      // sourceElement.src = "/test.mp4";
       sourceElement.src = event.url_mp4 ? event.url_mp4 : "";
       sourceElement.type = "video/mp4";
       elementObject.appendChild(sourceElement);
@@ -85,7 +83,7 @@
       elementObject.preload = "auto";
       elementObject.muted = true;
 
-      // Subtitles
+      // +++ Subtitles
       if (event.subtitles_en) {
         let subtitlesTrack = document.createElement("track");
         subtitlesTrack.kind = "subtitles";
@@ -104,7 +102,7 @@
 
     event.el = elementObject;
 
-    // Random position: top
+    // +++ Random position: top
     event.el.style.top =
       event.position === "absolute" || event.position === "fixed"
         ? Math.floor(
@@ -112,7 +110,7 @@
           ) + "px"
         : "unset";
 
-    // Random position: left
+    // +++ Random position: left
     elementObject.style.left =
       event.position === "absolute" || event.position === "fixed"
         ? Math.floor(
@@ -175,7 +173,7 @@
   };
 
   const startTimer = delay => {
-    let timer = window.setInterval(() => {
+    window.setInterval(() => {
       if (counter == delay - 1) {
         console.info("💿 Timeline starting...");
         erosionMachineActive.set(true);
@@ -253,7 +251,6 @@
 
     console.info("🎰 Erosion machine initiated");
     console.info("––– Delay:", TIMELINE_JSON.config.delay);
-    console.info("––– Top level events:", TIMELINE_JSON.timeline.length);
 
     startTimer(TIMELINE_JSON.config.delay);
 
