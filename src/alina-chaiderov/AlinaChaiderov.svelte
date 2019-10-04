@@ -83,6 +83,7 @@
     border: 0;
     padding: 0;
     margin: 0;
+    pointer-events: none;
   }
 </style>
 
