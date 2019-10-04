@@ -7,8 +7,7 @@
 
   // *** IMPORT
   import { onMount } from "svelte";
-  import { fly } from "svelte/transition";
-  import { quartOut } from "svelte/easing";
+  import { fade } from "svelte/transition";
 
   // *** STORES
   import {
@@ -30,12 +29,60 @@
     min-height: 100vh;
   }
 
-  .placeholder {
-    font-size: 32px;
-    position: absolute;
-    top: 50%;
+  // .placeholder {
+  //   font-size: 32px;
+  //   position: absolute;
+  //   top: 50%;
+  //   width: 100%;
+  //   text-align: center;
+  // }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  .embed-responsive {
+    position: relative;
+    display: block;
     width: 100%;
-    text-align: center;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .embed-responsive-4by3::before {
+    display: block;
+    content: "";
+  }
+
+  .embed-responsive-4by3::before {
+    padding-top: 75%;
+  }
+
+  @media (max-width: 768px) {
+    .embed-responsive-4by3::before {
+      padding-top: 560px;
+    }
+  }
+
+  .embed-responsive .embed-responsive-item,
+  .embed-responsive iframe {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  iframe {
+    height: 100vh;
+    width: 100vw;
+    border: 0;
+    padding: 0;
+    margin: 0;
   }
 </style>
 
@@ -43,13 +90,25 @@
   <title>Alina Chaiderov | LIQUID FIKCTION</title>
 </svelte:head>
 
-<div class="alina">
-  <div
+<!-- <div class="alina"> -->
+
+<!-- Embed Code -->
+<!-- <div class="embed-responsive embed-responsive-4by3"> -->
+<iframe
+  title="Alina Chaiderov"
+  class="embed-responsive-item"
+  src="https://alinachaiderov.com/liquidfiction"
+  gesture="media"
+  allow="encrypted-media"
+  allowfullscreen
+  in:fade={{ delay: 1000 }} />
+<!-- </div> -->
+<!-- <div
     class="placeholder"
     in:fly={{ duration: 800, y: 40, delay: 400, easing: quartOut }}>
     Alina Chaiderov placeholder
-  </div>
-</div>
+  </div> -->
+<!-- </div> -->
 
 <!-- <div
   class="button"
