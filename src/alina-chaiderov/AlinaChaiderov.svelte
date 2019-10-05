@@ -14,9 +14,12 @@
     orbBackgroundOne,
     orbBackgroundTwo,
     orbColorOne,
-    orbColorTwo
+    orbColorTwo,
+    activePage,
+    menuActive
   } from "../stores.js";
 
+  activePage.set("alina");
   orbBackgroundOne.set("rgba(0,0,255,1)");
   orbBackgroundTwo.set("rgba(0,0,255,1)");
 </script>
@@ -95,14 +98,15 @@
 
 <!-- Embed Code -->
 <!-- <div class="embed-responsive embed-responsive-4by3"> -->
-<iframe
-  title="Alina Chaiderov"
-  class="embed-responsive-item"
-  src="https://alinachaiderov.com/liquidfiction"
-  gesture="media"
-  allow="encrypted-media"
-  allowfullscreen
-  in:fade={{ delay: 1000 }} />
+{#if !$menuActive}
+  <iframe
+    title="Alina Chaiderov"
+    class="embed-responsive-item"
+    src="https://alinachaiderov.com/liquidfiction"
+    allow="encrypted-media"
+    allowfullscreen
+    in:fade={{ delay: 1000 }} />
+{/if}
 <!-- </div> -->
 <!-- <div
     class="placeholder"

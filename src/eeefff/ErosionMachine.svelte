@@ -10,11 +10,21 @@
   import get from "lodash.get";
   import throttle from "just-throttle";
 
+  let hidden = false;
+
   // *** STORES
-  import { erosionMachineCounter, erosionMachineActive } from "../stores.js";
+  import {
+    erosionMachineCounter,
+    erosionMachineActive,
+    activePage
+  } from "../stores.js";
 
   $: {
     erosionMachineCounter.set(counter);
+  }
+
+  $: {
+    hidden = $activePage === "alina" ? true : false;
   }
 
   const EEEFFF_JSON =
@@ -88,12 +98,24 @@
         let subtitlesTrack = document.createElement("track");
         subtitlesTrack.kind = "subtitles";
         subtitlesTrack.label = "English subtitles";
-        // subtitlesTrack.src = event.subtitles_en;
-        subtitlesTrack.src = "/subtitles_test.vtt";
+        subtitlesTrack.src = event.subtitles_en;
+        // subtitlesTrack.src = "/subtitles_test.vtt";
         subtitlesTrack.srcLang = "en";
         subtitlesTrack.default = true;
         // let subtitlesBox = document.createElement("div");
         elementObject.appendChild(subtitlesTrack);
+        // elementObject.appendChild(subtitlesBox);
+      }
+      if (event.subtitles_ru) {
+        let subtitlesTrackRu = document.createElement("track");
+        subtitlesTrackRu.kind = "subtitles";
+        subtitlesTrackRu.label = "Russian subtitles";
+        subtitlesTrackRu.src = event.subtitles_ru;
+        // subtitlesTrack.src = "/subtitles_test.vtt";
+        subtitlesTrackRu.srcLang = "ru";
+        subtitlesTrackRu.default = true;
+        // let subtitlesBox = document.createElement("div");
+        elementObject.appendChild(subtitlesTrackRu);
         // elementObject.appendChild(subtitlesBox);
       }
     }
@@ -110,6 +132,8 @@
           ) + "px"
         : "unset";
 
+    console.log("event.pl.clientHeight", event.el.clientHeight);
+
     // +++ Random position: left
     elementObject.style.left =
       event.position === "absolute" || event.position === "fixed"
@@ -117,6 +141,8 @@
             Math.random() * (window.innerWidth - event.el.clientWidth)
           ) + "px"
         : "unset";
+
+    console.log("event.el.clientWidth", event.el.clientWidth);
 
     return event;
   };
@@ -331,10 +357,15 @@
 <style lang="scss">
   .erosion-machine-container {
     z-index: 100000;
+    display: block;
     pointer-events: none;
     position: fixed;
     top: 0;
     left: 0;
+
+    &.hidden {
+      display: none;
+    }
   }
 </style>
 
@@ -342,4 +373,5 @@
 
 <section
   class="erosion-machine-container"
+  class:hidden
   bind:this={erosionMachineContainer} />

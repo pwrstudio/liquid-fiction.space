@@ -21,9 +21,11 @@
     orbColorOne,
     orbColorTwo,
     erosionMachineCounter,
-    erosionMachineActive
+    erosionMachineActive,
+    activePage
   } from "../stores.js";
 
+  activePage.set("eeefff");
   orbBackgroundOne.set("rgba(0,0,255,1)");
   orbBackgroundTwo.set("rgba(0,0,255,1)");
 </script>

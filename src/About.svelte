@@ -18,9 +18,11 @@
     orbBackgroundTwo,
     orbColorOne,
     orbColorTwo,
-    erosionMachineCounter
+    erosionMachineCounter,
+    activePage
   } from "./stores.js";
 
+  activePage.set("about");
   orbBackgroundOne.set("rgb(255, 140, 0)");
   orbBackgroundTwo.set("rgb(118, 165, 32)");
 

@@ -18,9 +18,11 @@
     orbBackgroundOne,
     orbBackgroundTwo,
     orbColorOne,
-    orbColorTwo
+    orbColorTwo,
+    activePage
   } from "../stores.js";
 
+  activePage.set("olof");
   orbBackgroundOne.set("rgba(128,25,55,1)");
   orbBackgroundTwo.set("rgba(145,100,127,1)");
 

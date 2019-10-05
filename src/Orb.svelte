@@ -42,6 +42,7 @@
   // *** VARIABLES
   let scrolling = false;
   let menuActive = false;
+  let menuExit = false;
 </script>
 
 <style lang="scss">

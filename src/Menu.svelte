@@ -24,9 +24,17 @@
     menuActive.set(active);
   }
 
+  // const handleExit = () => {
+  //   exit = true;
+  //   setTimeout(() => {
+  //     exit = false;
+  //   }, 1000);
+  // };
+
   // *** VARIABLES
   export let active = false;
   const dispatch = createEventDispatcher();
+  // export let exit = false;
 </script>
 
 <style lang="scss">
@@ -175,6 +183,12 @@
           transition: transform 1s cubic-bezier(0.23, 1, 0.32, 1);
         }
       }
+    }
+
+    &.exit {
+      transition: clip-path 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      clip-path: inset(0% 0% 0% 100%);
+      -webkit-clip-path: inset(0% 0% 0% 100%);
     }
   }
 </style>

@@ -20,9 +20,11 @@
     orbBackgroundOne,
     orbBackgroundTwo,
     orbColorOne,
-    orbColorTwo
+    orbColorTwo,
+    activePage
   } from "./stores.js";
 
+  activePage.set("landing");
   orbBackgroundOne.set("rgba(0,0,0,1)");
   orbColorOne.set("rgba(0,0,255,1)");
 
