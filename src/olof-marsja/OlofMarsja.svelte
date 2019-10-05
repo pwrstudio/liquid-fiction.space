@@ -255,6 +255,16 @@
   .olof {
     background: blue;
     min-height: 100vh;
+
+    @include screen-size("small") {
+      overflow-x: scroll;
+    }
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
   }
 
   .plate-1 {
@@ -262,6 +272,18 @@
     left: 10px;
     top: 10vh;
     height: 80vh;
+
+    @include screen-size("small") {
+      position: static;
+      margin-left: auto;
+      margin-right: auto;
+      float: left;
+      // left: 50%;
+      // top: 50%;
+      // transform: translateX(-50%) translateY(-50%);
+      height: 90vh;
+      margin-bottom: 300px;
+    }
 
     .inner {
       position: relative;
@@ -296,6 +318,17 @@
     right: 10px;
     top: 10vh;
     height: 80vh;
+
+    @include screen-size("small") {
+      position: static;
+      margin-left: auto;
+      margin-right: auto;
+      float: left;
+      // left: 50%;
+      // top: 50%;
+      // transform: translateX(-50%) translateY(-50%);
+      height: 80vh;
+    }
 
     .inner {
       position: relative;
@@ -341,6 +374,10 @@
     &.loaded {
       opacity: 1;
     }
+
+    @include screen-size("small") {
+      pointer-events: none;
+    }
   }
 </style>
 
@@ -350,7 +387,9 @@
 
 <div class="olof">
 
-  <div in:fly={{ duration: 800, x: 60, delay: 0, easing: quartOut }}>
+  <div
+    class="container"
+    in:fly={{ duration: 800, x: 60, delay: 0, easing: quartOut }}>
 
     <iframe
       alt="Olof Marsja"
@@ -367,19 +406,6 @@
 
     <!-- <video src="/img/hacka.mp4" autoplay muted loop /> -->
     <!-- <video class="slipa" src="/img/s2.mp4" autoplay muted loop /> -->
-
-    <div class="rock">
-      <div class="inner">
-        <img src="/img/Rock.png" alt="Olof Marsja - Rock" />
-        <div class="text">
-          <div bind:this={iSlideEl}>
-            {#each iArray as iTem}
-              <div>{iTem}</div>
-            {/each}
-          </div>
-        </div>
-      </div>
-    </div>
 
     <div class="plate-1">
       <div class="inner">
@@ -718,6 +744,19 @@
           <br />
           May you take the complimentary ticket, Olof, from this present moment
           and admit your awesomeness.
+        </div>
+      </div>
+    </div>
+
+    <div class="rock">
+      <div class="inner">
+        <img src="/img/Rock.png" alt="Olof Marsja - Rock" />
+        <div class="text">
+          <div bind:this={iSlideEl}>
+            {#each iArray as iTem}
+              <div>{iTem}</div>
+            {/each}
+          </div>
         </div>
       </div>
     </div>

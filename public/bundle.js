@@ -3546,7 +3546,7 @@ var app = (function () {
 
     const file$2 = "src/Menu.svelte";
 
-    // (164:6) {#if active}
+    // (172:6) {#if active}
     function create_if_block$1(ctx) {
     	var div0, div0_intro, div0_outro, t0, div1, div1_intro, div1_outro, t1, div2, div2_intro, div2_outro, t2, div3, div3_intro, div3_outro, current;
 
@@ -3599,14 +3599,14 @@ var app = (function () {
     			t2 = space();
     			div3 = element("div");
     			link3.$$.fragment.c();
-    			attr_dev(div0, "class", "item svelte-1ia4sn4");
-    			add_location(div0, file$2, 164, 8, 4030);
-    			attr_dev(div1, "class", "item svelte-1ia4sn4");
-    			add_location(div1, file$2, 173, 8, 4368);
-    			attr_dev(div2, "class", "item svelte-1ia4sn4");
-    			add_location(div2, file$2, 182, 8, 4717);
-    			attr_dev(div3, "class", "item svelte-1ia4sn4");
-    			add_location(div3, file$2, 191, 8, 5041);
+    			attr_dev(div0, "class", "item svelte-v2pf5f");
+    			add_location(div0, file$2, 172, 8, 4305);
+    			attr_dev(div1, "class", "item svelte-v2pf5f");
+    			add_location(div1, file$2, 181, 8, 4643);
+    			attr_dev(div2, "class", "item svelte-v2pf5f");
+    			add_location(div2, file$2, 190, 8, 4992);
+    			attr_dev(div3, "class", "item svelte-v2pf5f");
+    			add_location(div3, file$2, 199, 8, 5316);
     		},
 
     		m: function mount(target, anchor) {
@@ -3721,11 +3721,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$1.name, type: "if", source: "(164:6) {#if active}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$1.name, type: "if", source: "(172:6) {#if active}", ctx });
     	return block;
     }
 
-    // (169:10) <Link to="about">
+    // (177:10) <Link to="about">
     function create_default_slot_4(ctx) {
     	var span0, t_1, span1;
 
@@ -3736,10 +3736,10 @@ var app = (function () {
     			t_1 = space();
     			span1 = element("span");
     			span1.textContent = "~~~~~~_~~~~~~~~";
-    			attr_dev(span0, "class", "line-1 svelte-1ia4sn4");
-    			add_location(span0, file$2, 169, 12, 4228);
-    			attr_dev(span1, "class", "line-2 svelte-1ia4sn4");
-    			add_location(span1, file$2, 170, 12, 4283);
+    			attr_dev(span0, "class", "line-1 svelte-v2pf5f");
+    			add_location(span0, file$2, 177, 12, 4503);
+    			attr_dev(span1, "class", "line-2 svelte-v2pf5f");
+    			add_location(span1, file$2, 178, 12, 4558);
     		},
 
     		m: function mount(target, anchor) {
@@ -3756,11 +3756,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot_4.name, type: "slot", source: "(169:10) <Link to=\"about\">", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot_4.name, type: "slot", source: "(177:10) <Link to=\"about\">", ctx });
     	return block;
     }
 
-    // (178:10) <Link to="alina-chaiderov">
+    // (186:10) <Link to="alina-chaiderov">
     function create_default_slot_3(ctx) {
     	var span0, t_1, span1;
 
@@ -3771,10 +3771,10 @@ var app = (function () {
     			t_1 = space();
     			span1 = element("span");
     			span1.textContent = "~~~~~_~~~~~~~~~";
-    			attr_dev(span0, "class", "line-1 svelte-1ia4sn4");
-    			add_location(span0, file$2, 178, 12, 4576);
-    			attr_dev(span1, "class", "line-2 svelte-1ia4sn4");
-    			add_location(span1, file$2, 179, 12, 4632);
+    			attr_dev(span0, "class", "line-1 svelte-v2pf5f");
+    			add_location(span0, file$2, 186, 12, 4851);
+    			attr_dev(span1, "class", "line-2 svelte-v2pf5f");
+    			add_location(span1, file$2, 187, 12, 4907);
     		},
 
     		m: function mount(target, anchor) {
@@ -3791,11 +3791,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot_3.name, type: "slot", source: "(178:10) <Link to=\"alina-chaiderov\">", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot_3.name, type: "slot", source: "(186:10) <Link to=\"alina-chaiderov\">", ctx });
     	return block;
     }
 
-    // (187:10) <Link to="eeefff">
+    // (195:10) <Link to="eeefff">
     function create_default_slot_2(ctx) {
     	var span0, t_1, span1;
 
@@ -3806,10 +3806,10 @@ var app = (function () {
     			t_1 = space();
     			span1 = element("span");
     			span1.textContent = "~~~~~~";
-    			attr_dev(span0, "class", "line-1 svelte-1ia4sn4");
-    			add_location(span0, file$2, 187, 12, 4918);
-    			attr_dev(span1, "class", "line-2 svelte-1ia4sn4");
-    			add_location(span1, file$2, 188, 12, 4965);
+    			attr_dev(span0, "class", "line-1 svelte-v2pf5f");
+    			add_location(span0, file$2, 195, 12, 5193);
+    			attr_dev(span1, "class", "line-2 svelte-v2pf5f");
+    			add_location(span1, file$2, 196, 12, 5240);
     		},
 
     		m: function mount(target, anchor) {
@@ -3826,11 +3826,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot_2.name, type: "slot", source: "(187:10) <Link to=\"eeefff\">", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot_2.name, type: "slot", source: "(195:10) <Link to=\"eeefff\">", ctx });
     	return block;
     }
 
-    // (196:10) <Link to="olof-marsja">
+    // (204:10) <Link to="olof-marsja">
     function create_default_slot_1(ctx) {
     	var span0, t_1, span1;
 
@@ -3841,10 +3841,10 @@ var app = (function () {
     			t_1 = space();
     			span1 = element("span");
     			span1.textContent = "~~~~_~~~~~~";
-    			attr_dev(span0, "class", "line-1 svelte-1ia4sn4");
-    			add_location(span0, file$2, 196, 12, 5247);
-    			attr_dev(span1, "class", "line-2 svelte-1ia4sn4");
-    			add_location(span1, file$2, 197, 12, 5299);
+    			attr_dev(span0, "class", "line-1 svelte-v2pf5f");
+    			add_location(span0, file$2, 204, 12, 5522);
+    			attr_dev(span1, "class", "line-2 svelte-v2pf5f");
+    			add_location(span1, file$2, 205, 12, 5574);
     		},
 
     		m: function mount(target, anchor) {
@@ -3861,11 +3861,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot_1.name, type: "slot", source: "(196:10) <Link to=\"olof-marsja\">", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot_1.name, type: "slot", source: "(204:10) <Link to=\"olof-marsja\">", ctx });
     	return block;
     }
 
-    // (162:2) <Router>
+    // (170:2) <Router>
     function create_default_slot(ctx) {
     	var div, current;
 
@@ -3876,7 +3876,7 @@ var app = (function () {
     			div = element("div");
     			if (if_block) if_block.c();
     			attr_dev(div, "class", "inner");
-    			add_location(div, file$2, 162, 4, 3983);
+    			add_location(div, file$2, 170, 4, 4258);
     		},
 
     		m: function mount(target, anchor) {
@@ -3921,7 +3921,7 @@ var app = (function () {
     			if (if_block) if_block.d();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot.name, type: "slot", source: "(162:2) <Router>", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot.name, type: "slot", source: "(170:2) <Router>", ctx });
     	return block;
     }
 
@@ -3951,35 +3951,35 @@ var app = (function () {
     			t_1 = text("cross");
     			g = svg_element("g");
     			path = svg_element("path");
-    			attr_dev(rect, "class", "cls-1 svelte-1ia4sn4");
+    			attr_dev(rect, "class", "cls-1 svelte-v2pf5f");
     			attr_dev(rect, "x", "1.08");
     			attr_dev(rect, "y", "0.65");
     			attr_dev(rect, "width", "55.46");
     			attr_dev(rect, "height", "55.39");
-    			add_location(rect, file$2, 212, 12, 5694);
+    			add_location(rect, file$2, 220, 12, 5969);
     			attr_dev(clipPath, "id", "clip-path");
     			attr_dev(clipPath, "transform", "translate(-1.08 -0.65)");
-    			add_location(clipPath, file$2, 211, 10, 5621);
-    			add_location(defs, file$2, 210, 8, 5604);
-    			add_location(title, file$2, 220, 8, 5880);
-    			attr_dev(path, "class", "cls-3 svelte-1ia4sn4");
+    			add_location(clipPath, file$2, 219, 10, 5896);
+    			add_location(defs, file$2, 218, 8, 5879);
+    			add_location(title, file$2, 228, 8, 6155);
+    			attr_dev(path, "class", "cls-3 svelte-v2pf5f");
     			attr_dev(path, "d", "M2.12,49a3.91,3.91,0,0,0-1,2.4,3.08,3.08,0,0,0,1,2.41l1.23,1.23A3.37,3.37,0,0,0,5.69,56a3.12,3.12,0,0,0,2.47-.89L27.38,35.59a1.55,1.55,0,0,1,2.47,0L49.34,54.94A3,3,0,0,0,51.67,56a3.37,3.37,0,0,0,2.47-1.1l1.38-1.23a2.88,2.88,0,0,0,1-2.4,3.62,3.62,0,0,0-1-2.41L36,29.41a1.55,1.55,0,0,1,0-2.47L55.52,7.72a3.18,3.18,0,0,0,.89-2.47,3.45,3.45,0,0,0-.89-2.33L54.28,1.68a3.2,3.2,0,0,0-2.47-1,3.44,3.44,0,0,0-2.33,1L30,20.9a1.4,1.4,0,0,1-2.33,0L8.16,1.68a2.84,2.84,0,0,0-2.27-1,3.51,3.51,0,0,0-2.54,1.1L2.12,2.92a3.21,3.21,0,0,0-1,2.54,3.48,3.48,0,0,0,1,2.4L21.34,27.22a1.66,1.66,0,0,1,0,2.47Z");
     			attr_dev(path, "transform", "translate(-1.08 -0.65)");
-    			add_location(path, file$2, 222, 10, 5937);
-    			attr_dev(g, "class", "cls-2 svelte-1ia4sn4");
-    			add_location(g, file$2, 221, 8, 5909);
+    			add_location(path, file$2, 230, 10, 6212);
+    			attr_dev(g, "class", "cls-2 svelte-v2pf5f");
+    			add_location(g, file$2, 229, 8, 6184);
     			attr_dev(svg, "xmlns", "http://www.w3.org/2000/svg");
     			attr_dev(svg, "xmlns:xlink", "http://www.w3.org/1999/xlink");
     			attr_dev(svg, "viewBox", "0 0 55.46 55.39");
-    			attr_dev(svg, "class", "svelte-1ia4sn4");
-    			add_location(svg, file$2, 206, 6, 5462);
+    			attr_dev(svg, "class", "svelte-v2pf5f");
+    			add_location(svg, file$2, 214, 6, 5737);
     			attr_dev(div0, "class", "inner-1");
-    			add_location(div0, file$2, 205, 4, 5434);
-    			attr_dev(div1, "class", "close svelte-1ia4sn4");
-    			add_location(div1, file$2, 204, 2, 5410);
-    			attr_dev(div2, "class", "menu svelte-1ia4sn4");
+    			add_location(div0, file$2, 213, 4, 5709);
+    			attr_dev(div1, "class", "close svelte-v2pf5f");
+    			add_location(div1, file$2, 212, 2, 5685);
+    			attr_dev(div2, "class", "menu svelte-v2pf5f");
     			toggle_class(div2, "active", ctx.active);
-    			add_location(div2, file$2, 154, 0, 3883);
+    			add_location(div2, file$2, 162, 0, 4158);
     			dispose = listen_dev(div2, "click", ctx.click_handler);
     		},
 
@@ -7882,7 +7882,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (353:12) {#each iArray as iTem}
+    // (722:12) {#each iArray as iTem}
     function create_each_block(ctx) {
     	var div, t_value = ctx.iTem + "", t;
 
@@ -7890,7 +7890,7 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			t = text(t_value);
-    			add_location(div, file$6, 353, 14, 6321);
+    			add_location(div, file$6, 722, 14, 22539);
     		},
 
     		m: function mount(target, anchor) {
@@ -7906,12 +7906,12 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block.name, type: "each", source: "(353:12) {#each iArray as iTem}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block.name, type: "each", source: "(722:12) {#each iArray as iTem}", ctx });
     	return block;
     }
 
     function create_fragment$8(ctx) {
-    	var t0, div8, div7, iframe, t1, div3, div2, img0, t2, div1, div0, t3, div6, div5, img1, t4, div4, t5, br0, t6, br1, t7, br2, t8, br3, t9, br4, t10, br5, t11, br6, t12, br7, t13, br8, t14, br9, t15, br10, t16, br11, t17, br12, t18, br13, t19, br14, t20, br15, t21, br16, t22, br17, t23, br18, t24, br19, t25, br20, t26, br21, t27, br22, t28, br23, t29, br24, t30, br25, t31, br26, t32, br27, t33, br28, t34, br29, t35, br30, t36, br31, t37, br32, t38, br33, t39, br34, t40, br35, t41, br36, t42, br37, t43, br38, t44, br39, t45, br40, t46, br41, t47, br42, t48, br43, t49, br44, t50, br45, t51, br46, t52, br47, t53, br48, t54, br49, t55, br50, t56, br51, t57, br52, t58, br53, t59, br54, t60, br55, t61, br56, t62, br57, t63, br58, t64, br59, t65, br60, t66, br61, t67, br62, t68, br63, t69, br64, t70, br65, t71, br66, t72, br67, t73, br68, t74, br69, t75, br70, t76, br71, t77, br72, t78, br73, t79, br74, t80, br75, t81, br76, t82, br77, t83, br78, t84, br79, t85, br80, t86, br81, t87, br82, t88, br83, t89, br84, t90, br85, t91, br86, t92, br87, t93, br88, t94, br89, t95, br90, t96, br91, t97, br92, t98, br93, t99, br94, t100, br95, t101, br96, t102, br97, t103, br98, t104, br99, t105, br100, t106, br101, t107, br102, t108, br103, t109, br104, t110, br105, t111, br106, t112, br107, t113, br108, t114, br109, t115, div7_intro;
+    	var t0, div8, div7, iframe, t1, div2, div1, img0, t2, div0, t3, br0, t4, br1, t5, br2, t6, br3, t7, br4, t8, br5, t9, br6, t10, br7, t11, br8, t12, br9, t13, br10, t14, br11, t15, br12, t16, br13, t17, br14, t18, br15, t19, br16, t20, br17, t21, br18, t22, br19, t23, br20, t24, br21, t25, br22, t26, br23, t27, br24, t28, br25, t29, br26, t30, br27, t31, br28, t32, br29, t33, br30, t34, br31, t35, br32, t36, br33, t37, br34, t38, br35, t39, br36, t40, br37, t41, br38, t42, br39, t43, br40, t44, br41, t45, br42, t46, br43, t47, br44, t48, br45, t49, br46, t50, br47, t51, br48, t52, br49, t53, br50, t54, br51, t55, br52, t56, br53, t57, br54, t58, br55, t59, br56, t60, br57, t61, br58, t62, br59, t63, br60, t64, br61, t65, br62, t66, br63, t67, br64, t68, br65, t69, br66, t70, br67, t71, br68, t72, br69, t73, br70, t74, br71, t75, br72, t76, br73, t77, br74, t78, br75, t79, br76, t80, br77, t81, br78, t82, br79, t83, br80, t84, br81, t85, br82, t86, br83, t87, br84, t88, br85, t89, br86, t90, br87, t91, br88, t92, br89, t93, br90, t94, br91, t95, br92, t96, br93, t97, br94, t98, br95, t99, br96, t100, br97, t101, br98, t102, br99, t103, br100, t104, br101, t105, br102, t106, br103, t107, br104, t108, br105, t109, br106, t110, br107, t111, br108, t112, br109, t113, t114, div6, div5, img1, t115, div4, div3, div7_intro;
 
     	let each_value = ctx.iArray;
 
@@ -7928,244 +7928,243 @@ var app = (function () {
     			div7 = element("div");
     			iframe = element("iframe");
     			t1 = space();
-    			div3 = element("div");
     			div2 = element("div");
+    			div1 = element("div");
     			img0 = element("img");
     			t2 = space();
-    			div1 = element("div");
     			div0 = element("div");
+    			t3 = text("Hola Olof\n          ");
+    			br0 = element("br");
+    			t4 = text("\n          THIS JUST IN —\n          ");
+    			br1 = element("br");
+    			t5 = text("\n          Former favourite frequency of the world, commonly known as #love, is\n          struggling to find outlets for expression!\n          ");
+    			br2 = element("br");
+    			t6 = text("\n          WHAT?\n          ");
+    			br3 = element("br");
+    			t7 = text("\n          I know.\n          ");
+    			br4 = element("br");
+    			t8 = text("\n          Due to the steady increase of human interest in drama and distraction\n          – globally – #love is officially at risk of not being\n          commonly felt.\n          ");
+    			br5 = element("br");
+    			t9 = text("\n          Brace yourself ladies and gentlemen, #love is officially an Endangered\n          Frequency!\n          ");
+    			br6 = element("br");
+    			t10 = text("\n          As most people are aware, the Emotional/Energetic StockMarket is\n          teaming with options! Love, joy, creativity, patience, chill and\n          kindness are most certainly some tasty favourites. There are also some\n          spicier vibes up for investment such as frustration, anger, doubt,\n          apathy and the ever increasing popular vibe – #fear.\n          ");
+    			br7 = element("br");
+    			t11 = text("\n          #Fear’s marketing campaign is something to behold. Catching the\n          attention of millions and millions of attention investors, it has\n          literally swept through the Mental Atmosphere of humanity –\n          like a virus.\n          ");
+    			br8 = element("br");
+    			t12 = text("\n          Passed around Via Us.\n          ");
+    			br9 = element("br");
+    			t13 = text("\n          It is a radical thought, that #fear gets up to 80% more airtime than\n          any other vibe?\n          ");
+    			br10 = element("br");
+    			t14 = text("\n          So what of these nourishing vibes that are no longer so popular?\n          ");
+    			br11 = element("br");
+    			t15 = text("\n          Do they just have weak marketing? Bad branding? Not enough likes and\n          followers?\n          ");
+    			br12 = element("br");
+    			t16 = text("\n          A few weeks ago it was announced, the most recent vibe to join the\n          endangered frequency list was #freedom.\n          ");
+    			br13 = element("br");
+    			t17 = text("\n          WHAT?!!!!!\n          ");
+    			br14 = element("br");
+    			t18 = text("\n          Of all the things to go out of fashion? FREEDOM!!! But how can it\n          happen?\n          ");
+    			br15 = element("br");
+    			t19 = text("\n          According to NOW NiNJAs all over the world, it has been a very sneaky\n          series of events, #limitation and #restriction have been parading\n          around like law and order – creating the illusion that more\n          rules are cool – and we need more and more of them. So, rules\n          are on the rise, yet little do people know that many of them are\n          funded by #limitation and #fear.\n          ");
+    			br16 = element("br");
+    			t20 = text("\n          The status of #trust is being watched VERY carefully. It seems that\n          the deeply rich imagination of a hand full of dreamers in this world,\n          is still holding #trust in it’s fundamental place… but\n          who knows for how long…\n          ");
+    			br17 = element("br");
+    			t21 = text("\n          Reports are coming in from all over NowHere, that some of our classic\n          good vibes – are missing.\n          ");
+    			br18 = element("br");
+    			t22 = text("\n          Think about it for a moment, are there some feelings you miss feeling?\n          Are your best emotions only active as memories? Well, you are not\n          alone.\n          ");
+    			br19 = element("br");
+    			t23 = text("\n          It’s not just you, this has become our global energetic\n          culture. It is more common for people to feel concern or anxious than\n          they are to feel inspired and powerful.\n          ");
+    			br20 = element("br");
+    			t24 = text("\n          Which brings us to the Present Moment.\n          ");
+    			br21 = element("br");
+    			t25 = text("\n          The NOW needs you! For conscious participation in the Present Moment!\n          ");
+    			br22 = element("br");
+    			t26 = text("\n          Are you ready to play the GAME?!!!\n          ");
+    			br23 = element("br");
+    			t27 = space();
+    			br24 = element("br");
+    			t28 = text("\n          Hola Olof\n          ");
+    			br25 = element("br");
+    			t29 = text("\n          Getting bombarded in you inbox is one thing, but getting bombarded in\n          your mind is another!\n          ");
+    			br26 = element("br");
+    			t30 = text("\n          In this 'high-tech, low touch' time we REALLY have to filter\n          what we let in...\n          ");
+    			br27 = element("br");
+    			t31 = text("\n          What we let in – reflects what we 'put out'. And the\n          essence of what we put out – determines what comes back in.\n          ");
+    			br28 = element("br");
+    			t32 = text("\n          Oh! What a sneaky little circle!\n          ");
+    			br29 = element("br");
+    			t33 = text("\n          The sheer volume of information is an avalanche on your awareness!!\n          Scrolling, clicking, watching and listening. Every iota of information\n          generates a thought and feeling from you. We are speeding up, scanning\n          and spamming, letting more in...\n          ");
+    			br30 = element("br");
+    			t34 = text("\n          Thanks for your precious attention.\n          ");
+    			br31 = element("br");
+    			t35 = text("\n          #legit.\n          ");
+    			br32 = element("br");
+    			t36 = text("\n          The wrong advertisements in your awareness can shorten your attention\n          span!\n          ");
+    			br33 = element("br");
+    			t37 = text("\n          ⚠️ Not to mention turn you into a momenterrorist!\n          ⚠️\n          ");
+    			br34 = element("br");
+    			t38 = text("\n          Quality control is the order of the day!\n          ");
+    			br35 = element("br");
+    			t39 = text("\n          Looking at this epidemic, I put my NOW NiNJA jumpsuit on and came up\n          with a genius way to sneak up on your awareness....\n          ");
+    			br36 = element("br");
+    			t40 = space();
+    			br37 = element("br");
+    			t41 = text("\n          Hola Olof\n          ");
+    			br38 = element("br");
+    			t42 = text("\n          Two of the biggest challenges that individuals have with holding a new\n          vision for their lives is:\n          ");
+    			br39 = element("br");
+    			t43 = text("\n          #1. Forgetting to do it. (We are just too busy!)\n          ");
+    			br40 = element("br");
+    			t44 = text("\n          #2. Struggling to feel and think beyond who they are in this moment.\n          ");
+    			br41 = element("br");
+    			t45 = text("\n          It makes sense that it is challenging, after all, you are VERY good at\n          being this version of you. You've been in this role for what? 20,\n          30, 40, 50 years?!!\n          ");
+    			br42 = element("br");
+    			t46 = text("\n          No wonder it can feel so hard to change!!\n          ");
+    			br43 = element("br");
+    			t47 = text("\n          We are mostly a collection of habits!\n          ");
+    			br44 = element("br");
+    			t48 = text("\n          Change takes practice. Persistence. Courage. You have to catch\n          yourself out in the NOWness of a moment and load and code your new\n          program – on the spot.\n          ");
+    			br45 = element("br");
+    			t49 = text("\n          You've got to turn up at rehearsal and learn the new script.\n          ");
+    			br46 = element("br");
+    			t50 = text("\n          You have practice a new posture and exude a new vibe.\n          ");
+    			br47 = element("br");
+    			t51 = text("\n          You have to practice complete emotional investment to become a new\n          identity\n          ");
+    			br48 = element("br");
+    			t52 = text("\n          AND\n          ");
+    			br49 = element("br");
+    			t53 = text("\n          you have to start right from where you are, in the life that you have\n          – with the habits that you currently have.\n          ");
+    			br50 = element("br");
+    			t54 = text("\n          Do you have a plan? Whatcha going to do NOW, NiNJA?! 5,6,7,8!!!\n          ");
+    			br51 = element("br");
+    			t55 = space();
+    			br52 = element("br");
+    			t56 = text("\n          Hola Olof!!!\n          ");
+    			br53 = element("br");
+    			t57 = text("\n          LiFE!! What a Game! We count down to the NOW! and then we launch\n          ourselves, victoriously, into the new NOW, with a few more layers,\n          lessons and desires and hopefully a few less layers of worry and fear!\n          Some of us are hungry, eagerly wanting to become more of ourselves.\n          Some of us are wanting last year to disappear as quickly as possible,\n          because the pain of that chapter was too much to bare. Wherever you\n          are on the spectrum of vibes, I hope we can meet in the middle of\n          ");
+    			br54 = element("br");
+    			t58 = text("\n          ––––––––>>>\n          THiS\n          <<<––––––––\n          moment\n          ");
+    			br55 = element("br");
+    			t59 = text("\n          understanding that life is but a stream of elegant instants, and ALL\n          moments are created equal! The Game of Life rolls on.\n          ");
+    			br56 = element("br");
+    			t60 = text("\n          Rumour has is it – the ebb and flow of 3D life is not for the\n          faint hearted. Duality is in fact quite an emotional war zone! But as\n          you look back into 2018 – at what happened, who happened, the\n          plot twists, the connections, the break ups, the breakthroughs, I\n          trust you will find a way to\n          –––>>> rest\n          <<<––– in your mighty unfolding.\n          ");
+    			br57 = element("br");
+    			t61 = text("\n          NiNJA yo self into the NOW!\n          ");
+    			br58 = element("br");
+    			t62 = text("\n          Let yourself off the hook! And while you are at it… stretch\n          yourself a little further, because I have a sneaking suspicion that\n          eternity is a long time and that THiS moment (in particular) REALLY\n          counts! Here’s to a mighty 2019! And here’s to a\n          deepening devotion to creating quality moments.\n          ");
+    			br59 = element("br");
+    			t63 = text("\n          THERE IS SO MUCH GOODNESS GOING ON IN THIS WORLD! Thanks for being a\n          part of the answer Olof <3\n          ");
+    			br60 = element("br");
+    			t64 = text("\n          Hola Olof!!\n          ");
+    			br61 = element("br");
+    			t65 = text("\n          How can I stay positive and inspired in negative environments? THIS is\n          one of my favourite questions of All Time! AND it becomes more and\n          more relevant during this incredible time in human history! Staying\n          inspired and plugged into your potential is the ultimate quest in Time\n          and Space.\n          ");
+    			br62 = element("br");
+    			t66 = text("\n          Not only do we have to find ways to dodge the damage, we want to\n          strengthen our focus, be solution orientated, and represent the\n          possibilities during this incredible time!\n          ");
+    			br63 = element("br");
+    			t67 = text("\n          Yet shortly after leaving the comfort of your own NOW LAB, the battle\n          begins. The sheer onslaught of negative messaging is coming right at\n          ya!\n          ");
+    			br64 = element("br");
+    			t68 = text("\n          Yet... YOU are the HERO in this story! SO, how are you going to stay\n          awake NOW, NiNJA…? Especially when you are surrounded by those\n          intense ‘momenterrorists!’ I trust this vid will remind\n          you to find creative ways to stay on the path.\n          🏽⭐️\n          ");
+    			br65 = element("br");
+    			t69 = space();
+    			br66 = element("br");
+    			t70 = text("\n          Hey there Olof Do you ever get a sense, that something is trying to\n          happen through you? Like there is something giant in you; a gift, a\n          talent, a capacity!\n          ");
+    			br67 = element("br");
+    			t71 = text("\n          Whatever it is, it scares the wits out of you – because you\n          have no idea of HOW to get from where you are right now, to living\n          that life of #creativity, #freedom, #service and #abundance! In fact,\n          it looks perfectly impossible.\n          ");
+    			br68 = element("br");
+    			t72 = text("\n          But you and I know, even though this dream goes against all your logic\n          and reasoning, it has somehow hit you deep in the NOW ;)\n          ");
+    			br69 = element("br");
+    			t73 = text("\n          And it just won't – go – away.\n          ");
+    			br70 = element("br");
+    			t74 = text("\n          So whether you are tormented by a vision, or you are yet to really\n          uncover and discover your 'thing'....\n          ");
+    			br71 = element("br");
+    			t75 = text("\n          NOW is the time to start asking yourself – some radically\n          different questions.\n          ");
+    			br72 = element("br");
+    			t76 = text("\n          I can help you do just that.\n          ");
+    			br73 = element("br");
+    			t77 = space();
+    			br74 = element("br");
+    			t78 = text("\n          Hola Olof\n          ");
+    			br75 = element("br");
+    			t79 = text("\n          Do you feel your Divine Assignment? Do you wake up everyday, ready to\n          hear the intuitive marching orders from the Intelligence of Source?\n          ");
+    			br76 = element("br");
+    			t80 = text("\n          With so much distraction coming in from everywhere, what does it take\n          to be the hero in your own story?\n          ");
+    			br77 = element("br");
+    			t81 = text("\n          Here is a summary of the task at hand, with love from....\n          ");
+    			br78 = element("br");
+    			t82 = text("\n          \t \t\t\t \t\t\t\t Sometimes your own\n          'momenterrorism' can be so bad you actually believe\n          everything is working against you. You envision your happiness gagged\n          and bound; being held ransom by some invisible power in the\n          universe!!!\n          ");
+    			br79 = element("br");
+    			t83 = text("\n          Wrong.\n          ");
+    			br80 = element("br");
+    			t84 = text("\n          R.O.N.G. :)\n          ");
+    			br81 = element("br");
+    			t85 = text("\n          Wrong.\n          ");
+    			br82 = element("br");
+    			t86 = text("\n          Your happiness is NOT being held ransom by an all powerful\n          somethin'-or-other. The only thing lording over you is –\n          your own stagnated perception. AKA: resistance.\n          ");
+    			br83 = element("br");
+    			t87 = text("\n          Argh! Really?\n          ");
+    			br84 = element("br");
+    			t88 = text("\n          I know, it's an anti-climax to reality.\n          ");
+    			br85 = element("br");
+    			t89 = text("\n          Lucky for you, you can just get out of the way and let it flow.\n          ");
+    			br86 = element("br");
+    			t90 = text("\n          HOW?\n          ");
+    			br87 = element("br");
+    			t91 = text("\n          1. Be# willing. Willingness will get you every where these days ;)\n          ");
+    			br88 = element("br");
+    			t92 = text("\n          2. Take your Vow to NOW – make this decision important!! Make\n          (the quality of) your life depend on it! I'm talking about a real\n          promise to bring a high quality participation to the present moment.\n          ");
+    			br89 = element("br");
+    			t93 = text("\n          3. Develop some NOWism strategies to take care of your\n          'momenterrorists' when they arise to hi-jack your mind. Try\n          the NOWism FREE Mini Course >>> NEOS <<<\n          if you haven't already! (That is a FREE download.)\n          ");
+    			br90 = element("br");
+    			t94 = text("\n          You're welcome…\n          ");
+    			br91 = element("br");
+    			t95 = text("\n          Hola Olof!\n          ");
+    			br92 = element("br");
+    			t96 = text("\n          WARNING! Humans can whinge about the most insignificant things! The\n          ego goes on a rampage, feeling entitled to more, more, MORE!\n          ");
+    			br93 = element("br");
+    			t97 = text("\n          Meanwhile (in reality), infinite gifts have already been given!\n          ");
+    			br94 = element("br");
+    			t98 = text("\n          NOW NiNJA response:\n          ");
+    			br95 = element("br");
+    			t99 = text("\n          Get out your cosmic cheque book.... and write yourself a little\n          reminder.\n          ");
+    			br96 = element("br");
+    			t100 = text("\n          STOP! Stand still and let the love in!\n          ");
+    			br97 = element("br");
+    			t101 = text("\n          Deflecting compliments is a disempowering energetic posture. It is\n          like refusing a most generous gift AND it is spiritually rude.\n          ");
+    			br98 = element("br");
+    			t102 = text("\n          Learning how to gracefully receive a compliment is a powerful step in\n          the journey of self empowerment.\n          ");
+    			br99 = element("br");
+    			t103 = text("\n          So what’s going on with that anyway? Why do so many of us\n          flinch when someone gives us a compliment?\n          ");
+    			br100 = element("br");
+    			t104 = text("\n          I have a little tale to share with you... A few years ago, here in\n          Swaziland, Africa, I complimented a woman on the boldly colourful\n          dress she was wearing. “Wow! That is a beautiful colour on\n          you!”\n          ");
+    			br101 = element("br");
+    			t105 = text("\n          She responded with, “I know, that is true. Thank you.”\n          ");
+    			br102 = element("br");
+    			t106 = text("\n          She took that compliment head on, without a minuscule of hesitation or\n          doubt. In fact she opened up and revelled in the greatness of how it\n          felt. And that, my NiNJA friend, is not ego, it is the glory of true\n          #selfworth.\n          ");
+    			br103 = element("br");
+    			t107 = text("\n          I remember how I felt as she soaked up my compliment without delay\n          – it felt slightly shocking to be honest, and that’s\n          when I realised, this is a very interesting energetic culture that we\n          have been perpetuating.\n          ");
+    			br104 = element("br");
+    			t108 = text("\n          #fear of appearing egotistical has high-jacked basic self worth in our\n          western culture – in a most terrible way.\n          ");
+    			br105 = element("br");
+    			t109 = text("\n          Not only do we flinch when people give us a compliment, we also scowl\n          if someone else enjoys and fully receives a compliment.\n          ");
+    			br106 = element("br");
+    			t110 = text("\n          WHAT?\n          ");
+    			br107 = element("br");
+    			t111 = text("\n          Now clearly there is a difference between a rampaging ego and genuine\n          self worth, and it is time for us to stop being so self-depreciating\n          and start to stand up straight and SEE straight!\n          ");
+    			br108 = element("br");
+    			t112 = text("\n          The new culture starts with you and me.\n          ");
+    			br109 = element("br");
+    			t113 = text("\n          May you take the complimentary ticket, Olof, from this present moment\n          and admit your awesomeness.");
+    			t114 = space();
+    			div6 = element("div");
+    			div5 = element("div");
+    			img1 = element("img");
+    			t115 = space();
+    			div4 = element("div");
+    			div3 = element("div");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
-
-    			t3 = space();
-    			div6 = element("div");
-    			div5 = element("div");
-    			img1 = element("img");
-    			t4 = space();
-    			div4 = element("div");
-    			t5 = text("Hola Olof\n          ");
-    			br0 = element("br");
-    			t6 = text("\n          THIS JUST IN —\n          ");
-    			br1 = element("br");
-    			t7 = text("\n          Former favourite frequency of the world, commonly known as #love, is\n          struggling to find outlets for expression!\n          ");
-    			br2 = element("br");
-    			t8 = text("\n          WHAT?\n          ");
-    			br3 = element("br");
-    			t9 = text("\n          I know.\n          ");
-    			br4 = element("br");
-    			t10 = text("\n          Due to the steady increase of human interest in drama and distraction\n          – globally – #love is officially at risk of not being\n          commonly felt.\n          ");
-    			br5 = element("br");
-    			t11 = text("\n          Brace yourself ladies and gentlemen, #love is officially an Endangered\n          Frequency!\n          ");
-    			br6 = element("br");
-    			t12 = text("\n          As most people are aware, the Emotional/Energetic StockMarket is\n          teaming with options! Love, joy, creativity, patience, chill and\n          kindness are most certainly some tasty favourites. There are also some\n          spicier vibes up for investment such as frustration, anger, doubt,\n          apathy and the ever increasing popular vibe – #fear.\n          ");
-    			br7 = element("br");
-    			t13 = text("\n          #Fear’s marketing campaign is something to behold. Catching the\n          attention of millions and millions of attention investors, it has\n          literally swept through the Mental Atmosphere of humanity –\n          like a virus.\n          ");
-    			br8 = element("br");
-    			t14 = text("\n          Passed around Via Us.\n          ");
-    			br9 = element("br");
-    			t15 = text("\n          It is a radical thought, that #fear gets up to 80% more airtime than\n          any other vibe?\n          ");
-    			br10 = element("br");
-    			t16 = text("\n          So what of these nourishing vibes that are no longer so popular?\n          ");
-    			br11 = element("br");
-    			t17 = text("\n          Do they just have weak marketing? Bad branding? Not enough likes and\n          followers?\n          ");
-    			br12 = element("br");
-    			t18 = text("\n          A few weeks ago it was announced, the most recent vibe to join the\n          endangered frequency list was #freedom.\n          ");
-    			br13 = element("br");
-    			t19 = text("\n          WHAT?!!!!!\n          ");
-    			br14 = element("br");
-    			t20 = text("\n          Of all the things to go out of fashion? FREEDOM!!! But how can it\n          happen?\n          ");
-    			br15 = element("br");
-    			t21 = text("\n          According to NOW NiNJAs all over the world, it has been a very sneaky\n          series of events, #limitation and #restriction have been parading\n          around like law and order – creating the illusion that more\n          rules are cool – and we need more and more of them. So, rules\n          are on the rise, yet little do people know that many of them are\n          funded by #limitation and #fear.\n          ");
-    			br16 = element("br");
-    			t22 = text("\n          The status of #trust is being watched VERY carefully. It seems that\n          the deeply rich imagination of a hand full of dreamers in this world,\n          is still holding #trust in it’s fundamental place… but\n          who knows for how long…\n          ");
-    			br17 = element("br");
-    			t23 = text("\n          Reports are coming in from all over NowHere, that some of our classic\n          good vibes – are missing.\n          ");
-    			br18 = element("br");
-    			t24 = text("\n          Think about it for a moment, are there some feelings you miss feeling?\n          Are your best emotions only active as memories? Well, you are not\n          alone.\n          ");
-    			br19 = element("br");
-    			t25 = text("\n          It’s not just you, this has become our global energetic\n          culture. It is more common for people to feel concern or anxious than\n          they are to feel inspired and powerful.\n          ");
-    			br20 = element("br");
-    			t26 = text("\n          Which brings us to the Present Moment.\n          ");
-    			br21 = element("br");
-    			t27 = text("\n          The NOW needs you! For conscious participation in the Present Moment!\n          ");
-    			br22 = element("br");
-    			t28 = text("\n          Are you ready to play the GAME?!!!\n          ");
-    			br23 = element("br");
-    			t29 = space();
-    			br24 = element("br");
-    			t30 = text("\n          Hola Olof\n          ");
-    			br25 = element("br");
-    			t31 = text("\n          Getting bombarded in you inbox is one thing, but getting bombarded in\n          your mind is another!\n          ");
-    			br26 = element("br");
-    			t32 = text("\n          In this 'high-tech, low touch' time we REALLY have to filter\n          what we let in...\n          ");
-    			br27 = element("br");
-    			t33 = text("\n          What we let in – reflects what we 'put out'. And the\n          essence of what we put out – determines what comes back in.\n          ");
-    			br28 = element("br");
-    			t34 = text("\n          Oh! What a sneaky little circle!\n          ");
-    			br29 = element("br");
-    			t35 = text("\n          The sheer volume of information is an avalanche on your awareness!!\n          Scrolling, clicking, watching and listening. Every iota of information\n          generates a thought and feeling from you. We are speeding up, scanning\n          and spamming, letting more in...\n          ");
-    			br30 = element("br");
-    			t36 = text("\n          Thanks for your precious attention.\n          ");
-    			br31 = element("br");
-    			t37 = text("\n          #legit.\n          ");
-    			br32 = element("br");
-    			t38 = text("\n          The wrong advertisements in your awareness can shorten your attention\n          span!\n          ");
-    			br33 = element("br");
-    			t39 = text("\n          ⚠️ Not to mention turn you into a momenterrorist!\n          ⚠️\n          ");
-    			br34 = element("br");
-    			t40 = text("\n          Quality control is the order of the day!\n          ");
-    			br35 = element("br");
-    			t41 = text("\n          Looking at this epidemic, I put my NOW NiNJA jumpsuit on and came up\n          with a genius way to sneak up on your awareness....\n          ");
-    			br36 = element("br");
-    			t42 = space();
-    			br37 = element("br");
-    			t43 = text("\n          Hola Olof\n          ");
-    			br38 = element("br");
-    			t44 = text("\n          Two of the biggest challenges that individuals have with holding a new\n          vision for their lives is:\n          ");
-    			br39 = element("br");
-    			t45 = text("\n          #1. Forgetting to do it. (We are just too busy!)\n          ");
-    			br40 = element("br");
-    			t46 = text("\n          #2. Struggling to feel and think beyond who they are in this moment.\n          ");
-    			br41 = element("br");
-    			t47 = text("\n          It makes sense that it is challenging, after all, you are VERY good at\n          being this version of you. You've been in this role for what? 20,\n          30, 40, 50 years?!!\n          ");
-    			br42 = element("br");
-    			t48 = text("\n          No wonder it can feel so hard to change!!\n          ");
-    			br43 = element("br");
-    			t49 = text("\n          We are mostly a collection of habits!\n          ");
-    			br44 = element("br");
-    			t50 = text("\n          Change takes practice. Persistence. Courage. You have to catch\n          yourself out in the NOWness of a moment and load and code your new\n          program – on the spot.\n          ");
-    			br45 = element("br");
-    			t51 = text("\n          You've got to turn up at rehearsal and learn the new script.\n          ");
-    			br46 = element("br");
-    			t52 = text("\n          You have practice a new posture and exude a new vibe.\n          ");
-    			br47 = element("br");
-    			t53 = text("\n          You have to practice complete emotional investment to become a new\n          identity\n          ");
-    			br48 = element("br");
-    			t54 = text("\n          AND\n          ");
-    			br49 = element("br");
-    			t55 = text("\n          you have to start right from where you are, in the life that you have\n          – with the habits that you currently have.\n          ");
-    			br50 = element("br");
-    			t56 = text("\n          Do you have a plan? Whatcha going to do NOW, NiNJA?! 5,6,7,8!!!\n          ");
-    			br51 = element("br");
-    			t57 = space();
-    			br52 = element("br");
-    			t58 = text("\n          Hola Olof!!!\n          ");
-    			br53 = element("br");
-    			t59 = text("\n          LiFE!! What a Game! We count down to the NOW! and then we launch\n          ourselves, victoriously, into the new NOW, with a few more layers,\n          lessons and desires and hopefully a few less layers of worry and fear!\n          Some of us are hungry, eagerly wanting to become more of ourselves.\n          Some of us are wanting last year to disappear as quickly as possible,\n          because the pain of that chapter was too much to bare. Wherever you\n          are on the spectrum of vibes, I hope we can meet in the middle of\n          ");
-    			br54 = element("br");
-    			t60 = text("\n          ––––––––>>>\n          THiS\n          <<<––––––––\n          moment\n          ");
-    			br55 = element("br");
-    			t61 = text("\n          understanding that life is but a stream of elegant instants, and ALL\n          moments are created equal! The Game of Life rolls on.\n          ");
-    			br56 = element("br");
-    			t62 = text("\n          Rumour has is it – the ebb and flow of 3D life is not for the\n          faint hearted. Duality is in fact quite an emotional war zone! But as\n          you look back into 2018 – at what happened, who happened, the\n          plot twists, the connections, the break ups, the breakthroughs, I\n          trust you will find a way to\n          –––>>> rest\n          <<<––– in your mighty unfolding.\n          ");
-    			br57 = element("br");
-    			t63 = text("\n          NiNJA yo self into the NOW!\n          ");
-    			br58 = element("br");
-    			t64 = text("\n          Let yourself off the hook! And while you are at it… stretch\n          yourself a little further, because I have a sneaking suspicion that\n          eternity is a long time and that THiS moment (in particular) REALLY\n          counts! Here’s to a mighty 2019! And here’s to a\n          deepening devotion to creating quality moments.\n          ");
-    			br59 = element("br");
-    			t65 = text("\n          THERE IS SO MUCH GOODNESS GOING ON IN THIS WORLD! Thanks for being a\n          part of the answer Olof <3\n          ");
-    			br60 = element("br");
-    			t66 = text("\n          Hola Olof!!\n          ");
-    			br61 = element("br");
-    			t67 = text("\n          How can I stay positive and inspired in negative environments? THIS is\n          one of my favourite questions of All Time! AND it becomes more and\n          more relevant during this incredible time in human history! Staying\n          inspired and plugged into your potential is the ultimate quest in Time\n          and Space.\n          ");
-    			br62 = element("br");
-    			t68 = text("\n          Not only do we have to find ways to dodge the damage, we want to\n          strengthen our focus, be solution orientated, and represent the\n          possibilities during this incredible time!\n          ");
-    			br63 = element("br");
-    			t69 = text("\n          Yet shortly after leaving the comfort of your own NOW LAB, the battle\n          begins. The sheer onslaught of negative messaging is coming right at\n          ya!\n          ");
-    			br64 = element("br");
-    			t70 = text("\n          Yet... YOU are the HERO in this story! SO, how are you going to stay\n          awake NOW, NiNJA…? Especially when you are surrounded by those\n          intense ‘momenterrorists!’ I trust this vid will remind\n          you to find creative ways to stay on the path.\n          🏽⭐️\n          ");
-    			br65 = element("br");
-    			t71 = space();
-    			br66 = element("br");
-    			t72 = text("\n          Hey there Olof Do you ever get a sense, that something is trying to\n          happen through you? Like there is something giant in you; a gift, a\n          talent, a capacity!\n          ");
-    			br67 = element("br");
-    			t73 = text("\n          Whatever it is, it scares the wits out of you – because you\n          have no idea of HOW to get from where you are right now, to living\n          that life of #creativity, #freedom, #service and #abundance! In fact,\n          it looks perfectly impossible.\n          ");
-    			br68 = element("br");
-    			t74 = text("\n          But you and I know, even though this dream goes against all your logic\n          and reasoning, it has somehow hit you deep in the NOW ;)\n          ");
-    			br69 = element("br");
-    			t75 = text("\n          And it just won't – go – away.\n          ");
-    			br70 = element("br");
-    			t76 = text("\n          So whether you are tormented by a vision, or you are yet to really\n          uncover and discover your 'thing'....\n          ");
-    			br71 = element("br");
-    			t77 = text("\n          NOW is the time to start asking yourself – some radically\n          different questions.\n          ");
-    			br72 = element("br");
-    			t78 = text("\n          I can help you do just that.\n          ");
-    			br73 = element("br");
-    			t79 = space();
-    			br74 = element("br");
-    			t80 = text("\n          Hola Olof\n          ");
-    			br75 = element("br");
-    			t81 = text("\n          Do you feel your Divine Assignment? Do you wake up everyday, ready to\n          hear the intuitive marching orders from the Intelligence of Source?\n          ");
-    			br76 = element("br");
-    			t82 = text("\n          With so much distraction coming in from everywhere, what does it take\n          to be the hero in your own story?\n          ");
-    			br77 = element("br");
-    			t83 = text("\n          Here is a summary of the task at hand, with love from....\n          ");
-    			br78 = element("br");
-    			t84 = text("\n          \t \t\t\t \t\t\t\t Sometimes your own\n          'momenterrorism' can be so bad you actually believe\n          everything is working against you. You envision your happiness gagged\n          and bound; being held ransom by some invisible power in the\n          universe!!!\n          ");
-    			br79 = element("br");
-    			t85 = text("\n          Wrong.\n          ");
-    			br80 = element("br");
-    			t86 = text("\n          R.O.N.G. :)\n          ");
-    			br81 = element("br");
-    			t87 = text("\n          Wrong.\n          ");
-    			br82 = element("br");
-    			t88 = text("\n          Your happiness is NOT being held ransom by an all powerful\n          somethin'-or-other. The only thing lording over you is –\n          your own stagnated perception. AKA: resistance.\n          ");
-    			br83 = element("br");
-    			t89 = text("\n          Argh! Really?\n          ");
-    			br84 = element("br");
-    			t90 = text("\n          I know, it's an anti-climax to reality.\n          ");
-    			br85 = element("br");
-    			t91 = text("\n          Lucky for you, you can just get out of the way and let it flow.\n          ");
-    			br86 = element("br");
-    			t92 = text("\n          HOW?\n          ");
-    			br87 = element("br");
-    			t93 = text("\n          1. Be# willing. Willingness will get you every where these days ;)\n          ");
-    			br88 = element("br");
-    			t94 = text("\n          2. Take your Vow to NOW – make this decision important!! Make\n          (the quality of) your life depend on it! I'm talking about a real\n          promise to bring a high quality participation to the present moment.\n          ");
-    			br89 = element("br");
-    			t95 = text("\n          3. Develop some NOWism strategies to take care of your\n          'momenterrorists' when they arise to hi-jack your mind. Try\n          the NOWism FREE Mini Course >>> NEOS <<<\n          if you haven't already! (That is a FREE download.)\n          ");
-    			br90 = element("br");
-    			t96 = text("\n          You're welcome…\n          ");
-    			br91 = element("br");
-    			t97 = text("\n          Hola Olof!\n          ");
-    			br92 = element("br");
-    			t98 = text("\n          WARNING! Humans can whinge about the most insignificant things! The\n          ego goes on a rampage, feeling entitled to more, more, MORE!\n          ");
-    			br93 = element("br");
-    			t99 = text("\n          Meanwhile (in reality), infinite gifts have already been given!\n          ");
-    			br94 = element("br");
-    			t100 = text("\n          NOW NiNJA response:\n          ");
-    			br95 = element("br");
-    			t101 = text("\n          Get out your cosmic cheque book.... and write yourself a little\n          reminder.\n          ");
-    			br96 = element("br");
-    			t102 = text("\n          STOP! Stand still and let the love in!\n          ");
-    			br97 = element("br");
-    			t103 = text("\n          Deflecting compliments is a disempowering energetic posture. It is\n          like refusing a most generous gift AND it is spiritually rude.\n          ");
-    			br98 = element("br");
-    			t104 = text("\n          Learning how to gracefully receive a compliment is a powerful step in\n          the journey of self empowerment.\n          ");
-    			br99 = element("br");
-    			t105 = text("\n          So what’s going on with that anyway? Why do so many of us\n          flinch when someone gives us a compliment?\n          ");
-    			br100 = element("br");
-    			t106 = text("\n          I have a little tale to share with you... A few years ago, here in\n          Swaziland, Africa, I complimented a woman on the boldly colourful\n          dress she was wearing. “Wow! That is a beautiful colour on\n          you!”\n          ");
-    			br101 = element("br");
-    			t107 = text("\n          She responded with, “I know, that is true. Thank you.”\n          ");
-    			br102 = element("br");
-    			t108 = text("\n          She took that compliment head on, without a minuscule of hesitation or\n          doubt. In fact she opened up and revelled in the greatness of how it\n          felt. And that, my NiNJA friend, is not ego, it is the glory of true\n          #selfworth.\n          ");
-    			br103 = element("br");
-    			t109 = text("\n          I remember how I felt as she soaked up my compliment without delay\n          – it felt slightly shocking to be honest, and that’s\n          when I realised, this is a very interesting energetic culture that we\n          have been perpetuating.\n          ");
-    			br104 = element("br");
-    			t110 = text("\n          #fear of appearing egotistical has high-jacked basic self worth in our\n          western culture – in a most terrible way.\n          ");
-    			br105 = element("br");
-    			t111 = text("\n          Not only do we flinch when people give us a compliment, we also scowl\n          if someone else enjoys and fully receives a compliment.\n          ");
-    			br106 = element("br");
-    			t112 = text("\n          WHAT?\n          ");
-    			br107 = element("br");
-    			t113 = text("\n          Now clearly there is a difference between a rampaging ego and genuine\n          self worth, and it is time for us to stop being so self-depreciating\n          and start to stand up straight and SEE straight!\n          ");
-    			br108 = element("br");
-    			t114 = text("\n          The new culture starts with you and me.\n          ");
-    			br109 = element("br");
-    			t115 = text("\n          May you take the complimentary ticket, Olof, from this present moment\n          and admit your awesomeness.");
     			document.title = "Olof Marsja | LIQUID FICTION";
     			attr_dev(iframe, "alt", "Olof Marsja");
     			attr_dev(iframe, "title", "Olof Marsja");
@@ -8176,143 +8175,144 @@ var app = (function () {
     			iframe.allowFullscreen = true;
     			attr_dev(iframe, "mozallowfullscreen", "true");
     			attr_dev(iframe, "webkitallowfullscreen", "true");
-    			attr_dev(iframe, "class", "svelte-bh9wy8");
+    			attr_dev(iframe, "class", "svelte-phcgsp");
     			toggle_class(iframe, "loaded", ctx.loaded);
-    			add_location(iframe, file$6, 331, 4, 5674);
-    			attr_dev(img0, "src", "/img/Rock.png");
-    			attr_dev(img0, "alt", "Olof Marsja - Rock");
-    			attr_dev(img0, "class", "svelte-bh9wy8");
-    			add_location(img0, file$6, 349, 8, 6155);
-    			add_location(div0, file$6, 351, 10, 6245);
-    			attr_dev(div1, "class", "text svelte-bh9wy8");
-    			add_location(div1, file$6, 350, 8, 6216);
-    			attr_dev(div2, "class", "inner svelte-bh9wy8");
-    			add_location(div2, file$6, 348, 6, 6127);
-    			attr_dev(div3, "class", "rock svelte-bh9wy8");
-    			add_location(div3, file$6, 347, 4, 6102);
-    			attr_dev(img1, "src", "/img/plate1.png");
-    			attr_dev(img1, "alt", "Olof Marsja - Plate 1");
-    			attr_dev(img1, "class", "svelte-bh9wy8");
-    			add_location(img1, file$6, 362, 8, 6476);
-    			add_location(br0, file$6, 365, 10, 6591);
-    			add_location(br1, file$6, 367, 10, 6640);
-    			add_location(br2, file$6, 370, 10, 6789);
-    			add_location(br3, file$6, 372, 10, 6822);
-    			add_location(br4, file$6, 374, 10, 6857);
-    			add_location(br5, file$6, 378, 10, 7057);
-    			add_location(br6, file$6, 381, 10, 7176);
-    			add_location(br7, file$6, 387, 10, 7571);
-    			add_location(br8, file$6, 392, 10, 7846);
-    			add_location(br9, file$6, 394, 10, 7895);
-    			add_location(br10, file$6, 397, 10, 8017);
-    			add_location(br11, file$6, 399, 10, 8109);
-    			add_location(br12, file$6, 402, 10, 8226);
-    			add_location(br13, file$6, 405, 10, 8370);
-    			add_location(br14, file$6, 407, 10, 8408);
-    			add_location(br15, file$6, 410, 10, 8519);
-    			add_location(br16, file$6, 417, 10, 8966);
-    			add_location(br17, file$6, 422, 10, 9261);
-    			add_location(br18, file$6, 425, 10, 9401);
-    			add_location(br19, file$6, 429, 10, 9592);
-    			add_location(br20, file$6, 433, 10, 9812);
-    			add_location(br21, file$6, 435, 10, 9878);
-    			add_location(br22, file$6, 437, 10, 9975);
-    			add_location(br23, file$6, 439, 10, 10037);
-    			add_location(br24, file$6, 440, 10, 10054);
-    			add_location(br25, file$6, 442, 10, 10091);
-    			add_location(br26, file$6, 445, 10, 10220);
-    			add_location(br27, file$6, 448, 10, 10346);
-    			add_location(br28, file$6, 451, 10, 10520);
-    			add_location(br29, file$6, 453, 10, 10580);
-    			add_location(br30, file$6, 458, 10, 10880);
-    			add_location(br31, file$6, 460, 10, 10943);
-    			add_location(br32, file$6, 462, 10, 10978);
-    			add_location(br33, file$6, 465, 10, 11091);
-    			add_location(br34, file$6, 468, 10, 11209);
-    			add_location(br35, file$6, 470, 10, 11277);
-    			add_location(br36, file$6, 473, 10, 11435);
-    			add_location(br37, file$6, 474, 10, 11452);
-    			add_location(br38, file$6, 476, 10, 11489);
-    			add_location(br39, file$6, 479, 10, 11624);
-    			add_location(br40, file$6, 481, 10, 11700);
-    			add_location(br41, file$6, 483, 10, 11796);
-    			add_location(br42, file$6, 487, 10, 12005);
-    			add_location(br43, file$6, 489, 10, 12074);
-    			add_location(br44, file$6, 491, 10, 12139);
-    			add_location(br45, file$6, 495, 10, 12346);
-    			add_location(br46, file$6, 497, 10, 12439);
-    			add_location(br47, file$6, 499, 10, 12520);
-    			add_location(br48, file$6, 502, 10, 12633);
-    			add_location(br49, file$6, 504, 10, 12664);
-    			add_location(br50, file$6, 507, 10, 12821);
-    			add_location(br51, file$6, 509, 10, 12912);
-    			add_location(br52, file$6, 510, 10, 12929);
-    			add_location(br53, file$6, 512, 10, 12969);
-    			add_location(br54, file$6, 520, 10, 13531);
-    			add_location(br55, file$6, 525, 10, 13766);
-    			add_location(br56, file$6, 528, 10, 13926);
-    			add_location(br57, file$6, 536, 10, 14433);
-    			add_location(br58, file$6, 538, 10, 14488);
-    			add_location(br59, file$6, 544, 10, 14869);
-    			add_location(br60, file$6, 547, 10, 15007);
-    			add_location(br61, file$6, 549, 10, 15046);
-    			add_location(br62, file$6, 555, 10, 15401);
-    			add_location(br63, file$6, 559, 10, 15620);
-    			add_location(br64, file$6, 563, 10, 15810);
-    			add_location(br65, file$6, 569, 10, 16159);
-    			add_location(br66, file$6, 570, 10, 16176);
-    			add_location(br67, file$6, 574, 10, 16379);
-    			add_location(br68, file$6, 579, 10, 16671);
-    			add_location(br69, file$6, 582, 10, 16836);
-    			add_location(br70, file$6, 584, 10, 16913);
-    			add_location(br71, file$6, 587, 10, 17065);
-    			add_location(br72, file$6, 590, 10, 17188);
-    			add_location(br73, file$6, 592, 10, 17244);
-    			add_location(br74, file$6, 593, 10, 17261);
-    			add_location(br75, file$6, 595, 10, 17298);
-    			add_location(br76, file$6, 598, 10, 17473);
-    			add_location(br77, file$6, 601, 10, 17614);
-    			add_location(br78, file$6, 603, 10, 17699);
-    			add_location(br79, file$6, 609, 10, 18032);
-    			add_location(br80, file$6, 611, 10, 18066);
-    			add_location(br81, file$6, 613, 10, 18105);
-    			add_location(br82, file$6, 615, 10, 18139);
-    			add_location(br83, file$6, 619, 10, 18362);
-    			add_location(br84, file$6, 621, 10, 18403);
-    			add_location(br85, file$6, 623, 10, 18475);
-    			add_location(br86, file$6, 625, 10, 18566);
-    			add_location(br87, file$6, 627, 10, 18598);
-    			add_location(br88, file$6, 629, 10, 18692);
-    			add_location(br89, file$6, 633, 10, 18948);
-    			add_location(br90, file$6, 638, 10, 19257);
-    			add_location(br91, file$6, 640, 10, 19312);
-    			add_location(br92, file$6, 642, 10, 19350);
-    			add_location(br93, file$6, 645, 10, 19516);
-    			add_location(br94, file$6, 647, 10, 19607);
-    			add_location(br95, file$6, 649, 10, 19654);
-    			add_location(br96, file$6, 652, 10, 19765);
-    			add_location(br97, file$6, 654, 10, 19831);
-    			add_location(br98, file$6, 657, 10, 19998);
-    			add_location(br99, file$6, 660, 10, 20138);
-    			add_location(br100, file$6, 663, 10, 20283);
-    			add_location(br101, file$6, 668, 10, 20552);
-    			add_location(br102, file$6, 670, 10, 20648);
-    			add_location(br103, file$6, 675, 10, 20926);
-    			add_location(br104, file$6, 680, 10, 21211);
-    			add_location(br105, file$6, 683, 10, 21368);
-    			add_location(br106, file$6, 686, 10, 21531);
-    			add_location(br107, file$6, 688, 10, 21564);
-    			add_location(br108, file$6, 692, 10, 21799);
-    			add_location(br109, file$6, 694, 10, 21866);
-    			attr_dev(div4, "class", "text svelte-bh9wy8");
-    			add_location(div4, file$6, 363, 8, 6542);
-    			attr_dev(div5, "class", "inner svelte-bh9wy8");
-    			add_location(div5, file$6, 361, 6, 6448);
-    			attr_dev(div6, "class", "plate-1 svelte-bh9wy8");
-    			add_location(div6, file$6, 360, 4, 6420);
-    			add_location(div7, file$6, 329, 2, 5601);
-    			attr_dev(div8, "class", "olof svelte-bh9wy8");
-    			add_location(div8, file$6, 327, 0, 5579);
+    			add_location(iframe, file$6, 359, 4, 6277);
+    			attr_dev(img0, "src", "/img/plate1.png");
+    			attr_dev(img0, "alt", "Olof Marsja - Plate 1");
+    			attr_dev(img0, "class", "svelte-phcgsp");
+    			add_location(img0, file$6, 377, 8, 6761);
+    			add_location(br0, file$6, 380, 10, 6876);
+    			add_location(br1, file$6, 382, 10, 6925);
+    			add_location(br2, file$6, 385, 10, 7074);
+    			add_location(br3, file$6, 387, 10, 7107);
+    			add_location(br4, file$6, 389, 10, 7142);
+    			add_location(br5, file$6, 393, 10, 7342);
+    			add_location(br6, file$6, 396, 10, 7461);
+    			add_location(br7, file$6, 402, 10, 7856);
+    			add_location(br8, file$6, 407, 10, 8131);
+    			add_location(br9, file$6, 409, 10, 8180);
+    			add_location(br10, file$6, 412, 10, 8302);
+    			add_location(br11, file$6, 414, 10, 8394);
+    			add_location(br12, file$6, 417, 10, 8511);
+    			add_location(br13, file$6, 420, 10, 8655);
+    			add_location(br14, file$6, 422, 10, 8693);
+    			add_location(br15, file$6, 425, 10, 8804);
+    			add_location(br16, file$6, 432, 10, 9251);
+    			add_location(br17, file$6, 437, 10, 9546);
+    			add_location(br18, file$6, 440, 10, 9686);
+    			add_location(br19, file$6, 444, 10, 9877);
+    			add_location(br20, file$6, 448, 10, 10097);
+    			add_location(br21, file$6, 450, 10, 10163);
+    			add_location(br22, file$6, 452, 10, 10260);
+    			add_location(br23, file$6, 454, 10, 10322);
+    			add_location(br24, file$6, 455, 10, 10339);
+    			add_location(br25, file$6, 457, 10, 10376);
+    			add_location(br26, file$6, 460, 10, 10505);
+    			add_location(br27, file$6, 463, 10, 10631);
+    			add_location(br28, file$6, 466, 10, 10805);
+    			add_location(br29, file$6, 468, 10, 10865);
+    			add_location(br30, file$6, 473, 10, 11165);
+    			add_location(br31, file$6, 475, 10, 11228);
+    			add_location(br32, file$6, 477, 10, 11263);
+    			add_location(br33, file$6, 480, 10, 11376);
+    			add_location(br34, file$6, 483, 10, 11494);
+    			add_location(br35, file$6, 485, 10, 11562);
+    			add_location(br36, file$6, 488, 10, 11720);
+    			add_location(br37, file$6, 489, 10, 11737);
+    			add_location(br38, file$6, 491, 10, 11774);
+    			add_location(br39, file$6, 494, 10, 11909);
+    			add_location(br40, file$6, 496, 10, 11985);
+    			add_location(br41, file$6, 498, 10, 12081);
+    			add_location(br42, file$6, 502, 10, 12290);
+    			add_location(br43, file$6, 504, 10, 12359);
+    			add_location(br44, file$6, 506, 10, 12424);
+    			add_location(br45, file$6, 510, 10, 12631);
+    			add_location(br46, file$6, 512, 10, 12724);
+    			add_location(br47, file$6, 514, 10, 12805);
+    			add_location(br48, file$6, 517, 10, 12918);
+    			add_location(br49, file$6, 519, 10, 12949);
+    			add_location(br50, file$6, 522, 10, 13106);
+    			add_location(br51, file$6, 524, 10, 13197);
+    			add_location(br52, file$6, 525, 10, 13214);
+    			add_location(br53, file$6, 527, 10, 13254);
+    			add_location(br54, file$6, 535, 10, 13816);
+    			add_location(br55, file$6, 540, 10, 14051);
+    			add_location(br56, file$6, 543, 10, 14211);
+    			add_location(br57, file$6, 551, 10, 14718);
+    			add_location(br58, file$6, 553, 10, 14773);
+    			add_location(br59, file$6, 559, 10, 15154);
+    			add_location(br60, file$6, 562, 10, 15292);
+    			add_location(br61, file$6, 564, 10, 15331);
+    			add_location(br62, file$6, 570, 10, 15686);
+    			add_location(br63, file$6, 574, 10, 15905);
+    			add_location(br64, file$6, 578, 10, 16095);
+    			add_location(br65, file$6, 584, 10, 16444);
+    			add_location(br66, file$6, 585, 10, 16461);
+    			add_location(br67, file$6, 589, 10, 16664);
+    			add_location(br68, file$6, 594, 10, 16956);
+    			add_location(br69, file$6, 597, 10, 17121);
+    			add_location(br70, file$6, 599, 10, 17198);
+    			add_location(br71, file$6, 602, 10, 17350);
+    			add_location(br72, file$6, 605, 10, 17473);
+    			add_location(br73, file$6, 607, 10, 17529);
+    			add_location(br74, file$6, 608, 10, 17546);
+    			add_location(br75, file$6, 610, 10, 17583);
+    			add_location(br76, file$6, 613, 10, 17758);
+    			add_location(br77, file$6, 616, 10, 17899);
+    			add_location(br78, file$6, 618, 10, 17984);
+    			add_location(br79, file$6, 624, 10, 18317);
+    			add_location(br80, file$6, 626, 10, 18351);
+    			add_location(br81, file$6, 628, 10, 18390);
+    			add_location(br82, file$6, 630, 10, 18424);
+    			add_location(br83, file$6, 634, 10, 18647);
+    			add_location(br84, file$6, 636, 10, 18688);
+    			add_location(br85, file$6, 638, 10, 18760);
+    			add_location(br86, file$6, 640, 10, 18851);
+    			add_location(br87, file$6, 642, 10, 18883);
+    			add_location(br88, file$6, 644, 10, 18977);
+    			add_location(br89, file$6, 648, 10, 19233);
+    			add_location(br90, file$6, 653, 10, 19542);
+    			add_location(br91, file$6, 655, 10, 19597);
+    			add_location(br92, file$6, 657, 10, 19635);
+    			add_location(br93, file$6, 660, 10, 19801);
+    			add_location(br94, file$6, 662, 10, 19892);
+    			add_location(br95, file$6, 664, 10, 19939);
+    			add_location(br96, file$6, 667, 10, 20050);
+    			add_location(br97, file$6, 669, 10, 20116);
+    			add_location(br98, file$6, 672, 10, 20283);
+    			add_location(br99, file$6, 675, 10, 20423);
+    			add_location(br100, file$6, 678, 10, 20568);
+    			add_location(br101, file$6, 683, 10, 20837);
+    			add_location(br102, file$6, 685, 10, 20933);
+    			add_location(br103, file$6, 690, 10, 21211);
+    			add_location(br104, file$6, 695, 10, 21496);
+    			add_location(br105, file$6, 698, 10, 21653);
+    			add_location(br106, file$6, 701, 10, 21816);
+    			add_location(br107, file$6, 703, 10, 21849);
+    			add_location(br108, file$6, 707, 10, 22084);
+    			add_location(br109, file$6, 709, 10, 22151);
+    			attr_dev(div0, "class", "text svelte-phcgsp");
+    			add_location(div0, file$6, 378, 8, 6827);
+    			attr_dev(div1, "class", "inner svelte-phcgsp");
+    			add_location(div1, file$6, 376, 6, 6733);
+    			attr_dev(div2, "class", "plate-1 svelte-phcgsp");
+    			add_location(div2, file$6, 375, 4, 6705);
+    			attr_dev(img1, "src", "/img/Rock.png");
+    			attr_dev(img1, "alt", "Olof Marsja - Rock");
+    			attr_dev(img1, "class", "svelte-phcgsp");
+    			add_location(img1, file$6, 718, 8, 22373);
+    			add_location(div3, file$6, 720, 10, 22463);
+    			attr_dev(div4, "class", "text svelte-phcgsp");
+    			add_location(div4, file$6, 719, 8, 22434);
+    			attr_dev(div5, "class", "inner svelte-phcgsp");
+    			add_location(div5, file$6, 717, 6, 22345);
+    			attr_dev(div6, "class", "rock svelte-phcgsp");
+    			add_location(div6, file$6, 716, 4, 22320);
+    			attr_dev(div7, "class", "container svelte-phcgsp");
+    			add_location(div7, file$6, 355, 2, 6178);
+    			attr_dev(div8, "class", "olof svelte-phcgsp");
+    			add_location(div8, file$6, 353, 0, 6156);
     		},
 
     		l: function claim(nodes) {
@@ -8326,245 +8326,245 @@ var app = (function () {
     			append_dev(div7, iframe);
     			ctx.iframe_binding(iframe);
     			append_dev(div7, t1);
-    			append_dev(div7, div3);
-    			append_dev(div3, div2);
-    			append_dev(div2, img0);
-    			append_dev(div2, t2);
+    			append_dev(div7, div2);
     			append_dev(div2, div1);
+    			append_dev(div1, img0);
+    			append_dev(div1, t2);
     			append_dev(div1, div0);
-
-    			for (let i = 0; i < each_blocks.length; i += 1) {
-    				each_blocks[i].m(div0, null);
-    			}
-
-    			ctx.div0_binding(div0);
-    			append_dev(div7, t3);
+    			append_dev(div0, t3);
+    			append_dev(div0, br0);
+    			append_dev(div0, t4);
+    			append_dev(div0, br1);
+    			append_dev(div0, t5);
+    			append_dev(div0, br2);
+    			append_dev(div0, t6);
+    			append_dev(div0, br3);
+    			append_dev(div0, t7);
+    			append_dev(div0, br4);
+    			append_dev(div0, t8);
+    			append_dev(div0, br5);
+    			append_dev(div0, t9);
+    			append_dev(div0, br6);
+    			append_dev(div0, t10);
+    			append_dev(div0, br7);
+    			append_dev(div0, t11);
+    			append_dev(div0, br8);
+    			append_dev(div0, t12);
+    			append_dev(div0, br9);
+    			append_dev(div0, t13);
+    			append_dev(div0, br10);
+    			append_dev(div0, t14);
+    			append_dev(div0, br11);
+    			append_dev(div0, t15);
+    			append_dev(div0, br12);
+    			append_dev(div0, t16);
+    			append_dev(div0, br13);
+    			append_dev(div0, t17);
+    			append_dev(div0, br14);
+    			append_dev(div0, t18);
+    			append_dev(div0, br15);
+    			append_dev(div0, t19);
+    			append_dev(div0, br16);
+    			append_dev(div0, t20);
+    			append_dev(div0, br17);
+    			append_dev(div0, t21);
+    			append_dev(div0, br18);
+    			append_dev(div0, t22);
+    			append_dev(div0, br19);
+    			append_dev(div0, t23);
+    			append_dev(div0, br20);
+    			append_dev(div0, t24);
+    			append_dev(div0, br21);
+    			append_dev(div0, t25);
+    			append_dev(div0, br22);
+    			append_dev(div0, t26);
+    			append_dev(div0, br23);
+    			append_dev(div0, t27);
+    			append_dev(div0, br24);
+    			append_dev(div0, t28);
+    			append_dev(div0, br25);
+    			append_dev(div0, t29);
+    			append_dev(div0, br26);
+    			append_dev(div0, t30);
+    			append_dev(div0, br27);
+    			append_dev(div0, t31);
+    			append_dev(div0, br28);
+    			append_dev(div0, t32);
+    			append_dev(div0, br29);
+    			append_dev(div0, t33);
+    			append_dev(div0, br30);
+    			append_dev(div0, t34);
+    			append_dev(div0, br31);
+    			append_dev(div0, t35);
+    			append_dev(div0, br32);
+    			append_dev(div0, t36);
+    			append_dev(div0, br33);
+    			append_dev(div0, t37);
+    			append_dev(div0, br34);
+    			append_dev(div0, t38);
+    			append_dev(div0, br35);
+    			append_dev(div0, t39);
+    			append_dev(div0, br36);
+    			append_dev(div0, t40);
+    			append_dev(div0, br37);
+    			append_dev(div0, t41);
+    			append_dev(div0, br38);
+    			append_dev(div0, t42);
+    			append_dev(div0, br39);
+    			append_dev(div0, t43);
+    			append_dev(div0, br40);
+    			append_dev(div0, t44);
+    			append_dev(div0, br41);
+    			append_dev(div0, t45);
+    			append_dev(div0, br42);
+    			append_dev(div0, t46);
+    			append_dev(div0, br43);
+    			append_dev(div0, t47);
+    			append_dev(div0, br44);
+    			append_dev(div0, t48);
+    			append_dev(div0, br45);
+    			append_dev(div0, t49);
+    			append_dev(div0, br46);
+    			append_dev(div0, t50);
+    			append_dev(div0, br47);
+    			append_dev(div0, t51);
+    			append_dev(div0, br48);
+    			append_dev(div0, t52);
+    			append_dev(div0, br49);
+    			append_dev(div0, t53);
+    			append_dev(div0, br50);
+    			append_dev(div0, t54);
+    			append_dev(div0, br51);
+    			append_dev(div0, t55);
+    			append_dev(div0, br52);
+    			append_dev(div0, t56);
+    			append_dev(div0, br53);
+    			append_dev(div0, t57);
+    			append_dev(div0, br54);
+    			append_dev(div0, t58);
+    			append_dev(div0, br55);
+    			append_dev(div0, t59);
+    			append_dev(div0, br56);
+    			append_dev(div0, t60);
+    			append_dev(div0, br57);
+    			append_dev(div0, t61);
+    			append_dev(div0, br58);
+    			append_dev(div0, t62);
+    			append_dev(div0, br59);
+    			append_dev(div0, t63);
+    			append_dev(div0, br60);
+    			append_dev(div0, t64);
+    			append_dev(div0, br61);
+    			append_dev(div0, t65);
+    			append_dev(div0, br62);
+    			append_dev(div0, t66);
+    			append_dev(div0, br63);
+    			append_dev(div0, t67);
+    			append_dev(div0, br64);
+    			append_dev(div0, t68);
+    			append_dev(div0, br65);
+    			append_dev(div0, t69);
+    			append_dev(div0, br66);
+    			append_dev(div0, t70);
+    			append_dev(div0, br67);
+    			append_dev(div0, t71);
+    			append_dev(div0, br68);
+    			append_dev(div0, t72);
+    			append_dev(div0, br69);
+    			append_dev(div0, t73);
+    			append_dev(div0, br70);
+    			append_dev(div0, t74);
+    			append_dev(div0, br71);
+    			append_dev(div0, t75);
+    			append_dev(div0, br72);
+    			append_dev(div0, t76);
+    			append_dev(div0, br73);
+    			append_dev(div0, t77);
+    			append_dev(div0, br74);
+    			append_dev(div0, t78);
+    			append_dev(div0, br75);
+    			append_dev(div0, t79);
+    			append_dev(div0, br76);
+    			append_dev(div0, t80);
+    			append_dev(div0, br77);
+    			append_dev(div0, t81);
+    			append_dev(div0, br78);
+    			append_dev(div0, t82);
+    			append_dev(div0, br79);
+    			append_dev(div0, t83);
+    			append_dev(div0, br80);
+    			append_dev(div0, t84);
+    			append_dev(div0, br81);
+    			append_dev(div0, t85);
+    			append_dev(div0, br82);
+    			append_dev(div0, t86);
+    			append_dev(div0, br83);
+    			append_dev(div0, t87);
+    			append_dev(div0, br84);
+    			append_dev(div0, t88);
+    			append_dev(div0, br85);
+    			append_dev(div0, t89);
+    			append_dev(div0, br86);
+    			append_dev(div0, t90);
+    			append_dev(div0, br87);
+    			append_dev(div0, t91);
+    			append_dev(div0, br88);
+    			append_dev(div0, t92);
+    			append_dev(div0, br89);
+    			append_dev(div0, t93);
+    			append_dev(div0, br90);
+    			append_dev(div0, t94);
+    			append_dev(div0, br91);
+    			append_dev(div0, t95);
+    			append_dev(div0, br92);
+    			append_dev(div0, t96);
+    			append_dev(div0, br93);
+    			append_dev(div0, t97);
+    			append_dev(div0, br94);
+    			append_dev(div0, t98);
+    			append_dev(div0, br95);
+    			append_dev(div0, t99);
+    			append_dev(div0, br96);
+    			append_dev(div0, t100);
+    			append_dev(div0, br97);
+    			append_dev(div0, t101);
+    			append_dev(div0, br98);
+    			append_dev(div0, t102);
+    			append_dev(div0, br99);
+    			append_dev(div0, t103);
+    			append_dev(div0, br100);
+    			append_dev(div0, t104);
+    			append_dev(div0, br101);
+    			append_dev(div0, t105);
+    			append_dev(div0, br102);
+    			append_dev(div0, t106);
+    			append_dev(div0, br103);
+    			append_dev(div0, t107);
+    			append_dev(div0, br104);
+    			append_dev(div0, t108);
+    			append_dev(div0, br105);
+    			append_dev(div0, t109);
+    			append_dev(div0, br106);
+    			append_dev(div0, t110);
+    			append_dev(div0, br107);
+    			append_dev(div0, t111);
+    			append_dev(div0, br108);
+    			append_dev(div0, t112);
+    			append_dev(div0, br109);
+    			append_dev(div0, t113);
+    			append_dev(div7, t114);
     			append_dev(div7, div6);
     			append_dev(div6, div5);
     			append_dev(div5, img1);
-    			append_dev(div5, t4);
+    			append_dev(div5, t115);
     			append_dev(div5, div4);
-    			append_dev(div4, t5);
-    			append_dev(div4, br0);
-    			append_dev(div4, t6);
-    			append_dev(div4, br1);
-    			append_dev(div4, t7);
-    			append_dev(div4, br2);
-    			append_dev(div4, t8);
-    			append_dev(div4, br3);
-    			append_dev(div4, t9);
-    			append_dev(div4, br4);
-    			append_dev(div4, t10);
-    			append_dev(div4, br5);
-    			append_dev(div4, t11);
-    			append_dev(div4, br6);
-    			append_dev(div4, t12);
-    			append_dev(div4, br7);
-    			append_dev(div4, t13);
-    			append_dev(div4, br8);
-    			append_dev(div4, t14);
-    			append_dev(div4, br9);
-    			append_dev(div4, t15);
-    			append_dev(div4, br10);
-    			append_dev(div4, t16);
-    			append_dev(div4, br11);
-    			append_dev(div4, t17);
-    			append_dev(div4, br12);
-    			append_dev(div4, t18);
-    			append_dev(div4, br13);
-    			append_dev(div4, t19);
-    			append_dev(div4, br14);
-    			append_dev(div4, t20);
-    			append_dev(div4, br15);
-    			append_dev(div4, t21);
-    			append_dev(div4, br16);
-    			append_dev(div4, t22);
-    			append_dev(div4, br17);
-    			append_dev(div4, t23);
-    			append_dev(div4, br18);
-    			append_dev(div4, t24);
-    			append_dev(div4, br19);
-    			append_dev(div4, t25);
-    			append_dev(div4, br20);
-    			append_dev(div4, t26);
-    			append_dev(div4, br21);
-    			append_dev(div4, t27);
-    			append_dev(div4, br22);
-    			append_dev(div4, t28);
-    			append_dev(div4, br23);
-    			append_dev(div4, t29);
-    			append_dev(div4, br24);
-    			append_dev(div4, t30);
-    			append_dev(div4, br25);
-    			append_dev(div4, t31);
-    			append_dev(div4, br26);
-    			append_dev(div4, t32);
-    			append_dev(div4, br27);
-    			append_dev(div4, t33);
-    			append_dev(div4, br28);
-    			append_dev(div4, t34);
-    			append_dev(div4, br29);
-    			append_dev(div4, t35);
-    			append_dev(div4, br30);
-    			append_dev(div4, t36);
-    			append_dev(div4, br31);
-    			append_dev(div4, t37);
-    			append_dev(div4, br32);
-    			append_dev(div4, t38);
-    			append_dev(div4, br33);
-    			append_dev(div4, t39);
-    			append_dev(div4, br34);
-    			append_dev(div4, t40);
-    			append_dev(div4, br35);
-    			append_dev(div4, t41);
-    			append_dev(div4, br36);
-    			append_dev(div4, t42);
-    			append_dev(div4, br37);
-    			append_dev(div4, t43);
-    			append_dev(div4, br38);
-    			append_dev(div4, t44);
-    			append_dev(div4, br39);
-    			append_dev(div4, t45);
-    			append_dev(div4, br40);
-    			append_dev(div4, t46);
-    			append_dev(div4, br41);
-    			append_dev(div4, t47);
-    			append_dev(div4, br42);
-    			append_dev(div4, t48);
-    			append_dev(div4, br43);
-    			append_dev(div4, t49);
-    			append_dev(div4, br44);
-    			append_dev(div4, t50);
-    			append_dev(div4, br45);
-    			append_dev(div4, t51);
-    			append_dev(div4, br46);
-    			append_dev(div4, t52);
-    			append_dev(div4, br47);
-    			append_dev(div4, t53);
-    			append_dev(div4, br48);
-    			append_dev(div4, t54);
-    			append_dev(div4, br49);
-    			append_dev(div4, t55);
-    			append_dev(div4, br50);
-    			append_dev(div4, t56);
-    			append_dev(div4, br51);
-    			append_dev(div4, t57);
-    			append_dev(div4, br52);
-    			append_dev(div4, t58);
-    			append_dev(div4, br53);
-    			append_dev(div4, t59);
-    			append_dev(div4, br54);
-    			append_dev(div4, t60);
-    			append_dev(div4, br55);
-    			append_dev(div4, t61);
-    			append_dev(div4, br56);
-    			append_dev(div4, t62);
-    			append_dev(div4, br57);
-    			append_dev(div4, t63);
-    			append_dev(div4, br58);
-    			append_dev(div4, t64);
-    			append_dev(div4, br59);
-    			append_dev(div4, t65);
-    			append_dev(div4, br60);
-    			append_dev(div4, t66);
-    			append_dev(div4, br61);
-    			append_dev(div4, t67);
-    			append_dev(div4, br62);
-    			append_dev(div4, t68);
-    			append_dev(div4, br63);
-    			append_dev(div4, t69);
-    			append_dev(div4, br64);
-    			append_dev(div4, t70);
-    			append_dev(div4, br65);
-    			append_dev(div4, t71);
-    			append_dev(div4, br66);
-    			append_dev(div4, t72);
-    			append_dev(div4, br67);
-    			append_dev(div4, t73);
-    			append_dev(div4, br68);
-    			append_dev(div4, t74);
-    			append_dev(div4, br69);
-    			append_dev(div4, t75);
-    			append_dev(div4, br70);
-    			append_dev(div4, t76);
-    			append_dev(div4, br71);
-    			append_dev(div4, t77);
-    			append_dev(div4, br72);
-    			append_dev(div4, t78);
-    			append_dev(div4, br73);
-    			append_dev(div4, t79);
-    			append_dev(div4, br74);
-    			append_dev(div4, t80);
-    			append_dev(div4, br75);
-    			append_dev(div4, t81);
-    			append_dev(div4, br76);
-    			append_dev(div4, t82);
-    			append_dev(div4, br77);
-    			append_dev(div4, t83);
-    			append_dev(div4, br78);
-    			append_dev(div4, t84);
-    			append_dev(div4, br79);
-    			append_dev(div4, t85);
-    			append_dev(div4, br80);
-    			append_dev(div4, t86);
-    			append_dev(div4, br81);
-    			append_dev(div4, t87);
-    			append_dev(div4, br82);
-    			append_dev(div4, t88);
-    			append_dev(div4, br83);
-    			append_dev(div4, t89);
-    			append_dev(div4, br84);
-    			append_dev(div4, t90);
-    			append_dev(div4, br85);
-    			append_dev(div4, t91);
-    			append_dev(div4, br86);
-    			append_dev(div4, t92);
-    			append_dev(div4, br87);
-    			append_dev(div4, t93);
-    			append_dev(div4, br88);
-    			append_dev(div4, t94);
-    			append_dev(div4, br89);
-    			append_dev(div4, t95);
-    			append_dev(div4, br90);
-    			append_dev(div4, t96);
-    			append_dev(div4, br91);
-    			append_dev(div4, t97);
-    			append_dev(div4, br92);
-    			append_dev(div4, t98);
-    			append_dev(div4, br93);
-    			append_dev(div4, t99);
-    			append_dev(div4, br94);
-    			append_dev(div4, t100);
-    			append_dev(div4, br95);
-    			append_dev(div4, t101);
-    			append_dev(div4, br96);
-    			append_dev(div4, t102);
-    			append_dev(div4, br97);
-    			append_dev(div4, t103);
-    			append_dev(div4, br98);
-    			append_dev(div4, t104);
-    			append_dev(div4, br99);
-    			append_dev(div4, t105);
-    			append_dev(div4, br100);
-    			append_dev(div4, t106);
-    			append_dev(div4, br101);
-    			append_dev(div4, t107);
-    			append_dev(div4, br102);
-    			append_dev(div4, t108);
-    			append_dev(div4, br103);
-    			append_dev(div4, t109);
-    			append_dev(div4, br104);
-    			append_dev(div4, t110);
-    			append_dev(div4, br105);
-    			append_dev(div4, t111);
-    			append_dev(div4, br106);
-    			append_dev(div4, t112);
-    			append_dev(div4, br107);
-    			append_dev(div4, t113);
-    			append_dev(div4, br108);
-    			append_dev(div4, t114);
-    			append_dev(div4, br109);
-    			append_dev(div4, t115);
+    			append_dev(div4, div3);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(div3, null);
+    			}
+
+    			ctx.div3_binding(div3);
     		},
 
     		p: function update(changed, ctx) {
@@ -8584,7 +8584,7 @@ var app = (function () {
     					} else {
     						each_blocks[i] = create_each_block(child_ctx);
     						each_blocks[i].c();
-    						each_blocks[i].m(div0, null);
+    						each_blocks[i].m(div3, null);
     					}
     				}
 
@@ -8616,7 +8616,7 @@ var app = (function () {
 
     			destroy_each(each_blocks, detaching);
 
-    			ctx.div0_binding(null);
+    			ctx.div3_binding(null);
     		}
     	};
     	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment$8.name, type: "component", source: "", ctx });
@@ -8863,7 +8863,7 @@ var app = (function () {
     		});
     	}
 
-    	function div0_binding($$value) {
+    	function div3_binding($$value) {
     		binding_callbacks[$$value ? 'unshift' : 'push'](() => {
     			$$invalidate('iSlideEl', iSlideEl = $$value);
     		});
@@ -8888,7 +8888,7 @@ var app = (function () {
     		loaded,
     		iArray,
     		iframe_binding,
-    		div0_binding
+    		div3_binding
     	};
     }
 
@@ -9366,8 +9366,12 @@ var app = (function () {
     	}
     }
 
+    Sentry.init({
+      dsn: 'https://421a3e5a32d94b149d5e1eccb8af6f24@sentry.io/1771039'
+    });
+
     const app = new App({
-    	target: document.body
+      target: document.body
     });
 
     return app;

@@ -38,6 +38,8 @@
 </script>
 
 <style lang="scss">
+  @import "./variables.scss";
+
   @keyframes sweep {
     0% {
       clip-path: inset(0% 0% 0% 100%);
@@ -80,9 +82,13 @@
         clip-path: inset(0% 0% 0% 0%);
         -webkit-clip-path: inset(0% 0% 0% 0%);
         position: relative;
-        font-size: 66px;
         font-size: 90px;
+
         user-select: none;
+
+        @include screen-size("small") {
+          font-size: 52px;
+        }
 
         .line-1 {
           position: absolute;
@@ -95,6 +101,10 @@
           text-align: center;
           line-height: 80px;
           white-space: nowrap;
+
+          @include screen-size("small") {
+            line-height: 45px;
+          }
         }
 
         .line-2 {
@@ -112,6 +122,9 @@
           // padding-bottom: 15px;
           line-height: 80px;
           white-space: nowrap;
+          @include screen-size("small") {
+            line-height: 50px;
+          }
         }
 
         &:hover {
