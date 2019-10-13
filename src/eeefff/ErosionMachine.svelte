@@ -10,8 +10,6 @@
   import get from "lodash.get";
   import throttle from "just-throttle";
 
-  let hidden = false;
-
   // *** STORES
   import {
     erosionMachineActive,
@@ -19,15 +17,7 @@
     activePage
   } from "../stores.js";
 
-  $: {
-    erosionMachineCounter.set(counter);
-  }
-
-  // Hide on alinas page
-  $: {
-    hidden = $activePage === "alina" ? true : false;
-  }
-
+  // *** CONSTANTS
   const EEEFFF_JSON =
     "https://dev.eeefff.org/data/outsourcing-paradise-parasite/erosion-machine-timeline.json";
 
@@ -35,6 +25,8 @@
   let erosionMachineContainer = {};
 
   // *** VARIABLES
+  let hidden = false;
+
   let counter = 0;
   let playedEvents = [];
   let timeline = new TimelineMax({
@@ -43,6 +35,17 @@
       console.log(Math.round(this.time()));
     }
   });
+
+  // *** REACTIVES
+  $: {
+    erosionMachineCounter.set(counter);
+  }
+
+  $: {
+    hidden = $activePage === "alina" ? true : false;
+  }
+
+  // *** Functions
 
   const setRandomPosition = el => {
     el.style.top =
@@ -161,7 +164,7 @@
       class: toObject.className ? toObject.className.slice(2) : false
     });
 
-    if (isShowEvent) {
+    if (isShowEvent(element)) {
       setRandomPosition(element);
     }
 
@@ -274,6 +277,7 @@
     }
   };
 
+  const randomOrder = (a, b) => 0.5 - Math.random();
   const getPosition = (index, arr, delay) =>
     index === 0
       ? 0 + delay
@@ -323,7 +327,7 @@
     startTimer(TIMELINE_JSON.config.delay);
 
     TIMELINE_JSON.timeline
-      .sort((a, b) => 0.5 - Math.random())
+      .sort(randomOrder)
       .map(addElement)
       .forEach((event, i, arr) => {
         if (event.type === "assemblage") {

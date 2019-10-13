@@ -3081,7 +3081,7 @@ var app = (function () {
     			section = element("section");
     			attr_dev(section, "class", "erosion-machine-container svelte-1lye6s9");
     			toggle_class(section, "hidden", ctx.hidden);
-    			add_location(section, file$1, 392, 0, 10217);
+    			add_location(section, file$1, 396, 0, 10294);
     			dispose = listen_dev(window_1, "mousemove", justThrottle(ctx.handleMouseMove, 200));
     		},
 
@@ -3127,12 +3127,12 @@ var app = (function () {
 
     	
 
-      let hidden = false;
-
       // *** DOM References
       let erosionMachineContainer = {};
 
       // *** VARIABLES
+      let hidden = false;
+
       let counter = 0;
       let playedEvents = [];
       let timeline = new TimelineMax({
@@ -3141,6 +3141,8 @@ var app = (function () {
           console.log(Math.round(this.time()));
         }
       });
+
+      // *** Functions
 
       const setRandomPosition = el => {
         el.style.top =
@@ -3259,7 +3261,7 @@ var app = (function () {
           class: toObject.className ? toObject.className.slice(2) : false
         });
 
-        if (isShowEvent) {
+        if (isShowEvent(element)) {
           setRandomPosition(element);
         }
 
@@ -3372,6 +3374,7 @@ var app = (function () {
         }
       };
 
+      const randomOrder = (a, b) => 0.5 - Math.random();
       const getPosition = (index, arr, delay) =>
         index === 0
           ? 0 + delay
@@ -3421,7 +3424,7 @@ var app = (function () {
         startTimer(TIMELINE_JSON.config.delay);
 
         TIMELINE_JSON.timeline
-          .sort((a, b) => 0.5 - Math.random())
+          .sort(randomOrder)
           .map(addElement)
           .forEach((event, i, arr) => {
             if (event.type === "assemblage") {
@@ -3480,8 +3483,8 @@ var app = (function () {
     	};
 
     	$$self.$inject_state = $$props => {
-    		if ('hidden' in $$props) $$invalidate('hidden', hidden = $$props.hidden);
     		if ('erosionMachineContainer' in $$props) $$invalidate('erosionMachineContainer', erosionMachineContainer = $$props.erosionMachineContainer);
+    		if ('hidden' in $$props) $$invalidate('hidden', hidden = $$props.hidden);
     		if ('counter' in $$props) $$invalidate('counter', counter = $$props.counter);
     		if ('playedEvents' in $$props) playedEvents = $$props.playedEvents;
     		if ('timeline' in $$props) timeline = $$props.timeline;
@@ -3498,8 +3501,8 @@ var app = (function () {
     	};
 
     	return {
-    		hidden,
     		erosionMachineContainer,
+    		hidden,
     		handleMouseMove,
     		section_binding
     	};
