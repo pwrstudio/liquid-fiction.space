@@ -57,7 +57,7 @@
       return false;
     }
 
-    if (event.type === "addClass" || event.type === "removeClass") {
+    if (isClassEvent(event)) {
       return event;
     }
 
@@ -138,13 +138,6 @@
   };
 
   const addEvent = (type, element, toObject, position, duration) => {
-    // console.log(position);
-    // console.info(
-    //   "🐛 ",
-    //   type,
-    //   "at:",
-    //   String(position).replace("=+", "") + " seconds"
-    // );
     try {
       timeline.to(
         element,
@@ -168,7 +161,7 @@
       class: toObject.className ? toObject.className.slice(2) : false
     });
 
-    if (type === "showVideo" || type === "showText") {
+    if (isShowEvent) {
       setRandomPosition(element);
     }
 
@@ -181,8 +174,7 @@
     }
 
     window.setTimeout(() => {
-      element.style.opacity = 0;
-      element.nodeName.toLowerCase() == "video" ? element.pause() : null;
+      hideAndPause(element);
     }, duration);
   };
 
@@ -209,29 +201,6 @@
     }, 1000);
   };
 
-  const rewindTimeline = () => {
-    console.info("⏪ Rewinding", playedEvents.length, "elements...");
-
-    playedEvents.forEach(e => {
-      if (e.type === "showVideo" || e.type === "showText") {
-        TweenMax.to(e.el, 0.2, { opacity: 0 });
-      } else if (e.type === "addClass") {
-        TweenMax.to(e.el, 0.2, { css: { className: "-=" + e.class } });
-      }
-    });
-
-    // Pause and rewind all videos
-    timeline
-      .getChildren()
-      .filter(c => c.target.nodeName.toLowerCase() === "video")
-      .forEach(c => {
-        c.target.pause();
-        c.target.currentTime = 0;
-      });
-
-    erosionMachineActive.set(false);
-  };
-
   const handleMouseMove = () => {
     counter = 0;
     if (
@@ -239,7 +208,14 @@
       (timeline.isActive() || timeline.totalProgress() === 1)
     ) {
       timeline.pause();
-      rewindTimeline();
+      playedEvents.forEach(e => {
+        if (isShowEvent(e)) {
+          hideAndPause(e.el);
+        } else if (e.type === "addClass") {
+          TweenMax.to(e.el, 0.2, { css: { className: "-=" + e.class } });
+        }
+      });
+      erosionMachineActive.set(false);
     }
   };
 
@@ -290,30 +266,23 @@
     }
   };
 
-  const getPosition = (index, arr, delay) => {
-    if (index === 0) {
-      return 0 + delay;
+  const hideAndPause = element => {
+    TweenMax.to(element, 0.2, { opacity: 0 });
+    if (element.nodeName.toLowerCase() === "video") {
+      element.pause();
+      element.currentTime = 0;
     }
-
-    console.log(
-      index,
-      Math.round(
-        arr
-          .slice(0, index)
-          .map(e => e.duration)
-          .reduce((acc, curr) => acc + curr) + delay
-      ) / 1000
-    );
-
-    return (
-      Math.round(
-        arr
-          .slice(0, index)
-          .map(e => e.duration)
-          .reduce((acc, curr) => acc + curr) + delay
-      ) / 1000
-    );
   };
+
+  const getPosition = (index, arr, delay) =>
+    index === 0
+      ? 0 + delay
+      : Math.round(
+          arr
+            .slice(0, index)
+            .map(e => e.duration)
+            .reduce((acc, curr) => acc + curr) + delay
+        ) / 1000;
 
   const isClassEvent = event =>
     event.type === "addClass" || event.type === "removeClass";
@@ -334,8 +303,6 @@
         err
       );
     }
-
-    // TIMELINE_JSON.config.disabled = true;
 
     if (get(TIMELINE_JSON, "config.disabled", true)) {
       console.warn("👻 Erosion machine disabled");
@@ -416,6 +383,12 @@
 
     &.hidden {
       display: none;
+    }
+
+    img,
+    video {
+      max-width: 100vw;
+      max-height: 100vh;
     }
   }
 </style>

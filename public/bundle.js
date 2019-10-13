@@ -3079,9 +3079,9 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			section = element("section");
-    			attr_dev(section, "class", "erosion-machine-container svelte-dqk8g3");
+    			attr_dev(section, "class", "erosion-machine-container svelte-1lye6s9");
     			toggle_class(section, "hidden", ctx.hidden);
-    			add_location(section, file$1, 421, 0, 10881);
+    			add_location(section, file$1, 392, 0, 10217);
     			dispose = listen_dev(window_1, "mousemove", justThrottle(ctx.handleMouseMove, 200));
     		},
 
@@ -3155,7 +3155,7 @@ var app = (function () {
           return false;
         }
 
-        if (event.type === "addClass" || event.type === "removeClass") {
+        if (isClassEvent(event)) {
           return event;
         }
 
@@ -3236,13 +3236,6 @@ var app = (function () {
       };
 
       const addEvent = (type, element, toObject, position, duration) => {
-        // console.log(position);
-        // console.info(
-        //   "🐛 ",
-        //   type,
-        //   "at:",
-        //   String(position).replace("=+", "") + " seconds"
-        // );
         try {
           timeline.to(
             element,
@@ -3266,7 +3259,7 @@ var app = (function () {
           class: toObject.className ? toObject.className.slice(2) : false
         });
 
-        if (type === "showVideo" || type === "showText") {
+        if (isShowEvent) {
           setRandomPosition(element);
         }
 
@@ -3279,8 +3272,7 @@ var app = (function () {
         }
 
         window.setTimeout(() => {
-          element.style.opacity = 0;
-          element.nodeName.toLowerCase() == "video" ? element.pause() : null;
+          hideAndPause(element);
         }, duration);
       };
 
@@ -3307,29 +3299,6 @@ var app = (function () {
         }, 1000);
       };
 
-      const rewindTimeline = () => {
-        console.info("⏪ Rewinding", playedEvents.length, "elements...");
-
-        playedEvents.forEach(e => {
-          if (e.type === "showVideo" || e.type === "showText") {
-            TweenMax.to(e.el, 0.2, { opacity: 0 });
-          } else if (e.type === "addClass") {
-            TweenMax.to(e.el, 0.2, { css: { className: "-=" + e.class } });
-          }
-        });
-
-        // Pause and rewind all videos
-        timeline
-          .getChildren()
-          .filter(c => c.target.nodeName.toLowerCase() === "video")
-          .forEach(c => {
-            c.target.pause();
-            c.target.currentTime = 0;
-          });
-
-        erosionMachineActive.set(false);
-      };
-
       const handleMouseMove = () => {
         $$invalidate('counter', counter = 0);
         if (
@@ -3337,7 +3306,14 @@ var app = (function () {
           (timeline.isActive() || timeline.totalProgress() === 1)
         ) {
           timeline.pause();
-          rewindTimeline();
+          playedEvents.forEach(e => {
+            if (isShowEvent(e)) {
+              hideAndPause(e.el);
+            } else if (e.type === "addClass") {
+              TweenMax.to(e.el, 0.2, { css: { className: "-=" + e.class } });
+            }
+          });
+          erosionMachineActive.set(false);
         }
       };
 
@@ -3388,30 +3364,23 @@ var app = (function () {
         }
       };
 
-      const getPosition = (index, arr, delay) => {
-        if (index === 0) {
-          return 0 + delay;
+      const hideAndPause = element => {
+        TweenMax.to(element, 0.2, { opacity: 0 });
+        if (element.nodeName.toLowerCase() === "video") {
+          element.pause();
+          element.currentTime = 0;
         }
-
-        console.log(
-          index,
-          Math.round(
-            arr
-              .slice(0, index)
-              .map(e => e.duration)
-              .reduce((acc, curr) => acc + curr) + delay
-          ) / 1000
-        );
-
-        return (
-          Math.round(
-            arr
-              .slice(0, index)
-              .map(e => e.duration)
-              .reduce((acc, curr) => acc + curr) + delay
-          ) / 1000
-        );
       };
+
+      const getPosition = (index, arr, delay) =>
+        index === 0
+          ? 0 + delay
+          : Math.round(
+              arr
+                .slice(0, index)
+                .map(e => e.duration)
+                .reduce((acc, curr) => acc + curr) + delay
+            ) / 1000;
 
       const isClassEvent = event =>
         event.type === "addClass" || event.type === "removeClass";
@@ -3432,8 +3401,6 @@ var app = (function () {
             err
           );
         }
-
-        // TIMELINE_JSON.config.disabled = true;
 
         if (lodash_get(TIMELINE_JSON, "config.disabled", true)) {
           console.warn("👻 Erosion machine disabled");
