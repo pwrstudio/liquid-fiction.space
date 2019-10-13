@@ -3081,7 +3081,7 @@ var app = (function () {
     			section = element("section");
     			attr_dev(section, "class", "erosion-machine-container svelte-dqk8g3");
     			toggle_class(section, "hidden", ctx.hidden);
-    			add_location(section, file$1, 412, 0, 10655);
+    			add_location(section, file$1, 421, 0, 10881);
     			dispose = listen_dev(window_1, "mousemove", justThrottle(ctx.handleMouseMove, 200));
     		},
 
@@ -3377,6 +3377,15 @@ var app = (function () {
 
       const playVideo = element => {
         let promise = element.play();
+        if (promise !== undefined) {
+          promise
+            .then(_ => {
+              console.log("🎥 Video started");
+            })
+            .catch(error => {
+              console.error("💥 Error starting video:", error);
+            });
+        }
       };
 
       const getPosition = (index, arr, delay) => {
@@ -9347,9 +9356,9 @@ var app = (function () {
     	}
     }
 
-    // Sentry.init({
-    //   dsn: 'https://421a3e5a32d94b149d5e1eccb8af6f24@sentry.io/1771039'
-    // })
+    Sentry.init({
+      dsn: 'https://421a3e5a32d94b149d5e1eccb8af6f24@sentry.io/1771039'
+    });
 
     const app = new App({
       target: document.body

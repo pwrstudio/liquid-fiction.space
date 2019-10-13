@@ -279,6 +279,15 @@
 
   const playVideo = element => {
     let promise = element.play();
+    if (promise !== undefined) {
+      promise
+        .then(_ => {
+          console.log("🎥 Video started");
+        })
+        .catch(error => {
+          console.error("💥 Error starting video:", error);
+        });
+    }
   };
 
   const getPosition = (index, arr, delay) => {
