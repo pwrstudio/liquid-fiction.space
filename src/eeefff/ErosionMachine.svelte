@@ -14,8 +14,8 @@
 
   // *** STORES
   import {
-    erosionMachineCounter,
     erosionMachineActive,
+    erosionMachineCounter,
     activePage
   } from "../stores.js";
 
@@ -23,6 +23,7 @@
     erosionMachineCounter.set(counter);
   }
 
+  // Hide on alinas page
   $: {
     hidden = $activePage === "alina" ? true : false;
   }
@@ -37,8 +38,18 @@
   let counter = 0;
   let playedEvents = [];
   let timeline = new TimelineMax({
-    paused: true
+    paused: true,
+    onUpdate: function() {
+      console.log(Math.round(this.time()));
+    }
   });
+
+  const setRandomPosition = el => {
+    el.style.top =
+      Math.floor(Math.random() * (window.innerHeight - el.clientHeight)) + "px";
+    el.style.left =
+      Math.floor(Math.random() * (window.innerWidth - el.clientWidth)) + "px";
+  };
 
   const addElement = event => {
     if (!event.type) {
@@ -91,7 +102,6 @@
       elementObject.appendChild(sourceElement);
       elementObject.loop = event.loop ? event.loop : "";
       elementObject.preload = "auto";
-      elementObject.muted = true;
 
       // +++ Subtitles
       if (event.subtitles_en) {
@@ -124,72 +134,25 @@
 
     event.el = elementObject;
 
-    // +++ Random position: top
-    event.el.style.top =
-      event.position === "absolute" || event.position === "fixed"
-        ? Math.floor(
-            Math.random() * (window.innerHeight - event.el.clientHeight)
-          ) + "px"
-        : "unset";
-
-    console.log("event.pl.clientHeight", event.el.clientHeight);
-
-    // +++ Random position: left
-    elementObject.style.left =
-      event.position === "absolute" || event.position === "fixed"
-        ? Math.floor(
-            Math.random() * (window.innerWidth - event.el.clientWidth)
-          ) + "px"
-        : "unset";
-
-    console.log("event.el.clientWidth", event.el.clientWidth);
-
     return event;
   };
 
-  const addEvent = (type, element, toObject, position) => {
-    console.info(
-      "🐛 Adding event to timeline:",
-      type,
-      "at:",
-      String(position).replace("=+", "") + " seconds"
-    );
+  const addEvent = (type, element, toObject, position, duration) => {
+    // console.log(position);
+    // console.info(
+    //   "🐛 ",
+    //   type,
+    //   "at:",
+    //   String(position).replace("=+", "") + " seconds"
+    // );
     try {
       timeline.to(
         element,
         0.01,
         {
           ...toObject,
-          onStart: function() {
-            console.info(
-              "👾 Event:",
-              type,
-              "started at",
-              String(position).replace("=+", "") + " seconds"
-            );
-            playedEvents.unshift({
-              type: type,
-              el: element,
-              class: toObject.className ? toObject.className.slice(2) : false
-            });
-            if (type === "showVideo") {
-              if (get(element, "element.textTracks[0]", false)) {
-                element.textTracks[0].oncuechange = function() {
-                  console.dir(this.activeCues[0].text);
-                };
-              }
-              let promise = element.play();
-              if (promise !== undefined) {
-                promise
-                  .then(_ => {
-                    console.log("🎥 Video started");
-                  })
-                  .catch(error => {
-                    console.error("💥 Error starting video:", error);
-                  });
-              }
-            }
-          }
+          onStart: eventStart,
+          onStartParams: [type, element, toObject, position, duration]
         },
         position
       );
@@ -198,11 +161,45 @@
     }
   };
 
+  const eventStart = (type, element, toObject, position, duration) => {
+    playedEvents.unshift({
+      type: type,
+      el: element,
+      class: toObject.className ? toObject.className.slice(2) : false
+    });
+
+    if (type === "showVideo" || type === "showText") {
+      setRandomPosition(element);
+    }
+
+    if (type === "showVideo") {
+      if (get(element, "element.textTracks[0]", false))
+        element.textTracks[0].oncuechange = function() {
+          console.dir(this.activeCues[0].text);
+        };
+      playVideo(element);
+    }
+
+    window.setTimeout(() => {
+      element.style.opacity = 0;
+      element.nodeName.toLowerCase() == "video" ? element.pause() : null;
+    }, duration);
+  };
+
   const startTimer = delay => {
     window.setInterval(() => {
-      if (counter == delay - 1) {
-        console.info("💿 Timeline starting...");
+      if (counter == delay) {
         erosionMachineActive.set(true);
+
+        timeline
+          .getChildren()
+          .map(c => c.target)
+          .filter(
+            el =>
+              el.style.position == "absolute" || el.style.position == "fixed"
+          )
+          .forEach(setRandomPosition);
+
         timeline
           .totalProgress(0)
           .timeScale(1)
@@ -214,22 +211,25 @@
 
   const rewindTimeline = () => {
     console.info("⏪ Rewinding", playedEvents.length, "elements...");
-    let rewTimeline = new TimelineMax({
-      paused: true
-    });
-    playedEvents.forEach((e, i) => {
-      console.log(e);
+
+    playedEvents.forEach(e => {
       if (e.type === "showVideo" || e.type === "showText") {
-        rewTimeline.to(e.el, 0.2, { opacity: 0 });
+        TweenMax.to(e.el, 0.2, { opacity: 0 });
       } else if (e.type === "addClass") {
-        rewTimeline.to(e.el, 0.2, { css: { className: "-=" + e.class } });
+        TweenMax.to(e.el, 0.2, { css: { className: "-=" + e.class } });
       }
     });
-    rewTimeline.call(() => {
-      erosionMachineActive.set(false);
-      playedEvents = [];
-    });
-    rewTimeline.play();
+
+    // Pause and rewind all videos
+    timeline
+      .getChildren()
+      .filter(c => c.target.nodeName.toLowerCase() === "video")
+      .forEach(c => {
+        c.target.pause();
+        c.target.currentTime = 0;
+      });
+
+    erosionMachineActive.set(false);
   };
 
   const handleMouseMove = () => {
@@ -240,10 +240,76 @@
     ) {
       timeline.pause();
       rewindTimeline();
-    } else {
-      console.info("⏰ Counter reset");
     }
   };
+
+  const prepareClassEvent = (event, position, delay) => {
+    const target = document.querySelector("#" + event.id);
+    if (target) {
+      addEvent(
+        event.type,
+        event.el,
+        {
+          className:
+            event.type == "addClass" ? "+=" + event.class : "-=" + event.class
+        },
+        position,
+        event.duration
+      );
+    } else {
+      console.warn("🤔 Element not found: #" + event.id);
+    }
+  };
+
+  const prepareShowEvent = (event, position) => {
+    addEvent(event.type, event.el, { opacity: 1 }, position, event.duration);
+  };
+
+  const addLabel = position => {
+    let label =
+      "assemblage-" +
+      Math.random()
+        .toString(36)
+        .substring(2, 15);
+
+    timeline.addLabel(label, position);
+
+    return label;
+  };
+
+  const playVideo = element => {
+    let promise = element.play();
+  };
+
+  const getPosition = (index, arr, delay) => {
+    if (index === 0) {
+      return 0 + delay;
+    }
+
+    console.log(
+      index,
+      Math.round(
+        arr
+          .slice(0, index)
+          .map(e => e.duration)
+          .reduce((acc, curr) => acc + curr) + delay
+      ) / 1000
+    );
+
+    return (
+      Math.round(
+        arr
+          .slice(0, index)
+          .map(e => e.duration)
+          .reduce((acc, curr) => acc + curr) + delay
+      ) / 1000
+    );
+  };
+
+  const isClassEvent = event =>
+    event.type === "addClass" || event.type === "removeClass";
+  const isShowEvent = event =>
+    event.type === "showText" || event.type === "showVideo";
 
   // *** ON MOUNT
   onMount(async () => {
@@ -273,7 +339,7 @@
     }
 
     // TESTING
-    // TIMELINE_JSON.config.delay = 3;
+    // TIMELINE_JSON.config.delay = 2;
 
     console.info("🎰 Erosion machine initiated");
     console.info("––– Delay:", TIMELINE_JSON.config.delay);
@@ -285,68 +351,44 @@
       .map(addElement)
       .forEach((event, i, arr) => {
         if (event.type === "assemblage") {
-          let label =
-            "assemblage-" +
-            Math.random()
-              .toString(36)
-              .substring(2, 15);
-          timeline.addLabel(
-            label,
-            i > 0 ? "=+" + arr[i - 1].duration / 1000 : 0
+          let label = addLabel(
+            getPosition(i, arr, event.delayed ? event.delayed : 0)
           );
-          // Iterate over sub-events
           event.events.forEach(subEvent => {
-            if (
-              subEvent.type === "addClass" ||
-              subEvent.type === "removeClass"
-            ) {
-              let target = document.querySelector("#" + subEvent.id);
-              if (target) {
-                addEvent(
-                  subEvent.type,
-                  subEvent.el,
-                  {
-                    className:
-                      subEvent.type == "addClass"
-                        ? "+=" + subEvent.class
-                        : "-=" + subEvent.class
-                  },
-                  label
-                );
-              } else {
-                console.warn("🤔 Element not found: #" + subEvent.id);
-              }
-            } else if (
-              subEvent.type === "showVideo" ||
-              subEvent.type === "showText"
-            ) {
-              addEvent(subEvent.type, subEvent.el, { opacity: 1 }, label);
-            }
+            isClassEvent(subEvent)
+              ? prepareClassEvent(
+                  subEvent,
+                  getPosition(i, arr, subEvent.delayed ? subEvent.delayed : 0)
+                )
+              : null;
+            isShowEvent(subEvent)
+              ? prepareShowEvent(
+                  subEvent,
+                  getPosition(i, arr, subEvent.delayed ? subEvent.delayed : 0)
+                )
+              : null;
           });
-        } else if (event.type === "addClass" || event.type === "removeClass") {
-          let target = document.querySelector("#" + event.id);
-          if (target) {
-            addEvent(
-              event.type,
-              target,
-              {
-                className:
-                  event.type == "addClass"
-                    ? "+=" + event.class
-                    : "-=" + event.class
-              },
-              i > 0 ? "=+" + arr[i - 1].duration / 1000 : 0
-            );
-          } else {
-            console.warn("🤔 Element not found: #" + event.id);
-          }
-        } else if (event.type === "showVideo" || event.type === "showText") {
-          addEvent(
-            event.type,
-            event.el,
-            { opacity: 1 },
-            i > 0 ? "=+" + arr[i - 1].duration / 1000 : 0
-          );
+        } else {
+          isClassEvent(event)
+            ? prepareClassEvent(
+                event,
+                getPosition(
+                  i,
+                  arr,
+                  getPosition(i, arr, event.delayed ? event.delayed : 0)
+                )
+              )
+            : null;
+          isShowEvent(event)
+            ? prepareShowEvent(
+                event,
+                getPosition(
+                  i,
+                  arr,
+                  getPosition(i, arr, event.delayed ? event.delayed : 0)
+                )
+              )
+            : null;
         }
       });
 

@@ -3081,7 +3081,7 @@ var app = (function () {
     			section = element("section");
     			attr_dev(section, "class", "erosion-machine-container svelte-dqk8g3");
     			toggle_class(section, "hidden", ctx.hidden);
-    			add_location(section, file$1, 370, 0, 10392);
+    			add_location(section, file$1, 412, 0, 10655);
     			dispose = listen_dev(window_1, "mousemove", justThrottle(ctx.handleMouseMove, 200));
     		},
 
@@ -3136,8 +3136,18 @@ var app = (function () {
       let counter = 0;
       let playedEvents = [];
       let timeline = new TimelineMax({
-        paused: true
+        paused: true,
+        onUpdate: function() {
+          console.log(Math.round(this.time()));
+        }
       });
+
+      const setRandomPosition = el => {
+        el.style.top =
+          Math.floor(Math.random() * (window.innerHeight - el.clientHeight)) + "px";
+        el.style.left =
+          Math.floor(Math.random() * (window.innerWidth - el.clientWidth)) + "px";
+      };
 
       const addElement = event => {
         if (!event.type) {
@@ -3190,7 +3200,6 @@ var app = (function () {
           elementObject.appendChild(sourceElement);
           elementObject.loop = event.loop ? event.loop : "";
           elementObject.preload = "auto";
-          elementObject.muted = true;
 
           // +++ Subtitles
           if (event.subtitles_en) {
@@ -3223,72 +3232,25 @@ var app = (function () {
 
         event.el = elementObject;
 
-        // +++ Random position: top
-        event.el.style.top =
-          event.position === "absolute" || event.position === "fixed"
-            ? Math.floor(
-                Math.random() * (window.innerHeight - event.el.clientHeight)
-              ) + "px"
-            : "unset";
-
-        console.log("event.pl.clientHeight", event.el.clientHeight);
-
-        // +++ Random position: left
-        elementObject.style.left =
-          event.position === "absolute" || event.position === "fixed"
-            ? Math.floor(
-                Math.random() * (window.innerWidth - event.el.clientWidth)
-              ) + "px"
-            : "unset";
-
-        console.log("event.el.clientWidth", event.el.clientWidth);
-
         return event;
       };
 
-      const addEvent = (type, element, toObject, position) => {
-        console.info(
-          "🐛 Adding event to timeline:",
-          type,
-          "at:",
-          String(position).replace("=+", "") + " seconds"
-        );
+      const addEvent = (type, element, toObject, position, duration) => {
+        // console.log(position);
+        // console.info(
+        //   "🐛 ",
+        //   type,
+        //   "at:",
+        //   String(position).replace("=+", "") + " seconds"
+        // );
         try {
           timeline.to(
             element,
             0.01,
             {
               ...toObject,
-              onStart: function() {
-                console.info(
-                  "👾 Event:",
-                  type,
-                  "started at",
-                  String(position).replace("=+", "") + " seconds"
-                );
-                playedEvents.unshift({
-                  type: type,
-                  el: element,
-                  class: toObject.className ? toObject.className.slice(2) : false
-                });
-                if (type === "showVideo") {
-                  if (lodash_get(element, "element.textTracks[0]", false)) {
-                    element.textTracks[0].oncuechange = function() {
-                      console.dir(this.activeCues[0].text);
-                    };
-                  }
-                  let promise = element.play();
-                  if (promise !== undefined) {
-                    promise
-                      .then(_ => {
-                        console.log("🎥 Video started");
-                      })
-                      .catch(error => {
-                        console.error("💥 Error starting video:", error);
-                      });
-                  }
-                }
-              }
+              onStart: eventStart,
+              onStartParams: [type, element, toObject, position, duration]
             },
             position
           );
@@ -3297,11 +3259,45 @@ var app = (function () {
         }
       };
 
+      const eventStart = (type, element, toObject, position, duration) => {
+        playedEvents.unshift({
+          type: type,
+          el: element,
+          class: toObject.className ? toObject.className.slice(2) : false
+        });
+
+        if (type === "showVideo" || type === "showText") {
+          setRandomPosition(element);
+        }
+
+        if (type === "showVideo") {
+          if (lodash_get(element, "element.textTracks[0]", false))
+            element.textTracks[0].oncuechange = function() {
+              console.dir(this.activeCues[0].text);
+            };
+          playVideo(element);
+        }
+
+        window.setTimeout(() => {
+          element.style.opacity = 0;
+          element.nodeName.toLowerCase() == "video" ? element.pause() : null;
+        }, duration);
+      };
+
       const startTimer = delay => {
         window.setInterval(() => {
-          if (counter == delay - 1) {
-            console.info("💿 Timeline starting...");
+          if (counter == delay) {
             erosionMachineActive.set(true);
+
+            timeline
+              .getChildren()
+              .map(c => c.target)
+              .filter(
+                el =>
+                  el.style.position == "absolute" || el.style.position == "fixed"
+              )
+              .forEach(setRandomPosition);
+
             timeline
               .totalProgress(0)
               .timeScale(1)
@@ -3313,22 +3309,25 @@ var app = (function () {
 
       const rewindTimeline = () => {
         console.info("⏪ Rewinding", playedEvents.length, "elements...");
-        let rewTimeline = new TimelineMax({
-          paused: true
-        });
-        playedEvents.forEach((e, i) => {
-          console.log(e);
+
+        playedEvents.forEach(e => {
           if (e.type === "showVideo" || e.type === "showText") {
-            rewTimeline.to(e.el, 0.2, { opacity: 0 });
+            TweenMax.to(e.el, 0.2, { opacity: 0 });
           } else if (e.type === "addClass") {
-            rewTimeline.to(e.el, 0.2, { css: { className: "-=" + e.class } });
+            TweenMax.to(e.el, 0.2, { css: { className: "-=" + e.class } });
           }
         });
-        rewTimeline.call(() => {
-          erosionMachineActive.set(false);
-          playedEvents = [];
-        });
-        rewTimeline.play();
+
+        // Pause and rewind all videos
+        timeline
+          .getChildren()
+          .filter(c => c.target.nodeName.toLowerCase() === "video")
+          .forEach(c => {
+            c.target.pause();
+            c.target.currentTime = 0;
+          });
+
+        erosionMachineActive.set(false);
       };
 
       const handleMouseMove = () => {
@@ -3339,10 +3338,76 @@ var app = (function () {
         ) {
           timeline.pause();
           rewindTimeline();
-        } else {
-          console.info("⏰ Counter reset");
         }
       };
+
+      const prepareClassEvent = (event, position, delay) => {
+        const target = document.querySelector("#" + event.id);
+        if (target) {
+          addEvent(
+            event.type,
+            event.el,
+            {
+              className:
+                event.type == "addClass" ? "+=" + event.class : "-=" + event.class
+            },
+            position,
+            event.duration
+          );
+        } else {
+          console.warn("🤔 Element not found: #" + event.id);
+        }
+      };
+
+      const prepareShowEvent = (event, position) => {
+        addEvent(event.type, event.el, { opacity: 1 }, position, event.duration);
+      };
+
+      const addLabel = position => {
+        let label =
+          "assemblage-" +
+          Math.random()
+            .toString(36)
+            .substring(2, 15);
+
+        timeline.addLabel(label, position);
+
+        return label;
+      };
+
+      const playVideo = element => {
+        let promise = element.play();
+      };
+
+      const getPosition = (index, arr, delay) => {
+        if (index === 0) {
+          return 0 + delay;
+        }
+
+        console.log(
+          index,
+          Math.round(
+            arr
+              .slice(0, index)
+              .map(e => e.duration)
+              .reduce((acc, curr) => acc + curr) + delay
+          ) / 1000
+        );
+
+        return (
+          Math.round(
+            arr
+              .slice(0, index)
+              .map(e => e.duration)
+              .reduce((acc, curr) => acc + curr) + delay
+          ) / 1000
+        );
+      };
+
+      const isClassEvent = event =>
+        event.type === "addClass" || event.type === "removeClass";
+      const isShowEvent = event =>
+        event.type === "showText" || event.type === "showVideo";
 
       // *** ON MOUNT
       onMount(async () => {
@@ -3372,7 +3437,7 @@ var app = (function () {
         }
 
         // TESTING
-        // TIMELINE_JSON.config.delay = 3;
+        // TIMELINE_JSON.config.delay = 2;
 
         console.info("🎰 Erosion machine initiated");
         console.info("––– Delay:", TIMELINE_JSON.config.delay);
@@ -3384,68 +3449,44 @@ var app = (function () {
           .map(addElement)
           .forEach((event, i, arr) => {
             if (event.type === "assemblage") {
-              let label =
-                "assemblage-" +
-                Math.random()
-                  .toString(36)
-                  .substring(2, 15);
-              timeline.addLabel(
-                label,
-                i > 0 ? "=+" + arr[i - 1].duration / 1000 : 0
+              let label = addLabel(
+                getPosition(i, arr, event.delayed ? event.delayed : 0)
               );
-              // Iterate over sub-events
               event.events.forEach(subEvent => {
-                if (
-                  subEvent.type === "addClass" ||
-                  subEvent.type === "removeClass"
-                ) {
-                  let target = document.querySelector("#" + subEvent.id);
-                  if (target) {
-                    addEvent(
-                      subEvent.type,
-                      subEvent.el,
-                      {
-                        className:
-                          subEvent.type == "addClass"
-                            ? "+=" + subEvent.class
-                            : "-=" + subEvent.class
-                      },
-                      label
-                    );
-                  } else {
-                    console.warn("🤔 Element not found: #" + subEvent.id);
-                  }
-                } else if (
-                  subEvent.type === "showVideo" ||
-                  subEvent.type === "showText"
-                ) {
-                  addEvent(subEvent.type, subEvent.el, { opacity: 1 }, label);
-                }
+                isClassEvent(subEvent)
+                  ? prepareClassEvent(
+                      subEvent,
+                      getPosition(i, arr, subEvent.delayed ? subEvent.delayed : 0)
+                    )
+                  : null;
+                isShowEvent(subEvent)
+                  ? prepareShowEvent(
+                      subEvent,
+                      getPosition(i, arr, subEvent.delayed ? subEvent.delayed : 0)
+                    )
+                  : null;
               });
-            } else if (event.type === "addClass" || event.type === "removeClass") {
-              let target = document.querySelector("#" + event.id);
-              if (target) {
-                addEvent(
-                  event.type,
-                  target,
-                  {
-                    className:
-                      event.type == "addClass"
-                        ? "+=" + event.class
-                        : "-=" + event.class
-                  },
-                  i > 0 ? "=+" + arr[i - 1].duration / 1000 : 0
-                );
-              } else {
-                console.warn("🤔 Element not found: #" + event.id);
-              }
-            } else if (event.type === "showVideo" || event.type === "showText") {
-              addEvent(
-                event.type,
-                event.el,
-                { opacity: 1 },
-                i > 0 ? "=+" + arr[i - 1].duration / 1000 : 0
-              );
+            } else {
+              isClassEvent(event)
+                ? prepareClassEvent(
+                    event,
+                    getPosition(
+                      i,
+                      arr,
+                      getPosition(i, arr, event.delayed ? event.delayed : 0)
+                    )
+                  )
+                : null;
+              isShowEvent(event)
+                ? prepareShowEvent(
+                    event,
+                    getPosition(
+                      i,
+                      arr,
+                      getPosition(i, arr, event.delayed ? event.delayed : 0)
+                    )
+                  )
+                : null;
             }
           });
 
@@ -3546,13 +3587,13 @@ var app = (function () {
 
     const file$2 = "src/Menu.svelte";
 
-    // (172:6) {#if active}
+    // (182:6) {#if active}
     function create_if_block$1(ctx) {
-    	var div0, div0_intro, div0_outro, t0, div1, div1_intro, div1_outro, t1, div2, div2_intro, div2_outro, t2, div3, div3_intro, div3_outro, current;
+    	var div0, div0_intro, div0_outro, t0, div1, t1, span, div1_intro, div1_outro, t3, div2, div2_intro, div2_outro, t4, div3, div3_intro, div3_outro, current;
 
     	var link0 = new Link({
     		props: {
-    		to: "about",
+    		to: "publication",
     		$$slots: { default: [create_default_slot_4] },
     		$$scope: { ctx }
     	},
@@ -3594,19 +3635,24 @@ var app = (function () {
     			div1 = element("div");
     			link1.$$.fragment.c();
     			t1 = space();
+    			span = element("span");
+    			span.textContent = "TXT";
+    			t3 = space();
     			div2 = element("div");
     			link2.$$.fragment.c();
-    			t2 = space();
+    			t4 = space();
     			div3 = element("div");
     			link3.$$.fragment.c();
-    			attr_dev(div0, "class", "item svelte-v2pf5f");
-    			add_location(div0, file$2, 172, 8, 4305);
-    			attr_dev(div1, "class", "item svelte-v2pf5f");
-    			add_location(div1, file$2, 181, 8, 4643);
-    			attr_dev(div2, "class", "item svelte-v2pf5f");
-    			add_location(div2, file$2, 190, 8, 4992);
-    			attr_dev(div3, "class", "item svelte-v2pf5f");
-    			add_location(div3, file$2, 199, 8, 5316);
+    			attr_dev(div0, "class", "item svelte-1w29ek1");
+    			add_location(div0, file$2, 182, 8, 4465);
+    			attr_dev(span, "class", "txt-link svelte-1w29ek1");
+    			add_location(span, file$2, 199, 10, 5145);
+    			attr_dev(div1, "class", "item svelte-1w29ek1");
+    			add_location(div1, file$2, 191, 8, 4809);
+    			attr_dev(div2, "class", "item svelte-1w29ek1");
+    			add_location(div2, file$2, 202, 8, 5203);
+    			attr_dev(div3, "class", "item svelte-1w29ek1");
+    			add_location(div3, file$2, 211, 8, 5527);
     		},
 
     		m: function mount(target, anchor) {
@@ -3615,10 +3661,12 @@ var app = (function () {
     			insert_dev(target, t0, anchor);
     			insert_dev(target, div1, anchor);
     			mount_component(link1, div1, null);
-    			insert_dev(target, t1, anchor);
+    			append_dev(div1, t1);
+    			append_dev(div1, span);
+    			insert_dev(target, t3, anchor);
     			insert_dev(target, div2, anchor);
     			mount_component(link2, div2, null);
-    			insert_dev(target, t2, anchor);
+    			insert_dev(target, t4, anchor);
     			insert_dev(target, div3, anchor);
     			mount_component(link3, div3, null);
     			current = true;
@@ -3702,7 +3750,7 @@ var app = (function () {
 
     			if (detaching) {
     				if (div1_outro) div1_outro.end();
-    				detach_dev(t1);
+    				detach_dev(t3);
     				detach_dev(div2);
     			}
 
@@ -3710,7 +3758,7 @@ var app = (function () {
 
     			if (detaching) {
     				if (div2_outro) div2_outro.end();
-    				detach_dev(t2);
+    				detach_dev(t4);
     				detach_dev(div3);
     			}
 
@@ -3721,11 +3769,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$1.name, type: "if", source: "(172:6) {#if active}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$1.name, type: "if", source: "(182:6) {#if active}", ctx });
     	return block;
     }
 
-    // (177:10) <Link to="about">
+    // (187:10) <Link to="publication">
     function create_default_slot_4(ctx) {
     	var span0, t_1, span1;
 
@@ -3736,10 +3784,10 @@ var app = (function () {
     			t_1 = space();
     			span1 = element("span");
     			span1.textContent = "~~~~~~_~~~~~~~~";
-    			attr_dev(span0, "class", "line-1 svelte-v2pf5f");
-    			add_location(span0, file$2, 177, 12, 4503);
-    			attr_dev(span1, "class", "line-2 svelte-v2pf5f");
-    			add_location(span1, file$2, 178, 12, 4558);
+    			attr_dev(span0, "class", "line-1 svelte-1w29ek1");
+    			add_location(span0, file$2, 187, 12, 4669);
+    			attr_dev(span1, "class", "line-2 svelte-1w29ek1");
+    			add_location(span1, file$2, 188, 12, 4724);
     		},
 
     		m: function mount(target, anchor) {
@@ -3756,11 +3804,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot_4.name, type: "slot", source: "(177:10) <Link to=\"about\">", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot_4.name, type: "slot", source: "(187:10) <Link to=\"publication\">", ctx });
     	return block;
     }
 
-    // (186:10) <Link to="alina-chaiderov">
+    // (196:10) <Link to="alina-chaiderov">
     function create_default_slot_3(ctx) {
     	var span0, t_1, span1;
 
@@ -3771,10 +3819,10 @@ var app = (function () {
     			t_1 = space();
     			span1 = element("span");
     			span1.textContent = "~~~~~_~~~~~~~~~";
-    			attr_dev(span0, "class", "line-1 svelte-v2pf5f");
-    			add_location(span0, file$2, 186, 12, 4851);
-    			attr_dev(span1, "class", "line-2 svelte-v2pf5f");
-    			add_location(span1, file$2, 187, 12, 4907);
+    			attr_dev(span0, "class", "line-1 svelte-1w29ek1");
+    			add_location(span0, file$2, 196, 12, 5017);
+    			attr_dev(span1, "class", "line-2 svelte-1w29ek1");
+    			add_location(span1, file$2, 197, 12, 5073);
     		},
 
     		m: function mount(target, anchor) {
@@ -3791,11 +3839,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot_3.name, type: "slot", source: "(186:10) <Link to=\"alina-chaiderov\">", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot_3.name, type: "slot", source: "(196:10) <Link to=\"alina-chaiderov\">", ctx });
     	return block;
     }
 
-    // (195:10) <Link to="eeefff">
+    // (207:10) <Link to="eeefff">
     function create_default_slot_2(ctx) {
     	var span0, t_1, span1;
 
@@ -3806,10 +3854,10 @@ var app = (function () {
     			t_1 = space();
     			span1 = element("span");
     			span1.textContent = "~~~~~~";
-    			attr_dev(span0, "class", "line-1 svelte-v2pf5f");
-    			add_location(span0, file$2, 195, 12, 5193);
-    			attr_dev(span1, "class", "line-2 svelte-v2pf5f");
-    			add_location(span1, file$2, 196, 12, 5240);
+    			attr_dev(span0, "class", "line-1 svelte-1w29ek1");
+    			add_location(span0, file$2, 207, 12, 5404);
+    			attr_dev(span1, "class", "line-2 svelte-1w29ek1");
+    			add_location(span1, file$2, 208, 12, 5451);
     		},
 
     		m: function mount(target, anchor) {
@@ -3826,11 +3874,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot_2.name, type: "slot", source: "(195:10) <Link to=\"eeefff\">", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot_2.name, type: "slot", source: "(207:10) <Link to=\"eeefff\">", ctx });
     	return block;
     }
 
-    // (204:10) <Link to="olof-marsja">
+    // (216:10) <Link to="olof-marsja">
     function create_default_slot_1(ctx) {
     	var span0, t_1, span1;
 
@@ -3841,10 +3889,10 @@ var app = (function () {
     			t_1 = space();
     			span1 = element("span");
     			span1.textContent = "~~~~_~~~~~~";
-    			attr_dev(span0, "class", "line-1 svelte-v2pf5f");
-    			add_location(span0, file$2, 204, 12, 5522);
-    			attr_dev(span1, "class", "line-2 svelte-v2pf5f");
-    			add_location(span1, file$2, 205, 12, 5574);
+    			attr_dev(span0, "class", "line-1 svelte-1w29ek1");
+    			add_location(span0, file$2, 216, 12, 5733);
+    			attr_dev(span1, "class", "line-2 svelte-1w29ek1");
+    			add_location(span1, file$2, 217, 12, 5785);
     		},
 
     		m: function mount(target, anchor) {
@@ -3861,11 +3909,11 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot_1.name, type: "slot", source: "(204:10) <Link to=\"olof-marsja\">", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot_1.name, type: "slot", source: "(216:10) <Link to=\"olof-marsja\">", ctx });
     	return block;
     }
 
-    // (170:2) <Router>
+    // (180:2) <Router>
     function create_default_slot(ctx) {
     	var div, current;
 
@@ -3876,7 +3924,7 @@ var app = (function () {
     			div = element("div");
     			if (if_block) if_block.c();
     			attr_dev(div, "class", "inner");
-    			add_location(div, file$2, 170, 4, 4258);
+    			add_location(div, file$2, 180, 4, 4418);
     		},
 
     		m: function mount(target, anchor) {
@@ -3921,7 +3969,7 @@ var app = (function () {
     			if (if_block) if_block.d();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot.name, type: "slot", source: "(170:2) <Router>", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot.name, type: "slot", source: "(180:2) <Router>", ctx });
     	return block;
     }
 
@@ -3951,35 +3999,35 @@ var app = (function () {
     			t_1 = text("cross");
     			g = svg_element("g");
     			path = svg_element("path");
-    			attr_dev(rect, "class", "cls-1 svelte-v2pf5f");
+    			attr_dev(rect, "class", "cls-1 svelte-1w29ek1");
     			attr_dev(rect, "x", "1.08");
     			attr_dev(rect, "y", "0.65");
     			attr_dev(rect, "width", "55.46");
     			attr_dev(rect, "height", "55.39");
-    			add_location(rect, file$2, 220, 12, 5969);
+    			add_location(rect, file$2, 232, 12, 6180);
     			attr_dev(clipPath, "id", "clip-path");
     			attr_dev(clipPath, "transform", "translate(-1.08 -0.65)");
-    			add_location(clipPath, file$2, 219, 10, 5896);
-    			add_location(defs, file$2, 218, 8, 5879);
-    			add_location(title, file$2, 228, 8, 6155);
-    			attr_dev(path, "class", "cls-3 svelte-v2pf5f");
+    			add_location(clipPath, file$2, 231, 10, 6107);
+    			add_location(defs, file$2, 230, 8, 6090);
+    			add_location(title, file$2, 240, 8, 6366);
+    			attr_dev(path, "class", "cls-3 svelte-1w29ek1");
     			attr_dev(path, "d", "M2.12,49a3.91,3.91,0,0,0-1,2.4,3.08,3.08,0,0,0,1,2.41l1.23,1.23A3.37,3.37,0,0,0,5.69,56a3.12,3.12,0,0,0,2.47-.89L27.38,35.59a1.55,1.55,0,0,1,2.47,0L49.34,54.94A3,3,0,0,0,51.67,56a3.37,3.37,0,0,0,2.47-1.1l1.38-1.23a2.88,2.88,0,0,0,1-2.4,3.62,3.62,0,0,0-1-2.41L36,29.41a1.55,1.55,0,0,1,0-2.47L55.52,7.72a3.18,3.18,0,0,0,.89-2.47,3.45,3.45,0,0,0-.89-2.33L54.28,1.68a3.2,3.2,0,0,0-2.47-1,3.44,3.44,0,0,0-2.33,1L30,20.9a1.4,1.4,0,0,1-2.33,0L8.16,1.68a2.84,2.84,0,0,0-2.27-1,3.51,3.51,0,0,0-2.54,1.1L2.12,2.92a3.21,3.21,0,0,0-1,2.54,3.48,3.48,0,0,0,1,2.4L21.34,27.22a1.66,1.66,0,0,1,0,2.47Z");
     			attr_dev(path, "transform", "translate(-1.08 -0.65)");
-    			add_location(path, file$2, 230, 10, 6212);
-    			attr_dev(g, "class", "cls-2 svelte-v2pf5f");
-    			add_location(g, file$2, 229, 8, 6184);
+    			add_location(path, file$2, 242, 10, 6423);
+    			attr_dev(g, "class", "cls-2 svelte-1w29ek1");
+    			add_location(g, file$2, 241, 8, 6395);
     			attr_dev(svg, "xmlns", "http://www.w3.org/2000/svg");
     			attr_dev(svg, "xmlns:xlink", "http://www.w3.org/1999/xlink");
     			attr_dev(svg, "viewBox", "0 0 55.46 55.39");
-    			attr_dev(svg, "class", "svelte-v2pf5f");
-    			add_location(svg, file$2, 214, 6, 5737);
+    			attr_dev(svg, "class", "svelte-1w29ek1");
+    			add_location(svg, file$2, 226, 6, 5948);
     			attr_dev(div0, "class", "inner-1");
-    			add_location(div0, file$2, 213, 4, 5709);
-    			attr_dev(div1, "class", "close svelte-v2pf5f");
-    			add_location(div1, file$2, 212, 2, 5685);
-    			attr_dev(div2, "class", "menu svelte-v2pf5f");
+    			add_location(div0, file$2, 225, 4, 5920);
+    			attr_dev(div1, "class", "close svelte-1w29ek1");
+    			add_location(div1, file$2, 224, 2, 5896);
+    			attr_dev(div2, "class", "menu svelte-1w29ek1");
     			toggle_class(div2, "active", ctx.active);
-    			add_location(div2, file$2, 162, 0, 4158);
+    			add_location(div2, file$2, 172, 0, 4318);
     			dispose = listen_dev(div2, "click", ctx.click_handler);
     		},
 
@@ -4328,12 +4376,12 @@ var app = (function () {
     	}
     }
 
-    /* src/About.svelte generated by Svelte v3.12.1 */
+    /* src/Publication.svelte generated by Svelte v3.12.1 */
 
-    const file$4 = "src/About.svelte";
+    const file$4 = "src/Publication.svelte";
 
     function create_fragment$6(ctx) {
-    	var div1, div0, p0, strong, t1, p1, t3, p2, t5, p3, t7, p4, t9, p5, t11, p6, t13, p7, t15, p8, t17, p9, t19, p10, t21, p11, t23, p12, t25, p13, t27, p14, div0_intro;
+    	var div1, div0, p0, strong, t1, p1, t3, p2, t5, p3, t7, p4, div0_intro;
 
     	const block = {
     		c: function create() {
@@ -4344,80 +4392,30 @@ var app = (function () {
     			strong.textContent = "LIQUID FICTION";
     			t1 = space();
     			p1 = element("p");
-    			p1.textContent = "In the current state of melting modernity, humanity barely floats. Through\n      mechanisms of constant resignification, language co-opts life itself.\n      Narration is liquefied while the crumbling image of the nation state is\n      contested by rising waters. Through an increasing tide of the ocean's\n      appearance in contemporary art projects, liquid fiction has come to\n      encompass a changing social sphere. But although the waters are wet,\n      drying might not be the solution. In the circular movement of the wave,\n      neo-colonial regimes are contested by a circular dialectics of time. With\n      the crest of the wave, a caesura follows, that inverts the perspective of\n      what floats.";
+    			p1.textContent = "A digital residency programme that explores logistic reversals of\n      contemporary fluidity as methods for ethical, autonomous liveness in the\n      arts today. Initiated by Frida Sandström, run by The Nordic\n      Watercolour Museum in the archipelago of south-west Sweden. Whilst\n      the museum departs from the legacy of watercolors and the use of waters in\n      arts, Liquid Fiction investigates liquidity as a central concept for\n      historical and contemporary logistical systems of communication within\n      which the arts reside.";
     			t3 = space();
     			p2 = element("p");
-    			p2.textContent = "“It must nestle everywhere, settle everywhere, establish connexions\n      everywhere.” Karl Marx and Friedrich Engels used these words to\n      describe the global market in the 1848 Communist Manifesto. Approaching\n      two centuries later, they are still accurate: “The need of a\n      constantly expanding market for its products chases the bourgeoisie over\n      the entire surface of the globe.” The entire surface of the globe\n      is covered by what Marx and Engels called “fast-frozen\n      relations”, building up and melting, moving in a constant flux, but\n      never settling down—when all resources are gone, only time matters.\n      In his book Liquid Modernity (2000), Zygmunt Bauman locates a permanent\n      feature of modernity in ‘melting solids’ - “at the\n      present time, the time of fluid modernity”.";
-    			t5 = space();
+    			p2.textContent = "The current version of Liquid Fiction unfolds over two cycles: the first\n      from May 2019 to September 2019, the second from October 2019 to February\n      2020. At the end of each residency, an ongoing artistic practice,\n      developed in a curatorial dialogue with the platform, is made public along\n      with reflective essays and expanding research conducted by Frida\n      Sandström and invited writer Gaby Cepeda. Artists-in-residence during\n      the first cycle are eeefff (RU), Alina Chaiderov (RU/SV), Olof Marsja\n      (SE). Confirmed artists for the second cycle are Anna Rúin\n      Tryggvadottir (IS), Heba Y. Amin (EG), Stine Janvin (NO) and Hanni Kamaly\n      (NO).";
+    			t5 = text("\n    ********\n    ");
     			p3 = element("p");
-    			p3.textContent = "Bauman’s point derives from Marx’s and Engels’ famous\n      line “all that is solid melts into air”, used to describe\n      the materiality of the constant machine of innovation. But what happens\n      when the globe’s surface decreases due to rising waters, when there\n      is no more fluid matter to freeze and reshape? This is when we have to\n      direct our gazes toward the oceans, as we once did toward the surfaces of\n      neighboring planets. The waves of melting glaciers are continuously\n      licking the shores of our continents, reminding us that the oceans are\n      liquid by nature. Liquid modernity depends on these waters, just like the\n      first civilizations once depended on rivers. Throughout the centuries,\n      humans have transported goods and workforces, colonized land and dumped\n      waste into the lungs of the earth. Today, it isn’t only ice that\n      melts. In a global market economy, the nation state itself is being\n      liquidated. Currencies stream between multinational organizations and\n      nationalist narratives float through disintegrating letters of wet paper.";
+    			p3.textContent = "Online, the frameworks of artistic actions are intertwined with the very\n      infrastructure of their distribution, if the distribution itself is not in\n      fact their main medium. Emerging as infrastructure, an online presence\n      overturns the distributive logics that have shaped today’s concept\n      of the artwork as such.";
     			t7 = space();
     			p4 = element("p");
-    			p4.textContent = "The movement of fluids and of the agile wave is a recurrent subject in art\n      history: from The Great Wave off Kanagawa (1829-1833) by Katsushika\n      Hokusai, to choreographer Isadora Duncan’s modernist\n      détournement of dance practices in the early 1900s. As an alternative\n      to solidifying historical canons in governing ballet tradition, she\n      proposed a fluid movement technique, allowing the body to “be in\n      negotiations between the inner individual life and the outside\n      (culture)”, where the continuous movement of the wave symbolizes\n      eternal life. Today, self-expression is renegotiated in terms of\n      responsibility for the unspoken, and modernity’s underwater\n      currents are increasingly highlighted as alternatives to the vertical\n      economy of the western state, the museological archive and the artistic\n      canon. The horizontal movement of the oceans brings forth the circulatory\n      logic of the wave. It never solidifies, it moves through persistence. We\n      only have to listen, as American composer Annea Lockwood does. In her\n      sound installation A Sound Map of the Danube (2005), she has collaged\n      recordings from the shoreline of the river connecting central European\n      countries. Arguing for sound’s inherent relation with the vibrating\n      fabric of human bodies, she underscores that the resonation of waves\n      occurs both in our organs and in the flow of aging waters. Recording\n      conversations with those who live alongside the river and fusing their\n      voices with the river’s sonic waves, Lockwood weaves a testimony of\n      times, where personal fictions embody the nervous system of our earth\n      today.";
-    			t9 = space();
-    			p5 = element("p");
-    			p5.textContent = "In recent years, the ocean as phenomenon, as organism, has been\n      increasingly actualized in art and theory. This is the point where the\n      liquid fiction in arts coincides with the dead end of liquid modernity;\n      manifest in the present crisis of the anthropocene. Having “lost\n      touch with the roots of [our] own modernity,” we fight over\n      narratives, over the roots and the very beginnings that made us come here\n      in the first place. In 2018, French-Swiss artist Julian Charrière\n      opened his solo exhibition “As We Used to Float” at the\n      Berlinische Galerie, approaching the ocean from a top-down-perspective,\n      captured by the artist’s camera. The same year, visual artist and\n      media scholar Tony Cokes presented his video work Mikrohaus, or the black\n      atlantic? (2006–8) at the 10th Berlin Biennale, connecting the\n      black underground Detroit techno scene with perspectives from the bottom\n      of the Atlantic. Another side of the coin was reflected by curator iLiana\n      Fokianaki, in her 2018 exhibition “Extra States: Nations in\n      Liquidation”, presented at Extra City Kunsthal. Putting the\n      economic body of the nation state to the test, the exhibition invited\n      artworks that rethought the constitution of such phenomena and its present\n      crisis.";
-    			t11 = space();
-    			p6 = element("p");
-    			p6.textContent = "We see the clear rise of liquid fictions in contemporary art, but they\n      have been around for a while. The most prominent example is the myth of\n      Black Atlantis: Drexciya. Populated by the children of pregnant slaves\n      thrown overboard from slave ships crossing the Atlantic Ocean, who\n      transitioned from amniotic fluid to ocean water and were able to survive\n      at the bottom of the sea. Being populous enough to develop an underwater\n      society, Drexciya is described as an alternative to the western hegemony\n      of the land.";
-    			t13 = space();
-    			p7 = element("p");
-    			p7.textContent = "In her essay Black Atlantis: Three Songs, artistic researcher Ayesha\n      Hameed elaborates on the musicality of Drexciya, as formulated by the\n      Detroit techno duo with the same name. With distant, static beats they\n      proposed alternatives to the western Kraftwerk in the 80s. At the bottom\n      of the sea, were the “aquabahn” drones. According to Hameed,\n      the key aspect to the myth of Drexciya is “its temporal\n      proposition: to see time and history as equally in flux as the lapping\n      ocean, to see the afterlife of the middle passage in a futuristic\n      scenario”. What is the temporal proposition that Hameed refers to?\n      Let’s turn back to the movement of the wave, described by Duncan as\n      the movement between inner and outer life, through entanglement between\n      present times, history, and the future. Today, ‘now’ is a\n      battleground, as the Invisible Committee write in their book Now (2017).\n      They propose an engagement that doesn’t rely on any historical\n      explanation or future solution, but that depends only on actions in the\n      present. Just like on the market, time is speculation. But, if the\n      ‘now’ is also what is to be occupied, this might have to be\n      done with narratives that sustain liquefaction. And if all solidified\n      narratives melt in flux, we need to construct alternatives that may endure\n      such currents. What withstands the polarity of true and fake, and yet\n      remains important for the present? Fiction does.";
-    			t15 = space();
-    			p8 = element("p");
-    			p8.textContent = "Different from alterations of reality, fiction gives a name to what art\n      historian Simon O’Sullivan calls “a-signifying\n      signification”, moving outside of signifying regimes. Such floating\n      signifiers survive today’s liquefaction of narration, that causes\n      the crumbling states of nationalism, today encountered by rising populism.\n      Fiction is, continues O’Sullivan, a “re-adjustment of the\n      ever-so-slippery-relationship between propositions and things.”\n      Different from a streamlined capital production or the naming of the time\n      that passes, fiction gives a name to the unnamable—the only matter\n      that is still left to extract. This might be why the post-truth has become\n      so heavily debated in recent years. Just like a first resource in the\n      beginning of the history of mankind, narration is also the last matter to\n      capitalize in the ongoing outro of the anthropocene. But yet fiction is an\n      important matter for mobilization, and that is why we have to turn back to\n      the Black Atlantis. The waving posture of the world’s heaviest body\n      of water - the ocean itself - refuses white man’s use of its\n      surface. It reminds us that real breath needs to come from the very bottom\n      of the lungs. Deep down there, a linear understanding of time and economy\n      is contested, and a circular dialectics enables new aesthetics from the\n      ocean’s point of view.";
-    			t17 = space();
-    			p9 = element("p");
-    			p9.textContent = "Just as the moon was once central for futurist aesthetics and national\n      economies, the discursive fight for the water has just started. The\n      ‘performance’ of the ocean is in one way post-human, but yet\n      so affected by human action. On the surface, humanity steps onto the stage\n      in the middle of the wave’s crumbling movement, and changes its\n      direction. For each step, the previous actions melt in the white foam of\n      the crest, and the contemporary crisis is performed on environmental,\n      humanitarian and economical levels. Simultaneously the bottom of the sea\n      remains still, as a recourse for prose and poetry without ends. Its slowly\n      floating substances are not made to signify, rather, they embody the\n      unnamed lives of the marginal. The children of the murdered slaves and the\n      fish that were never included in the dictionary of fauna before they\n      disappeared from it. It’s no surprise that in Swedish media,\n      anything that looks like an unknown submarine is still described as a\n      Soviet ‘threat’, although the republic is long gone. When\n      nations are liquidated, their ghosts continue to ambulate between the\n      shores, as do old sailors who never reached the lighthouse. Simultaneously\n      these shores are slowly melting into the ocean that carries both man,\n      nation and ecology. The crisis is barely floating. At this stage, the\n      liquefaction of capital is about to be liquidated.";
-    			t19 = space();
-    			p10 = element("p");
-    			p10.textContent = "In Hito Steyerl’s video work Liquidity Inc. (2014), the relation\n      between liquid money (digital currency) and digital communication is\n      elaborated on through the very aesthetics of new media. The\n      ‘Inc.’ in the title signifies floating corporations, making\n      Bruce Lee’s instruction to “be water” taste a little\n      sour when pronounced. In an interview Steyerl argues for “learning\n      to ride out the waves (…) instead of mindlessly heading into yet\n      another un-survivable crash.” The word ‘crash’\n      applies to the market economy as well as the current of the wave bursting\n      onto land, while software decomposes into myriads of black, cracked\n      screens. Capitalism, argues Steyerl, feeds on “ever-quicker\n      successions of crisis (…) The only ones breaking down are people\n      and some other life forms. With accelerated crisis and permanent crashing,\n      the rich get richer and the poor more sleepy, hungry and strained.”\n      Velocity is productive, she concludes. In SUPERFLEX’s 2009 video\n      Flooded McDonalds, the spectator follows close-up frames of a\n      McDonald’s restaurant, where water is slowly leaking in from under\n      a door, calmly filling up the empty restaurant. From covering the floor,\n      the water rises and starts to fill the space, furniture and loose paper\n      drifting around alongside the human sized plastic figure of Ronald\n      McDonald who also moves around in what seems like an abandoned water\n      amusement park, fast food included.";
-    			t21 = space();
-    			p11 = element("p");
-    			p11.textContent = "Let’s now turn back to the famous phrase from the Communist\n      Manifesto. If everything that is solid melts into air, does\n      “everything” then only include bare life, floating\n      signifiers in a flux of an economic gamble? If so, it is now clear that\n      the fluid gamble is reshaped into a quest for the world’s water\n      resources. During the heatwave in the summer of 2018, the Swedish liberal\n      think-tank Timbro proposed to privatize the public water resources in the\n      country. Their proposal brought to mind the hydroelectric industry in the\n      north of Sweden, where almost all rivers have been demolished by water\n      banks—just like the Mesopotamian ones once were in the fertile\n      crescent. The power banks in northern Sweden are long-standing providers\n      of electricity to the whole country, and especially the more populated,\n      southern parts—extracting and slowly depopulating the northern half\n      of the country. In the recent Luleå Biennale entitled “Tidal\n      Ground” (2018-2019), the economic draining of natural resources was\n      connected to ongoing military industry in the periphery of a global\n      industry; such as the post-industrialized North.";
-    			t23 = space();
-    			p12 = element("p");
-    			p12.textContent = "One participating artist in the biennale was the local Anja Örn. In\n      her sculpture and video work Till minnet av en älv (In Memorial of a\n      River, 2018), images of the lost waves in the previously living river are\n      recollected in the archive of the National Museum in Sweden, where the\n      history of art and certainly painting, national romanticism, and the\n      extraction and relocation of national resources, are linked together. In\n      her artwork, Örn has cast possible shapes of the previously painted\n      waves in shiny metal. As paradoxical monuments of the lost, they remind us\n      of their circular movements as opposites to a linear understanding of time\n      and economy. In such circular dialectics, the crest of the wave enables an\n      aesthetic autonomy from the moving water’s point of view.";
-    			t25 = space();
-    			p13 = element("p");
-    			p13.textContent = "These dialectics are also practiced in Heba Y. Amin’s ongoing\n      project Operation Sunken Sea – Relocating the Mediterranean (2018 -\n      ongoing). At a fictional meeting for what seems to be a UN assembly, Amin\n      enacts the spokesperson of the Mediterranean Sea, presenting their plan to\n      drain and relocate the water. “The Mediterranean is not an\n      ocean”, Amin points out, when arguing for moving the sea in order\n      to connect the two continents of Europe and Africa. As a consequence, the\n      humanitarian crisis carried forth by the current constitution of land and\n      water would be stopped, and in the long run; fascism too. Furthermore, she\n      points out that international laws and unforeseeable ethics on land are\n      constantly being ignored at sea. Walking on water seems to be granted only\n      to Western man, whilst the sinking bodies continue to populate the deep\n      blue. This is also highlighted by the artistic research project of\n      Forensic Oceanography, mapping how southern European states guard their\n      shorelines with an inverted panoptic logic, avoiding sinking boats as they\n      cross the Mediterranean. Such dehumanization of lives is a central subject\n      in many contemporary projects tackling urgent issues. The question that\n      should be asked, is from which perspective the subject is approached. Who\n      embodies the fiction, and who consumes to it? Re-locating the engine of\n      the stigmatization of life itself, Heba Amin counteracts the source of\n      colonial modernity as it is manifested today. In the liquefaction of\n      language, everything flows. If time is unnamable, no words can change its\n      course. Instead we have to close our eyes and listen. Eventually, all will\n      be silent.";
-    			t27 = space();
-    			p14 = element("p");
-    			p14.textContent = "Frida Sandström";
-    			add_location(strong, file$4, 136, 6, 2963);
-    			attr_dev(p0, "class", "svelte-r442h6");
-    			add_location(p0, file$4, 135, 4, 2953);
-    			attr_dev(p1, "class", "svelte-r442h6");
-    			add_location(p1, file$4, 139, 4, 3009);
-    			attr_dev(p2, "class", "svelte-r442h6");
-    			add_location(p2, file$4, 152, 4, 3749);
-    			attr_dev(p3, "class", "svelte-r442h6");
-    			add_location(p3, file$4, 167, 4, 4678);
-    			attr_dev(p4, "class", "svelte-r442h6");
-    			add_location(p4, file$4, 185, 4, 5865);
-    			attr_dev(p5, "class", "svelte-r442h6");
-    			add_location(p5, file$4, 212, 4, 7648);
-    			attr_dev(p6, "class", "svelte-r442h6");
-    			add_location(p6, file$4, 234, 4, 9064);
-    			attr_dev(p7, "class", "svelte-r442h6");
-    			add_location(p7, file$4, 245, 4, 9643);
-    			attr_dev(p8, "class", "svelte-r442h6");
-    			add_location(p8, file$4, 269, 4, 11258);
-    			attr_dev(p9, "class", "svelte-r442h6");
-    			add_location(p9, file$4, 292, 4, 12806);
-    			attr_dev(p10, "class", "svelte-r442h6");
-    			add_location(p10, file$4, 315, 4, 14354);
-    			attr_dev(p11, "class", "svelte-r442h6");
-    			add_location(p11, file$4, 340, 4, 16023);
-    			attr_dev(p12, "class", "svelte-r442h6");
-    			add_location(p12, file$4, 360, 4, 17326);
-    			attr_dev(p13, "class", "svelte-r442h6");
-    			add_location(p13, file$4, 374, 4, 18207);
-    			attr_dev(p14, "class", "svelte-r442h6");
-    			add_location(p14, file$4, 400, 4, 20049);
-    			add_location(div0, file$4, 133, 2, 2934);
-    			attr_dev(div1, "class", "about svelte-r442h6");
-    			add_location(div1, file$4, 128, 0, 2806);
+    			p4.textContent = "Today, the emergence of life is restrained and the logistical\n      infrastructure of the arts is eroding. The state demands what Stefano\n      Harney calls a ‘reversed logistics’, that is, to not perform\n      an assumed position within a logistical system that one is part of. By\n      reversing this system, one resists being fully consumed by it. This is\n      what Liquid Fiction intends to do: exploring logistic reversals of the\n      fluid as methods for ethical, autonomous liveness in the arts today. How\n      are fluid interfaces occupied?";
+    			add_location(strong, file$4, 134, 6, 2941);
+    			attr_dev(p0, "class", "svelte-shc4h9");
+    			add_location(p0, file$4, 133, 4, 2931);
+    			attr_dev(p1, "class", "svelte-shc4h9");
+    			add_location(p1, file$4, 136, 4, 2986);
+    			attr_dev(p2, "class", "svelte-shc4h9");
+    			add_location(p2, file$4, 146, 4, 3565);
+    			attr_dev(p3, "class", "svelte-shc4h9");
+    			add_location(p3, file$4, 159, 4, 4297);
+    			attr_dev(p4, "class", "svelte-shc4h9");
+    			add_location(p4, file$4, 166, 4, 4661);
+    			add_location(div0, file$4, 132, 2, 2913);
+    			attr_dev(div1, "class", "about svelte-shc4h9");
+    			add_location(div1, file$4, 127, 0, 2785);
     		},
 
     		l: function claim(nodes) {
@@ -4437,26 +4435,6 @@ var app = (function () {
     			append_dev(div0, p3);
     			append_dev(div0, t7);
     			append_dev(div0, p4);
-    			append_dev(div0, t9);
-    			append_dev(div0, p5);
-    			append_dev(div0, t11);
-    			append_dev(div0, p6);
-    			append_dev(div0, t13);
-    			append_dev(div0, p7);
-    			append_dev(div0, t15);
-    			append_dev(div0, p8);
-    			append_dev(div0, t17);
-    			append_dev(div0, p9);
-    			append_dev(div0, t19);
-    			append_dev(div0, p10);
-    			append_dev(div0, t21);
-    			append_dev(div0, p11);
-    			append_dev(div0, t23);
-    			append_dev(div0, p12);
-    			append_dev(div0, t25);
-    			append_dev(div0, p13);
-    			append_dev(div0, t27);
-    			append_dev(div0, p14);
     		},
 
     		p: noop,
@@ -4501,11 +4479,11 @@ var app = (function () {
     	return {};
     }
 
-    class About extends SvelteComponentDev {
+    class Publication extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
     		init(this, options, instance$6, create_fragment$6, safe_not_equal, []);
-    		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "About", options, id: create_fragment$6.name });
+    		dispatch_dev("SvelteRegisterComponent", { component: this, tagName: "Publication", options, id: create_fragment$6.name });
     	}
     }
 
@@ -4513,7 +4491,7 @@ var app = (function () {
 
     const file$5 = "src/eeefff/EEEFFF.svelte";
 
-    // (50:2) {#if !$erosionMachineActive}
+    // (55:2) {#if !$erosionMachineActive}
     function create_if_block$2(ctx) {
     	var div, span, t, span_style_value, div_intro;
 
@@ -4523,9 +4501,9 @@ var app = (function () {
     			span = element("span");
     			t = text(ctx.$erosionMachineCounter);
     			attr_dev(span, "style", span_style_value = ctx.$erosionMachineCounter === 0 ? 'color:red' : '');
-    			attr_dev(span, "class", "svelte-1fk822f");
-    			add_location(span, file$5, 52, 6, 1142);
-    			add_location(div, file$5, 50, 4, 1039);
+    			attr_dev(span, "class", "svelte-dh9d9y");
+    			add_location(span, file$5, 57, 6, 1192);
+    			add_location(div, file$5, 55, 4, 1089);
     		},
 
     		m: function mount(target, anchor) {
@@ -4561,7 +4539,7 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$2.name, type: "if", source: "(50:2) {#if !$erosionMachineActive}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$2.name, type: "if", source: "(55:2) {#if !$erosionMachineActive}", ctx });
     	return block;
     }
 
@@ -4575,9 +4553,9 @@ var app = (function () {
     			t = space();
     			div = element("div");
     			if (if_block) if_block.c();
-    			document.title = "EEEFFF | LIQUID FIKCTION";
-    			attr_dev(div, "class", "eeefff svelte-1fk822f");
-    			add_location(div, file$5, 48, 0, 983);
+    			document.title = "EEEFFF | LIQUID FICTION";
+    			attr_dev(div, "class", "eeefff svelte-dh9d9y");
+    			add_location(div, file$5, 53, 0, 1033);
     		},
 
     		l: function claim(nodes) {
@@ -9168,7 +9146,10 @@ var app = (function () {
     	});
 
     	var route1 = new Route({
-    		props: { path: "/about", component: About },
+    		props: {
+    		path: "/publication",
+    		component: Publication
+    	},
     		$$inline: true
     	});
 
@@ -9366,9 +9347,9 @@ var app = (function () {
     	}
     }
 
-    Sentry.init({
-      dsn: 'https://421a3e5a32d94b149d5e1eccb8af6f24@sentry.io/1771039'
-    });
+    // Sentry.init({
+    //   dsn: 'https://421a3e5a32d94b149d5e1eccb8af6f24@sentry.io/1771039'
+    // })
 
     const app = new App({
       target: document.body

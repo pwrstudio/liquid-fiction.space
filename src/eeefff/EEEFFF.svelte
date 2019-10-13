@@ -20,8 +20,8 @@
     orbBackgroundTwo,
     orbColorOne,
     orbColorTwo,
-    erosionMachineCounter,
     erosionMachineActive,
+    erosionMachineCounter,
     activePage
   } from "../stores.js";
 
@@ -44,10 +44,16 @@
       color: black;
     }
   }
+
+  video {
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
 </style>
 
 <svelte:head>
-  <title>EEEFFF | LIQUID FIKCTION</title>
+  <title>EEEFFF | LIQUID FICTION</title>
 </svelte:head>
 
 <div class="eeefff">
@@ -61,27 +67,18 @@
   {/if}
 </div>
 
-<!-- <video
-  id="urw9ioxeio"
-  class="erosion video-01"
-  src="https://dev.eeefff.org/data/outsourcing-paradise-parasite/pi-02/01.mov.mp4"
-  controls>
-  <track
-    src="/subtitles_test.vtt"
-    label="English subtitles"
-    kind="subtitles"
-    srclang="en"
-    default />
-</video>
-
-<video controls class="trackSupported">
+<!-- <video id="p6v6b2hnmv" loop="" preload="auto" autoplay>
   <source
-    src="https://www.html5rocks.com/en/tutorials/track/basics/treeOfLife/video/developerStories-en.webm"
-    type="video/webm; codecs=&quot;vp8, vorbis&quot;" />
+    src="https://dev.eeefff.org/data/outsourcing-paradise-parasite/selected-04/spinner.mp4"
+    type="video/mp4" />
   <track
-    src="/developerStories-subtitles-en.vtt"
-    label="English subtitles"
     kind="subtitles"
-    srclang="en"
+    label="English subtitles"
+    src="https://dev.eeefff.org/data/outsourcing-paradise-parasite/selected-04/spinner.mp4_en.vtt"
+    default="" />
+  <track
+    kind="subtitles"
+    label="Russian subtitles"
+    src="https://dev.eeefff.org/data/outsourcing-paradise-parasite/selected-04/spinner.mp4_ru.vtt"
     default="" />
 </video> -->

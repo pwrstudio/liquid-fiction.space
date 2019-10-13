@@ -204,6 +204,17 @@
       -webkit-clip-path: inset(0% 0% 0% 100%);
     }
   }
+
+  .txt-link {
+    display: block;
+    background: red;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 4px;
+    position: absolute;
+    top: 10px;
+    right: 40px;
+  }
 </style>
 
 <div
@@ -220,7 +231,7 @@
           class="item"
           in:fly={{ duration: 400, y: 20, delay: 0, easing: quartOut }}
           out:fly={{ duration: 300, y: 60, delay: 300 }}>
-          <Link to="about">
+          <Link to="publication">
             <span class="line-1">LIQUID FICTION</span>
             <span class="line-2">~~~~~~_~~~~~~~~</span>
           </Link>
@@ -233,7 +244,9 @@
             <span class="line-1">Alina Chaiderov</span>
             <span class="line-2">~~~~~_~~~~~~~~~</span>
           </Link>
+          <span class="txt-link">TXT</span>
         </div>
+
         <div
           class="item"
           in:fly={{ duration: 400, y: 20, delay: 200, easing: quartOut }}

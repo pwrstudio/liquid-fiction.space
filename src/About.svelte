@@ -18,7 +18,6 @@
     orbBackgroundTwo,
     orbColorOne,
     orbColorTwo,
-    erosionMachineCounter,
     activePage
   } from "./stores.js";
 

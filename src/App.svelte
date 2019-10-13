@@ -19,7 +19,7 @@
   import Orb from "./Orb.svelte";
 
   // ROUTES
-  import About from "./About.svelte";
+  import Publication from "./Publication.svelte";
   import EEEFFF from "./eeefff/EEEFFF.svelte";
   import OlofMarsja from "./olof-marsja/OlofMarsja.svelte";
   import AlinaChaiderov from "./alina-chaiderov/AlinaChaiderov.svelte";
@@ -86,7 +86,7 @@
 
 <Router>
   <Route path="/" component={Landing} />
-  <Route path="/about" component={About} />
+  <Route path="/publication" component={Publication} />
   <Route path="eeefff" component={EEEFFF} />
   <Route path="olof-marsja" component={OlofMarsja} />
   <Route path="alina-chaiderov" component={AlinaChaiderov} />
