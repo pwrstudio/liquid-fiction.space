@@ -244,7 +244,7 @@
             <span class="line-1">Alina Chaiderov</span>
             <span class="line-2">~~~~~_~~~~~~~~~</span>
           </Link>
-          <span class="txt-link">TXT</span>
+          <!-- <span class="txt-link">TXT</span> -->
         </div>
 
         <div

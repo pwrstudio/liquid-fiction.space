@@ -26,13 +26,12 @@
 
   // *** VARIABLES
   let hidden = false;
-
   let counter = 0;
   let playedEvents = [];
   let timeline = new TimelineMax({
     paused: true,
     onUpdate: function() {
-      console.log(Math.round(this.time()));
+      // console.log(Math.round(this.time()));
     }
   });
 
@@ -307,6 +306,8 @@
         err
       );
     }
+
+    TIMELINE_JSON.config.disabled = true;
 
     if (get(TIMELINE_JSON, "config.disabled", true)) {
       console.warn("👻 Erosion machine disabled");
