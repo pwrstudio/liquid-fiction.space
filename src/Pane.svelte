@@ -74,6 +74,7 @@
     line-height: 1.2em;
     font-size: 17px;
     color: black;
+    padding-bottom: 40px;
 
     &.active {
       cursor: default;

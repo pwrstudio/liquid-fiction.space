@@ -13819,39 +13819,39 @@ var app = (function () {
     			g = svg_element("g");
     			path = svg_element("path");
     			html_tag = new HtmlTag(raw_value, t);
-    			attr_dev(rect, "class", "cls-1 svelte-104y9ua");
+    			attr_dev(rect, "class", "cls-1 svelte-1gdi6mm");
     			attr_dev(rect, "x", "1.08");
     			attr_dev(rect, "y", "0.65");
     			attr_dev(rect, "width", "55.46");
     			attr_dev(rect, "height", "55.39");
-    			add_location(rect, file$4, 137, 12, 3045);
+    			add_location(rect, file$4, 138, 12, 3069);
     			attr_dev(clipPath, "id", "clip-path");
     			attr_dev(clipPath, "transform", "translate(-1.08 -0.65)");
-    			add_location(clipPath, file$4, 136, 10, 2972);
-    			add_location(defs, file$4, 135, 8, 2955);
-    			add_location(title, file$4, 145, 8, 3231);
-    			attr_dev(path, "class", "cls-3 svelte-104y9ua");
+    			add_location(clipPath, file$4, 137, 10, 2996);
+    			add_location(defs, file$4, 136, 8, 2979);
+    			add_location(title, file$4, 146, 8, 3255);
+    			attr_dev(path, "class", "cls-3 svelte-1gdi6mm");
     			attr_dev(path, "d", "M2.12,49a3.91,3.91,0,0,0-1,2.4,3.08,3.08,0,0,0,1,2.41l1.23,1.23A3.37,3.37,0,0,0,5.69,56a3.12,3.12,0,0,0,2.47-.89L27.38,35.59a1.55,1.55,0,0,1,2.47,0L49.34,54.94A3,3,0,0,0,51.67,56a3.37,3.37,0,0,0,2.47-1.1l1.38-1.23a2.88,2.88,0,0,0,1-2.4,3.62,3.62,0,0,0-1-2.41L36,29.41a1.55,1.55,0,0,1,0-2.47L55.52,7.72a3.18,3.18,0,0,0,.89-2.47,3.45,3.45,0,0,0-.89-2.33L54.28,1.68a3.2,3.2,0,0,0-2.47-1,3.44,3.44,0,0,0-2.33,1L30,20.9a1.4,1.4,0,0,1-2.33,0L8.16,1.68a2.84,2.84,0,0,0-2.27-1,3.51,3.51,0,0,0-2.54,1.1L2.12,2.92a3.21,3.21,0,0,0-1,2.54,3.48,3.48,0,0,0,1,2.4L21.34,27.22a1.66,1.66,0,0,1,0,2.47Z");
     			attr_dev(path, "transform", "translate(-1.08 -0.65)");
-    			add_location(path, file$4, 147, 10, 3288);
-    			attr_dev(g, "class", "cls-2 svelte-104y9ua");
-    			add_location(g, file$4, 146, 8, 3260);
+    			add_location(path, file$4, 148, 10, 3312);
+    			attr_dev(g, "class", "cls-2 svelte-1gdi6mm");
+    			add_location(g, file$4, 147, 8, 3284);
     			attr_dev(svg, "xmlns", "http://www.w3.org/2000/svg");
     			attr_dev(svg, "xmlns:xlink", "http://www.w3.org/1999/xlink");
     			attr_dev(svg, "viewBox", "0 0 55.46 55.39");
-    			attr_dev(svg, "class", "svelte-104y9ua");
-    			add_location(svg, file$4, 131, 6, 2813);
+    			attr_dev(svg, "class", "svelte-1gdi6mm");
+    			add_location(svg, file$4, 132, 6, 2837);
     			attr_dev(div0, "class", "inner-1");
-    			add_location(div0, file$4, 130, 4, 2785);
-    			attr_dev(div1, "class", "close svelte-104y9ua");
-    			add_location(div1, file$4, 129, 2, 2744);
-    			attr_dev(div2, "class", "pane svelte-104y9ua");
+    			add_location(div0, file$4, 131, 4, 2809);
+    			attr_dev(div1, "class", "close svelte-1gdi6mm");
+    			add_location(div1, file$4, 130, 2, 2768);
+    			attr_dev(div2, "class", "pane svelte-1gdi6mm");
     			set_style(div2, "transform", "translateX(" + ctx.left + "vw)");
     			set_style(div2, "background", ctx.bgColor);
     			toggle_class(div2, "active", ctx.active);
     			toggle_class(div2, "hidden", ctx.hidden);
     			toggle_class(div2, "introduction", ctx.order === 0);
-    			add_location(div2, file$4, 119, 0, 2476);
+    			add_location(div2, file$4, 120, 0, 2500);
 
     			dispose = [
     				listen_dev(div1, "click", ctx.close),
@@ -14563,7 +14563,7 @@ var app = (function () {
 
     const file$7 = "src/eeefff/EEEFFF.svelte";
 
-    // (86:2) {#if !$erosionMachineActive}
+    // (88:2) {#if !$erosionMachineActive}
     function create_if_block$2(ctx) {
     	var video, source, track, video_intro, dispose;
 
@@ -14574,13 +14574,15 @@ var app = (function () {
     			track = element("track");
     			attr_dev(source, "src", "https://dev.eeefff.org/data/outsourcing-paradise-parasite/videos/start-time.mp4");
     			attr_dev(source, "type", "video/mp4");
-    			add_location(source, file$7, 97, 6, 2150);
+    			add_location(source, file$7, 99, 6, 2191);
     			attr_dev(track, "kind", "subtitles");
     			attr_dev(track, "label", "English subtitles");
+    			track.default = true;
     			attr_dev(track, "src", "spinner.mp4_en.vtt");
-    			add_location(track, file$7, 100, 6, 2286);
+    			add_location(track, file$7, 102, 6, 2327);
     			attr_dev(video, "preload", "auto");
-    			add_location(video, file$7, 90, 4, 2007);
+    			attr_dev(video, "class", "svelte-m1lp4w");
+    			add_location(video, file$7, 92, 4, 2048);
     			dispose = listen_dev(video, "ended", ctx.ended_handler);
     		},
 
@@ -14613,7 +14615,7 @@ var app = (function () {
     			dispose();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$2.name, type: "if", source: "(86:2) {#if !$erosionMachineActive}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$2.name, type: "if", source: "(88:2) {#if !$erosionMachineActive}", ctx });
     	return block;
     }
 
@@ -14628,8 +14630,8 @@ var app = (function () {
     			div = element("div");
     			if (if_block) if_block.c();
     			document.title = "EEEFFF | LIQUID FICTION";
-    			attr_dev(div, "class", "eeefff svelte-6y2lnt");
-    			add_location(div, file$7, 84, 0, 1747);
+    			attr_dev(div, "class", "eeefff svelte-m1lp4w");
+    			add_location(div, file$7, 86, 0, 1788);
     		},
 
     		l: function claim(nodes) {
@@ -19006,7 +19008,7 @@ var app = (function () {
 
     const file$9 = "src/alina-chaiderov/AlinaChaiderov.svelte";
 
-    // (84:0) {#if !$menuActive}
+    // (86:0) {#if !$menuActive}
     function create_if_block$3(ctx) {
     	var iframe, iframe_intro;
 
@@ -19018,7 +19020,7 @@ var app = (function () {
     			attr_dev(iframe, "src", "https://alinachaiderov.com/liquidfiction");
     			attr_dev(iframe, "allow", "encrypted-media");
     			iframe.allowFullscreen = true;
-    			add_location(iframe, file$9, 84, 2, 1466);
+    			add_location(iframe, file$9, 86, 2, 1550);
     		},
 
     		m: function mount(target, anchor) {
@@ -19042,7 +19044,7 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$3.name, type: "if", source: "(84:0) {#if !$menuActive}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$3.name, type: "if", source: "(86:0) {#if !$menuActive}", ctx });
     	return block;
     }
 
@@ -19116,6 +19118,8 @@ var app = (function () {
       activePage.set("alina");
       orbBackgroundOne.set("rgba(0,0,255,1)");
       orbBackgroundTwo.set("rgba(0,0,255,1)");
+      orbColorOne.set("rgba(255,255,255,1)");
+      orbColorTwo.set("rgba(255,255,255,1)");
 
       orbPosition.set({
         top: "10px",

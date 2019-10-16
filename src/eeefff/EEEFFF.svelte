@@ -78,6 +78,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
+    video {
+      max-width: 95vw;
+    }
   }
 </style>
 
@@ -104,6 +108,7 @@
       <track
         kind="subtitles"
         label="English subtitles"
+        default
         src="spinner.mp4_en.vtt" />
     </video>
   {/if}
