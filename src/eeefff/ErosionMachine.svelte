@@ -201,6 +201,7 @@
   };
 
   const startTimeline = () => {
+    console.log("starting timeline");
     erosionMachineActive.set(true);
 
     timeline

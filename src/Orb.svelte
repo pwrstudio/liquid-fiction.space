@@ -30,11 +30,11 @@
   } from "./stores.js";
 
   $: {
-    TweenMax.to(orbInnerOne, 0.5, {
+    TweenMax.to(orbInnerOne, 0.1, {
       css: { background: $orbBackgroundOne, color: $orbColorOne }
     });
 
-    TweenMax.to(orbInnerTwo, 0.5, {
+    TweenMax.to(orbInnerTwo, 0.1, {
       css: { background: $orbBackgroundTwo, color: $orbColorTwo }
     });
 
@@ -46,6 +46,15 @@
       ease: Power4.easeOut
     });
   }
+
+  // setInterval(() => {
+  //   if (Math.round(Math.random())) {
+  //     TweenMax.to(orbObject, 2, {
+  //       rotation: 360,
+  //       ease: Back.easeOut
+  //     });
+  //   }
+  // }, 300);
 
   // *** VARIABLES
   let scrolling = false;
@@ -153,11 +162,9 @@
       }
     }
 
-    // transition: opacity 3s cubic-bezier(0.23, 1, 0.32, 1),
-    //   border 0.3s cubic-bezier(0.23, 1, 0.32, 1),
-    //   top 1.5s cubic-bezier(0.23, 1, 0.32, 1),
-    //   left 2s cubic-bezier(0.23, 1, 0.32, 1),
-    //   transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: opacity 3s cubic-bezier(0.23, 1, 0.32, 1),
+      border 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+      transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 
     &:hover {
       opacity: 1;

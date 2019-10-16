@@ -92,6 +92,7 @@
 
         @include screen-size("small") {
           font-size: 42px;
+          height: 60px;
         }
 
         .line-1 {
@@ -209,16 +210,6 @@
       -webkit-clip-path: inset(0% 0% 0% 100%);
     }
   }
-
-  .txt-link {
-    display: block;
-    font-size: 14px;
-    padding: 10px;
-    border-radius: 4px;
-    position: absolute;
-    top: 10px;
-    right: 40px;
-  }
 </style>
 
 <div
@@ -235,9 +226,23 @@
           class="item"
           in:fly={{ duration: 400, y: 20, delay: 0, easing: quartOut }}
           out:fly={{ duration: 300, y: 60, delay: 300 }}>
-          <Link to="publication">
+          <Link to="editorial">
             <span class="line-1">LIQUID FICTION</span>
-            <span class="line-2">FICTION_LIQUID</span>
+            <span class="line-2">FICTION LIQUID</span>
+
+            <!-- <span class="line-2">T~X~T~_~T~X~T~</span> -->
+
+            <!-- <span class="line-2">~~EDITORIAL>>~</span> -->
+            <!-- <span class="line-2">~~~~~~_~~~~~~~~</span> -->
+          </Link>
+        </div>
+        <div
+          class="item"
+          in:fly={{ duration: 400, y: 20, delay: 0, easing: quartOut }}
+          out:fly={{ duration: 300, y: 60, delay: 300 }}>
+          <Link to="cycle-1">
+            <span class="line-1">CYCLE ONE</span>
+            <span class="line-2">11111 >>></span>
 
             <!-- <span class="line-2">T~X~T~_~T~X~T~</span> -->
 

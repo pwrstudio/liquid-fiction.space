@@ -25,7 +25,7 @@
 
   activePage.set("olof");
   orbBackgroundOne.set("rgba(244,164,96,1)");
-  orbBackgroundTwo.set("rgba(255,0,0,1)");
+  orbBackgroundTwo.set("rgba(222,184,135,1)");
 
   orbColorOne.set("rgba(255,255,255,1)");
   orbColorTwo.set("rgba(0,0,0,1)");

@@ -30,13 +30,25 @@
     textContent
   } from "./stores.js";
 
-  activePage.set("about");
-  orbBackgroundOne.set("rgb(255, 140, 0)");
-  orbBackgroundTwo.set("rgb(118, 165, 32)");
-  orbBackgroundTwo.set("rgba(255,0,0,1)");
+  const bgColors = [
+    "darkorange",
+    "darkgoldenrod",
+    "darkorange",
+    "darkgoldenrod",
+    "darkorange",
+    "darkgoldenrod",
+    "darkorange",
+    "darkgoldenrod",
+    "darkorange",
+    "darkgoldenrod"
+  ];
 
+  activePage.set("about");
+  orbBackgroundOne.set("rgb(0, 0, 0)");
+  orbBackgroundTwo.set("rgba(255,69,0,1)");
+
+  orbColorTwo.set("rgba(255,255,255,1)");
   orbColorOne.set("rgba(255,255,255,1)");
-  orbColorTwo.set("rgba(0,0,0,1)");
 
   $: {
     if (activeOrder === 1000) {
@@ -54,12 +66,7 @@
 
   $textContent.then(content => {
     console.dir(content);
-    textList = concat(
-      get(content, "introduction.firstCycle", []),
-      get(content, "essays", []),
-      get(content, "artists", []),
-      get(content, "credits", [])
-    );
+    textList = concat(get(content, "essays", []), get(content, "credits", []));
     console.dir(textList);
   });
 </script>
@@ -131,7 +138,7 @@
       margin-right: auto;
       margin-left: auto;
       font-size: 22px;
-      color: black;
+      color: blue;
       font-weight: 300;
       &.small {
         font-size: 16px;
@@ -156,6 +163,7 @@
         activeOrder = event.detail.order;
       }}
       essay={text}
+      bgColor={bgColors[order]}
       active={activeOrder === order ? true : false}
       hidden={activeOrder != 1000 && activeOrder < order ? true : false}
       {order}

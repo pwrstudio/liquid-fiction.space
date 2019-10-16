@@ -22,7 +22,8 @@
   import Orb from "./Orb.svelte";
 
   // ROUTES
-  import Publication from "./Publication.svelte";
+  import Editorial from "./Editorial.svelte";
+  import CycleOne from "./CycleOne.svelte";
   import EEEFFF from "./eeefff/EEEFFF.svelte";
   import OlofMarsja from "./olof-marsja/OlofMarsja.svelte";
   import AlinaChaiderov from "./alina-chaiderov/AlinaChaiderov.svelte";
@@ -161,7 +162,8 @@
 <ErosionMachine />
 <Router>
   <Route path="/" component={Landing} />
-  <Route path="/publication" component={Publication} />
+  <Route path="/editorial" component={Editorial} />
+  <Route path="/cycle-1" component={CycleOne} />
   <Route path="eeefff" component={EEEFFF} />
   <Route path="olof-marsja" component={OlofMarsja} />
   <Route path="alina-chaiderov" component={AlinaChaiderov} />

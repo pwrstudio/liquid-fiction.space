@@ -29,25 +29,14 @@
   export let order = 1;
   export let active = false;
   export let hidden = false;
+  export let bgColor = "#0000ff";
 
   // *** VARIABLES
   let width = 100;
   let left = 0;
-  const bgColors = [
-    "darkorange",
-    "darkgoldenrod",
-    "darkorange",
-    "darkgoldenrod",
-    "darkorange",
-    "darkgoldenrod",
-    "darkorange",
-    "darkgoldenrod",
-    "darkorange",
-    "darkgoldenrod"
-  ];
   // *** REACTIVES
   $: width = 100 / totalPanes;
-  $: left = active ? 0 : ((100 - width) / 6) * order;
+  $: left = active ? 0 : ((100 - width) / (totalPanes - 1)) * order;
 
   const open = () => {
     // active = !active;
@@ -151,7 +140,7 @@
 
 <div
   class="pane"
-  style="transform: translateX({left}vw); background: {bgColors[order]};"
+  style="transform: translateX({left}vw); background: {bgColor};"
   on:click={open}
   class:active
   class:hidden

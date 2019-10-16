@@ -20,6 +20,7 @@
     orbBackgroundTwo,
     orbColorOne,
     orbColorTwo,
+    orbPosition,
     erosionMachineActive,
     erosionMachineCounter,
     activePage,
@@ -30,10 +31,10 @@
   let introVideoEl = {};
 
   activePage.set("eeefff");
-  orbBackgroundOne.set("rgba(0,0,255,1)");
+  orbBackgroundOne.set("rgba(180,180,180,1)");
   orbBackgroundTwo.set("rgba(130,130,130,1)");
 
-  orbColorOne.set("rgba(0,0,0,1)");
+  orbColorOne.set("rgba(30,30,30,1)");
   orbColorTwo.set("rgba(211,211,211,1)");
 
   orbPosition.set({
