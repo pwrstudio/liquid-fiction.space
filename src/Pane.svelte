@@ -35,7 +35,6 @@
   export let active = false;
   export let hidden = false;
 
-  $: console.log("active change", active);
   $: width = 100 / totalPanes;
   $: left = active ? 0 : ((100 - width) / 3) * order;
 

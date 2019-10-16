@@ -42,8 +42,6 @@
     try {
       const res = await client.fetch(query, params);
 
-      console.dir(res);
-
       if (!Array.isArray(res)) {
         throw "Return data is not an array";
         return false;
@@ -78,7 +76,6 @@
           get(d, "slug.current", "") != "introduction"
       );
 
-      // console.dir(contentContstruction);
       return contentContstruction;
     } catch (err) {
       console.log(err);
