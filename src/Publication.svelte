@@ -32,12 +32,6 @@
 
   orbColorOne.set("rgba(255,255,255,1)");
   orbColorTwo.set("rgba(0,0,0,1)");
-
-  $textContent.then(text => {
-    {
-      console.dir(text);
-    }
-  });
 </script>
 
 <style lang="scss">
@@ -130,7 +124,6 @@
     {#await $textContent then content}
       <Pane
         on:activated={event => {
-          console.dir(event);
           activeOrder = event.detail.order;
         }}
         active={activeOrder === 0 ? true : false}
@@ -141,7 +134,6 @@
       {#each content.essays as essay, i}
         <Pane
           on:activated={event => {
-            console.dir(event);
             activeOrder = event.detail.order;
           }}
           {essay}
@@ -152,7 +144,6 @@
       {/each}
       <Pane
         on:activated={event => {
-          console.dir(event);
           activeOrder = event.detail.order;
         }}
         active={activeOrder === content.essays.length + 1 ? true : false}

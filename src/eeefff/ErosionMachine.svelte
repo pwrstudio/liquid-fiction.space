@@ -307,7 +307,7 @@
       );
     }
 
-    TIMELINE_JSON.config.disabled = true;
+    // TIMELINE_JSON.config.disabled = true;
 
     if (get(TIMELINE_JSON, "config.disabled", true)) {
       console.warn("👻 Erosion machine disabled");
