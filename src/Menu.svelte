@@ -92,7 +92,7 @@
 
         @include screen-size("small") {
           font-size: 42px;
-          height: 60px;
+          height: 40px;
         }
 
         .line-1 {

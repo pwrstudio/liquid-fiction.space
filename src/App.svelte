@@ -155,6 +155,10 @@
   .pane p {
     max-width: 80ch;
   }
+
+  video {
+    max-width: 100vw;
+  }
 </style>
 
 <Orb />

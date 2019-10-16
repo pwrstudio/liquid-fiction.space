@@ -12811,15 +12811,15 @@ var app = (function () {
     			t3 = space();
     			div4 = element("div");
     			link4.$$.fragment.c();
-    			attr_dev(div0, "class", "item svelte-79d5b5");
+    			attr_dev(div0, "class", "item svelte-1xo260f");
     			add_location(div0, file$2, 176, 8, 4397);
-    			attr_dev(div1, "class", "item svelte-79d5b5");
+    			attr_dev(div1, "class", "item svelte-1xo260f");
     			add_location(div1, file$2, 190, 8, 4933);
-    			attr_dev(div2, "class", "item svelte-79d5b5");
+    			attr_dev(div2, "class", "item svelte-1xo260f");
     			add_location(div2, file$2, 204, 8, 5457);
-    			attr_dev(div3, "class", "item svelte-79d5b5");
+    			attr_dev(div3, "class", "item svelte-1xo260f");
     			add_location(div3, file$2, 215, 8, 5860);
-    			attr_dev(div4, "class", "item svelte-79d5b5");
+    			attr_dev(div4, "class", "item svelte-1xo260f");
     			add_location(div4, file$2, 224, 8, 6184);
     		},
 
@@ -12974,9 +12974,9 @@ var app = (function () {
     			t_1 = space();
     			span1 = element("span");
     			span1.textContent = "FICTION LIQUID";
-    			attr_dev(span0, "class", "line-1 svelte-79d5b5");
+    			attr_dev(span0, "class", "line-1 svelte-1xo260f");
     			add_location(span0, file$2, 181, 12, 4599);
-    			attr_dev(span1, "class", "line-2 svelte-79d5b5");
+    			attr_dev(span1, "class", "line-2 svelte-1xo260f");
     			add_location(span1, file$2, 182, 12, 4654);
     		},
 
@@ -13009,9 +13009,9 @@ var app = (function () {
     			t_1 = space();
     			span1 = element("span");
     			span1.textContent = "11111 >>>";
-    			attr_dev(span0, "class", "line-1 svelte-79d5b5");
+    			attr_dev(span0, "class", "line-1 svelte-1xo260f");
     			add_location(span0, file$2, 195, 12, 5133);
-    			attr_dev(span1, "class", "line-2 svelte-79d5b5");
+    			attr_dev(span1, "class", "line-2 svelte-1xo260f");
     			add_location(span1, file$2, 196, 12, 5183);
     		},
 
@@ -13044,9 +13044,9 @@ var app = (function () {
     			t_1 = space();
     			span1 = element("span");
     			span1.textContent = "~~~~~_~~~~~~~~~";
-    			attr_dev(span0, "class", "line-1 svelte-79d5b5");
+    			attr_dev(span0, "class", "line-1 svelte-1xo260f");
     			add_location(span0, file$2, 209, 12, 5665);
-    			attr_dev(span1, "class", "line-2 svelte-79d5b5");
+    			attr_dev(span1, "class", "line-2 svelte-1xo260f");
     			add_location(span1, file$2, 210, 12, 5721);
     		},
 
@@ -13079,9 +13079,9 @@ var app = (function () {
     			t_1 = space();
     			span1 = element("span");
     			span1.textContent = "~~~~~~";
-    			attr_dev(span0, "class", "line-1 svelte-79d5b5");
+    			attr_dev(span0, "class", "line-1 svelte-1xo260f");
     			add_location(span0, file$2, 220, 12, 6061);
-    			attr_dev(span1, "class", "line-2 svelte-79d5b5");
+    			attr_dev(span1, "class", "line-2 svelte-1xo260f");
     			add_location(span1, file$2, 221, 12, 6108);
     		},
 
@@ -13114,9 +13114,9 @@ var app = (function () {
     			t_1 = space();
     			span1 = element("span");
     			span1.textContent = "~~~~_~~~~~~";
-    			attr_dev(span0, "class", "line-1 svelte-79d5b5");
+    			attr_dev(span0, "class", "line-1 svelte-1xo260f");
     			add_location(span0, file$2, 229, 12, 6390);
-    			attr_dev(span1, "class", "line-2 svelte-79d5b5");
+    			attr_dev(span1, "class", "line-2 svelte-1xo260f");
     			add_location(span1, file$2, 230, 12, 6442);
     		},
 
@@ -13224,7 +13224,7 @@ var app = (function () {
     			t_1 = text("cross");
     			g = svg_element("g");
     			path = svg_element("path");
-    			attr_dev(rect, "class", "cls-1 svelte-79d5b5");
+    			attr_dev(rect, "class", "cls-1 svelte-1xo260f");
     			attr_dev(rect, "x", "1.08");
     			attr_dev(rect, "y", "0.65");
     			attr_dev(rect, "width", "55.46");
@@ -13235,22 +13235,22 @@ var app = (function () {
     			add_location(clipPath, file$2, 244, 10, 6764);
     			add_location(defs, file$2, 243, 8, 6747);
     			add_location(title, file$2, 253, 8, 7023);
-    			attr_dev(path, "class", "cls-3 svelte-79d5b5");
+    			attr_dev(path, "class", "cls-3 svelte-1xo260f");
     			attr_dev(path, "d", "M2.12,49a3.91,3.91,0,0,0-1,2.4,3.08,3.08,0,0,0,1,2.41l1.23,1.23A3.37,3.37,0,0,0,5.69,56a3.12,3.12,0,0,0,2.47-.89L27.38,35.59a1.55,1.55,0,0,1,2.47,0L49.34,54.94A3,3,0,0,0,51.67,56a3.37,3.37,0,0,0,2.47-1.1l1.38-1.23a2.88,2.88,0,0,0,1-2.4,3.62,3.62,0,0,0-1-2.41L36,29.41a1.55,1.55,0,0,1,0-2.47L55.52,7.72a3.18,3.18,0,0,0,.89-2.47,3.45,3.45,0,0,0-.89-2.33L54.28,1.68a3.2,3.2,0,0,0-2.47-1,3.44,3.44,0,0,0-2.33,1L30,20.9a1.4,1.4,0,0,1-2.33,0L8.16,1.68a2.84,2.84,0,0,0-2.27-1,3.51,3.51,0,0,0-2.54,1.1L2.12,2.92a3.21,3.21,0,0,0-1,2.54,3.48,3.48,0,0,0,1,2.4L21.34,27.22a1.66,1.66,0,0,1,0,2.47Z");
     			attr_dev(path, "transform", "translate(-1.08 -0.65)");
     			add_location(path, file$2, 255, 10, 7080);
-    			attr_dev(g, "class", "cls-2 svelte-79d5b5");
+    			attr_dev(g, "class", "cls-2 svelte-1xo260f");
     			add_location(g, file$2, 254, 8, 7052);
     			attr_dev(svg, "xmlns", "http://www.w3.org/2000/svg");
     			attr_dev(svg, "xmlns:xlink", "http://www.w3.org/1999/xlink");
     			attr_dev(svg, "viewBox", "0 0 55.46 55.39");
-    			attr_dev(svg, "class", "svelte-79d5b5");
+    			attr_dev(svg, "class", "svelte-1xo260f");
     			add_location(svg, file$2, 239, 6, 6605);
     			attr_dev(div0, "class", "inner-1");
     			add_location(div0, file$2, 238, 4, 6577);
-    			attr_dev(div1, "class", "close svelte-79d5b5");
+    			attr_dev(div1, "class", "close svelte-1xo260f");
     			add_location(div1, file$2, 237, 2, 6553);
-    			attr_dev(div2, "class", "menu svelte-79d5b5");
+    			attr_dev(div2, "class", "menu svelte-1xo260f");
     			toggle_class(div2, "active", ctx.active);
     			add_location(div2, file$2, 166, 0, 4250);
     			dispose = listen_dev(div2, "click", ctx.click_handler);
@@ -19279,7 +19279,7 @@ var app = (function () {
 
     /* src/App.svelte generated by Svelte v3.12.1 */
 
-    // (149:0) <Router>
+    // (152:0) <Router>
     function create_default_slot$1(ctx) {
     	var t0, t1, t2, t3, t4, current;
 
@@ -19418,7 +19418,7 @@ var app = (function () {
     			destroy_component(route5, detaching);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot$1.name, type: "slot", source: "(149:0) <Router>", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot$1.name, type: "slot", source: "(152:0) <Router>", ctx });
     	return block;
     }
 
