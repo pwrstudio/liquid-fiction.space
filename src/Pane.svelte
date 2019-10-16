@@ -14,34 +14,40 @@
 
   const dispatch = createEventDispatcher();
 
-  // *** VARIABLES
-
   // *** STORES
   import {
     orbBackgroundOne,
     orbBackgroundTwo,
     orbColorOne,
     orbColorTwo,
-    activePage,
-    textContent
+    orbPosition
   } from "./stores.js";
 
+  // *** PROPS
   export let essay = {};
   export let totalPanes = 1;
   export let order = 1;
-
-  let width = 100;
-  let left = 0;
   export let active = false;
   export let hidden = false;
 
+  // *** VARIABLES
+  let width = 100;
+  let left = 0;
+  const bgColors = [
+    "darkorange",
+    "darkgoldenrod",
+    "darkorange",
+    "darkgoldenrod",
+    "darkorange",
+    "darkgoldenrod",
+    "darkorange",
+    "darkgoldenrod",
+    "darkorange",
+    "darkgoldenrod"
+  ];
+  // *** REACTIVES
   $: width = 100 / totalPanes;
-  $: left = active ? 0 : ((100 - width) / 3) * order;
-
-  //   console.log(totalPanes, width);
-
-  //   console.dir(essay);
-  //   console.log(order);
+  $: left = active ? 0 : ((100 - width) / 6) * order;
 
   const open = () => {
     // active = !active;
@@ -61,36 +67,24 @@
       order: 1000
     });
   };
-
-  //   activePage.set("about");
-  //   orbBackgroundOne.set("rgb(255, 140, 0)");
-  //   orbBackgroundTwo.set("rgb(118, 165, 32)");
-
-  //   orbColorOne.set("rgba(255,255,255,1)");
-  //   orbColorTwo.set("rgba(0,0,0,1)");
-
-  //   $textContent.then(text => {
-  //     {
-  //       console.dir(text);
-  //     }
-  //   });
 </script>
 
 <style lang="scss">
   .pane {
     position: fixed;
     top: 0;
-    left: 0;
+    right: 0;
     width: 100vw;
     height: 100vh;
     width: 100vw;
-    background: blue;
     padding: 30px;
-    padding-right: 30vw;
     padding-top: 50px;
     cursor: pointer;
     transition: transform 0.3s ease-out;
     overflow-y: auto;
+    line-height: 1.2em;
+    font-size: 17px;
+    color: black;
 
     &.active {
       cursor: default;
@@ -100,6 +94,11 @@
     &.hidden {
       transition: transform 0.3s ease-out;
       transform: translateX(100vw) !important;
+    }
+
+    &.introduction {
+      font-size: 22px;
+      font-weight: 300;
     }
   }
 
@@ -152,10 +151,11 @@
 
 <div
   class="pane"
-  style="transform: translateX({left}vw);"
+  style="transform: translateX({left}vw); background: {bgColors[order]};"
   on:click={open}
   class:active
   class:hidden
+  class:introduction={order === 0}
   in:fly={{ x: 300, delay: order * 100, opacity: 0 }}>
   {@html renderBlockText(essay.content)}
 

@@ -71,6 +71,10 @@
     overflow: auto;
     line-height: 62px;
 
+    @include screen-size("small") {
+      padding-top: 120px;
+    }
+
     .inner {
       .item {
         display: inline-block;
@@ -87,7 +91,7 @@
         user-select: none;
 
         @include screen-size("small") {
-          font-size: 52px;
+          font-size: 42px;
         }
 
         .line-1 {
@@ -98,7 +102,7 @@
           color: white;
           transform: translateX(-50%);
           opacity: 1;
-          text-align: center;
+          text-align: right;
           line-height: 80px;
           white-space: nowrap;
 
@@ -116,14 +120,15 @@
           clip-path: inset(0% 0% 0% 100%);
           -webkit-clip-path: inset(0% 0% 0% 100%);
           transform: translateX(-50%);
-          text-align: center;
+          text-align: right;
           background: blue;
           color: white;
           // padding-bottom: 15px;
           line-height: 80px;
           white-space: nowrap;
+
           @include screen-size("small") {
-            line-height: 50px;
+            line-height: 45px;
           }
         }
 
@@ -207,7 +212,6 @@
 
   .txt-link {
     display: block;
-    background: red;
     font-size: 14px;
     padding: 10px;
     border-radius: 4px;
@@ -233,7 +237,12 @@
           out:fly={{ duration: 300, y: 60, delay: 300 }}>
           <Link to="publication">
             <span class="line-1">LIQUID FICTION</span>
-            <span class="line-2">~~~~~~_~~~~~~~~</span>
+            <span class="line-2">FICTION_LIQUID</span>
+
+            <!-- <span class="line-2">T~X~T~_~T~X~T~</span> -->
+
+            <!-- <span class="line-2">~~EDITORIAL>>~</span> -->
+            <!-- <span class="line-2">~~~~~~_~~~~~~~~</span> -->
           </Link>
         </div>
         <div

@@ -14,7 +14,8 @@
   import {
     erosionMachineActive,
     erosionMachineCounter,
-    activePage
+    activePage,
+    introEnded
   } from "../stores.js";
 
   // *** CONSTANTS
@@ -42,6 +43,14 @@
 
   $: {
     hidden = $activePage === "alina" ? true : false;
+  }
+
+  $: {
+    if ($introEnded) {
+      console.log("EEEFFF intro video ended");
+      introEnded.set(false);
+      startTimeline();
+    }
   }
 
   // *** Functions
@@ -183,24 +192,29 @@
   const startTimer = delay => {
     window.setInterval(() => {
       if (counter == delay) {
-        erosionMachineActive.set(true);
-
-        timeline
-          .getChildren()
-          .map(c => c.target)
-          .filter(
-            el =>
-              el.style.position == "absolute" || el.style.position == "fixed"
-          )
-          .forEach(setRandomPosition);
-
-        timeline
-          .totalProgress(0)
-          .timeScale(1)
-          .play();
+        startTimeline();
       }
-      counter += 1;
+      if ($activePage != "eeefff") {
+        counter += 1;
+      }
     }, 1000);
+  };
+
+  const startTimeline = () => {
+    erosionMachineActive.set(true);
+
+    timeline
+      .getChildren()
+      .map(c => c.target)
+      .filter(
+        el => el.style.position == "absolute" || el.style.position == "fixed"
+      )
+      .forEach(setRandomPosition);
+
+    timeline
+      .totalProgress(0)
+      .timeScale(1)
+      .play();
   };
 
   const handleMouseMove = () => {
@@ -260,6 +274,8 @@
     if (promise !== undefined) {
       promise
         .then(_ => {
+          console.dir(element.textTracks);
+          // element.textTracks[0].mode = "showing"; // force show the first one
           console.log("🎥 Video started");
         })
         .catch(error => {

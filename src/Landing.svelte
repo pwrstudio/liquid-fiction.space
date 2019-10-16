@@ -21,14 +21,15 @@
     orbBackgroundTwo,
     orbColorOne,
     orbColorTwo,
-    activePage
+    activePage,
+    menuActive
   } from "./stores.js";
 
   activePage.set("landing");
   orbBackgroundOne.set("rgba(0,0,0,1)");
-  orbColorOne.set("rgba(0,0,255,1)");
+  orbColorOne.set("rgba(255,255,0,1)");
 
-  orbBackgroundTwo.set("rgba(0,0,255,1)");
+  orbBackgroundTwo.set("rgba(255,0,0,1)");
   orbColorTwo.set("rgba(255,255,255,1)");
 
   // *** COMPONENTS
@@ -39,6 +40,8 @@
   let titleOutput = titleAnimation;
   let titleLength = titleAnimation.length;
   let titleIndex = 0;
+
+  activePage.set("landing");
 
   // setInterval(() => {
   //   console.log(titleAnimation.length);
@@ -135,10 +138,15 @@
   <title>{titleOutput}</title>
 </svelte:head>
 
-<div class="pane top-left">
-  <div class="logo2">LIQUID~</div>
-</div>
+<div
+  on:click={() => {
+    menuActive.set(true);
+  }}>
+  <div class="pane top-left">
+    <div class="logo2">LIQUID~</div>
+  </div>
 
-<div class="pane top-right">
-  <div class="logo2">FICTION</div>
+  <div class="pane top-right">
+    <div class="logo2">FICTION</div>
+  </div>
 </div>

@@ -19,15 +19,23 @@
     orbBackgroundTwo,
     orbColorOne,
     orbColorTwo,
+    orbPosition,
     activePage
   } from "../stores.js";
 
   activePage.set("olof");
-  orbBackgroundOne.set("rgba(128,25,55,1)");
-  orbBackgroundTwo.set("rgba(145,100,127,1)");
+  orbBackgroundOne.set("rgba(244,164,96,1)");
+  orbBackgroundTwo.set("rgba(255,0,0,1)");
 
   orbColorOne.set("rgba(255,255,255,1)");
   orbColorTwo.set("rgba(0,0,0,1)");
+
+  orbPosition.set({
+    top: "10px",
+    bottom: "unset",
+    left: "10px",
+    right: "unset"
+  });
 
   let iframeEl = {};
   let iSlideEl = {};

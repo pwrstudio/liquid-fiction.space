@@ -22,12 +22,47 @@
     orbColorTwo,
     erosionMachineActive,
     erosionMachineCounter,
-    activePage
+    activePage,
+    menuActive,
+    introEnded
   } from "../stores.js";
+
+  let introVideoEl = {};
 
   activePage.set("eeefff");
   orbBackgroundOne.set("rgba(0,0,255,1)");
-  orbBackgroundTwo.set("rgba(0,0,255,1)");
+  orbBackgroundTwo.set("rgba(130,130,130,1)");
+
+  orbColorOne.set("rgba(0,0,0,1)");
+  orbColorTwo.set("rgba(211,211,211,1)");
+
+  orbPosition.set({
+    top: "10px",
+    left: "10px"
+  });
+
+  // $: {
+  //   // if ($menuActive && introVideoEl) {
+  //   //   introVideoEl.pause();
+  //   //   introVideoEl.currentTime = 0;
+  //   // }
+  //   // if (!$menuActive && introVideoEl) {
+  //   //   playVideo();
+  //   // }
+  // }
+
+  onMount(async () => {
+    let promise = introVideoEl.play();
+    if (promise !== undefined) {
+      promise
+        .then(_ => {
+          console.log("🎥 Video started");
+        })
+        .catch(error => {
+          console.error("💥 Error starting video:", error);
+        });
+    }
+  });
 </script>
 
 <style lang="scss">
@@ -39,16 +74,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    span {
-      font-size: 40vh;
-      color: black;
-    }
-  }
-
-  video {
-    position: fixed;
-    top: 0;
-    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 </style>
 
@@ -58,27 +86,24 @@
 
 <div class="eeefff">
   {#if !$erosionMachineActive}
-    <div in:fade>
-      <!-- <div in:fly={{ duration: 800, x: 60, delay: 0, easing: quartOut }}> -->
-      <span style={$erosionMachineCounter === 0 ? 'color:red' : ''}>
+    <!-- <div in:fly={{ duration: 800, x: 60, delay: 0, easing: quartOut }}> -->
+    <!-- <span style={$erosionMachineCounter === 0 ? 'color:red' : ''}>
         {$erosionMachineCounter}
-      </span>
-    </div>
+      </span> -->
+    <video
+      preload="auto"
+      in:fade
+      bind:this={introVideoEl}
+      on:ended={() => {
+        introEnded.set(true);
+      }}>
+      <source
+        src="https://dev.eeefff.org/data/outsourcing-paradise-parasite/videos/start-time.mp4"
+        type="video/mp4" />
+      <track
+        kind="subtitles"
+        label="English subtitles"
+        src="spinner.mp4_en.vtt" />
+    </video>
   {/if}
 </div>
-
-<!-- <video id="p6v6b2hnmv" loop="" preload="auto" autoplay>
-  <source
-    src="https://dev.eeefff.org/data/outsourcing-paradise-parasite/selected-04/spinner.mp4"
-    type="video/mp4" />
-  <track
-    kind="subtitles"
-    label="English subtitles"
-    src="https://dev.eeefff.org/data/outsourcing-paradise-parasite/selected-04/spinner.mp4_en.vtt"
-    default="" />
-  <track
-    kind="subtitles"
-    label="Russian subtitles"
-    src="https://dev.eeefff.org/data/outsourcing-paradise-parasite/selected-04/spinner.mp4_ru.vtt"
-    default="" />
-</video> -->

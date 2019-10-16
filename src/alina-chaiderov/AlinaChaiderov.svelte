@@ -15,6 +15,7 @@
     orbBackgroundTwo,
     orbColorOne,
     orbColorTwo,
+    orbPosition,
     activePage,
     menuActive
   } from "../stores.js";
@@ -22,6 +23,11 @@
   activePage.set("alina");
   orbBackgroundOne.set("rgba(0,0,255,1)");
   orbBackgroundTwo.set("rgba(0,0,255,1)");
+
+  orbPosition.set({
+    top: "10px",
+    left: "10px"
+  });
 </script>
 
 <style lang="scss">
@@ -91,13 +97,9 @@
 </style>
 
 <svelte:head>
-  <title>Alina Chaiderov | LIQUID FIKCTION</title>
+  <title>Alina Chaiderov | LIQUID FICTION</title>
 </svelte:head>
 
-<!-- <div class="alina"> -->
-
-<!-- Embed Code -->
-<!-- <div class="embed-responsive embed-responsive-4by3"> -->
 {#if !$menuActive}
   <iframe
     title="Alina Chaiderov"
@@ -107,20 +109,3 @@
     allowfullscreen
     in:fade={{ delay: 1000 }} />
 {/if}
-<!-- </div> -->
-<!-- <div
-    class="placeholder"
-    in:fly={{ duration: 800, y: 40, delay: 400, easing: quartOut }}>
-    Alina Chaiderov placeholder
-  </div> -->
-<!-- </div> -->
-
-<!-- <div
-  class="button"
-  on:click={() => {
-    timeline.reverse();
-  }}>
-  reverse
-</div>
-
-<div class="button" on:click={() => {}}>forward</div> -->

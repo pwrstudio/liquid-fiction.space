@@ -150,6 +150,10 @@
     padding-left: 0;
     margin-left: 0;
   }
+
+  .pane p {
+    max-width: 80ch;
+  }
 </style>
 
 <Orb />

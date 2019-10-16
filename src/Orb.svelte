@@ -23,25 +23,32 @@
     orbBackgroundOne,
     orbBackgroundTwo,
     orbColorOne,
-    orbColorTwo
+    orbColorTwo,
+    orbPosition,
+    menuActive,
+    activePage
   } from "./stores.js";
 
   $: {
-    TweenMax.to(orbInnerOne, 0.01, {
+    TweenMax.to(orbInnerOne, 0.5, {
       css: { background: $orbBackgroundOne, color: $orbColorOne }
     });
-    TweenMax.to(orbInnerTwo, 0.01, {
+
+    TweenMax.to(orbInnerTwo, 0.5, {
       css: { background: $orbBackgroundTwo, color: $orbColorTwo }
+    });
+
+    TweenMax.to(orbObject, 2, {
+      top: $orbPosition.top,
+      bottom: $orbPosition.bottom,
+      left: $orbPosition.left,
+      right: $orbPosition.right,
+      ease: Power4.easeOut
     });
   }
 
-  const handleScroll = e => {
-    console.log("XXXXX");
-    console.log(e);
-  };
   // *** VARIABLES
   let scrolling = false;
-  let menuActive = false;
   let menuExit = false;
 </script>
 
@@ -146,11 +153,11 @@
       }
     }
 
-    transition: opacity 3s cubic-bezier(0.23, 1, 0.32, 1),
-      border 0.3s cubic-bezier(0.23, 1, 0.32, 1),
-      top 1.5s cubic-bezier(0.23, 1, 0.32, 1),
-      left 2s cubic-bezier(0.23, 1, 0.32, 1),
-      transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    // transition: opacity 3s cubic-bezier(0.23, 1, 0.32, 1),
+    //   border 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+    //   top 1.5s cubic-bezier(0.23, 1, 0.32, 1),
+    //   left 2s cubic-bezier(0.23, 1, 0.32, 1),
+    //   transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 
     &:hover {
       opacity: 1;
@@ -165,16 +172,19 @@
         animation-name: unset;
       }
     }
+
+    &.hidden {
+      display: none;
+    }
   }
 </style>
 
-<svelte:window on:scroll={handleScroll} />
-
 <div
   class="orb"
-  class:inactive={menuActive}
+  class:inactive={$menuActive}
+  class:hidden={$activePage === 'landing'}
   on:click={() => {
-    menuActive = !menuActive;
+    menuActive.set(!$menuActive);
   }}
   bind:this={orbObject}>
   <div class="nav-text" class:scrolling>
@@ -186,7 +196,7 @@
   </div>
 </div>
 <Menu
-  active={menuActive}
+  active={$menuActive}
   on:close={() => {
-    menuActive = false;
+    menuActive.set(false);
   }} />

@@ -10,11 +10,14 @@
   import { fly, blur } from "svelte/transition";
   import { quartOut } from "svelte/easing";
   import { client, renderBlockText, urlFor } from "./sanity.js";
+  import get from "lodash/get";
+  import concat from "lodash/concat";
 
   import Pane from "./Pane.svelte";
 
   // *** VARIABLES
   let activeOrder = 1000;
+  let textList = [];
 
   // *** STORES
   import {
@@ -22,6 +25,7 @@
     orbBackgroundTwo,
     orbColorOne,
     orbColorTwo,
+    orbPosition,
     activePage,
     textContent
   } from "./stores.js";
@@ -29,9 +33,35 @@
   activePage.set("about");
   orbBackgroundOne.set("rgb(255, 140, 0)");
   orbBackgroundTwo.set("rgb(118, 165, 32)");
+  orbBackgroundTwo.set("rgba(255,0,0,1)");
 
   orbColorOne.set("rgba(255,255,255,1)");
   orbColorTwo.set("rgba(0,0,0,1)");
+
+  $: {
+    if (activeOrder === 1000) {
+      orbPosition.set({
+        top: window.innerHeight - 110 + "px",
+        left: "10px"
+      });
+    } else {
+      orbPosition.set({
+        top: window.innerHeight - 110 + "px",
+        left: window.innerWidth - 110 + "px"
+      });
+    }
+  }
+
+  $textContent.then(content => {
+    console.dir(content);
+    textList = concat(
+      get(content, "introduction.firstCycle", []),
+      get(content, "essays", []),
+      get(content, "artists", []),
+      get(content, "credits", [])
+    );
+    console.dir(textList);
+  });
 </script>
 
 <style lang="scss">
@@ -115,42 +145,20 @@
   }
 </style>
 
+<svelte:head>
+  <title>Editorial | LIQUID FICTION</title>
+</svelte:head>
+
 <div class="about">
-
-  <!-- {@html intro} -->
-
-  <!-- <div in:fly={{ duration: 800, x: 60, delay: 0, easing: quartOut }}> -->
-  <div>
-    {#await $textContent then content}
-      <Pane
-        on:activated={event => {
-          activeOrder = event.detail.order;
-        }}
-        active={activeOrder === 0 ? true : false}
-        hidden={activeOrder != 1000 && activeOrder != 0 ? true : false}
-        essay={content.introduction.firstCycle}
-        order={0}
-        totalPanes={content.essays.length + 2} />
-      {#each content.essays as essay, i}
-        <Pane
-          on:activated={event => {
-            activeOrder = event.detail.order;
-          }}
-          {essay}
-          active={activeOrder === i + 1 ? true : false}
-          hidden={activeOrder != 1000 && activeOrder != i + 1 ? true : false}
-          order={i + 1}
-          totalPanes={content.essays.length + 2} />
-      {/each}
-      <Pane
-        on:activated={event => {
-          activeOrder = event.detail.order;
-        }}
-        active={activeOrder === content.essays.length + 1 ? true : false}
-        hidden={activeOrder != 1000 && activeOrder != content.essays.length + 1 ? true : false}
-        essay={content.credits}
-        order={content.essays.length + 1}
-        totalPanes={content.essays.length + 2} />
-    {/await}
-  </div>
+  {#each textList as text, order}
+    <Pane
+      on:activated={event => {
+        activeOrder = event.detail.order;
+      }}
+      essay={text}
+      active={activeOrder === order ? true : false}
+      hidden={activeOrder != 1000 && activeOrder < order ? true : false}
+      {order}
+      totalPanes={textList.length} />
+  {/each}
 </div>
