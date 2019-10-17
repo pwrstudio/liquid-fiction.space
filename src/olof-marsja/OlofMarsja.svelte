@@ -32,9 +32,7 @@
 
   orbPosition.set({
     top: "10px",
-    bottom: "unset",
     left: "10px",
-    right: "unset"
   });
 
   let iframeEl = {};

@@ -12233,9 +12233,7 @@ var app = (function () {
     const orbColorTwo = writable('rgba(255,255,255,1)');
     const orbPosition = writable({
       top: '10px',
-      bottom: 'unset',
-      left: '10px',
-      right: 'unset'
+      left: '10px'
     });
     const erosionMachineCounter = writable(0);
     const erosionMachineActive = writable(false);
@@ -12257,7 +12255,7 @@ var app = (function () {
     			section = element("section");
     			attr_dev(section, "class", "erosion-machine-container svelte-1lye6s9");
     			toggle_class(section, "hidden", ctx.hidden);
-    			add_location(section, file$1, 414, 0, 10708);
+    			add_location(section, file$1, 436, 0, 11214);
     			dispose = listen_dev(window_1, "mousemove", justThrottle(ctx.handleMouseMove, 200));
     		},
 
@@ -12379,6 +12377,9 @@ var app = (function () {
           elementObject.appendChild(sourceElement);
           elementObject.loop = event.loop ? event.loop : "";
           elementObject.preload = "auto";
+          elementObject.crossorigin = "anonymous";
+          console.log("asfasfasd");
+          console.log(elementObject.crossorigin);
 
           // +++ Subtitles
           if (event.subtitles_en) {
@@ -12450,6 +12451,15 @@ var app = (function () {
           playVideo(element);
         }
 
+        console.log(
+          "!!! Event Started:",
+          type,
+          "@",
+          position,
+          "Duration:",
+          duration
+        );
+
         window.setTimeout(() => {
           hideAndPause(element);
         }, duration);
@@ -12467,7 +12477,7 @@ var app = (function () {
       };
 
       const startTimeline = () => {
-        console.log("starting timeline");
+        console.log("Starting timeline");
         erosionMachineActive.set(true);
 
         timeline
@@ -12522,6 +12532,14 @@ var app = (function () {
 
       const prepareShowEvent = (event, position) => {
         addEvent(event.type, event.el, { opacity: 1 }, position, event.duration);
+        console.log(
+          "Event added:",
+          event.type,
+          "@",
+          position,
+          "Duration:",
+          event.duration
+        );
       };
 
       const addLabel = position => {
@@ -12688,7 +12706,7 @@ var app = (function () {
           } }
     		if ($$dirty.$introEnded) { {
             if ($introEnded) {
-              console.log("EEEFFF intro video ended");
+              console.log("EEEFFF: Intro video ended");
               introEnded.set(false);
               startTimeline();
             }
@@ -13402,22 +13420,22 @@ var app = (function () {
     			t4 = space();
     			menu.$$.fragment.c();
     			attr_dev(div0, "class", "inner-1 svelte-7ywk0j");
-    			add_location(div0, file$3, 165, 4, 3709);
+    			add_location(div0, file$3, 163, 4, 3641);
     			attr_dev(div1, "class", "inner-2 svelte-7ywk0j");
-    			add_location(div1, file$3, 166, 4, 3772);
+    			add_location(div1, file$3, 164, 4, 3704);
     			attr_dev(div2, "class", "nav-text svelte-7ywk0j");
     			toggle_class(div2, "scrolling", scrolling);
-    			add_location(div2, file$3, 164, 2, 3666);
+    			add_location(div2, file$3, 162, 2, 3598);
     			attr_dev(div3, "class", "spinner-half svelte-7ywk0j");
-    			add_location(div3, file$3, 169, 4, 3897);
+    			add_location(div3, file$3, 167, 4, 3829);
     			attr_dev(div4, "id", "spinner");
     			attr_dev(div4, "class", "spinner svelte-7ywk0j");
     			toggle_class(div4, "scrolling", scrolling);
-    			add_location(div4, file$3, 168, 2, 3842);
+    			add_location(div4, file$3, 166, 2, 3774);
     			attr_dev(div5, "class", "orb svelte-7ywk0j");
     			toggle_class(div5, "inactive", ctx.$menuActive);
     			toggle_class(div5, "hidden", ctx.$activePage === 'landing');
-    			add_location(div5, file$3, 156, 0, 3487);
+    			add_location(div5, file$3, 154, 0, 3419);
     			dispose = listen_dev(div5, "click", ctx.click_handler);
     		},
 
@@ -13583,9 +13601,7 @@ var app = (function () {
         
             TweenMax.to(orbObject, 2, {
               top: $orbPosition.top,
-              bottom: $orbPosition.bottom,
               left: $orbPosition.left,
-              right: $orbPosition.right,
               ease: Power4.easeOut
             });
           } }
@@ -14561,7 +14577,7 @@ var app = (function () {
 
     const file$7 = "src/eeefff/EEEFFF.svelte";
 
-    // (110:2) {#if !$erosionMachineActive}
+    // (109:2) {#if !$erosionMachineActive}
     function create_if_block$2(ctx) {
     	var video, source, track, video_intro, dispose;
 
@@ -14572,17 +14588,17 @@ var app = (function () {
     			track = element("track");
     			attr_dev(source, "src", "https://dev.eeefff.org/data/outsourcing-paradise-parasite/videos/start-time.mp4");
     			attr_dev(source, "type", "video/mp4");
-    			attr_dev(source, "crossorigin", "anonymous");
-    			add_location(source, file$7, 117, 6, 2540);
+    			add_location(source, file$7, 117, 6, 2532);
     			attr_dev(track, "kind", "subtitles");
     			attr_dev(track, "label", "English subtitles");
     			track.default = true;
-    			attr_dev(track, "src", "https://bitchcoin.in/data/subtitles_test.vtt");
+    			attr_dev(track, "src", "https://dev.eeefff.org/data/outsourcing-paradise-parasite/selected-04/spinner.mp4_en.vtt");
     			attr_dev(track, "srclang", "en");
-    			add_location(track, file$7, 121, 6, 2708);
+    			add_location(track, file$7, 120, 6, 2668);
     			attr_dev(video, "preload", "auto");
+    			attr_dev(video, "crossorigin", "anonymous");
     			attr_dev(video, "class", "svelte-m1lp4w");
-    			add_location(video, file$7, 110, 4, 2397);
+    			add_location(video, file$7, 109, 4, 2359);
     			dispose = listen_dev(video, "ended", ctx.ended_handler);
     		},
 
@@ -14615,7 +14631,7 @@ var app = (function () {
     			dispose();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$2.name, type: "if", source: "(110:2) {#if !$erosionMachineActive}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$2.name, type: "if", source: "(109:2) {#if !$erosionMachineActive}", ctx });
     	return block;
     }
 
@@ -14631,7 +14647,7 @@ var app = (function () {
     			if (if_block) if_block.c();
     			document.title = "EEEFFF | LIQUID FICTION";
     			attr_dev(div, "class", "eeefff svelte-m1lp4w");
-    			add_location(div, file$7, 108, 0, 2295);
+    			add_location(div, file$7, 107, 0, 2257);
     			dispose = listen_dev(div, "mousemove", justThrottle(ctx.handleMouseMove, 200));
     		},
 
@@ -14736,7 +14752,6 @@ var app = (function () {
         if (promise !== undefined) {
           promise
             .then(_ => {
-              introVideo.currentTime = 0;
               console.log("🎥 Video started");
             })
             .catch(error => {
@@ -18003,7 +18018,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (730:12) {#each iArray as iTem}
+    // (728:12) {#each iArray as iTem}
     function create_each_block$2(ctx) {
     	var div, t_value = ctx.iTem + "", t;
 
@@ -18011,7 +18026,7 @@ var app = (function () {
     		c: function create() {
     			div = element("div");
     			t = text(t_value);
-    			add_location(div, file$8, 730, 14, 22659);
+    			add_location(div, file$8, 728, 14, 22619);
     		},
 
     		m: function mount(target, anchor) {
@@ -18027,7 +18042,7 @@ var app = (function () {
     			}
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$2.name, type: "each", source: "(730:12) {#each iArray as iTem}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block$2.name, type: "each", source: "(728:12) {#each iArray as iTem}", ctx });
     	return block;
     }
 
@@ -18298,142 +18313,142 @@ var app = (function () {
     			attr_dev(iframe, "webkitallowfullscreen", "true");
     			attr_dev(iframe, "class", "svelte-phcgsp");
     			toggle_class(iframe, "loaded", ctx.loaded);
-    			add_location(iframe, file$8, 367, 4, 6397);
+    			add_location(iframe, file$8, 365, 4, 6357);
     			attr_dev(img0, "src", "/img/plate1.png");
     			attr_dev(img0, "alt", "Olof Marsja - Plate 1");
     			attr_dev(img0, "class", "svelte-phcgsp");
-    			add_location(img0, file$8, 385, 8, 6881);
-    			add_location(br0, file$8, 388, 10, 6996);
-    			add_location(br1, file$8, 390, 10, 7045);
-    			add_location(br2, file$8, 393, 10, 7194);
-    			add_location(br3, file$8, 395, 10, 7227);
-    			add_location(br4, file$8, 397, 10, 7262);
-    			add_location(br5, file$8, 401, 10, 7462);
-    			add_location(br6, file$8, 404, 10, 7581);
-    			add_location(br7, file$8, 410, 10, 7976);
-    			add_location(br8, file$8, 415, 10, 8251);
-    			add_location(br9, file$8, 417, 10, 8300);
-    			add_location(br10, file$8, 420, 10, 8422);
-    			add_location(br11, file$8, 422, 10, 8514);
-    			add_location(br12, file$8, 425, 10, 8631);
-    			add_location(br13, file$8, 428, 10, 8775);
-    			add_location(br14, file$8, 430, 10, 8813);
-    			add_location(br15, file$8, 433, 10, 8924);
-    			add_location(br16, file$8, 440, 10, 9371);
-    			add_location(br17, file$8, 445, 10, 9666);
-    			add_location(br18, file$8, 448, 10, 9806);
-    			add_location(br19, file$8, 452, 10, 9997);
-    			add_location(br20, file$8, 456, 10, 10217);
-    			add_location(br21, file$8, 458, 10, 10283);
-    			add_location(br22, file$8, 460, 10, 10380);
-    			add_location(br23, file$8, 462, 10, 10442);
-    			add_location(br24, file$8, 463, 10, 10459);
-    			add_location(br25, file$8, 465, 10, 10496);
-    			add_location(br26, file$8, 468, 10, 10625);
-    			add_location(br27, file$8, 471, 10, 10751);
-    			add_location(br28, file$8, 474, 10, 10925);
-    			add_location(br29, file$8, 476, 10, 10985);
-    			add_location(br30, file$8, 481, 10, 11285);
-    			add_location(br31, file$8, 483, 10, 11348);
-    			add_location(br32, file$8, 485, 10, 11383);
-    			add_location(br33, file$8, 488, 10, 11496);
-    			add_location(br34, file$8, 491, 10, 11614);
-    			add_location(br35, file$8, 493, 10, 11682);
-    			add_location(br36, file$8, 496, 10, 11840);
-    			add_location(br37, file$8, 497, 10, 11857);
-    			add_location(br38, file$8, 499, 10, 11894);
-    			add_location(br39, file$8, 502, 10, 12029);
-    			add_location(br40, file$8, 504, 10, 12105);
-    			add_location(br41, file$8, 506, 10, 12201);
-    			add_location(br42, file$8, 510, 10, 12410);
-    			add_location(br43, file$8, 512, 10, 12479);
-    			add_location(br44, file$8, 514, 10, 12544);
-    			add_location(br45, file$8, 518, 10, 12751);
-    			add_location(br46, file$8, 520, 10, 12844);
-    			add_location(br47, file$8, 522, 10, 12925);
-    			add_location(br48, file$8, 525, 10, 13038);
-    			add_location(br49, file$8, 527, 10, 13069);
-    			add_location(br50, file$8, 530, 10, 13226);
-    			add_location(br51, file$8, 532, 10, 13317);
-    			add_location(br52, file$8, 533, 10, 13334);
-    			add_location(br53, file$8, 535, 10, 13374);
-    			add_location(br54, file$8, 543, 10, 13936);
-    			add_location(br55, file$8, 548, 10, 14171);
-    			add_location(br56, file$8, 551, 10, 14331);
-    			add_location(br57, file$8, 559, 10, 14838);
-    			add_location(br58, file$8, 561, 10, 14893);
-    			add_location(br59, file$8, 567, 10, 15274);
-    			add_location(br60, file$8, 570, 10, 15412);
-    			add_location(br61, file$8, 572, 10, 15451);
-    			add_location(br62, file$8, 578, 10, 15806);
-    			add_location(br63, file$8, 582, 10, 16025);
-    			add_location(br64, file$8, 586, 10, 16215);
-    			add_location(br65, file$8, 592, 10, 16564);
-    			add_location(br66, file$8, 593, 10, 16581);
-    			add_location(br67, file$8, 597, 10, 16784);
-    			add_location(br68, file$8, 602, 10, 17076);
-    			add_location(br69, file$8, 605, 10, 17241);
-    			add_location(br70, file$8, 607, 10, 17318);
-    			add_location(br71, file$8, 610, 10, 17470);
-    			add_location(br72, file$8, 613, 10, 17593);
-    			add_location(br73, file$8, 615, 10, 17649);
-    			add_location(br74, file$8, 616, 10, 17666);
-    			add_location(br75, file$8, 618, 10, 17703);
-    			add_location(br76, file$8, 621, 10, 17878);
-    			add_location(br77, file$8, 624, 10, 18019);
-    			add_location(br78, file$8, 626, 10, 18104);
-    			add_location(br79, file$8, 632, 10, 18437);
-    			add_location(br80, file$8, 634, 10, 18471);
-    			add_location(br81, file$8, 636, 10, 18510);
-    			add_location(br82, file$8, 638, 10, 18544);
-    			add_location(br83, file$8, 642, 10, 18767);
-    			add_location(br84, file$8, 644, 10, 18808);
-    			add_location(br85, file$8, 646, 10, 18880);
-    			add_location(br86, file$8, 648, 10, 18971);
-    			add_location(br87, file$8, 650, 10, 19003);
-    			add_location(br88, file$8, 652, 10, 19097);
-    			add_location(br89, file$8, 656, 10, 19353);
-    			add_location(br90, file$8, 661, 10, 19662);
-    			add_location(br91, file$8, 663, 10, 19717);
-    			add_location(br92, file$8, 665, 10, 19755);
-    			add_location(br93, file$8, 668, 10, 19921);
-    			add_location(br94, file$8, 670, 10, 20012);
-    			add_location(br95, file$8, 672, 10, 20059);
-    			add_location(br96, file$8, 675, 10, 20170);
-    			add_location(br97, file$8, 677, 10, 20236);
-    			add_location(br98, file$8, 680, 10, 20403);
-    			add_location(br99, file$8, 683, 10, 20543);
-    			add_location(br100, file$8, 686, 10, 20688);
-    			add_location(br101, file$8, 691, 10, 20957);
-    			add_location(br102, file$8, 693, 10, 21053);
-    			add_location(br103, file$8, 698, 10, 21331);
-    			add_location(br104, file$8, 703, 10, 21616);
-    			add_location(br105, file$8, 706, 10, 21773);
-    			add_location(br106, file$8, 709, 10, 21936);
-    			add_location(br107, file$8, 711, 10, 21969);
-    			add_location(br108, file$8, 715, 10, 22204);
-    			add_location(br109, file$8, 717, 10, 22271);
+    			add_location(img0, file$8, 383, 8, 6841);
+    			add_location(br0, file$8, 386, 10, 6956);
+    			add_location(br1, file$8, 388, 10, 7005);
+    			add_location(br2, file$8, 391, 10, 7154);
+    			add_location(br3, file$8, 393, 10, 7187);
+    			add_location(br4, file$8, 395, 10, 7222);
+    			add_location(br5, file$8, 399, 10, 7422);
+    			add_location(br6, file$8, 402, 10, 7541);
+    			add_location(br7, file$8, 408, 10, 7936);
+    			add_location(br8, file$8, 413, 10, 8211);
+    			add_location(br9, file$8, 415, 10, 8260);
+    			add_location(br10, file$8, 418, 10, 8382);
+    			add_location(br11, file$8, 420, 10, 8474);
+    			add_location(br12, file$8, 423, 10, 8591);
+    			add_location(br13, file$8, 426, 10, 8735);
+    			add_location(br14, file$8, 428, 10, 8773);
+    			add_location(br15, file$8, 431, 10, 8884);
+    			add_location(br16, file$8, 438, 10, 9331);
+    			add_location(br17, file$8, 443, 10, 9626);
+    			add_location(br18, file$8, 446, 10, 9766);
+    			add_location(br19, file$8, 450, 10, 9957);
+    			add_location(br20, file$8, 454, 10, 10177);
+    			add_location(br21, file$8, 456, 10, 10243);
+    			add_location(br22, file$8, 458, 10, 10340);
+    			add_location(br23, file$8, 460, 10, 10402);
+    			add_location(br24, file$8, 461, 10, 10419);
+    			add_location(br25, file$8, 463, 10, 10456);
+    			add_location(br26, file$8, 466, 10, 10585);
+    			add_location(br27, file$8, 469, 10, 10711);
+    			add_location(br28, file$8, 472, 10, 10885);
+    			add_location(br29, file$8, 474, 10, 10945);
+    			add_location(br30, file$8, 479, 10, 11245);
+    			add_location(br31, file$8, 481, 10, 11308);
+    			add_location(br32, file$8, 483, 10, 11343);
+    			add_location(br33, file$8, 486, 10, 11456);
+    			add_location(br34, file$8, 489, 10, 11574);
+    			add_location(br35, file$8, 491, 10, 11642);
+    			add_location(br36, file$8, 494, 10, 11800);
+    			add_location(br37, file$8, 495, 10, 11817);
+    			add_location(br38, file$8, 497, 10, 11854);
+    			add_location(br39, file$8, 500, 10, 11989);
+    			add_location(br40, file$8, 502, 10, 12065);
+    			add_location(br41, file$8, 504, 10, 12161);
+    			add_location(br42, file$8, 508, 10, 12370);
+    			add_location(br43, file$8, 510, 10, 12439);
+    			add_location(br44, file$8, 512, 10, 12504);
+    			add_location(br45, file$8, 516, 10, 12711);
+    			add_location(br46, file$8, 518, 10, 12804);
+    			add_location(br47, file$8, 520, 10, 12885);
+    			add_location(br48, file$8, 523, 10, 12998);
+    			add_location(br49, file$8, 525, 10, 13029);
+    			add_location(br50, file$8, 528, 10, 13186);
+    			add_location(br51, file$8, 530, 10, 13277);
+    			add_location(br52, file$8, 531, 10, 13294);
+    			add_location(br53, file$8, 533, 10, 13334);
+    			add_location(br54, file$8, 541, 10, 13896);
+    			add_location(br55, file$8, 546, 10, 14131);
+    			add_location(br56, file$8, 549, 10, 14291);
+    			add_location(br57, file$8, 557, 10, 14798);
+    			add_location(br58, file$8, 559, 10, 14853);
+    			add_location(br59, file$8, 565, 10, 15234);
+    			add_location(br60, file$8, 568, 10, 15372);
+    			add_location(br61, file$8, 570, 10, 15411);
+    			add_location(br62, file$8, 576, 10, 15766);
+    			add_location(br63, file$8, 580, 10, 15985);
+    			add_location(br64, file$8, 584, 10, 16175);
+    			add_location(br65, file$8, 590, 10, 16524);
+    			add_location(br66, file$8, 591, 10, 16541);
+    			add_location(br67, file$8, 595, 10, 16744);
+    			add_location(br68, file$8, 600, 10, 17036);
+    			add_location(br69, file$8, 603, 10, 17201);
+    			add_location(br70, file$8, 605, 10, 17278);
+    			add_location(br71, file$8, 608, 10, 17430);
+    			add_location(br72, file$8, 611, 10, 17553);
+    			add_location(br73, file$8, 613, 10, 17609);
+    			add_location(br74, file$8, 614, 10, 17626);
+    			add_location(br75, file$8, 616, 10, 17663);
+    			add_location(br76, file$8, 619, 10, 17838);
+    			add_location(br77, file$8, 622, 10, 17979);
+    			add_location(br78, file$8, 624, 10, 18064);
+    			add_location(br79, file$8, 630, 10, 18397);
+    			add_location(br80, file$8, 632, 10, 18431);
+    			add_location(br81, file$8, 634, 10, 18470);
+    			add_location(br82, file$8, 636, 10, 18504);
+    			add_location(br83, file$8, 640, 10, 18727);
+    			add_location(br84, file$8, 642, 10, 18768);
+    			add_location(br85, file$8, 644, 10, 18840);
+    			add_location(br86, file$8, 646, 10, 18931);
+    			add_location(br87, file$8, 648, 10, 18963);
+    			add_location(br88, file$8, 650, 10, 19057);
+    			add_location(br89, file$8, 654, 10, 19313);
+    			add_location(br90, file$8, 659, 10, 19622);
+    			add_location(br91, file$8, 661, 10, 19677);
+    			add_location(br92, file$8, 663, 10, 19715);
+    			add_location(br93, file$8, 666, 10, 19881);
+    			add_location(br94, file$8, 668, 10, 19972);
+    			add_location(br95, file$8, 670, 10, 20019);
+    			add_location(br96, file$8, 673, 10, 20130);
+    			add_location(br97, file$8, 675, 10, 20196);
+    			add_location(br98, file$8, 678, 10, 20363);
+    			add_location(br99, file$8, 681, 10, 20503);
+    			add_location(br100, file$8, 684, 10, 20648);
+    			add_location(br101, file$8, 689, 10, 20917);
+    			add_location(br102, file$8, 691, 10, 21013);
+    			add_location(br103, file$8, 696, 10, 21291);
+    			add_location(br104, file$8, 701, 10, 21576);
+    			add_location(br105, file$8, 704, 10, 21733);
+    			add_location(br106, file$8, 707, 10, 21896);
+    			add_location(br107, file$8, 709, 10, 21929);
+    			add_location(br108, file$8, 713, 10, 22164);
+    			add_location(br109, file$8, 715, 10, 22231);
     			attr_dev(div0, "class", "text svelte-phcgsp");
-    			add_location(div0, file$8, 386, 8, 6947);
+    			add_location(div0, file$8, 384, 8, 6907);
     			attr_dev(div1, "class", "inner svelte-phcgsp");
-    			add_location(div1, file$8, 384, 6, 6853);
+    			add_location(div1, file$8, 382, 6, 6813);
     			attr_dev(div2, "class", "plate-1 svelte-phcgsp");
-    			add_location(div2, file$8, 383, 4, 6825);
+    			add_location(div2, file$8, 381, 4, 6785);
     			attr_dev(img1, "src", "/img/Rock.png");
     			attr_dev(img1, "alt", "Olof Marsja - Rock");
     			attr_dev(img1, "class", "svelte-phcgsp");
-    			add_location(img1, file$8, 726, 8, 22493);
-    			add_location(div3, file$8, 728, 10, 22583);
+    			add_location(img1, file$8, 724, 8, 22453);
+    			add_location(div3, file$8, 726, 10, 22543);
     			attr_dev(div4, "class", "text svelte-phcgsp");
-    			add_location(div4, file$8, 727, 8, 22554);
+    			add_location(div4, file$8, 725, 8, 22514);
     			attr_dev(div5, "class", "inner svelte-phcgsp");
-    			add_location(div5, file$8, 725, 6, 22465);
+    			add_location(div5, file$8, 723, 6, 22425);
     			attr_dev(div6, "class", "rock svelte-phcgsp");
-    			add_location(div6, file$8, 724, 4, 22440);
+    			add_location(div6, file$8, 722, 4, 22400);
     			attr_dev(div7, "class", "container svelte-phcgsp");
-    			add_location(div7, file$8, 363, 2, 6298);
+    			add_location(div7, file$8, 361, 2, 6258);
     			attr_dev(div8, "class", "olof svelte-phcgsp");
-    			add_location(div8, file$8, 361, 0, 6276);
+    			add_location(div8, file$8, 359, 0, 6236);
     		},
 
     		l: function claim(nodes) {
@@ -18761,9 +18776,7 @@ var app = (function () {
 
       orbPosition.set({
         top: "10px",
-        bottom: "unset",
         left: "10px",
-        right: "unset"
       });
 
       let iframeEl = {};

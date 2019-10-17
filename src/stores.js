@@ -6,9 +6,7 @@ export const orbColorOne = writable('rgba(0,0,0,1)')
 export const orbColorTwo = writable('rgba(255,255,255,1)')
 export const orbPosition = writable({
   top: '10px',
-  bottom: 'unset',
-  left: '10px',
-  right: 'unset'
+  left: '10px'
 })
 export const erosionMachineCounter = writable(0)
 export const erosionMachineActive = writable(false)

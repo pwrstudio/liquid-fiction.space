@@ -21,6 +21,8 @@
   // *** CONSTANTS
   const EEEFFF_JSON =
     "https://dev.eeefff.org/data/outsourcing-paradise-parasite/erosion-machine-timeline.json";
+  const EEEFFF_JSON_PRDUCTION =
+    "https://eeefff.org/data/outsourcing-paradise-parasite/erosion-machine-timeline.json";
 
   // *** DOM References
   let erosionMachineContainer = {};
@@ -47,7 +49,7 @@
 
   $: {
     if ($introEnded) {
-      console.log("EEEFFF intro video ended");
+      console.log("EEEFFF: Intro video ended");
       introEnded.set(false);
       startTimeline();
     }
@@ -113,6 +115,9 @@
       elementObject.appendChild(sourceElement);
       elementObject.loop = event.loop ? event.loop : "";
       elementObject.preload = "auto";
+      elementObject.crossorigin = "anonymous";
+      console.log("asfasfasd");
+      console.log(elementObject.crossorigin);
 
       // +++ Subtitles
       if (event.subtitles_en) {
@@ -184,6 +189,15 @@
       playVideo(element);
     }
 
+    console.log(
+      "!!! Event Started:",
+      type,
+      "@",
+      position,
+      "Duration:",
+      duration
+    );
+
     window.setTimeout(() => {
       hideAndPause(element);
     }, duration);
@@ -201,7 +215,7 @@
   };
 
   const startTimeline = () => {
-    console.log("starting timeline");
+    console.log("Starting timeline");
     erosionMachineActive.set(true);
 
     timeline
@@ -256,6 +270,14 @@
 
   const prepareShowEvent = (event, position) => {
     addEvent(event.type, event.el, { opacity: 1 }, position, event.duration);
+    console.log(
+      "Event added:",
+      event.type,
+      "@",
+      position,
+      "Duration:",
+      event.duration
+    );
   };
 
   const addLabel = position => {

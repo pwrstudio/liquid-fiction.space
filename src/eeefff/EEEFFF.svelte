@@ -72,7 +72,6 @@
     if (promise !== undefined) {
       promise
         .then(_ => {
-          introVideo.currentTime = 0;
           console.log("🎥 Video started");
         })
         .catch(error => {
@@ -117,21 +116,19 @@
       preload="auto"
       in:fade
       bind:this={introVideoEl}
+      crossorigin="anonymous"
       on:ended={() => {
         introEnded.set(true);
       }}>
       <source
         src="https://dev.eeefff.org/data/outsourcing-paradise-parasite/videos/start-time.mp4"
-        type="video/mp4"
-        crossorigin="anonymous" />
+        type="video/mp4" />
       <track
         kind="subtitles"
         label="English subtitles"
         default
-        src="https://bitchcoin.in/data/subtitles_test.vtt"
+        src="https://dev.eeefff.org/data/outsourcing-paradise-parasite/selected-04/spinner.mp4_en.vtt"
         srclang="en" />
     </video>
   {/if}
 </div>
-
-<!-- src="https://dev.eeefff.org/data/outsourcing-paradise-parasite/selected-04/spinner.mp4_en.vtt" -->

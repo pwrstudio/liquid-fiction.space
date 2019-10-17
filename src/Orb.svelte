@@ -40,9 +40,7 @@
 
     TweenMax.to(orbObject, 2, {
       top: $orbPosition.top,
-      bottom: $orbPosition.bottom,
       left: $orbPosition.left,
-      right: $orbPosition.right,
       ease: Power4.easeOut
     });
   }
