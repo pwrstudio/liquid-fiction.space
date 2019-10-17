@@ -143,7 +143,8 @@
   }
 
   .pane img {
-    max-width: 600px;
+    width: 600px;
+    max-width: 90vw;
     max-height: 400px;
   }
 

@@ -65,9 +65,7 @@
   }
 
   $textContent.then(content => {
-    console.dir(content);
     textList = concat(get(content, "essays", []), get(content, "credits", []));
-    console.dir(textList);
   });
 </script>
 
