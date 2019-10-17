@@ -8,8 +8,9 @@
   // *** IMPORT
   import { onMount } from "svelte";
   import { Router, Link } from "svelte-routing";
-  import { fly, fade } from "svelte/transition";
+  import { fade } from "svelte/transition";
   import { quartOut } from "svelte/easing";
+  import throttle from "just-throttle";
 
   // *** PROPS
   export let location;
@@ -52,16 +53,37 @@
   //   // }
   // }
 
-  onMount(async () => {
+  // $: {
+  //   if ($erosionMachineCounter === 0 && introVideoEl) {
+  //     console.log("restarting video...");
+  //     introVideoEl.currentTime = 0;
+  //   }
+  // }
+
+  const handleMouseMove = () => {
+    if (introVideoEl) {
+      console.log("restarting video...");
+      introVideoEl.currentTime = 0;
+    }
+  };
+  const playVideo = () => {
+    console.log("playing video");
     let promise = introVideoEl.play();
     if (promise !== undefined) {
       promise
         .then(_ => {
+          introVideo.currentTime = 0;
           console.log("🎥 Video started");
         })
         .catch(error => {
           console.error("💥 Error starting video:", error);
         });
+    }
+  };
+
+  onMount(async () => {
+    if (introVideoEl) {
+      playVideo();
     }
   });
 </script>
@@ -89,12 +111,8 @@
   <title>EEEFFF | LIQUID FICTION</title>
 </svelte:head>
 
-<div class="eeefff">
+<div class="eeefff" on:mousemove={throttle(handleMouseMove, 200)}>
   {#if !$erosionMachineActive}
-    <!-- <div in:fly={{ duration: 800, x: 60, delay: 0, easing: quartOut }}> -->
-    <!-- <span style={$erosionMachineCounter === 0 ? 'color:red' : ''}>
-        {$erosionMachineCounter}
-      </span> -->
     <video
       preload="auto"
       in:fade
@@ -104,12 +122,16 @@
       }}>
       <source
         src="https://dev.eeefff.org/data/outsourcing-paradise-parasite/videos/start-time.mp4"
-        type="video/mp4" />
+        type="video/mp4"
+        crossorigin="anonymous" />
       <track
         kind="subtitles"
         label="English subtitles"
         default
-        src="spinner.mp4_en.vtt" />
+        src="https://bitchcoin.in/data/subtitles_test.vtt"
+        srclang="en" />
     </video>
   {/if}
 </div>
+
+<!-- src="https://dev.eeefff.org/data/outsourcing-paradise-parasite/selected-04/spinner.mp4_en.vtt" -->

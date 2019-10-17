@@ -14073,7 +14073,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (144:2) {#each textList as text, order}
+    // (142:2) {#each textList as text, order}
     function create_each_block(ctx) {
     	var current;
 
@@ -14125,7 +14125,7 @@ var app = (function () {
     			destroy_component(pane, detaching);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block.name, type: "each", source: "(144:2) {#each textList as text, order}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_each_block.name, type: "each", source: "(142:2) {#each textList as text, order}", ctx });
     	return block;
     }
 
@@ -14154,7 +14154,7 @@ var app = (function () {
     			}
     			document.title = "Editorial | LIQUID FICTION";
     			attr_dev(div, "class", "about svelte-dln1y5");
-    			add_location(div, file$5, 142, 0, 2963);
+    			add_location(div, file$5, 140, 0, 2910);
     		},
 
     		l: function claim(nodes) {
@@ -14263,9 +14263,7 @@ var app = (function () {
       orbColorOne.set("rgba(255,255,255,1)");
 
       $textContent.then(content => {
-        console.dir(content);
         $$invalidate('textList', textList = concat_1(get_1(content, "essays", []), get_1(content, "credits", [])));
-        console.dir(textList);
       });
 
     	const activated_handler = (event) => {
@@ -14563,7 +14561,7 @@ var app = (function () {
 
     const file$7 = "src/eeefff/EEEFFF.svelte";
 
-    // (88:2) {#if !$erosionMachineActive}
+    // (110:2) {#if !$erosionMachineActive}
     function create_if_block$2(ctx) {
     	var video, source, track, video_intro, dispose;
 
@@ -14574,15 +14572,17 @@ var app = (function () {
     			track = element("track");
     			attr_dev(source, "src", "https://dev.eeefff.org/data/outsourcing-paradise-parasite/videos/start-time.mp4");
     			attr_dev(source, "type", "video/mp4");
-    			add_location(source, file$7, 99, 6, 2191);
+    			attr_dev(source, "crossorigin", "anonymous");
+    			add_location(source, file$7, 117, 6, 2540);
     			attr_dev(track, "kind", "subtitles");
     			attr_dev(track, "label", "English subtitles");
     			track.default = true;
-    			attr_dev(track, "src", "spinner.mp4_en.vtt");
-    			add_location(track, file$7, 102, 6, 2327);
+    			attr_dev(track, "src", "https://bitchcoin.in/data/subtitles_test.vtt");
+    			attr_dev(track, "srclang", "en");
+    			add_location(track, file$7, 121, 6, 2708);
     			attr_dev(video, "preload", "auto");
     			attr_dev(video, "class", "svelte-m1lp4w");
-    			add_location(video, file$7, 92, 4, 2048);
+    			add_location(video, file$7, 110, 4, 2397);
     			dispose = listen_dev(video, "ended", ctx.ended_handler);
     		},
 
@@ -14615,12 +14615,12 @@ var app = (function () {
     			dispose();
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$2.name, type: "if", source: "(88:2) {#if !$erosionMachineActive}", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_if_block$2.name, type: "if", source: "(110:2) {#if !$erosionMachineActive}", ctx });
     	return block;
     }
 
     function create_fragment$9(ctx) {
-    	var t, div;
+    	var t, div, dispose;
 
     	var if_block = (!ctx.$erosionMachineActive) && create_if_block$2(ctx);
 
@@ -14631,7 +14631,8 @@ var app = (function () {
     			if (if_block) if_block.c();
     			document.title = "EEEFFF | LIQUID FICTION";
     			attr_dev(div, "class", "eeefff svelte-m1lp4w");
-    			add_location(div, file$7, 86, 0, 1788);
+    			add_location(div, file$7, 108, 0, 2295);
+    			dispose = listen_dev(div, "mousemove", justThrottle(ctx.handleMouseMove, 200));
     		},
 
     		l: function claim(nodes) {
@@ -14674,6 +14675,7 @@ var app = (function () {
     			}
 
     			if (if_block) if_block.d();
+    			dispose();
     		}
     	};
     	dispatch_dev("SvelteRegisterBlock", { block, id: create_fragment$9.name, type: "component", source: "", ctx });
@@ -14715,16 +14717,37 @@ var app = (function () {
       //   // }
       // }
 
-      onMount(async () => {
+      // $: {
+      //   if ($erosionMachineCounter === 0 && introVideoEl) {
+      //     console.log("restarting video...");
+      //     introVideoEl.currentTime = 0;
+      //   }
+      // }
+
+      const handleMouseMove = () => {
+        if (introVideoEl) {
+          console.log("restarting video...");
+          $$invalidate('introVideoEl', introVideoEl.currentTime = 0, introVideoEl);
+        }
+      };
+      const playVideo = () => {
+        console.log("playing video");
         let promise = introVideoEl.play();
         if (promise !== undefined) {
           promise
             .then(_ => {
+              introVideo.currentTime = 0;
               console.log("🎥 Video started");
             })
             .catch(error => {
               console.error("💥 Error starting video:", error);
             });
+        }
+      };
+
+      onMount(async () => {
+        if (introVideoEl) {
+          playVideo();
         }
       });
 
@@ -14760,6 +14783,7 @@ var app = (function () {
     	return {
     		location,
     		introVideoEl,
+    		handleMouseMove,
     		$erosionMachineActive,
     		video_binding,
     		ended_handler
@@ -19279,7 +19303,7 @@ var app = (function () {
 
     /* src/App.svelte generated by Svelte v3.12.1 */
 
-    // (152:0) <Router>
+    // (153:0) <Router>
     function create_default_slot$1(ctx) {
     	var t0, t1, t2, t3, t4, current;
 
@@ -19418,7 +19442,7 @@ var app = (function () {
     			destroy_component(route5, detaching);
     		}
     	};
-    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot$1.name, type: "slot", source: "(152:0) <Router>", ctx });
+    	dispatch_dev("SvelteRegisterBlock", { block, id: create_default_slot$1.name, type: "slot", source: "(153:0) <Router>", ctx });
     	return block;
     }
 
