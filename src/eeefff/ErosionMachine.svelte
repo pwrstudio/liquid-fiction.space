@@ -6,13 +6,13 @@
   // # # # # # # # # # # # # #
 
   // *** IMPORT
-  import { onMount } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import get from "lodash/get";
   import throttle from "lodash/throttle";
   import maxBy from "lodash/maxBy";
   import fp from "lodash/fp";
 
-  import { logTimeline, logEvent } from "./helperFunctions.js";
+  import { logTimeline, logEvent } from "./utilityFunctions.js";
 
   import { addElement, setRandomPosition } from "./domManipulation.js";
 
@@ -26,8 +26,7 @@
   import {
     erosionMachineActive,
     erosionMachineCounter,
-    activePage,
-    introEnded
+    activePage
   } from "../stores.js";
 
   // *** CONSTANTS
@@ -48,11 +47,10 @@
   // *** REACTIVES
   $: {
     erosionMachineCounter.set(counter);
+  }
+
+  $: {
     hidden = $activePage === "alina" ? true : false;
-    if ($introEnded) {
-      clearTimeline();
-      startTimeline(timeline);
-    }
   }
 
   const startCountdown = (delay, timeline) =>
@@ -61,7 +59,7 @@
         clearTimeline();
         startTimeline(timeline);
       }
-      if ($activePage != "eeefff") counter += 1;
+      counter += 1;
     }, 1000);
 
   const startTimeline = timeline => {
@@ -80,6 +78,7 @@
 
     erosionMachineActive.set(true);
 
+    // Restart when last event has ended
     try {
       restartTimer = setTimeout(() => {
         clearTimeline();
@@ -95,31 +94,32 @@
     if ($erosionMachineActive) clearTimeline();
   };
 
+  //  Clear timers, delete erosion machine content
   const clearTimeline = timeline => {
-    activeTimeline.forEach(e => {
-      if (get(e, "startTimer", false)) clearTimeout(e.startTimer);
-      if (get(e, "endTimer", false)) clearTimeout(e.endTimer);
-    });
-    clearTimeout(restartTimer);
-    erosionMachineContainer.innerHTML = "";
-    erosionMachineActive.set(false);
+    try {
+      activeTimeline.forEach(e => {
+        if (get(e, "startTimer", false)) clearTimeout(e.startTimer);
+        if (get(e, "endTimer", false)) clearTimeout(e.endTimer);
+      });
+      clearTimeout(restartTimer);
+      if (erosionMachineContainer) erosionMachineContainer.innerHTML = "";
+      erosionMachineActive.set(false);
+    } catch (err) {
+      console.error("Error on clear timeline:", err);
+    }
   };
 
   onMount(async () => {
     const response = await fetch(EEEFFF_JSON);
     const TIMELINE_JSON = await response.json();
 
-    if (get(TIMELINE_JSON, "config.disabled", true)) {
-      console.warn("👻 Erosion machine disabled");
-      return false;
-    }
-
-    // TESTING
-    // TIMELINE_JSON = TEST_4;
-    // TIMELINE_JSON.config.delay = 3;
-    // TESTING
+    if (get(TIMELINE_JSON, "config.disabled", true)) return false;
 
     startCountdown(TIMELINE_JSON.config.delay, TIMELINE_JSON.timeline);
+  });
+
+  onDestroy(async () => {
+    clearTimeline();
   });
 </script>
 
@@ -150,4 +150,3 @@
   class="erosion-machine-container"
   class:hidden
   bind:this={erosionMachineContainer} />
-{counter - 5}

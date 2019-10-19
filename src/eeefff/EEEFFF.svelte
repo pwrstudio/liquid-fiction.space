@@ -25,8 +25,7 @@
     erosionMachineActive,
     erosionMachineCounter,
     activePage,
-    menuActive,
-    introEnded
+    menuActive
   } from "../stores.js";
 
   let introVideoEl = {};
@@ -43,28 +42,8 @@
     left: "10px"
   });
 
-  // $: {
-  //   // if ($menuActive && introVideoEl) {
-  //   //   introVideoEl.pause();
-  //   //   introVideoEl.currentTime = 0;
-  //   // }
-  //   // if (!$menuActive && introVideoEl) {
-  //   //   playVideo();
-  //   // }
-  // }
-
-  // $: {
-  //   if ($erosionMachineCounter === 0 && introVideoEl) {
-  //     console.log("restarting video...");
-  //     introVideoEl.currentTime = 0;
-  //   }
-  // }
-
   const handleMouseMove = () => {
-    if (introVideoEl) {
-      console.log("restarting video...");
-      introVideoEl.currentTime = 0;
-    }
+    if (introVideoEl) introVideoEl.currentTime = 0;
   };
 
   const playVideo = () => {
@@ -82,9 +61,7 @@
   };
 
   onMount(async () => {
-    if (introVideoEl) {
-      playVideo();
-    }
+    if (introVideoEl) playVideo();
   });
 </script>
 
@@ -118,9 +95,7 @@
       in:fade
       bind:this={introVideoEl}
       crossorigin="anonymous"
-      on:ended={() => {
-        introEnded.set(true);
-      }}>
+      on:ended={() => {}}>
       <source
         src="https://dev.eeefff.org/data/outsourcing-paradise-parasite/videos/start-time.mp4"
         type="video/mp4" />

@@ -1,7 +1,7 @@
 import uniqueId from 'lodash/uniqueId'
 import get from 'lodash/get'
 
-import { isClassEvent, isShowEvent } from './helperFunctions.js'
+import { isClassEvent, isShowEvent } from './utilityFunctions.js'
 
 export const addElement = (erosionMachineContainer, event) => {
   if (isClassEvent(event)) {
@@ -34,7 +34,11 @@ export const addElement = (erosionMachineContainer, event) => {
     let sourceElement = document.createElement('source')
     sourceElement.src = event.url_mp4 ? event.url_mp4 : ''
     sourceElement.type = 'video/mp4'
-    elementObject.appendChild(sourceElement)
+    try {
+      elementObject.appendChild(sourceElement)
+    } catch (err) {
+      console.log(err)
+    }
     elementObject.loop = get(event, 'loop', 'false')
     elementObject.preload = 'auto'
     elementObject.crossOrigin = 'anonymous'
@@ -42,7 +46,11 @@ export const addElement = (erosionMachineContainer, event) => {
     let subtitlesBox = document.createElement('div')
     subtitlesBox.classList.add('subtitle-box')
 
-    erosionMachineContainer.appendChild(subtitlesBox)
+    try {
+      erosionMachineContainer.appendChild(subtitlesBox)
+    } catch (err) {
+      console.log(err)
+    }
 
     // +++ Subtitles
     if (event.subtitles_en) {
@@ -52,7 +60,11 @@ export const addElement = (erosionMachineContainer, event) => {
       subtitlesTrack.src = event.subtitles_en
       subtitlesTrack.srcLang = 'en'
       subtitlesTrack.default = true
-      elementObject.appendChild(subtitlesTrack)
+      try {
+        elementObject.appendChild(subtitlesTrack)
+      } catch (err) {
+        console.log(err)
+      }
     }
 
     if (event.subtitles_ru) {
@@ -61,18 +73,24 @@ export const addElement = (erosionMachineContainer, event) => {
       subtitlesTrackRu.label = 'Russian subtitles'
       subtitlesTrackRu.src = event.subtitles_ru
       subtitlesTrackRu.srcLang = 'ru'
-      elementObject.appendChild(subtitlesTrackRu)
+      try {
+        elementObject.appendChild(subtitlesTrackRu)
+      } catch (err) {
+        console.log(err)
+      }
     }
 
     event.subtitleBoxEl = subtitlesBox
   }
 
-  // +++ Image attributes
-  if (event.type === 'showImage') {
-    elementObject.src = event.src
-  }
+  // +++ Image src
+  if (event.type === 'showImage') elementObject.src = event.src
 
-  erosionMachineContainer.appendChild(elementObject)
+  try {
+    erosionMachineContainer.appendChild(elementObject)
+  } catch (err) {
+    console.log(err)
+  }
 
   event.el = elementObject
 
