@@ -45,15 +45,6 @@
     });
   }
 
-  // setInterval(() => {
-  //   if (Math.round(Math.random())) {
-  //     TweenMax.to(orbObject, 2, {
-  //       rotation: 360,
-  //       ease: Back.easeOut
-  //     });
-  //   }
-  // }, 300);
-
   // *** VARIABLES
   let scrolling = false;
   let menuExit = false;

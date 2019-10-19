@@ -33,7 +33,7 @@
   const query = "*[]";
 
   // *** STORES
-  import { textContent } from "./stores.js";
+  import { textContent, activePage } from "./stores.js";
 
   textContent.set(loadData(query, {}));
 
@@ -185,7 +185,10 @@
 
 <Orb />
 
-<ErosionMachine />
+{#if $activePage != 'alina'}
+  <ErosionMachine />
+{/if}
+
 <Router>
   <Route path="/" component={Landing} />
   <Route path="/editorial" component={Editorial} />
