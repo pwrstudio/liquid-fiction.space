@@ -171,6 +171,16 @@
   //   height: 400px;
   //   width: 300px;
   // }
+
+  img {
+    max-width: 100vw;
+    max-height: 100vh;
+  }
+
+  .timeline-event--hidden {
+    visibility: hidden;
+    pointer-events: none;
+  }
 </style>
 
 <Orb />

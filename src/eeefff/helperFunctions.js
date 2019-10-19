@@ -1,38 +1,6 @@
-// Calculate timeline position of event
-export const getPosition = (index, arr, delay) =>
-  index === 0
-    ? 0 + delay / 1000
-    : Math.round(
-        arr
-          .slice(0, index)
-          .map(e => e.duration)
-          .reduce((acc, curr) => acc + curr) + delay
-      ) / 1000
-
-// Set random position for DOM element
-export const setRandomPosition = el => {
-  el.style.top =
-    Math.floor(Math.random() * (window.innerHeight - el.clientHeight)) + 'px'
-  el.style.left =
-    Math.floor(Math.random() * (window.innerWidth - el.clientWidth)) + 'px'
-}
-
-export const playVideo = element => {
-  let promise = element.play()
-  if (promise !== undefined) {
-    promise
-      .then(_ => {
-        console.dir(element.textTracks)
-        // element.textTracks[0].mode = "showing"; // force show the first one
-      })
-      .catch(error => {
-        console.dir(element.textTracks)
-        console.dir(element)
-        console.dir(promise)
-        console.error('💥 Error starting video:', error)
-      })
-  }
-}
+import get from 'lodash/get'
+import last from 'lodash/last'
+import size from 'lodash/size'
 
 export const isClassEvent = event =>
   event.type === 'addClass' || event.type === 'removeClass'
@@ -42,4 +10,22 @@ export const isShowEvent = event =>
   event.type === 'showVideo' ||
   event.type === 'showImage'
 
-export const randomOrder = (a, b) => 0.5 - Math.random()
+export const logEvent = e => {
+  console.log('🤡-🤡-🤡-🤡-🤡-')
+  console.log('___ EVENT', e.timelineIndex)
+  console.log('Will start at:', printSeconds(e.startAt))
+  console.log('Will end at:', printSeconds(e.endAt))
+  console.log('Event type:', e.type)
+  return e
+}
+
+export const logTimeline = timeline => {
+  console.log(
+    '––– Total duration:',
+    printSeconds(get(last(timeline), 'endAt', 'undefined'))
+  )
+  console.log('––– Total events:', size(timeline))
+  return timeline
+}
+
+const printSeconds = ms => Math.round(ms / 1000) + ' seconds'
