@@ -39,7 +39,6 @@
   let erosionMachineContainer = {};
 
   // *** VARIABLES
-  let hidden = false;
   let counter = 0;
   let activeTimeline = [];
   let restartTimer = 0;
@@ -47,10 +46,6 @@
   // *** REACTIVES
   $: {
     erosionMachineCounter.set(counter);
-  }
-
-  $: {
-    hidden = $activePage === "alina" ? true : false;
   }
 
   const startCountdown = (delay, timeline) =>
@@ -132,10 +127,6 @@
     top: 0;
     left: 0;
 
-    &.hidden {
-      display: none;
-    }
-
     img,
     video {
       max-width: 100vw;
@@ -148,5 +139,4 @@
 
 <section
   class="erosion-machine-container"
-  class:hidden
   bind:this={erosionMachineContainer} />
