@@ -160,6 +160,17 @@
   video {
     max-width: 100vw;
   }
+
+  // .subtitle-box {
+  //   position: fixed;
+  //   top: 0;
+  //   left: 0;
+  //   background: yellow;
+  //   font-size: 34px;
+  //   z-index: 100000;
+  //   height: 400px;
+  //   width: 300px;
+  // }
 </style>
 
 <Orb />

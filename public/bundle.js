@@ -694,6 +694,13 @@ var app = (function () {
         else
             dispatch_dev("SvelteDOMSetAttribute", { node, attribute, value });
     }
+    function set_data_dev(text, data) {
+        data = '' + data;
+        if (text.data === data)
+            return;
+        dispatch_dev("SvelteDOMSetData", { node: text, data });
+        text.data = data;
+    }
     class SvelteComponentDev extends SvelteComponent {
         constructor(options) {
             if (!options || (!options.target && !options.$$inline)) {
@@ -12227,6 +12234,50 @@ var app = (function () {
       };
     }
 
+    // Calculate timeline position of event
+    const getPosition = (index, arr, delay) =>
+      index === 0
+        ? 0 + delay / 1000
+        : Math.round(
+            arr
+              .slice(0, index)
+              .map(e => e.duration)
+              .reduce((acc, curr) => acc + curr) + delay
+          ) / 1000;
+
+    // Set random position for DOM element
+    const setRandomPosition = el => {
+      el.style.top =
+        Math.floor(Math.random() * (window.innerHeight - el.clientHeight)) + 'px';
+      el.style.left =
+        Math.floor(Math.random() * (window.innerWidth - el.clientWidth)) + 'px';
+    };
+
+    const playVideo = element => {
+      let promise = element.play();
+      if (promise !== undefined) {
+        promise
+          .then(_ => {
+            console.dir(element.textTracks);
+            // element.textTracks[0].mode = "showing"; // force show the first one
+          })
+          .catch(error => {
+            console.dir(element.textTracks);
+            console.dir(element);
+            console.dir(promise);
+            console.error('💥 Error starting video:', error);
+          });
+      }
+    };
+
+    const isClassEvent = event =>
+      event.type === 'addClass' || event.type === 'removeClass';
+
+    const isShowEvent = event =>
+      event.type === 'showText' ||
+      event.type === 'showVideo' ||
+      event.type === 'showImage';
+
     const orbBackgroundOne = writable('rgba(0,0,255,1)');
     const orbBackgroundTwo = writable('rgba(0,0,255,1)');
     const orbColorOne = writable('rgba(0,0,0,1)');
@@ -12248,14 +12299,15 @@ var app = (function () {
     const file$1 = "src/eeefff/ErosionMachine.svelte";
 
     function create_fragment$3(ctx) {
-    	var section, dispose;
+    	var section, t_value = ctx.counter - 2 + "", t, dispose;
 
     	const block = {
     		c: function create() {
     			section = element("section");
+    			t = text(t_value);
     			attr_dev(section, "class", "erosion-machine-container svelte-1lye6s9");
     			toggle_class(section, "hidden", ctx.hidden);
-    			add_location(section, file$1, 436, 0, 11214);
+    			add_location(section, file$1, 651, 0, 17866);
     			dispose = listen_dev(window_1, "mousemove", justThrottle(ctx.handleMouseMove, 200));
     		},
 
@@ -12265,10 +12317,15 @@ var app = (function () {
 
     		m: function mount(target, anchor) {
     			insert_dev(target, section, anchor);
+    			append_dev(section, t);
     			ctx.section_binding(section);
     		},
 
     		p: function update(changed, ctx) {
+    			if ((changed.counter) && t_value !== (t_value = ctx.counter - 2 + "")) {
+    				set_data_dev(t, t_value);
+    			}
+
     			if (changed.hidden) {
     				toggle_class(section, "hidden", ctx.hidden);
     			}
@@ -12301,8 +12358,6 @@ var app = (function () {
     	validate_store(introEnded, 'introEnded');
     	component_subscribe($$self, introEnded, $$value => { $introEnded = $$value; $$invalidate('$introEnded', $introEnded); });
 
-    	
-
       // *** DOM References
       let erosionMachineContainer = {};
 
@@ -12313,18 +12368,11 @@ var app = (function () {
       let timeline = new TimelineMax({
         paused: true,
         onUpdate: function() {
-          // console.log(Math.round(this.time()));
+          // console.log("–", Math.round(this.time()));
         }
       });
 
       // *** Functions
-
-      const setRandomPosition = el => {
-        el.style.top =
-          Math.floor(Math.random() * (window.innerHeight - el.clientHeight)) + "px";
-        el.style.left =
-          Math.floor(Math.random() * (window.innerWidth - el.clientWidth)) + "px";
-      };
 
       const addElement = event => {
         if (!event.type) {
@@ -12333,6 +12381,7 @@ var app = (function () {
         }
 
         if (isClassEvent(event)) {
+          // console.dir(event);
           return event;
         }
 
@@ -12345,20 +12394,31 @@ var app = (function () {
         }
 
         // +++ Create DOM element
-        let elementObject = document.createElement(
-          event.type === "showVideo" ? "video" : "div"
-        );
+        let elementType = "";
+
+        if (event.type === "showVideo") {
+          elementType = "video";
+        }
+        if (event.type === "showText") {
+          elementType = "div";
+        }
+        if (event.type === "showImage") {
+          elementType = "img";
+        }
+        let elementObject = document.createElement(elementType);
 
         // +++ Add ID
-        elementObject.id = Math.random()
-          .toString(36)
-          .substring(2, 15);
+        elementObject.id = event.id
+          ? event.id
+          : Math.random()
+              .toString(36)
+              .substring(2, 15);
 
         // +++ Hide elemenmt
         elementObject.style.opacity = 0;
 
         // +++ Set z-index
-        elementObject.style.zIndex = 1001;
+        // elementObject.style.zIndex = 1001;
 
         // +++ Add classes
         elementObject.classList = event.class ? event.class : "";
@@ -12366,8 +12426,17 @@ var app = (function () {
         // +++ Add text
         elementObject.innerText = event.text ? event.text : "";
 
+        // console.dir(event.position);
         // +++ Add position
-        elementObject.style.position = event.position ? event.position : "inherit";
+        // elementObject.style.position = event.position ? event.position : "fixed";
+        elementObject.style.position = "fixed";
+        // console.dir(elementObject.style.position);
+        // elementObject.style.position = elementObject.style.position.replace(
+        //   "erosion",
+        //   "fixed"
+        // );
+
+        // console.dir(elementObject.style.position);
 
         // +++ Video attributes
         if (event.type === "showVideo") {
@@ -12377,9 +12446,12 @@ var app = (function () {
           elementObject.appendChild(sourceElement);
           elementObject.loop = event.loop ? event.loop : "";
           elementObject.preload = "auto";
-          elementObject.crossorigin = "anonymous";
-          console.log("asfasfasd");
-          console.log(elementObject.crossorigin);
+          elementObject.crossOrigin = "anonymous";
+
+          let subtitlesBox = document.createElement("div");
+          subtitlesBox.classList = elementObject.id;
+          subtitlesBox.classList.add("subtitle-box");
+          erosionMachineContainer.appendChild(subtitlesBox);
 
           // +++ Subtitles
           if (event.subtitles_en) {
@@ -12390,10 +12462,9 @@ var app = (function () {
             // subtitlesTrack.src = "/subtitles_test.vtt";
             subtitlesTrack.srcLang = "en";
             subtitlesTrack.default = true;
-            // let subtitlesBox = document.createElement("div");
             elementObject.appendChild(subtitlesTrack);
-            // elementObject.appendChild(subtitlesBox);
           }
+
           if (event.subtitles_ru) {
             let subtitlesTrackRu = document.createElement("track");
             subtitlesTrackRu.kind = "subtitles";
@@ -12401,11 +12472,15 @@ var app = (function () {
             subtitlesTrackRu.src = event.subtitles_ru;
             // subtitlesTrack.src = "/subtitles_test.vtt";
             subtitlesTrackRu.srcLang = "ru";
-            subtitlesTrackRu.default = true;
-            // let subtitlesBox = document.createElement("div");
+            let subtitlesBox = document.createElement("div");
             elementObject.appendChild(subtitlesTrackRu);
-            // elementObject.appendChild(subtitlesBox);
+            elementObject.appendChild(subtitlesBox);
           }
+        }
+
+        // +++ Image attributes
+        if (event.type === "showImage") {
+          elementObject.src = event.src;
         }
 
         erosionMachineContainer.appendChild(elementObject);
@@ -12422,8 +12497,8 @@ var app = (function () {
             0.01,
             {
               ...toObject,
-              onStart: eventStart,
-              onStartParams: [type, element, toObject, position, duration]
+              onComplete: eventStart,
+              onCompleteParams: [type, element, toObject, position, duration]
             },
             position
           );
@@ -12433,6 +12508,7 @@ var app = (function () {
       };
 
       const eventStart = (type, element, toObject, position, duration) => {
+        // console.log("event started");
         playedEvents.unshift({
           type: type,
           el: element,
@@ -12444,21 +12520,37 @@ var app = (function () {
         }
 
         if (type === "showVideo") {
-          if (lodash_get(element, "element.textTracks[0]", false))
-            element.textTracks[0].oncuechange = function() {
-              console.dir(this.activeCues[0].text);
-            };
+          // console.dir(element.textTracks[0]);
+          // if (get(element, "element.textTracks", false))
+          element.textTracks[0].oncuechange = function() {
+            // console.dir(get(element, "textTracks[0].activeCues[0].text", ""));
+            // const query = "." + element.id + ".subtitle-box";
+            // console.log(query);
+            // console.dir(
+            //   document.body.querySelector("." + element.id + ".subtitle-box")
+            // );
+            const subTitlesEl = document.body.querySelector(
+              "." + element.id + ".subtitle-box"
+            );
+            if (subTitlesEl) {
+              try {
+                subTitlesEl.innerText = lodash_get(
+                  element,
+                  "textTracks[0].activeCues[0].text",
+                  ""
+                );
+                subTitlesEl.style.opacity = 1;
+              } catch (err) {
+                console.error("💥 Error adding subtitle:", err);
+              }
+            }
+          };
           playVideo(element);
         }
 
-        console.log(
-          "!!! Event Started:",
-          type,
-          "@",
-          position,
-          "Duration:",
-          duration
-        );
+        if (type === "showVideo") {
+          console.log("VIDEO END:", duration);
+        }
 
         window.setTimeout(() => {
           hideAndPause(element);
@@ -12477,15 +12569,15 @@ var app = (function () {
       };
 
       const startTimeline = () => {
-        console.log("Starting timeline");
+        // console.log("Starting timeline");
         erosionMachineActive.set(true);
 
         timeline
           .getChildren()
           .map(c => c.target)
-          .filter(
-            el => el.style.position == "absolute" || el.style.position == "fixed"
-          )
+          // .filter(
+          //   el => el.style.position == "absolute" || el.style.position == "fixed" || el.style.position == "erosion"
+          // )
           .forEach(setRandomPosition);
 
         timeline
@@ -12500,24 +12592,32 @@ var app = (function () {
           playedEvents.length > 0 &&
           (timeline.isActive() || timeline.totalProgress() === 1)
         ) {
-          timeline.pause();
-          playedEvents.forEach(e => {
-            if (isShowEvent(e)) {
-              hideAndPause(e.el);
-            } else if (e.type === "addClass") {
-              TweenMax.to(e.el, 0.2, { css: { className: "-=" + e.class } });
-            }
-          });
-          erosionMachineActive.set(false);
+          stopTimeline();
         }
       };
 
+      const stopTimeline = () => {
+        timeline.pause();
+        playedEvents.forEach(e => {
+          if (isShowEvent(e)) {
+            hideAndPause(e.el);
+            document.body
+              .querySelectorAll(".subtitle-box")
+              .forEach(el => hideAndPause);
+          } else if (e.type === "addClass") {
+            TweenMax.to(e.el, 0.2, { css: { className: "-=" + e.class } });
+          }
+        });
+        erosionMachineActive.set(false);
+      };
+
       const prepareClassEvent = (event, position, delay) => {
+        // console.log("class id", event.id);
         const target = document.querySelector("#" + event.id);
         if (target) {
           addEvent(
             event.type,
-            event.el,
+            target,
             {
               className:
                 event.type == "addClass" ? "+=" + event.class : "-=" + event.class
@@ -12532,14 +12632,6 @@ var app = (function () {
 
       const prepareShowEvent = (event, position) => {
         addEvent(event.type, event.el, { opacity: 1 }, position, event.duration);
-        console.log(
-          "Event added:",
-          event.type,
-          "@",
-          position,
-          "Duration:",
-          event.duration
-        );
       };
 
       const addLabel = position => {
@@ -12554,44 +12646,21 @@ var app = (function () {
         return label;
       };
 
-      const playVideo = element => {
-        let promise = element.play();
-        if (promise !== undefined) {
-          promise
-            .then(_ => {
-              console.dir(element.textTracks);
-              // element.textTracks[0].mode = "showing"; // force show the first one
-              console.log("🎥 Video started");
-            })
-            .catch(error => {
-              console.error("💥 Error starting video:", error);
-            });
-        }
-      };
-
       const hideAndPause = element => {
+        // console.log("PAUSING");
         TweenMax.to(element, 0.2, { opacity: 0 });
         if (element.nodeName.toLowerCase() === "video") {
+          let subtitlesEl = document.body.querySelector(
+            "." + element.id + ".subtitle-box"
+          );
+          if (subtitlesEl) {
+            subtitlesEl.innerText = "";
+            subtitlesEl.style.opacity = 0;
+          }
           element.pause();
           element.currentTime = 0;
         }
       };
-
-      const randomOrder = (a, b) => 0.5 - Math.random();
-      const getPosition = (index, arr, delay) =>
-        index === 0
-          ? 0 + delay
-          : Math.round(
-              arr
-                .slice(0, index)
-                .map(e => e.duration)
-                .reduce((acc, curr) => acc + curr) + delay
-            ) / 1000;
-
-      const isClassEvent = event =>
-        event.type === "addClass" || event.type === "removeClass";
-      const isShowEvent = event =>
-        event.type === "showText" || event.type === "showVideo";
 
       // *** ON MOUNT
       onMount(async () => {
@@ -12621,15 +12690,18 @@ var app = (function () {
         }
 
         // TESTING
-        // TIMELINE_JSON.config.delay = 2;
+        // TIMELINE_JSON = TEST_4;
+        TIMELINE_JSON.config.delay = 2;
 
-        console.info("🎰 Erosion machine initiated");
-        console.info("––– Delay:", TIMELINE_JSON.config.delay);
+        console.dir(TIMELINE_JSON);
+
+        // console.info("🎰 Erosion machine initiated");
+        // console.info("––– Delay:", TIMELINE_JSON.config.delay);
 
         startTimer(TIMELINE_JSON.config.delay);
 
         TIMELINE_JSON.timeline
-          .sort(randomOrder)
+          // .sort(randomOrder)
           .map(addElement)
           .forEach((event, i, arr) => {
             if (event.type === "assemblage") {
@@ -12674,7 +12746,29 @@ var app = (function () {
             }
           });
 
+        console.dir(TIMELINE_JSON.timeline);
+        console.dir(TIMELINE_JSON.timeline.map(e => e.duration));
+
+        const totalTime = TIMELINE_JSON.timeline
+          .map(e => e.duration)
+          .reduce((acc, curr) => acc + curr);
+
+        console.log("––– Total duration:", totalTime);
         console.info("––– Total events:", timeline.getChildren().length);
+
+        setTimeout(() => {
+          console.log("DONDONENDONE");
+          // stopTimeline();
+          startTimeline();
+        }, totalTime);
+
+        timeline.getChildren().forEach((e, i) => {
+          console.log("🤡-🤡-🤡-🤡-🤡-");
+          console.log("___ EVENT", i);
+          console.log("Will start at:", e._startTime);
+          console.log("Element type:", e.target.nodeName);
+          console.log("Content:", e.target.innerText);
+        });
       });
 
     	function section_binding($$value) {
@@ -12716,6 +12810,7 @@ var app = (function () {
     	return {
     		erosionMachineContainer,
     		hidden,
+    		counter,
     		handleMouseMove,
     		section_binding
     	};
