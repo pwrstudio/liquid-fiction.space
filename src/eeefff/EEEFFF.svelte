@@ -10,7 +10,7 @@
   import { Router, Link } from "svelte-routing";
   import { fade } from "svelte/transition";
   import { quartOut } from "svelte/easing";
-  import throttle from "just-throttle";
+  import throttle from "lodash/throttle";
 
   // *** PROPS
   export let location;
@@ -66,6 +66,7 @@
       introVideoEl.currentTime = 0;
     }
   };
+
   const playVideo = () => {
     console.log("playing video");
     let promise = introVideoEl.play();
