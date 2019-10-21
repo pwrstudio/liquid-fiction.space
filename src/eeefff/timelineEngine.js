@@ -2,8 +2,8 @@ import get from 'lodash/get'
 
 import { isClassEvent, isShowEvent } from './utilityFunctions.js'
 
-// Start; previous event start + previous event duration
-// End: own start time + own duration
+// startAt; previous event start + previous event duration
+// end:At own start time + own duration
 export const calculateTime = timeline => {
   return timeline.map((e, i, arr) => {
     e.startAt = i === 0 ? 0 : arr[i - 1].startAt + arr[i - 1].duration
@@ -13,8 +13,8 @@ export const calculateTime = timeline => {
   })
 }
 
-// Start; assemblage start + own delay
-// End: assemblage end time
+// startAt; assemblage start + own delay
+// endAt: assemblage end time
 export const calculateTimeAssemblage = parentEvent => {
   if (parentEvent.type != 'assemblage') return parentEvent
   return get(parentEvent, 'events', []).map((e, i) => {

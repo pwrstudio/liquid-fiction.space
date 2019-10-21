@@ -30,6 +30,7 @@
   export let active = false;
   export let hidden = false;
   export let bgColor = "#0000ff";
+  export let section = "";
 
   // *** VARIABLES
   let width = 100;
@@ -145,7 +146,7 @@
   on:click={open}
   class:active
   class:hidden
-  class:introduction={order === 0}
+  class:introduction={order === 0 && section != 'editorial'}
   in:fly={{ x: 300, delay: order * 100, opacity: 0 }}>
   {@html renderBlockText(essay.content)}
 

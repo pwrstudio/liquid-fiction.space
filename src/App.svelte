@@ -23,6 +23,7 @@
 
   // ROUTES
   import Editorial from "./Editorial.svelte";
+  import About from "./About.svelte";
   import CycleOne from "./CycleOne.svelte";
   import EEEFFF from "./eeefff/EEEFFF.svelte";
   import OlofMarsja from "./olof-marsja/OlofMarsja.svelte";
@@ -58,8 +59,12 @@
         credits: {}
       };
 
-      contentContstruction.introduction.firstCycle = res.find(
+      contentContstruction.introduction.main = res.find(
         d => get(d, "slug.current", "") === "introduction"
+      );
+
+      contentContstruction.introduction.firstCycle = res.find(
+        d => get(d, "slug.current", "") === "cycle-one"
       );
 
       contentContstruction.credits = res.find(
@@ -74,7 +79,8 @@
         d =>
           get(d, "_type", "") === "post" &&
           get(d, "slug.current", "") != "credits" &&
-          get(d, "slug.current", "") != "introduction"
+          get(d, "slug.current", "") != "introduction" &&
+          get(d, "slug.current", "") != "cycle-one"
       );
 
       return contentContstruction;
@@ -143,9 +149,8 @@
   }
 
   .pane img {
-    width: 600px;
     max-width: 90vw;
-    max-height: 400px;
+    height: 400px;
   }
 
   .pane figure {
@@ -155,6 +160,13 @@
 
   .pane p {
     max-width: 80ch;
+  }
+
+  .pane a {
+    border-bottom: 1px solid currentColor;
+    &:hover {
+      border-bottom: 1px solid transparent;
+    }
   }
 
   video {
@@ -191,6 +203,7 @@
 
 <Router>
   <Route path="/" component={Landing} />
+  <Route path="/liquid-fiction" component={About} />
   <Route path="/editorial" component={Editorial} />
   <Route path="/cycle-1" component={CycleOne} />
   <Route path="eeefff" component={EEEFFF} />

@@ -1,7 +1,7 @@
 <script>
   // # # # # # # # # # # # # #
   //
-  //  About
+  //  Editorial
   //
   // # # # # # # # # # # # # #
 
@@ -31,21 +31,17 @@
   } from "./stores.js";
 
   const bgColors = [
-    "darkorange",
-    "darkgoldenrod",
-    "darkorange",
-    "darkgoldenrod",
-    "darkorange",
-    "darkgoldenrod",
-    "darkorange",
-    "darkgoldenrod",
-    "darkorange",
-    "darkgoldenrod"
+    "Gold",
+    "RosyBrown",
+    "Gold",
+    "RosyBrown",
+    "Gold",
+    "RosyBrown"
   ];
 
   activePage.set("about");
-  orbBackgroundOne.set("rgb(0, 0, 0)");
-  orbBackgroundTwo.set("rgba(255,69,0,1)");
+  orbBackgroundOne.set("rgb(255, 69, 0)");
+  orbBackgroundTwo.set("rgba(255,140,0,1)");
 
   orbColorTwo.set("rgba(255,255,255,1)");
   orbColorOne.set("rgba(255,255,255,1)");
@@ -65,7 +61,7 @@
   }
 
   $textContent.then(content => {
-    textList = concat(get(content, "essays", []), get(content, "credits", []));
+    textList = concat(get(content, "essays", []));
   });
 </script>
 
@@ -162,6 +158,7 @@
       }}
       essay={text}
       bgColor={bgColors[order]}
+      section="editorial"
       active={activeOrder === order ? true : false}
       hidden={activeOrder != 1000 && activeOrder < order ? true : false}
       {order}
