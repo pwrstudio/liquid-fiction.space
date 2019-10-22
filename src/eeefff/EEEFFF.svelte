@@ -25,6 +25,7 @@
     erosionMachineActive,
     erosionMachineCounter,
     activePage,
+    eeefffIntroVideoEnded,
     menuActive
   } from "../stores.js";
 
@@ -47,16 +48,19 @@
   };
 
   const playVideo = () => {
-    console.log("playing video");
-    let promise = introVideoEl.play();
-    if (promise !== undefined) {
-      promise
-        .then(_ => {
-          console.log("🎥 Video started");
-        })
-        .catch(error => {
-          console.error("💥 Error starting video:", error);
-        });
+    try {
+      let promise = introVideoEl.play();
+      if (promise !== undefined) {
+        promise
+          .then(_ => {
+            console.log("🎥 Video started");
+          })
+          .catch(error => {
+            console.error("💥 Error starting video:", error);
+          });
+      }
+    } catch (err) {
+      console.error("Introvideo error", err);
     }
   };
 
@@ -93,9 +97,12 @@
     <video
       preload="auto"
       in:fade
+      controls
       bind:this={introVideoEl}
       crossorigin="anonymous"
-      on:ended={() => {}}>
+      on:ended={() => {
+        eeefffIntroVideoEnded.set(true);
+      }}>
       <source
         src="https://dev.eeefff.org/data/outsourcing-paradise-parasite/videos/start-time.mp4"
         type="video/mp4" />
@@ -108,3 +115,5 @@
     </video>
   {/if}
 </div>
+
+<!-- src="https://dev.eeefff.org/data/outsourcing-paradise-parasite/videos/start-time.mp4" -->

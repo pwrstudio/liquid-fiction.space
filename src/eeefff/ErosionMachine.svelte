@@ -26,7 +26,8 @@
   import {
     erosionMachineActive,
     erosionMachineCounter,
-    activePage
+    activePage,
+    eeefffIntroVideoEnded
   } from "../stores.js";
 
   // *** CONSTANTS
@@ -42,19 +43,34 @@
   let counter = 0;
   let activeTimeline = [];
   let restartTimer = 0;
+  let TIMELINE_JSON = [];
 
   // *** REACTIVES
   $: {
     erosionMachineCounter.set(counter);
   }
 
+  let blocked = false;
+
+  $: {
+    blocked = $activePage == "eeefff";
+  }
+
+  $: {
+    if ($eeefffIntroVideoEnded) {
+      counter = 1000;
+      eeefffIntroVideoEnded.set(false);
+    }
+  }
+
   const startCountdown = (delay, timeline) =>
     window.setInterval(() => {
-      if (counter === delay) {
+      if (counter >= delay) {
+        counter = 0;
         clearTimeline();
         startTimeline(timeline);
       }
-      counter += 1;
+      if (!blocked) counter += 1;
     }, 1000);
 
   const startTimeline = timeline => {
@@ -106,7 +122,7 @@
 
   onMount(async () => {
     const response = await fetch(EEEFFF_JSON);
-    const TIMELINE_JSON = await response.json();
+    TIMELINE_JSON = await response.json();
 
     if (get(TIMELINE_JSON, "config.disabled", true)) return false;
 
@@ -133,6 +149,15 @@
       max-height: 100vh;
     }
   }
+
+  // .info {
+  //   position: fixed;
+  //   top: 0;
+  //   left: 0;
+  //   background: red;
+  //   color: black;
+  //   z-index: 100000;
+  // }
 </style>
 
 <svelte:window on:mousemove={throttle(handleMouseMove, 200)} />
@@ -140,3 +165,5 @@
 <section
   class="erosion-machine-container"
   bind:this={erosionMachineContainer} />
+
+<!-- <div class="info">{$activePage} {counter} {blocked}</div> -->
