@@ -97,7 +97,6 @@
     <video
       preload="auto"
       in:fade
-      controls
       bind:this={introVideoEl}
       crossorigin="anonymous"
       on:ended={() => {
