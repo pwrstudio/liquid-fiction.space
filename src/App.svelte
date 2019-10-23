@@ -5,12 +5,6 @@
   //
   // # # # # # # # # # # # # #
 
-  // *** POLYFILLS
-  // import "intersection-observer";
-  // import "whatwg-fetch";
-
-  // import "es6-shim";
-
   // *** IMPORT
   import { Router, Link, Route } from "svelte-routing";
   import { onMount, onDestroy } from "svelte";
@@ -18,7 +12,6 @@
   import get from "lodash/get";
 
   // *** COMPONENTS
-  import ErosionMachine from "./eeefff/ErosionMachine.svelte";
   import Orb from "./Orb.svelte";
 
   // ROUTES
@@ -196,10 +189,6 @@
 </style>
 
 <Orb />
-
-{#if $activePage != 'alina'}
-  <ErosionMachine />
-{/if}
 
 <Router>
   <Route path="/" component={Landing} />

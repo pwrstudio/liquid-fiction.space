@@ -33,14 +33,15 @@ export const initiateTimer = event => {
     event.endTimer = setTimeout(() => {
       removeEl(event)
     }, event.startAt + event.endAt)
-    return event
+    return [event.startTimer, event.endTimer]
   }
   if (isClassEvent(event)) {
     event.startTimer = setTimeout(() => {
       if (event.type === 'addClass') addClass(event)
       if (event.type === 'removeClass') removeClass(event)
     }, event.startAt)
-    return event
+
+    return [event.startTimer, event.endTimer]
   }
 }
 

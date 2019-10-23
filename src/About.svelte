@@ -6,13 +6,14 @@
   // # # # # # # # # # # # # #
 
   // *** IMPORT
-  //   import intro from "./texts.js";
   import { fly, blur } from "svelte/transition";
   import { quartOut } from "svelte/easing";
   import { client, renderBlockText, urlFor } from "./sanity.js";
   import get from "lodash/get";
   import concat from "lodash/concat";
 
+  // *** COMPONENTS
+  import ErosionMachine from "./eeefff/ErosionMachine.svelte";
   import Pane from "./Pane.svelte";
 
   // *** VARIABLES
@@ -171,3 +172,5 @@
       totalPanes={textList.length} />
   {/each}
 </div>
+
+<ErosionMachine />

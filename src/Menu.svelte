@@ -24,26 +24,19 @@
     menuActive.set(active);
   }
 
-  // const handleExit = () => {
-  //   exit = true;
-  //   setTimeout(() => {
-  //     exit = false;
-  //   }, 1000);
-  // };
-
   // *** VARIABLES
   export let active = false;
   const dispatch = createEventDispatcher();
-  // export let exit = false;
 
-function startVideos() {
-  // 1s buffer
-  setTimeout(function(){
-        document.querySelectorAll("video").forEach(e => {
-            e.play()
-        })
-  }, 1000);
-}
+  function startVideos() {
+    // 1s buffer
+    setTimeout(function(){
+          document.querySelectorAll("video").forEach(e => {
+              e.play()
+          })
+    }, 1000);
+  }
+
 </script>
 
 <style lang="scss">

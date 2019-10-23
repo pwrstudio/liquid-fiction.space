@@ -13,7 +13,9 @@
   import get from "lodash/get";
   import concat from "lodash/concat";
 
+  // *** COMPONENTS
   import Pane from "./Pane.svelte";
+  import ErosionMachine from "./eeefff/ErosionMachine.svelte";
 
   // *** VARIABLES
   let activeOrder = 1000;
@@ -165,3 +167,5 @@
       totalPanes={textList.length} />
   {/each}
 </div>
+
+<ErosionMachine />

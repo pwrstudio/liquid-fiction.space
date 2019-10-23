@@ -12,8 +12,13 @@
   import { quartOut } from "svelte/easing";
   import throttle from "lodash/throttle";
 
+  // *** COMPONENTS
+  import ErosionMachine from "./ErosionMachine.svelte";
+
   // *** PROPS
   export let location;
+
+  let introEnded = false;
 
   // *** STORES
   import {
@@ -25,7 +30,6 @@
     erosionMachineActive,
     erosionMachineCounter,
     activePage,
-    eeefffIntroVideoEnded,
     menuActive
   } from "../stores.js";
 
@@ -49,6 +53,7 @@
 
   const playVideo = () => {
     try {
+      introEnded = false;
       let promise = introVideoEl.play();
       if (promise !== undefined) {
         promise
@@ -93,26 +98,30 @@
 </svelte:head>
 
 <div class="eeefff" on:mousemove={throttle(handleMouseMove, 200)}>
-  {#if !$erosionMachineActive}
-    <video
-      preload="auto"
-      in:fade
-      bind:this={introVideoEl}
-      crossorigin="anonymous"
-      on:ended={() => {
-        eeefffIntroVideoEnded.set(true);
-      }}>
-      <source
-        src="https://dev.eeefff.org/data/outsourcing-paradise-parasite/videos/start-time.mp4"
-        type="video/mp4" />
-      <track
-        kind="subtitles"
-        label="English subtitles"
-        default
-        src="https://dev.eeefff.org/data/outsourcing-paradise-parasite/selected-04/spinner.mp4_en.vtt"
-        srclang="en" />
-    </video>
-  {/if}
+  <video
+    preload="auto"
+    in:fade
+    bind:this={introVideoEl}
+    crossorigin="anonymous"
+    on:ended={() => {
+      introEnded = true;
+    }}>
+    <source
+      src="https://dev.eeefff.org/data/outsourcing-paradise-parasite/videos/start-time.mp4"
+      type="video/mp4" />
+    <track
+      kind="subtitles"
+      label="English subtitles"
+      default
+      src="https://dev.eeefff.org/data/outsourcing-paradise-parasite/selected-04/spinner.mp4_en.vtt"
+      srclang="en" />
+  </video>
 </div>
 
-<!-- src="https://dev.eeefff.org/data/outsourcing-paradise-parasite/videos/start-time.mp4" -->
+{#if introEnded}
+  <ErosionMachine
+    noDelay={true}
+    on:restart={() => {
+      playVideo();
+    }} />
+{/if}
