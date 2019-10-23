@@ -27,6 +27,16 @@
   // *** VARIABLES
   export let active = false;
   const dispatch = createEventDispatcher();
+
+  function startVideos() {
+    // 1s buffer
+    setTimeout(function(){
+          document.querySelectorAll("video").forEach(e => {
+              e.play()
+          })
+    }, 1000);
+  }
+
 </script>
 
 <style lang="scss">
@@ -243,6 +253,7 @@
         </div>
         <div
           class="item"
+          on:click={() => { startVideos(); }}
           in:fly={{ duration: 400, y: 20, delay: 300, easing: quartOut }}
           out:fly={{ duration: 300, y: 60, delay: 200 }}>
           <Link to="alina-chaiderov">
