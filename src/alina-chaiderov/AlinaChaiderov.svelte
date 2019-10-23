@@ -288,7 +288,7 @@
 </svelte:head>
 
 {#if !$menuActive}
-<div class="site-container" id="siteContainer" in:fade={{ delay: 1000 }}>
+<div class="site-container" id="siteContainer" in:fade={{ delay: 1000 }} on:click={() => { startVideos(); }}>
   <div class="site-container--canvas" id="siteCanvas">
     <div class="room__video room__video--1" style="transform: translateX(-585px) translateY(-101px) translateZ(-140px) rotateY(320deg) rotateX(0deg) scale(1);">
       <video id="video__1" nocontrols loop muted preload autoplay playsinline poster="https://alinachaiderov.s3.eu-north-1.amazonaws.com/muted/video-1.jpg">
