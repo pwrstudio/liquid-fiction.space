@@ -5,15 +5,11 @@
   //
   // # # # # # # # # # # # # #
 
-  // *** POLYFILLS
-  // import "intersection-observer";
-  // import "whatwg-fetch";
-
-  // import "es6-shim";
-
   // *** IMPORT
   import { Router, Link, Route } from "svelte-routing";
-  // import MediaQuery from "svelte-media-query";
+
+  // *** COMPONENTS
+  import ErosionMachine from "./eeefff/ErosionMachine.svelte";
 
   // *** STORES
   import {
@@ -32,36 +28,12 @@
   orbBackgroundTwo.set("rgba(255,0,0,1)");
   orbColorTwo.set("rgba(255,255,255,1)");
 
-  // *** COMPONENTS
-  // import Navigation from "./Components/Navigation.svelte";
-  // import MobileNavigation from "./Components/MobileNavigation.svelte";
-
   let titleAnimation = "LIQUID FICTION";
   let titleOutput = titleAnimation;
   let titleLength = titleAnimation.length;
   let titleIndex = 0;
 
   activePage.set("landing");
-
-  // setInterval(() => {
-  //   console.log(titleAnimation.length);
-  //   if (titleIndex <= titleLength) {
-  //     let temp = Array.from(titleAnimation).map((c, i) => {
-  //       console.log(c, i);
-  //       if (i >= titleIndex) {
-  //         return c;
-  //       } else {
-  //         return "~";
-  //       }
-  //     });
-  //     console.log(temp);
-  //     titleOutput = temp.join("");
-  //     titleIndex += 1;
-  //   } else {
-  //     titleOutput = titleAnimation;
-  //     titleIndex = 0;
-  //   }
-  // }, 400);
 </script>
 
 <style lang="scss">
@@ -150,3 +122,5 @@
     <div class="logo2">FICTION</div>
   </div>
 </div>
+
+<ErosionMachine />

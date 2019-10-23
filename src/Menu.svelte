@@ -24,17 +24,9 @@
     menuActive.set(active);
   }
 
-  // const handleExit = () => {
-  //   exit = true;
-  //   setTimeout(() => {
-  //     exit = false;
-  //   }, 1000);
-  // };
-
   // *** VARIABLES
   export let active = false;
   const dispatch = createEventDispatcher();
-  // export let exit = false;
 </script>
 
 <style lang="scss">

@@ -12,6 +12,9 @@
   import { fly } from "svelte/transition";
   import { quartOut } from "svelte/easing";
 
+  // *** COMPONENTS
+  import ErosionMachine from "../eeefff/ErosionMachine.svelte";
+
   // *** STORES
   import {
     menuActive,
@@ -40,15 +43,6 @@
   let loaded = false;
   let sketchFabClient = {};
   let slider = {};
-
-  // $: {
-  //   if ($menuActive) {
-  //     slider.pause();
-  //   } else if (slider.play) {
-  //     console.log(slider);
-  //     slider.play();
-  //   }
-  // }
 
   const iArray = [
     "iWake",
@@ -770,3 +764,5 @@
   </div>
 
 </div>
+
+<ErosionMachine />

@@ -10,7 +10,11 @@
   import get from "lodash/get";
   import throttle from "lodash/throttle";
   import maxBy from "lodash/maxBy";
+  import concat from "lodash/concat";
   import fp from "lodash/fp";
+
+  import { createEventDispatcher } from "svelte";
+  const dispatch = createEventDispatcher();
 
   import { logTimeline, logEvent } from "./utilityFunctions.js";
 
@@ -41,41 +45,29 @@
 
   // *** VARIABLES
   let counter = 0;
-  let activeTimeline = [];
+  let timerList = [];
   let restartTimer = 0;
   let TIMELINE_JSON = [];
+
+  export let noDelay = false;
 
   // *** REACTIVES
   $: {
     erosionMachineCounter.set(counter);
   }
 
-  let blocked = false;
-
-  $: {
-    blocked = $activePage == "eeefff";
-  }
-
-  $: {
-    if ($eeefffIntroVideoEnded) {
-      counter = 1000;
-      eeefffIntroVideoEnded.set(false);
-    }
-  }
-
   const startCountdown = (delay, timeline) =>
     window.setInterval(() => {
-      if (counter >= delay) {
-        counter = 0;
+      if (counter === delay) {
         clearTimeline();
         startTimeline(timeline);
       }
-      if (!blocked) counter += 1;
+      if ($activePage != "alina") counter += 1;
     }, 1000);
 
   const startTimeline = timeline => {
     const curriedAddElement = fp.curry(addElement)(erosionMachineContainer);
-    activeTimeline = fp.flow(
+    let activeTimeline = fp.flow(
       fp.shuffle,
       calculateTime,
       fp.map(calculateTimeAssemblage),
@@ -83,15 +75,19 @@
       fp.map(curriedAddElement),
       fp.map(logEvent),
       fp.map(setRandomPosition),
-      logTimeline,
-      fp.map(initiateTimer)
+      logTimeline
     )(timeline);
+
+    activeTimeline.forEach(e => {
+      timerList = concat(timerList, initiateTimer(e));
+    });
 
     erosionMachineActive.set(true);
 
     // Restart when last event has ended
     try {
       restartTimer = setTimeout(() => {
+        console.log("restart");
         clearTimeline();
         startTimeline(timeline);
       }, maxBy(timeline, e => e.endAt).endAt);
@@ -102,21 +98,33 @@
 
   const handleMouseMove = () => {
     counter = 0;
+    dispatch("restart");
     if ($erosionMachineActive) clearTimeline();
   };
 
   //  Clear timers, delete erosion machine content
-  const clearTimeline = timeline => {
+  const clearTimeline = () => {
     try {
-      activeTimeline.forEach(e => {
-        if (get(e, "startTimer", false)) clearTimeout(e.startTimer);
-        if (get(e, "endTimer", false)) clearTimeout(e.endTimer);
+      timerList.forEach(timer => {
+        clearTimeout(timer);
       });
       clearTimeout(restartTimer);
       if (erosionMachineContainer) erosionMachineContainer.innerHTML = "";
       erosionMachineActive.set(false);
+      timerList = [];
     } catch (err) {
       console.error("Error on clear timeline:", err);
+    }
+  };
+
+  // BORN TO DIE
+  // WORLD IS A FUCK
+  // Kill Em All 2019
+  // I am trash man
+  // 10000 DEAD TIMERS
+  const nukeTimers = () => {
+    for (let i = 0; i < 10000; i++) {
+      clearTimeout(i);
     }
   };
 
@@ -126,11 +134,14 @@
 
     if (get(TIMELINE_JSON, "config.disabled", true)) return false;
 
+    if (noDelay) TIMELINE_JSON.config.delay = 0;
+
     startCountdown(TIMELINE_JSON.config.delay, TIMELINE_JSON.timeline);
   });
 
   onDestroy(async () => {
-    clearTimeline();
+    console.log("Destroying machine");
+    nukeTimers();
   });
 </script>
 
@@ -150,14 +161,14 @@
     }
   }
 
-  // .info {
-  //   position: fixed;
-  //   top: 0;
-  //   left: 0;
-  //   background: red;
-  //   color: black;
-  //   z-index: 100000;
-  // }
+  .info {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: red;
+    color: black;
+    z-index: 100000;
+  }
 </style>
 
 <svelte:window on:mousemove={throttle(handleMouseMove, 200)} />
@@ -166,4 +177,4 @@
   class="erosion-machine-container"
   bind:this={erosionMachineContainer} />
 
-<!-- <div class="info">{$activePage} {counter} {blocked}</div> -->
+<div class="info">{$activePage} {counter}</div>
