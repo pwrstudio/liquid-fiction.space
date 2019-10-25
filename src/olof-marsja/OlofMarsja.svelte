@@ -405,7 +405,7 @@
       bind:this={iframeEl} />
 
     <!-- <video src="/img/hacka.mp4" autoplay muted loop /> -->
-    <video class="slipa" src="/img/s2.mp4" autoplay muted loop />
+    <video class="slipa" src="/img/s2.mp4" autoplay muted loop playsinline />
 
     <div class="plate-1">
       <div class="inner">

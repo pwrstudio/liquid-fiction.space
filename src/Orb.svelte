@@ -31,11 +31,11 @@
 
   $: {
     TweenMax.to(orbInnerOne, 0.1, {
-      css: { background: $orbBackgroundOne, color: $orbColorOne }
+      css: { backgroundColor: $orbBackgroundOne, color: $orbColorOne }
     });
 
     TweenMax.to(orbInnerTwo, 0.1, {
-      css: { background: $orbBackgroundTwo, color: $orbColorTwo }
+      css: { backgroundColor: $orbBackgroundTwo, color: $orbColorTwo }
     });
 
     TweenMax.to(orbObject, 2, {
@@ -51,128 +51,109 @@
 </script>
 
 <style lang="scss">
-  @keyframes sweep2 {
-    0% {
-      clip-path: inset(0% 100% 0% 0%);
-    }
-    50% {
-      clip-path: inset(0% 0% 0% 0%);
-    }
-    100% {
-      clip-path: inset(0% 0% 0% 100%);
-    }
+@import "./variables.scss";
+
+.orb {
+  z-index: 999;
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  padding: 30px;
+  width: 100px;
+  height: 100px;
+  line-height: 100px;
+  font-size: 18px;
+  color: white;
+  text-align: center;
+  border-radius: 80px;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0.9;
+  transition: opacity 3s cubic-bezier(0.23, 1, 0.32, 1), border 0.3s cubic-bezier(0.23, 1, 0.32, 1), transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.orb:hover { opacity: 1; }
+.orb.hidden {display: none;}
+
+.orb .nav-text {
+  opacity: 1;
+  transition: opacity 1s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.orb .nav-text.scrolling {
+    opacity: 0;
+    transition: opacity 1s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.orb .inner-1 {
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #0000ff;
+  color: white;
+  text-align: center; }
+
+.orb .inner-2 {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: white;
+  text-align: center;
+  -webkit-clip-path: inset(0 0 100% 0);
+          clip-path: inset(0 0 100% 0);
+
+-webkit-animation: sweepTwo 6s linear infinite;
+        animation: sweepTwo 6s linear infinite;
+  color: #000; }
+
+.orb .spinner {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 100px;
+  background: darkorange;
+  opacity: 0; }
+
+.orb .spinner .spinner-half {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: darkgoldenrod;
+  color: white;
+  text-align: center;
+  -webkit-clip-path: inset(0 50% 0% 0);
+          clip-path: inset(0 50% 0% 0); }
+
+.orb .spinner.scrolling {
+  opacity: 1;
+  transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  -webkit-clip-path: inset(0 0 0 0);
+          clip-path: inset(0 0 0 0); }
+
+.orb.inactive {
+  transform: scale(0);
+  -webkit-clip-path: inset(0 100% 0 0);
+          clip-path: inset(0 100% 0 0);
   }
 
-  .orb {
-    z-index: 999;
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    padding: 30px;
-    width: 100px;
-    height: 100px;
-    line-height: 100px;
-    font-size: 18px;
-    color: white;
-    text-align: center;
-    border-radius: 80px;
-    overflow: hidden;
-    cursor: pointer;
-    opacity: 0.9;
+.orb.inactive .inner-2 {
+    -webkit-animation-name: unset;
+            animation-name: unset;
+}
 
-    .nav-text {
-      opacity: 1;
-      transition: opacity 1s cubic-bezier(0.23, 1, 0.32, 1);
-      &.scrolling {
-        opacity: 0;
-        transition: opacity 1s cubic-bezier(0.23, 1, 0.32, 1);
-      }
-    }
 
-    .inner-1 {
-      z-index: 2;
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #0000ff;
-      color: white;
-      text-align: center;
-    }
-
-    .inner-2 {
-      position: absolute;
-      z-index: 3;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      // background: #0000ff;
-      color: white;
-      text-align: center;
-      clip-path: inset(0 0 100% 0);
-      animation-name: sweep2;
-      animation-duration: 6s;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
-      // animation-direction: alternate;
-      // animation-direction: reverse;
-      color: black;
-    }
-
-    .spinner {
-      position: absolute;
-      z-index: 4;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 100px;
-      background: darkorange;
-      opacity: 0;
-      .spinner-half {
-        position: absolute;
-        z-index: 4;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: darkgoldenrod;
-        color: white;
-        text-align: center;
-        clip-path: inset(0 50% 0% 0);
-      }
-
-      &.scrolling {
-        opacity: 1;
-        transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-        clip-path: inset(0 0 0 0);
-      }
-    }
-
-    transition: opacity 3s cubic-bezier(0.23, 1, 0.32, 1),
-      border 0.3s cubic-bezier(0.23, 1, 0.32, 1),
-      transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-
-    &:hover {
-      opacity: 1;
-    }
-
-    &.inactive {
-      transform: scale(0);
-
-      clip-path: inset(0 100% 0 0);
-
-      .inner-2 {
-        animation-name: unset;
-      }
-    }
-
-    &.hidden {
-      display: none;
-    }
-  }
 </style>
 
 <div

@@ -23,7 +23,7 @@
 
   activePage.set("alina");
   orbBackgroundOne.set("rgba(0,0,255,1)");
-  orbBackgroundTwo.set("rgba(0,0,255,1)");
+  orbBackgroundTwo.set("rgba(0,0,0,1)");
   orbColorOne.set("rgba(255,255,255,1)");
   orbColorTwo.set("rgba(255,255,255,1)");
 
