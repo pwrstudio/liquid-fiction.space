@@ -67,7 +67,7 @@
   -moz-osx-font-smoothing: inherit;
   -webkit-appearance: none;
 
-  z-index: 999;
+  z-index: 16777271;
   position: fixed;
   top: 10px;
   left: 10px;
