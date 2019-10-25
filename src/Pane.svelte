@@ -99,11 +99,7 @@
     transform: translateX(100%) !important;
 }
 
-.pane.introduction p {
-  font-size: 21.33px;
-  line-height: 1.333;
-  font-weight: normal;
-}
+
 
 .close {
   font: inherit;
@@ -158,7 +154,6 @@
 .pane:not(.active) + .close{opacity: 0;}
 </style>
 
-  <div class="close" on:click={close}>
 <section class="paneSection">
   <div
     class="pane"

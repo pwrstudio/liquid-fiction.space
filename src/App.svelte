@@ -155,10 +155,6 @@
     font-weight: 700;
   }
 
-  .d-block{
-    display: block;
-  }
-
   .tns-liveregion.tns-visually-hidden {
     display: none;
   }
