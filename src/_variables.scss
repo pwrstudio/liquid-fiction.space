@@ -1,6 +1,9 @@
 // Sass/scss variable syntax:
 // $variable-name: #fff;
 
+$menu-zindex: 99999;
+
+
 $grey: #656565;
 // $black: rgba(20,20,20,1);
 $black: rgba(0,0,0,1);
@@ -44,6 +47,16 @@ $normal-line-height: 1.3em;
 // $text-stack: 'Wremena', 'times new roman', serif;
 $serif-stack: 'Genath', 'times new roman', serif;
 $sans-stack: 'Antique','helvetica', 'arial', sans-serif;
+
+@mixin size($width, $height: $width) {
+    @if _is-size($height) {
+        height: $height;
+    }
+
+    @if _is-size($width) {
+        width: $width;
+    }
+}
 
 @mixin hide-scroll {
     &::-webkit-scrollbar {
@@ -119,3 +132,89 @@ $sans-stack: 'Antique','helvetica', 'arial', sans-serif;
     }
   }
   
+
+// =================================
+// # Accessibility
+// =================================
+
+.sr-only,
+.sr-only-focusable:active,
+.sr-only-focusable:focus{
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+
+// =================================
+// # Keyframes
+// =================================
+
+@-webkit-keyframes sweep {
+  0% {
+    clip-path: inset(0% 0% 0% 100%);
+    -webkit-clip-path: inset(0% 0% 0% 100%); }
+  50% {
+    clip-path: inset(0% 0% 0% 0%);
+    -webkit-clip-path: inset(0% 0% 0% 0%); }
+  100% {
+    clip-path: inset(0% 100% 0% 0%);
+    -webkit-clip-path: inset(0% 100% 0% 0%); } }
+@keyframes sweep {
+  0% {
+    clip-path: inset(0% 0% 0% 100%);
+    -webkit-clip-path: inset(0% 0% 0% 100%); }
+  50% {
+    clip-path: inset(0% 0% 0% 0%);
+    -webkit-clip-path: inset(0% 0% 0% 0%); }
+  100% {
+    clip-path: inset(0% 100% 0% 0%);
+    -webkit-clip-path: inset(0% 100% 0% 0%); }}
+    
+@-webkit-keyframes sweepMobile {
+  0% {
+    -webkit-clip-path: inset(0% 0% 100% 0%);
+            clip-path: inset(0% 0% 100% 0%); }
+  50% {
+    -webkit-clip-path: inset(0% 0% 0% 0%);
+            clip-path: inset(0% 0% 0% 0%); }
+  100% {
+    -webkit-clip-path: inset(100% 0% 0% 0%);
+            clip-path: inset(100% 0% 0% 0%); } }
+@keyframes sweepMobile {
+  0% {
+    -webkit-clip-path: inset(0% 0% 100% 0%);
+            clip-path: inset(0% 0% 100% 0%); }
+  50% {
+    -webkit-clip-path: inset(0% 0% 0% 0%);
+            clip-path: inset(0% 0% 0% 0%); }
+  100% {
+    -webkit-clip-path: inset(100% 0% 0% 0%);
+            clip-path: inset(100% 0% 0% 0%); } }
+
+@-webkit-keyframes sweepTwo {
+  0% {
+    -webkit-clip-path: inset(0% 100% 0% 0%);
+            clip-path: inset(0% 100% 0% 0%); }
+  50% {
+    -webkit-clip-path: inset(0% 0% 0% 0%);
+            clip-path: inset(0% 0% 0% 0%); }
+  100% {
+    -webkit-clip-path: inset(0% 0% 0% 100%);
+            clip-path: inset(0% 0% 0% 100%); } }
+@keyframes sweepTwo {
+  0% {
+    -webkit-clip-path: inset(0% 100% 0% 0%);
+            clip-path: inset(0% 100% 0% 0%); }
+  50% {
+    -webkit-clip-path: inset(0% 0% 0% 0%);
+            clip-path: inset(0% 0% 0% 0%); }
+  100% {
+    -webkit-clip-path: inset(0% 0% 0% 100%);
+            clip-path: inset(0% 0% 0% 100%); } }

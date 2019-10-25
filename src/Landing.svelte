@@ -37,73 +37,54 @@
 </script>
 
 <style lang="scss">
-  $col: blue;
+@import "./variables.scss";
+.logo2 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
 
-  .logo2 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    font-size: 22vw;
-    line-height: 150px;
-    transform: translateX(-50%) translateY(-50%) scale(1);
-  }
+  transform: translate(-50%, -50%) scale(1);
+  font-size: 22vw;
+  line-height: 22vw;
+}
 
-  @keyframes sweep {
-    0% {
-      clip-path: inset(0% 0% 0% 100%);
-      -webkit-clip-path: inset(0% 0% 0% 100%);
-    }
-    50% {
-      clip-path: inset(0% 0% 0% 0%);
-      -webkit-clip-path: inset(0% 0% 0% 0%);
-    }
-    100% {
-      clip-path: inset(0% 100% 0% 0%);
-      -webkit-clip-path: inset(0% 100% 0% 0%);
-    }
-  }
+.pane {
+  position: absolute;
 
-  @keyframes sweep-mobile {
-    0% {
-      clip-path: inset(0% 0% 100% 0%);
-    }
-    50% {
-      clip-path: inset(0% 0% 0% 0%);
-    }
-    100% {
-      clip-path: inset(100% 0% 0% 0%);
-    }
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  width: 100%;
+  height: 100%;
+
+  font-weight: 200;
+  cursor: pointer; 
+}
+
+.pane.top-left {
+    background-color: #000;
+    color: blue; 
+}
+
+.pane.top-right {
+    z-index: 100;
+    background-color: blue;
+}
+
+@media (max-width: 768px){
+  .pane.top-right {
+  -webkit-animation: sweepMobile 7s ease-out infinite normal;
+          animation: sweepMobile 7s ease-out infinite normal;    
   }
-  .pane {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    font-weight: 200;
-    cursor: pointer;
-    &.top-left {
-      background: black;
-      color: $col;
-    }
-    &.top-right {
-      z-index: 100;
-      background: $col;
-      clip-path: inset(0% 0% 0% 100%);
-      animation-name: sweep;
-      animation-duration: 5s;
-      animation-timing-function: easeOut;
-      animation-iteration-count: infinite;
-      animation-direction: alternate;
-      @media only screen and (max-width: 700px) {
-        animation-name: sweep-mobile;
-        animation-duration: 7s;
-        animation-timing-function: easeOut;
-        animation-iteration-count: infinite;
-        animation-direction: normal;
-      }
-    }
+}
+@media (min-width: 768px){
+  .pane.top-right {
+  -webkit-animation: sweep 5s ease-out infinite alternate;
+          animation: sweep 5s ease-out infinite alternate;
   }
+}
 </style>
 
 <svelte:head>

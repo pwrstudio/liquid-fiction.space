@@ -89,30 +89,50 @@
 </script>
 
 <style lang="scss" global>
-  body,
-  html {
-    height: 100%;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background: black;
-    color: white;
+
+  html, body{
     margin: 0;
     padding: 0;
-    font-family: "GT Pressura Mono", "Basis Grotesque Pro", "Akkurat-Mono",
-      monospace;
+    height: 100%;
+    overflow-x: hidden;
     scroll-behavior: smooth;
+
     &.no-scroll {
       overflow: hidden;
     }
   }
 
+  body{
+    text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -ms-overflow-style: scrollbar;
+
+    font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+
+    font-variant-ligatures: common-ligatures;
+    font-feature-settings: 'liga';
+
+    background-color: #000;
+    color: #FFF;
+    margin: 0;
+    padding: 0;
+    font-family: "GT Pressura Mono", "Basis Grotesque Pro", "Akkurat-Mono", monospace;
+  }
+
   *,
-  *:before,
-  *:after {
+  *::before,
+  *::after {
     box-sizing: border-box;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
+
+  ::-webkit-scrollbar {width: 0px;}
 
   a {
     text-decoration: none;
@@ -124,13 +144,11 @@
   }
 
   ::selection {
-    background: #e4e4e4;
-    /* WebKit/Blink Browsers */
+    background-color: #e4e4e4;
   }
 
   ::-moz-selection {
-    background: #e4e4e4;
-    /* Gecko Browsers */
+    background-color: #e4e4e4;
   }
 
   strong {
@@ -142,17 +160,35 @@
   }
 
   .pane img {
-    max-width: 90vw;
-    height: 400px;
+    width: auto;
+    max-height: 400px;
+    max-width: calc(100% - 2rem);
   }
 
   .pane figure {
     padding-left: 0;
     margin-left: 0;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 
+    .pane figure img{
+      max-width: 100%;
+      height: auto;
+    }
+
+
   .pane p {
-    max-width: 80ch;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.333;
+    max-width: 39.292rem;
+  }
+
+  .pane.introduction p {
+    font-size: 21.33px;
+    line-height: 1.333;
+    font-weight: 300;
   }
 
   .pane a {
@@ -165,17 +201,6 @@
   video {
     max-width: 100vw;
   }
-
-  // .subtitle-box {
-  //   position: fixed;
-  //   top: 0;
-  //   left: 0;
-  //   background: yellow;
-  //   font-size: 34px;
-  //   z-index: 100000;
-  //   height: 400px;
-  //   width: 300px;
-  // }
 
   img {
     max-width: 100vw;
