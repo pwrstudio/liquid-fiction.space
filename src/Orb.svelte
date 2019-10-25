@@ -54,6 +54,19 @@
 @import "./variables.scss";
 
 .orb {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+  -webkit-appearance: none;
+
   z-index: 999;
   position: fixed;
   top: 10px;
@@ -70,6 +83,11 @@
   cursor: pointer;
   opacity: 0.9;
   transition: opacity 3s cubic-bezier(0.23, 1, 0.32, 1), border 0.3s cubic-bezier(0.23, 1, 0.32, 1), transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.orb:focus,
+.orb:active{
+  outline: 0;
 }
 
 .orb:hover { opacity: 1; }
@@ -156,7 +174,8 @@
 
 </style>
 
-<div
+<button
+  role="button"
   class="orb"
   class:inactive={$menuActive}
   class:hidden={$activePage === 'landing'}
@@ -171,7 +190,10 @@
   <div id="spinner" class="spinner" class:scrolling>
     <div class="spinner-half" />
   </div>
-</div>
+  <span class="sr-only">Open menu</span>
+</button>
+
+
 <Menu
   active={$menuActive}
   on:close={() => {

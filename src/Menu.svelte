@@ -107,6 +107,7 @@
   clip-path: inset(0% 0% 0% 100%);
   -webkit-clip-path: inset(0% 0% 0% 100%); }
 
+// !todo add :focus event inside `Link` component
 .menu .inner .item:hover .line-2 {
   -webkit-animation: sweep 2s linear infinite alternate;
           animation: sweep 2s linear infinite alternate; }
