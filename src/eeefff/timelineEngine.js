@@ -26,15 +26,20 @@ export const calculateTimeAssemblage = parentEvent => {
 }
 
 export const initiateTimer = event => {
+  // text, image, video
   if (isShowEvent(event)) {
     event.startTimer = setTimeout(() => {
       showEl(event)
     }, event.startAt)
+
     event.endTimer = setTimeout(() => {
       removeEl(event)
-    }, event.startAt + event.endAt)
+    }, event.endAt)
+
     return [event.startTimer, event.endTimer]
   }
+
+  // add or remove css class
   if (isClassEvent(event)) {
     event.startTimer = setTimeout(() => {
       if (event.type === 'addClass') addClass(event)
@@ -45,14 +50,20 @@ export const initiateTimer = event => {
   }
 }
 
+//
+// show element dispatching its type
+//
 const showEl = e => {
   e.el.classList.remove('timeline-event--hidden')
   if (e.type === 'showVideo') playVideo(e)
 }
 
+//
+// hide element
+//
 const removeEl = e => {
   e.el.remove()
-  if (get('e', 'subtitleBoxEl', false)) e.subtitleBoxEl.remove()
+  if (get(e, 'subtitleBoxEl', false)) e.subtitleBoxEl.remove()
 }
 
 const addClass = e => {
