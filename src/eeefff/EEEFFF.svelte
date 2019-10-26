@@ -99,10 +99,11 @@
 
 <div class="eeefff" on:mousemove={throttle(handleMouseMove, 200)}>
   <video
-    preload="auto"
+    preload
+    playsinline
+    crossorigin="anonymous"
     in:fade
     bind:this={introVideoEl}
-    crossorigin="anonymous"
     on:ended={() => {
       introEnded = true;
     }}>
