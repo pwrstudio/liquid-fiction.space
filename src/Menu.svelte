@@ -117,8 +117,8 @@
 
   // !todo add :focus event inside `Link` component
   .menu .inner .item:hover .line-2 {
-    -webkit-animation: sweep 2s linear infinite alternate;
-    animation: sweep 2s linear infinite alternate;
+    -webkit-animation: menu-sweep 2s linear infinite reverse;
+    animation: menu-sweep 2s linear infinite reverse;
   }
 
   .menu.active {
@@ -190,6 +190,21 @@
   .close:focus,
   .close:active {
     outline: 0;
+  }
+
+  @keyframes menu-sweep {
+    0% {
+      clip-path: inset(0% 0% 0% 100%);
+      -webkit-clip-path: inset(0% 0% 0% 100%);
+    }
+    50% {
+      clip-path: inset(0% 0% 0% 0%);
+      -webkit-clip-path: inset(0% 0% 0% 0%);
+    }
+    100% {
+      clip-path: inset(0% 100% 0% 0%);
+      -webkit-clip-path: inset(0% 100% 0% 0%);
+    }
   }
 </style>
 
