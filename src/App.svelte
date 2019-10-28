@@ -24,14 +24,13 @@
   import Landing from "./Landing.svelte";
 
   // ** CONSTANTS
-  const query = "*[]";
+  const query =
+    "*[ _type == 'cycleOne' || _type == 'liquidFiction' || _type == 'editorial' ] | order(customOrder asc)";
 
   // *** STORES
   import { textContent, activePage } from "./stores.js";
 
   textContent.set(loadData(query, {}));
-
-  // const checkArray => arr => Array.isArray(arr) ? arr : false
 
   async function loadData(query, params) {
     try {
@@ -43,37 +42,21 @@
       }
 
       let contentContstruction = {
-        introduction: {
-          main: {},
-          firstCycle: {}
-        },
-        artists: [],
-        essays: [],
-        credits: {}
+        liquidFiction: [],
+        editorial: [],
+        cycleOne: []
       };
 
-      contentContstruction.introduction.main = res.find(
-        d => get(d, "slug.current", "") === "introduction"
+      contentContstruction.cycleOne = res.filter(
+        d => get(d, "_type", "") === "cycleOne"
       );
 
-      contentContstruction.introduction.firstCycle = res.find(
-        d => get(d, "slug.current", "") === "cycle-one"
+      contentContstruction.editorial = res.filter(
+        d => get(d, "_type", "") === "editorial"
       );
 
-      contentContstruction.credits = res.find(
-        d => get(d, "slug.current", "") === "credits"
-      );
-
-      contentContstruction.artists = res.filter(
-        d => get(d, "_type", "") === "artist"
-      );
-
-      contentContstruction.essays = res.filter(
-        d =>
-          get(d, "_type", "") === "post" &&
-          get(d, "slug.current", "") != "credits" &&
-          get(d, "slug.current", "") != "introduction" &&
-          get(d, "slug.current", "") != "cycle-one"
+      contentContstruction.liquidFiction = res.filter(
+        d => get(d, "_type", "") === "liquidFiction"
       );
 
       return contentContstruction;
@@ -89,8 +72,8 @@
 </script>
 
 <style lang="scss" global>
-
-  html, body{
+  html,
+  body {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -102,7 +85,7 @@
     }
   }
 
-  body{
+  body {
     text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
@@ -116,13 +99,14 @@
     text-rendering: optimizeLegibility;
 
     font-variant-ligatures: common-ligatures;
-    font-feature-settings: 'liga';
+    font-feature-settings: "liga";
 
     background-color: #000;
-    color: #FFF;
+    color: #fff;
     margin: 0;
     padding: 0;
-    font-family: "GT Pressura Mono", "Basis Grotesque Pro", "Akkurat-Mono", monospace;
+    font-family: "GT Pressura Mono", "Basis Grotesque Pro", "Akkurat-Mono",
+      monospace;
   }
 
   *,
@@ -132,7 +116,9 @@
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 
-  ::-webkit-scrollbar {width: 0px;}
+  ::-webkit-scrollbar {
+    width: 0px;
+  }
 
   a {
     text-decoration: none;
@@ -172,11 +158,10 @@
     margin-bottom: 1rem;
   }
 
-    .pane figure img{
-      max-width: 100%;
-      height: auto;
-    }
-
+  .pane figure img {
+    max-width: 100%;
+    height: auto;
+  }
 
   .pane p {
     font-size: 16px;
@@ -185,7 +170,7 @@
     max-width: 39.292rem;
   }
 
-  .pane.introduction p {
+  .pane.large p {
     font-size: 21.33px;
     line-height: 1.333;
     font-weight: 300;

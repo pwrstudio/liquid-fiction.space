@@ -57,23 +57,18 @@
   }
 
   $textContent.then(content => {
-    // console.dir(content);
-    textList = concat(
-      get(content, "introduction.firstCycle", []),
-      get(content, "artists", [])
-    );
-    // console.dir(textList);
+    textList = get(content, "cycleOne", []);
   });
 </script>
 
 <style lang="scss">
-@import "./variables.scss";
-.paneContainer {
-  min-height: 100%;
-  height: 100%;
-  width: 100%;
-  background-color: blue;
-}
+  @import "./variables.scss";
+  .paneContainer {
+    min-height: 100%;
+    height: 100%;
+    width: 100%;
+    background-color: blue;
+  }
 </style>
 
 <svelte:head>

@@ -66,10 +66,7 @@
   }
 
   $textContent.then(content => {
-    textList = concat(
-      get(content, "introduction.main", []),
-      get(content, "credits", [])
-    );
+    textList = get(content, "liquidFiction", []);
   });
 </script>
 
