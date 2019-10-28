@@ -1,28 +1,70 @@
 import get from 'lodash/get'
+import maxBy from "lodash/maxBy";
 
-import { isClassEvent, isShowEvent } from './utilityFunctions.js'
+import { isClassEvent
+       , isShowEvent
+       , isAssemblage
+       , assemblageEvents } from './utilityFunctions.js'
 
+
+//
+// set duration of assemblages to the sum  of the durations and delays of their children
+//
+// IMPORTANT: duration that comes from JSON will be overwritten! It's deprecated now
+//
+export const calculateAssemblageDuration = event => {
+  if (!isAssemblage(event)) {
+    return event;
+  }
+
+  // set relativeStartAt and relativeEndAt- from start of the assemblage
+  assemblageEvents(event).map((e, i) => {
+    e.relativeStartAt = get(e, 'delayed', 0)
+    e.relativeEndAt = e.relativeStartAt + e.duration
+  })
+
+  // set duration of an assemblage as max of relativeEndAt of its children
+  event.duration = maxBy(assemblageEvents(event), e => e.relativeEndAt).relativeEndAt
+
+  return event;
+}
+
+//
+// calculate startAt and endAt for all top-level timeline events
+//
 // startAt; previous event start + previous event duration
 // end:At own start time + own duration
 export const calculateTime = timeline => {
-  return timeline.map((e, i, arr) => {
-    e.startAt = i === 0 ? 0 : arr[i - 1].startAt + arr[i - 1].duration
+  return timeline.map((e, i, events) => {
+    // first element?
+    if (i === 0) {
+      e.startAt = 0
+    } else {
+      // all others
+      e.startAt = events[i-1].endAt
+    }
     e.endAt = e.startAt + e.duration
     e.timelineIndex = i
     return e
   })
 }
 
+//
+// set absolute startAt and endAt for assemblage's children
+//
 // startAt; assemblage start + own delay
 // endAt: assemblage end time
 export const calculateTimeAssemblage = parentEvent => {
-  if (parentEvent.type != 'assemblage') return parentEvent
-  return get(parentEvent, 'events', []).map((e, i) => {
-    e.startAt = parentEvent.startAt + get(e, 'delayed', 0)
-    e.endAt = parentEvent.endAt
-    e.timelineIndex = parentEvent.timelineIndex + '.' + i
-    return e
-  })
+  if (!isAssemblage(parentEvent)) {
+    return parentEvent
+  }
+
+  return assemblageEvents(parentEvent).map((event, i) => {
+    event.startAt = parentEvent.startAt + event.relativeStartAt
+    event.endAt = parentEvent.startAt + event.relativeEndAt
+    event.timelineIndex = parentEvent.timelineIndex + '.' + i
+    return event
+  });
 }
 
 export const initiateTimer = event => {
