@@ -21,6 +21,9 @@ export const isAssemblage = event => {
   return event.type === "assemblage"
 }
 
+export const isVideoEvent = event => {
+  return event.type === "showVideo";
+}
 
 //
 //
