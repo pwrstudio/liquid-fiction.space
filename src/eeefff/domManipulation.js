@@ -1,7 +1,7 @@
 import uniqueId from 'lodash/uniqueId'
 import get from 'lodash/get'
 
-import { isClassEvent, isShowEvent } from './utilityFunctions.js'
+import { isClassEvent, isShowEvent, isVideoEvent } from './utilityFunctions.js'
 
 export const addElement = (erosionMachineContainer, event) => {
   if (isClassEvent(event)) {
@@ -98,13 +98,30 @@ export const addElement = (erosionMachineContainer, event) => {
 }
 
 export const setRandomPosition = event => {
-  if (event.el) {
-    event.el.style.top =
-      Math.floor(Math.random() * (window.innerHeight - event.el.clientHeight)) +
-      'px'
-    event.el.style.left =
-      Math.floor(Math.random() * (window.innerWidth - event.el.clientWidth)) +
-      'px'
+  if (!event.el) {
+    return event;
   }
-  return event
+
+
+  if (isVideoEvent(event)) {
+    event.el.addEventListener("loadeddata", e => {
+      //       console.log("video:" + event.el.id + ": " + document.getElementById(event.el.id).clientWidth + "x" + document.getElementById(event.el.id).clientHeight);
+      doSetRandomPosition(event);
+
+    });
+  } else {
+    doSetRandomPosition(event);
+  }
+
+  return event;
+}
+
+const doSetRandomPosition = event => {
+  //   console.log(event.el.id + ": " + document.getElementById(event.el.id).clientWidth + "x" + document.getElementById(event.el.id).clientHeight);
+
+  event.el.style.top =
+    Math.floor(Math.random() * (window.innerHeight - document.getElementById(event.el.id).clientHeight)) + 'px';
+
+  event.el.style.left =
+    Math.floor(Math.random() * (window.innerWidth - document.getElementById(event.el.id).clientWidth)) + 'px';
 }
