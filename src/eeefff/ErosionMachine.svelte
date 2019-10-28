@@ -172,15 +172,6 @@
       max-height: 100vh;
     }
   }
-
-  .info {
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: red;
-    color: black;
-    z-index: 100000;
-  }
 </style>
 
 <svelte:window on:mousemove={throttle(handleMouseMove, 200)} />
@@ -188,5 +179,3 @@
 <section
   class="erosion-machine-container"
   bind:this={erosionMachineContainer} />
-
-<div class="info">{$activePage} {counter}</div>
