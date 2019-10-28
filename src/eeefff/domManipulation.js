@@ -55,7 +55,7 @@ export const addElement = (erosionMachineContainer, event) => {
     // +++ Subtitles
     if (event.subtitles_en) {
       let subtitlesTrack = document.createElement('track')
-      subtitlesTrack.kind = 'subtitles'
+      subtitlesTrack.kind = 'metadata'
       subtitlesTrack.label = 'English subtitles'
       subtitlesTrack.src = event.subtitles_en
       subtitlesTrack.srcLang = 'en'
@@ -69,7 +69,7 @@ export const addElement = (erosionMachineContainer, event) => {
 
     if (event.subtitles_ru) {
       let subtitlesTrackRu = document.createElement('track')
-      subtitlesTrackRu.kind = 'subtitles'
+      subtitlesTrackRu.kind = 'metadata'
       subtitlesTrackRu.label = 'Russian subtitles'
       subtitlesTrackRu.src = event.subtitles_ru
       subtitlesTrackRu.srcLang = 'ru'

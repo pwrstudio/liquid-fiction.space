@@ -14,6 +14,7 @@
   import fp from "lodash/fp";
 
   import { createEventDispatcher } from "svelte";
+
   const dispatch = createEventDispatcher();
 
   import { logTimeline, logEvent } from "./utilityFunctions.js";
@@ -21,6 +22,7 @@
   import { addElement, setRandomPosition } from "./domManipulation.js";
 
   import {
+    calculateAssemblageDuration,
     calculateTime,
     calculateTimeAssemblage,
     initiateTimer
@@ -65,10 +67,18 @@
       if ($activePage != "alina") counter += 1;
     }, 1000);
 
+  //
+
+  // set element timers
+  // fire all timers
+  //
   const startTimeline = timeline => {
     const curriedAddElement = fp.curry(addElement)(erosionMachineContainer);
+
+    // calculate timeline duration, elements start and end times
     let activeTimeline = fp.flow(
       fp.shuffle,
+      fp.map(calculateAssemblageDuration),
       calculateTime,
       fp.map(calculateTimeAssemblage),
       fp.flatten,
@@ -78,10 +88,12 @@
       logTimeline
     )(timeline);
 
+    // add timers to global timer list
     activeTimeline.forEach(e => {
       timerList = concat(timerList, initiateTimer(e));
     });
 
+    // set some reactive?
     erosionMachineActive.set(true);
 
     // Restart when last event has ended
