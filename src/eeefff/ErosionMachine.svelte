@@ -38,8 +38,6 @@
 
   // *** CONSTANTS
   const EEEFFF_JSON =
-    "https://dev.eeefff.org/data/outsourcing-paradise-parasite/erosion-machine-timeline.json";
-  const EEEFFF_JSON_PRDUCTION =
     "https://eeefff.org/data/outsourcing-paradise-parasite/erosion-machine-timeline.json";
 
   // *** DOM References

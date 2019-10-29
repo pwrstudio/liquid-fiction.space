@@ -108,13 +108,13 @@
       introEnded = true;
     }}>
     <source
-      src="https://dev.eeefff.org/data/outsourcing-paradise-parasite/videos/start-time.mp4"
+      src="https://eeefff.org/data/outsourcing-paradise-parasite/videos/start-time.mp4"
       type="video/mp4" />
     <track
       kind="subtitles"
       label="English subtitles"
       default
-      src="https://dev.eeefff.org/data/outsourcing-paradise-parasite/selected-04/spinner.mp4_en.vtt"
+      src="https://eeefff.org/data/outsourcing-paradise-parasite/selected-04/spinner.mp4_en.vtt"
       srclang="en" />
   </video>
 </div>
