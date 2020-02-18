@@ -236,43 +236,92 @@
             <span class="line-2">TXTXTXTXT</span>
           </Link>
         </div>
-        <div
-          class="item"
-          in:fly={{ duration: 400, y: 20, delay: 200, easing: quartOut }}
-          out:fly={{ duration: 300, y: 60, delay: 300 }}>
-          <Link to="cycle-1">
-            <span class="line-1">CYCLE ONE</span>
-            <span class="line-2">11111 >>></span>
-          </Link>
+        <!-- CYCLE 2 -->
+        <div class="cycle-container">
+          <div
+            class="item"
+            in:fly={{ duration: 400, y: 20, delay: 200, easing: quartOut }}
+            out:fly={{ duration: 300, y: 60, delay: 300 }}>
+            <Link to="cycle-2">
+              <span class="line-1">CYCLE TWO</span>
+              <span class="line-2">22222 >>></span>
+            </Link>
+          </div>
+          <div
+            class="item"
+            in:fly={{ duration: 400, y: 20, delay: 300, easing: quartOut }}
+            out:fly={{ duration: 300, y: 60, delay: 200 }}>
+            <Link to="hanni-kamaly">
+              <span class="line-1">Hanni Kamaly</span>
+              <span class="line-2">~~~~~_~~~~~~</span>
+            </Link>
+          </div>
+          <div
+            class="item"
+            in:fly={{ duration: 400, y: 20, delay: 400, easing: quartOut }}
+            out:fly={{ duration: 300, y: 60, delay: 100 }}>
+            <Link to="stine-janvin">
+              <span class="line-1">Stine Janvin</span>
+              <span class="line-2">~~~~~_~~~~~~</span>
+            </Link>
+          </div>
+          <div
+            class="item"
+            in:fly={{ duration: 400, y: 20, delay: 500, easing: quartOut }}
+            out:fly={{ duration: 300, y: 60, delay: 0 }}>
+            <Link to="heba-y-amin">
+              <span class="line-1">Heba Y. Amin</span>
+              <span class="line-2">~~~~_~._~~~~</span>
+            </Link>
+          </div>
+          <div
+            class="item"
+            in:fly={{ duration: 400, y: 20, delay: 600, easing: quartOut }}
+            out:fly={{ duration: 300, y: 60, delay: 0 }}>
+            <Link to="anna-run-tryggvadottir">
+              <span class="line-1">Anna Rún Tryggvadottir</span>
+              <span class="line-2">~~~~_~~~_~~~~~~~~~~~~~</span>
+            </Link>
+          </div>
         </div>
-        <div
-          class="item"
-          in:fly={{ duration: 400, y: 20, delay: 300, easing: quartOut }}
-          out:fly={{ duration: 300, y: 60, delay: 200 }}>
-          <Link to="alina-chaiderov">
-            <span class="line-1">Alina Chaiderov</span>
-            <span class="line-2">~~~~~_~~~~~~~~~</span>
-          </Link>
-          <!-- <span class="txt-link">TXT</span> -->
-        </div>
-
-        <div
-          class="item"
-          in:fly={{ duration: 400, y: 20, delay: 400, easing: quartOut }}
-          out:fly={{ duration: 300, y: 60, delay: 100 }}>
-          <Link to="eeefff">
-            <span class="line-1">eeefff</span>
-            <span class="line-2">~~~~~~</span>
-          </Link>
-        </div>
-        <div
-          class="item"
-          in:fly={{ duration: 400, y: 20, delay: 500, easing: quartOut }}
-          out:fly={{ duration: 300, y: 60, delay: 0 }}>
-          <Link to="olof-marsja">
-            <span class="line-1">Olof Marsja</span>
-            <span class="line-2">~~~~_~~~~~~</span>
-          </Link>
+        <!-- CYCLE 1 -->
+        <div class="cycle-container">
+          <div
+            class="item"
+            in:fly={{ duration: 400, y: 20, delay: 200, easing: quartOut }}
+            out:fly={{ duration: 300, y: 60, delay: 300 }}>
+            <Link to="cycle-1">
+              <span class="line-1">CYCLE ONE</span>
+              <span class="line-2">11111 >>></span>
+            </Link>
+          </div>
+          <div
+            class="item"
+            in:fly={{ duration: 400, y: 20, delay: 300, easing: quartOut }}
+            out:fly={{ duration: 300, y: 60, delay: 200 }}>
+            <Link to="alina-chaiderov">
+              <span class="line-1">Alina Chaiderov</span>
+              <span class="line-2">~~~~~_~~~~~~~~~</span>
+            </Link>
+          </div>
+          <div
+            class="item"
+            in:fly={{ duration: 400, y: 20, delay: 400, easing: quartOut }}
+            out:fly={{ duration: 300, y: 60, delay: 100 }}>
+            <Link to="eeefff">
+              <span class="line-1">eeefff</span>
+              <span class="line-2">~~~~~~</span>
+            </Link>
+          </div>
+          <div
+            class="item"
+            in:fly={{ duration: 400, y: 20, delay: 500, easing: quartOut }}
+            out:fly={{ duration: 300, y: 60, delay: 0 }}>
+            <Link to="olof-marsja">
+              <span class="line-1">Olof Marsja</span>
+              <span class="line-2">~~~~_~~~~~~</span>
+            </Link>
+          </div>
         </div>
       {/if}
     </nav>

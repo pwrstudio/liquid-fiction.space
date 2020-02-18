@@ -15,13 +15,20 @@
   import Orb from "./Orb.svelte";
 
   // ROUTES
+  import Landing from "./Landing.svelte";
   import Editorial from "./Editorial.svelte";
   import About from "./About.svelte";
+  // CYCLE 1
   import CycleOne from "./CycleOne.svelte";
   import EEEFFF from "./eeefff/EEEFFF.svelte";
   import OlofMarsja from "./olof-marsja/OlofMarsja.svelte";
   import AlinaChaiderov from "./alina-chaiderov/AlinaChaiderov.svelte";
-  import Landing from "./Landing.svelte";
+  // CYCLE 2
+  import CycleTwo from "./CycleTwo.svelte";
+  import HanniKamaly from "./hanni-kamaly/HanniKamaly.svelte";
+  import StineJanvin from "./stine-janvin/StineJanvin.svelte";
+  import HebaYAmin from "./heba-y-amin/HebaYAmin.svelte";
+  import AnnaRunTryggvadottir from "./anna-run-tryggvadottir/AnnaRunTryggvadottir.svelte";
 
   // ** CONSTANTS
   const query =
@@ -202,10 +209,18 @@
 
 <Router>
   <Route path="/" component={Landing} />
-  <Route path="/liquid-fiction" component={About} />
-  <Route path="/editorial" component={Editorial} />
-  <Route path="/cycle-1" component={CycleOne} />
+  <Route path="liquid-fiction" component={About} />
+  <Route path="editorial" component={Editorial} />
+  <!-- CYCLE 1 -->
+  <Route path="cycle-1" component={CycleOne} />
   <Route path="eeefff" component={EEEFFF} />
   <Route path="olof-marsja" component={OlofMarsja} />
   <Route path="alina-chaiderov" component={AlinaChaiderov} />
+  <!-- CYCLE 2 -->
+  <Route path="cycle-2" component={CycleTwo} />
+  <Route path="hanni-kamaly" component={HanniKamaly} />
+  <Route path="stine-janvin" component={StineJanvin} />
+  <Route path="heba-y-amin" component={HebaYAmin} />
+  <Route path="anna-run-tryggvadottir" component={AnnaRunTryggvadottir} />
+
 </Router>
