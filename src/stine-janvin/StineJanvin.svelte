@@ -12,6 +12,9 @@
 
   // *** COMPONENTS
   import ErosionMachine from "../eeefff/ErosionMachine.svelte";
+  import Tone from "./Tone.svelte";
+
+  let toneCounter = 0;
 
   // *** STORES
   import {
@@ -35,18 +38,30 @@
     top: "10px",
     left: "10px"
   });
+
+  const updateToneCounter = event => {
+    console.dir(event);
+    toneCounter = event.detail.active ? toneCounter + 1 : toneCounter - 1;
+  };
 </script>
 
 <style lang="scss">
   @import "../_variables.scss";
 
   .stine {
-    background: blue;
+    background: black;
     min-height: 100vh;
 
     @include screen-size("small") {
       overflow-x: scroll;
     }
+  }
+  .scale {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    display: inline-block;
   }
 </style>
 
@@ -55,7 +70,48 @@
 </svelte:head>
 
 <div class="stine">
-  <h1>Stine Janvin</h1>
+  {toneCounter}
+  {#if toneCounter < 2}
+    <div class="scale">
+      <Tone
+        background="red"
+        on:playing={event => {
+          updateToneCounter(event);
+        }} />
+      <Tone
+        background="orange"
+        on:playing={event => {
+          updateToneCounter(event);
+        }} />
+      <Tone
+        background="yellow"
+        on:playing={event => {
+          updateToneCounter(event);
+        }} />
+      <Tone
+        background="green"
+        on:playing={event => {
+          updateToneCounter(event);
+        }} />
+      <Tone
+        background="blue"
+        on:playing={event => {
+          updateToneCounter(event);
+        }} />
+      <Tone
+        background="indigo"
+        on:playing={event => {
+          updateToneCounter(event);
+        }} />
+      <Tone
+        background="violet"
+        on:playing={event => {
+          updateToneCounter(event);
+        }} />
+    </div>
+  {/if}
+
+  <div class="cam" />
 </div>
 
-<ErosionMachine />
+<!-- <ErosionMachine /> -->
