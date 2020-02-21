@@ -81,6 +81,54 @@
     -webkit-clip-path: inset(0% 0% 0% 0%);
   }
 
+  .sub-item {
+    font-size: 50px;
+    cursor: pointer;
+    line-height: 50px;
+    position: relative;
+    display: inline-block;
+    display: inline-block;
+    width: 100%;
+    height: 50px;
+    margin-bottom: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    text-transform: uppercase;
+    clip-path: inset(0% 0% 0% 0%);
+    -webkit-clip-path: inset(0% 0% 0% 0%);
+  }
+
+  .menu .inner .sub-item .line-1,
+  .menu .inner .sub-item .line-2 {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: right;
+    white-space: nowrap;
+    color: #fff;
+  }
+
+  .menu .inner .sub-item .line-1 {
+    z-index: 1;
+    opacity: 1;
+  }
+
+  .menu .inner .sub-item .line-2 {
+    z-index: 2;
+    background-color: blue;
+    clip-path: inset(0% 0% 0% 100%);
+    -webkit-clip-path: inset(0% 0% 0% 100%);
+  }
+
+  // !todo add :focus event inside `Link` component
+  .menu .inner .sub-item:hover .line-2 {
+    -webkit-animation: menu-sweep 2s linear infinite reverse;
+    animation: menu-sweep 2s linear infinite reverse;
+  }
+
   @media (max-width: 700px) {
     .menu {
       padding-top: 120px;
@@ -92,6 +140,7 @@
       height: 40px;
     }
   }
+
   .menu .inner .item .line-1,
   .menu .inner .item .line-2 {
     position: absolute;
@@ -206,6 +255,15 @@
       -webkit-clip-path: inset(0% 100% 0% 0%);
     }
   }
+
+  .cycle-container {
+    width: 50%;
+    float: left;
+
+    @include screen-size("small") {
+      width: 100%;
+    }
+  }
 </style>
 
 <div
@@ -236,58 +294,10 @@
             <span class="line-2">TXTXTXTXT</span>
           </Link>
         </div>
-        <!-- CYCLE 2 -->
-        <div class="cycle-container">
-          <div
-            class="item"
-            in:fly={{ duration: 400, y: 20, delay: 200, easing: quartOut }}
-            out:fly={{ duration: 300, y: 60, delay: 300 }}>
-            <Link to="cycle-2">
-              <span class="line-1">CYCLE TWO</span>
-              <span class="line-2">22222 >>></span>
-            </Link>
-          </div>
-          <div
-            class="item"
-            in:fly={{ duration: 400, y: 20, delay: 300, easing: quartOut }}
-            out:fly={{ duration: 300, y: 60, delay: 200 }}>
-            <Link to="hanni-kamaly">
-              <span class="line-1">Hanni Kamaly</span>
-              <span class="line-2">~~~~~_~~~~~~</span>
-            </Link>
-          </div>
-          <div
-            class="item"
-            in:fly={{ duration: 400, y: 20, delay: 400, easing: quartOut }}
-            out:fly={{ duration: 300, y: 60, delay: 100 }}>
-            <Link to="stine-janvin">
-              <span class="line-1">Stine Janvin</span>
-              <span class="line-2">~~~~~_~~~~~~</span>
-            </Link>
-          </div>
-          <div
-            class="item"
-            in:fly={{ duration: 400, y: 20, delay: 500, easing: quartOut }}
-            out:fly={{ duration: 300, y: 60, delay: 0 }}>
-            <Link to="heba-y-amin">
-              <span class="line-1">Heba Y. Amin</span>
-              <span class="line-2">~~~~_~._~~~~</span>
-            </Link>
-          </div>
-          <div
-            class="item"
-            in:fly={{ duration: 400, y: 20, delay: 600, easing: quartOut }}
-            out:fly={{ duration: 300, y: 60, delay: 0 }}>
-            <Link to="anna-run-tryggvadottir">
-              <span class="line-1">Anna Rún Tryggvadottir</span>
-              <span class="line-2">~~~~_~~~_~~~~~~~~~~~~~</span>
-            </Link>
-          </div>
-        </div>
         <!-- CYCLE 1 -->
         <div class="cycle-container">
           <div
-            class="item"
+            class="sub-item"
             in:fly={{ duration: 400, y: 20, delay: 200, easing: quartOut }}
             out:fly={{ duration: 300, y: 60, delay: 300 }}>
             <Link to="cycle-1">
@@ -296,7 +306,7 @@
             </Link>
           </div>
           <div
-            class="item"
+            class="sub-item"
             in:fly={{ duration: 400, y: 20, delay: 300, easing: quartOut }}
             out:fly={{ duration: 300, y: 60, delay: 200 }}>
             <Link to="alina-chaiderov">
@@ -305,7 +315,7 @@
             </Link>
           </div>
           <div
-            class="item"
+            class="sub-item"
             in:fly={{ duration: 400, y: 20, delay: 400, easing: quartOut }}
             out:fly={{ duration: 300, y: 60, delay: 100 }}>
             <Link to="eeefff">
@@ -314,12 +324,60 @@
             </Link>
           </div>
           <div
-            class="item"
+            class="sub-item"
             in:fly={{ duration: 400, y: 20, delay: 500, easing: quartOut }}
             out:fly={{ duration: 300, y: 60, delay: 0 }}>
             <Link to="olof-marsja">
               <span class="line-1">Olof Marsja</span>
               <span class="line-2">~~~~_~~~~~~</span>
+            </Link>
+          </div>
+        </div>
+        <!-- CYCLE 2 -->
+        <div class="cycle-container">
+          <div
+            class="sub-item"
+            in:fly={{ duration: 400, y: 20, delay: 600, easing: quartOut }}
+            out:fly={{ duration: 300, y: 60, delay: 300 }}>
+            <Link to="cycle-2">
+              <span class="line-1">CYCLE TWO</span>
+              <span class="line-2">22222 >>></span>
+            </Link>
+          </div>
+          <div
+            class="sub-item"
+            in:fly={{ duration: 400, y: 20, delay: 700, easing: quartOut }}
+            out:fly={{ duration: 300, y: 60, delay: 200 }}>
+            <Link to="hanni-kamaly">
+              <span class="line-1">Hanni Kamaly</span>
+              <span class="line-2">~~~~~_~~~~~~</span>
+            </Link>
+          </div>
+          <div
+            class="sub-item"
+            in:fly={{ duration: 400, y: 20, delay: 800, easing: quartOut }}
+            out:fly={{ duration: 300, y: 60, delay: 100 }}>
+            <Link to="stine-janvin">
+              <span class="line-1">Stine Janvin</span>
+              <span class="line-2">~~~~~_~~~~~~</span>
+            </Link>
+          </div>
+          <div
+            class="sub-item"
+            in:fly={{ duration: 400, y: 20, delay: 900, easing: quartOut }}
+            out:fly={{ duration: 300, y: 60, delay: 0 }}>
+            <Link to="heba-y-amin">
+              <span class="line-1">Heba Y. Amin</span>
+              <span class="line-2">~~~~_~._~~~~</span>
+            </Link>
+          </div>
+          <div
+            class="sub-item"
+            in:fly={{ duration: 400, y: 20, delay: 1000, easing: quartOut }}
+            out:fly={{ duration: 300, y: 60, delay: 0 }}>
+            <Link to="anna-run-tryggvadottir">
+              <span class="line-1">Anna Rún Tryggvadottir</span>
+              <span class="line-2">~~~~_~~~_~~~~~~~~~~~~~</span>
             </Link>
           </div>
         </div>

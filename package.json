@@ -34,7 +34,8 @@
     "lodash.get": "^4.4.2",
     "svelte-media-query": "^0.0.4",
     "svelte-routing": "^1.4.0",
-    "tiny-slider": "^2.9.2"
+    "tiny-slider": "^2.9.2",
+    "tone": "^13.8.25"
   },
   "scripts": {
     "build": "rollup -c",

@@ -16,6 +16,12 @@
 
   let toneCounter = 0;
 
+  // $: {
+  //   if (toneCounter == 2) {
+  //     window.alert("asdfasdf");
+  //   }
+  // }
+
   // *** STORES
   import {
     menuActive,
@@ -39,10 +45,34 @@
     left: "10px"
   });
 
+  let consented = false;
+
   const updateToneCounter = event => {
-    console.dir(event);
     toneCounter = event.detail.active ? toneCounter + 1 : toneCounter - 1;
   };
+
+  let videoElement = {};
+  let canvasElement = {};
+  let photoElement = {};
+
+  const takepicture = () => {
+    var context = canvas.getContext("2d");
+    if (width && height) {
+      canvas.width = width;
+      canvas.height = height;
+      context.drawImage(video, 0, 0, width, height);
+      var data = canvas.toDataURL("image/png");
+      photo.setAttribute("src", data);
+    }
+  };
+
+  onMount(async () => {
+    navigator.mediaDevices
+      .getUserMedia({ video: true, audio: false })
+      .then(stream => {
+        videoElement.srcObject = stream;
+      });
+  });
 </script>
 
 <style lang="scss">
@@ -56,12 +86,50 @@
       overflow-x: scroll;
     }
   }
+
   .scale {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
     display: inline-block;
+    z-index: 100;
+  }
+
+  .introduction {
+    width: 500px;
+    background: white;
+    padding: 20px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    color: black;
+    z-index: 1000;
+  }
+
+  .consent {
+    padding: 20px;
+    background: grey;
+    border: 0;
+    outline: 0;
+    min-width: 300px;
+    cursor: pointer;
+    &:hover {
+      background: darkgrey;
+    }
+  }
+
+  video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    &.shown {
+      opacity: 1;
+    }
   }
 </style>
 
@@ -70,48 +138,96 @@
 </svelte:head>
 
 <div class="stine">
-  {toneCounter}
-  {#if toneCounter < 2}
-    <div class="scale">
+  {#if !consented}
+    <div
+      class="introduction"
+      in:fly={{ duration: 600, y: 40, delay: 300 }}
+      out:fly={{ duration: 400, y: -40 }}>
+      <div class="inner">
+        <p>This is a musical scale consisting of 7 tones</p>
+        <p>Choose your two favourite tones from the scale</p>
+        <p>The tones are now playing at the same time, in harmony</p>
+        <p>It is a harmony made from your two favourite tones</p>
+        <p>
+          If you listen carefully, you can hear the balance of the two tones,
+        </p>
+        <p>
+          A deeper tone between the tones, the so called difference tone, the
+          balance
+        </p>
+        <p>
+          Imagine this is your own balance, your private harmony, and there is a
+          hidden message inside, a private message from your ear to yourself,
+          your brain is talking to you, your finger is talking to us
+        </p>
+
+        <p>We care about your privacy</p>
+
+        <p>Click ”ok” to continue</p>
+
+        <button
+          class="consent"
+          on:click={() => {
+            consented = true;
+          }}>
+          OK
+        </button>
+
+      </div>
+    </div>
+  {/if}
+
+  {#if consented && toneCounter < 2}
+    <div class="scale" in:fly={{ duration: 600, y: 40, delay: 300 }}>
       <Tone
         background="red"
+        frequency={457.86}
         on:playing={event => {
           updateToneCounter(event);
         }} />
       <Tone
         background="orange"
+        frequency={523.26}
         on:playing={event => {
           updateToneCounter(event);
         }} />
       <Tone
         background="yellow"
+        frequency={588.66}
         on:playing={event => {
           updateToneCounter(event);
         }} />
       <Tone
         background="green"
+        frequency={654.08}
         on:playing={event => {
           updateToneCounter(event);
         }} />
       <Tone
         background="blue"
+        frequency={719.48}
         on:playing={event => {
           updateToneCounter(event);
         }} />
       <Tone
         background="indigo"
+        frequency={784.9}
         on:playing={event => {
           updateToneCounter(event);
         }} />
       <Tone
         background="violet"
+        frequency={850.3}
         on:playing={event => {
           updateToneCounter(event);
         }} />
     </div>
   {/if}
 
-  <div class="cam" />
+  <video autoplay bind:this={videoElement} class:shown={toneCounter == 2} />
+
+  <!-- <canvas bind:this={canvasElement} />
+  <img bind:this={photoElement} /> -->
 </div>
 
 <!-- <ErosionMachine /> -->
