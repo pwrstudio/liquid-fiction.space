@@ -16,11 +16,11 @@
 
   let toneCounter = 0;
 
-  // $: {
-  //   if (toneCounter == 2) {
-  //     window.alert("asdfasdf");
-  //   }
-  // }
+  $: {
+    if (toneCounter == 2) {
+      takePicture();
+    }
+  }
 
   // *** STORES
   import {
@@ -55,14 +55,16 @@
   let canvasElement = {};
   let photoElement = {};
 
-  const takepicture = () => {
-    var context = canvas.getContext("2d");
+  const takePicture = () => {
+    var context = canvasElement.getContext("2d");
+    let width = videoElement.videoWidth;
+    let height = videoElement.videoHeight;
     if (width && height) {
-      canvas.width = width;
-      canvas.height = height;
-      context.drawImage(video, 0, 0, width, height);
-      var data = canvas.toDataURL("image/png");
-      photo.setAttribute("src", data);
+      canvasElement.width = width;
+      canvasElement.height = height;
+      context.drawImage(videoElement, 0, 0, width, height);
+      const data = canvasElement.toDataURL("image/png");
+      photoElement.setAttribute("src", data);
     }
   };
 
@@ -131,6 +133,25 @@
     width: 100%;
     height: 100%;
     opacity: 0;
+  }
+
+  canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+
+  img {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    transform: translateX(-50%) translateY(-50%);
+    transition: opacity 0.5s ease-out;
+
     &.shown {
       opacity: 1;
     }
@@ -142,7 +163,7 @@
 </svelte:head>
 
 <div class="stine">
-  <!-- {#if !consented}
+  {#if !consented}
     <div
       class="introduction"
       in:fly={{ duration: 600, y: 40, delay: 300 }}
@@ -179,66 +200,66 @@
 
       </div>
     </div>
-  {/if} -->
+  {/if}
 
-  <!-- {#if consented && toneCounter < 2} -->
-  <ul class="scale" in:fly={{ duration: 600, y: 40, delay: 300 }}>
-    <Tone
-      background="red"
-      frequency={457.86}
-      order={1}
-      on:playing={event => {
-        updateToneCounter(event);
-      }} />
-    <Tone
-      background="orange"
-      frequency={523.26}
-      order={2}
-      on:playing={event => {
-        updateToneCounter(event);
-      }} />
-    <Tone
-      background="yellow"
-      frequency={588.66}
-      order={3}
-      on:playing={event => {
-        updateToneCounter(event);
-      }} />
-    <Tone
-      background="green"
-      frequency={654.08}
-      order={4}
-      on:playing={event => {
-        updateToneCounter(event);
-      }} />
-    <Tone
-      background="blue"
-      frequency={719.48}
-      order={5}
-      on:playing={event => {
-        updateToneCounter(event);
-      }} />
-    <Tone
-      background="indigo"
-      frequency={784.9}
-      order={6}
-      on:playing={event => {
-        updateToneCounter(event);
-      }} />
-    <Tone
-      background="violet"
-      frequency={850.3}
-      order={7}
-      on:playing={event => {
-        updateToneCounter(event);
-      }} />
-  </ul>
-  <!-- {/if} -->
+  {#if consented && toneCounter < 2}
+    <ul class="scale" in:fly={{ duration: 600, y: 40, delay: 300 }}>
+      <Tone
+        background="red"
+        frequency={457.86}
+        order={1}
+        on:playing={event => {
+          updateToneCounter(event);
+        }} />
+      <Tone
+        background="orange"
+        frequency={523.26}
+        order={2}
+        on:playing={event => {
+          updateToneCounter(event);
+        }} />
+      <Tone
+        background="yellow"
+        frequency={588.66}
+        order={3}
+        on:playing={event => {
+          updateToneCounter(event);
+        }} />
+      <Tone
+        background="green"
+        frequency={654.08}
+        order={4}
+        on:playing={event => {
+          updateToneCounter(event);
+        }} />
+      <Tone
+        background="blue"
+        frequency={719.48}
+        order={5}
+        on:playing={event => {
+          updateToneCounter(event);
+        }} />
+      <Tone
+        background="indigo"
+        frequency={784.9}
+        order={6}
+        on:playing={event => {
+          updateToneCounter(event);
+        }} />
+      <Tone
+        background="violet"
+        frequency={850.3}
+        order={7}
+        on:playing={event => {
+          updateToneCounter(event);
+        }} />
+    </ul>
+  {/if}
 
-  <video autoplay bind:this={videoElement} class:shown={toneCounter == 2} />
+  <video autoplay bind:this={videoElement} />
 
-  <!-- <canvas bind:this={canvasElement} />
-  <img bind:this={photoElement} /> -->
+  <canvas bind:this={canvasElement} />
+  <img bind:this={photoElement} class:shown={toneCounter == 2} />
 </div>
 
 <!-- <ErosionMachine /> -->
