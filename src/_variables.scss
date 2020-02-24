@@ -165,7 +165,9 @@ $sans-stack: 'Antique','helvetica', 'arial', sans-serif;
     -webkit-clip-path: inset(0% 0% 0% 0%); }
   100% {
     clip-path: inset(0% 100% 0% 0%);
-    -webkit-clip-path: inset(0% 100% 0% 0%); } }
+    -webkit-clip-path: inset(0% 100% 0% 0%); }
+}
+
 @keyframes sweep {
   0% {
     clip-path: inset(0% 0% 0% 100%);
@@ -175,7 +177,8 @@ $sans-stack: 'Antique','helvetica', 'arial', sans-serif;
     -webkit-clip-path: inset(0% 0% 0% 0%); }
   100% {
     clip-path: inset(0% 100% 0% 0%);
-    -webkit-clip-path: inset(0% 100% 0% 0%); }}
+    -webkit-clip-path: inset(0% 100% 0% 0%); }
+}
     
 @-webkit-keyframes sweepMobile {
   0% {
@@ -186,7 +189,9 @@ $sans-stack: 'Antique','helvetica', 'arial', sans-serif;
             clip-path: inset(0% 0% 0% 0%); }
   100% {
     -webkit-clip-path: inset(100% 0% 0% 0%);
-            clip-path: inset(100% 0% 0% 0%); } }
+            clip-path: inset(100% 0% 0% 0%); }
+}
+
 @keyframes sweepMobile {
   0% {
     -webkit-clip-path: inset(0% 0% 100% 0%);
@@ -196,7 +201,8 @@ $sans-stack: 'Antique','helvetica', 'arial', sans-serif;
             clip-path: inset(0% 0% 0% 0%); }
   100% {
     -webkit-clip-path: inset(100% 0% 0% 0%);
-            clip-path: inset(100% 0% 0% 0%); } }
+            clip-path: inset(100% 0% 0% 0%); } 
+}
 
 @-webkit-keyframes sweepTwo {
   0% {
@@ -207,7 +213,9 @@ $sans-stack: 'Antique','helvetica', 'arial', sans-serif;
             clip-path: inset(0% 0% 0% 0%); }
   100% {
     -webkit-clip-path: inset(0% 0% 0% 100%);
-            clip-path: inset(0% 0% 0% 100%); } }
+            clip-path: inset(0% 0% 0% 100%); }
+}
+
 @keyframes sweepTwo {
   0% {
     -webkit-clip-path: inset(0% 100% 0% 0%);
@@ -217,4 +225,5 @@ $sans-stack: 'Antique','helvetica', 'arial', sans-serif;
             clip-path: inset(0% 0% 0% 0%); }
   100% {
     -webkit-clip-path: inset(0% 0% 0% 100%);
-            clip-path: inset(0% 0% 0% 100%); } }
+            clip-path: inset(0% 0% 0% 100%); }
+}

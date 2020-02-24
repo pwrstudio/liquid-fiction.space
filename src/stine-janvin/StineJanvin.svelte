@@ -89,11 +89,15 @@
 
   .scale {
     position: fixed;
+    width: 400px;
+    height: 400px;
+    padding: 0;
+    border-radius: 50%;
+    list-style: none;
     top: 50%;
     left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    display: inline-block;
-    z-index: 100;
+    transform: translateX(-50%) translateY(-50%) rotate(10deg);
+    z-index: 1000;
   }
 
   .introduction {
@@ -138,7 +142,7 @@
 </svelte:head>
 
 <div class="stine">
-  {#if !consented}
+  <!-- {#if !consented}
     <div
       class="introduction"
       in:fly={{ duration: 600, y: 40, delay: 300 }}
@@ -175,54 +179,61 @@
 
       </div>
     </div>
-  {/if}
+  {/if} -->
 
-  {#if consented && toneCounter < 2}
-    <div class="scale" in:fly={{ duration: 600, y: 40, delay: 300 }}>
-      <Tone
-        background="red"
-        frequency={457.86}
-        on:playing={event => {
-          updateToneCounter(event);
-        }} />
-      <Tone
-        background="orange"
-        frequency={523.26}
-        on:playing={event => {
-          updateToneCounter(event);
-        }} />
-      <Tone
-        background="yellow"
-        frequency={588.66}
-        on:playing={event => {
-          updateToneCounter(event);
-        }} />
-      <Tone
-        background="green"
-        frequency={654.08}
-        on:playing={event => {
-          updateToneCounter(event);
-        }} />
-      <Tone
-        background="blue"
-        frequency={719.48}
-        on:playing={event => {
-          updateToneCounter(event);
-        }} />
-      <Tone
-        background="indigo"
-        frequency={784.9}
-        on:playing={event => {
-          updateToneCounter(event);
-        }} />
-      <Tone
-        background="violet"
-        frequency={850.3}
-        on:playing={event => {
-          updateToneCounter(event);
-        }} />
-    </div>
-  {/if}
+  <!-- {#if consented && toneCounter < 2} -->
+  <ul class="scale" in:fly={{ duration: 600, y: 40, delay: 300 }}>
+    <Tone
+      background="red"
+      frequency={457.86}
+      order={1}
+      on:playing={event => {
+        updateToneCounter(event);
+      }} />
+    <Tone
+      background="orange"
+      frequency={523.26}
+      order={2}
+      on:playing={event => {
+        updateToneCounter(event);
+      }} />
+    <Tone
+      background="yellow"
+      frequency={588.66}
+      order={3}
+      on:playing={event => {
+        updateToneCounter(event);
+      }} />
+    <Tone
+      background="green"
+      frequency={654.08}
+      order={4}
+      on:playing={event => {
+        updateToneCounter(event);
+      }} />
+    <Tone
+      background="blue"
+      frequency={719.48}
+      order={5}
+      on:playing={event => {
+        updateToneCounter(event);
+      }} />
+    <Tone
+      background="indigo"
+      frequency={784.9}
+      order={6}
+      on:playing={event => {
+        updateToneCounter(event);
+      }} />
+    <Tone
+      background="violet"
+      frequency={850.3}
+      order={7}
+      on:playing={event => {
+        updateToneCounter(event);
+      }} />
+  </ul>
+  <!-- {/if} -->
 
   <video autoplay bind:this={videoElement} class:shown={toneCounter == 2} />
 
