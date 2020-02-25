@@ -203,6 +203,28 @@
     visibility: hidden;
     pointer-events: none;
   }
+
+  .hanni-kamaly-page,
+  .hanni-kamaly-popup {
+    a {
+      border-bottom: 1px solid currentColor;
+      &:hover {
+        border-bottom: 1px solid transparent;
+      }
+    }
+
+    img {
+      max-width: 90%;
+    }
+
+    .detour {
+      border-bottom: 1px dashed currentColor;
+      cursor: pointer;
+      &:hover {
+        border-bottom: 1px dashed transparent;
+      }
+    }
+  }
 </style>
 
 <Orb />

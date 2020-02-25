@@ -9,11 +9,47 @@ export const client = sanityClient({
   useCdn: true // `false` if you want to ensure fresh data
 })
 
+export const hanniClient = sanityClient({
+  projectId: 'em610obk',
+  dataset: 'production',
+  token: '', // or leave blank to be anonymous user
+  useCdn: true // `false` if you want to ensure fresh data
+})
+
+const h = blocksToHtml.h
+
+const serializers = {
+  marks: {
+    link: props =>
+      h(
+        'a',
+        { target: '_blank', rel: 'noreferrer', href: props.mark.url },
+        props.children
+      ),
+    internalLink: props => {
+      console.dir(props)
+      return h(
+        'a',
+        { className: 'detour', href: '#' + props.mark._key },
+        props.children
+      )
+    }
+  }
+}
+
 export const renderBlockText = text =>
   blocksToHtml({
     blocks: text,
     projectId: 'ylcal1e4',
     dataset: 'production'
+  })
+
+export const hanniRenderBlockText = text =>
+  blocksToHtml({
+    blocks: text,
+    projectId: 'em610obk',
+    dataset: 'production',
+    serializers: serializers
   })
 
 const builder = imageUrlBuilder(client)
