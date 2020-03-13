@@ -16,6 +16,13 @@ export const hanniClient = sanityClient({
   useCdn: true // `false` if you want to ensure fresh data
 })
 
+export const annaClient = sanityClient({
+  projectId: 'cwz39af2',
+  dataset: 'production',
+  token: '', // or leave blank to be anonymous user
+  useCdn: true // `false` if you want to ensure fresh data
+})
+
 const h = blocksToHtml.h
 
 const serializers = {
@@ -55,3 +62,7 @@ export const hanniRenderBlockText = text =>
 const builder = imageUrlBuilder(client)
 
 export const urlFor = source => builder.image(source)
+
+const annaBuilder = imageUrlBuilder(annaClient)
+
+export const urlForAnna = source => annaBuilder.image(source)
