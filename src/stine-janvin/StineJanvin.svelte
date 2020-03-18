@@ -12,7 +12,8 @@
 
   // *** COMPONENTS
   import ErosionMachine from "../eeefff/ErosionMachine.svelte";
-  import Tone from "./Tone.svelte";
+  // import Tone from "./Tone.svelte";
+  import PermissionDialog from "./PermissionDialog.svelte";
 
   let toneCounter = 0;
 
@@ -69,11 +70,37 @@
   };
 
   onMount(async () => {
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: false })
-      .then(stream => {
-        videoElement.srcObject = stream;
-      });
+    // Video
+    navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+      videoElement.srcObject = stream;
+    });
+    // Microphone
+    // navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+    //   videoElement.srcObject = stream;
+    // });
+    // Location
+    // navigator.geolocation.getCurrentPosition(position => {
+    //   console.log(position);
+    // });
+    // Accelerometer
+    // let acc = new Accelerometer();
+    // console.dir(acc);
+    // Gyroscope
+    // let gyro = new Gyroscope();
+    // console.dir(gyro);
+    // Notifications
+    // Push
+    // Notification.requestPermission();
+    // Midi
+    // navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
+    // function onMIDISuccess(midiAccess) {
+    //   console.log(midiAccess);
+    //   var inputs = midiAccess.inputs;
+    //   var outputs = midiAccess.outputs;
+    // }
+    // function onMIDIFailure() {
+    //   console.log("Could not access your MIDI devices.");
+    // }
   });
 </script>
 
@@ -81,7 +108,7 @@
   @import "../_variables.scss";
 
   .stine {
-    background: black;
+    background: blue;
     min-height: 100vh;
 
     @include screen-size("small") {
@@ -163,7 +190,7 @@
 </svelte:head>
 
 <div class="stine">
-  {#if !consented}
+  <!-- {#if !consented}
     <div
       class="introduction"
       in:fly={{ duration: 600, y: 40, delay: 300 }}
@@ -200,9 +227,9 @@
 
       </div>
     </div>
-  {/if}
+  {/if} -->
 
-  {#if consented && toneCounter < 2}
+  <!-- {#if consented && toneCounter < 2}
     <ul class="scale" in:fly={{ duration: 600, y: 40, delay: 300 }}>
       <Tone
         background="red"
@@ -254,12 +281,74 @@
           updateToneCounter(event);
         }} />
     </ul>
-  {/if}
+  {/if} -->
 
-  <video autoplay bind:this={videoElement} />
+  <!-- {#if consented} -->
+  <PermissionDialog
+    text="Liquid Fiction wants to use your camera"
+    frequency={523}
+    top="5"
+    left="10"
+    order="0" />
+  <PermissionDialog
+    text="Liquid Fiction wants to use your microphone"
+    frequency={423}
+    top="20"
+    left="40"
+    order="1" />
+  <PermissionDialog
+    text="Liquid Fiction wants to know your location"
+    frequency={553}
+    top="15"
+    left="20"
+    order="2" />
+  <PermissionDialog
+    text="Liquid Fiction wants to access movement data from your device"
+    frequency={578}
+    top="40"
+    left="60"
+    order="3" />
+  <PermissionDialog
+    text="Liquid Fiction wants to access YYY"
+    frequency={778}
+    top="70"
+    left="70"
+    order="4" />
+  <PermissionDialog
+    text="Liquid Fiction wants to XXX"
+    frequency={878}
+    top="60"
+    left="10"
+    order="5" />
+  <PermissionDialog
+    text="Liquid Fiction wants to ZZZZ"
+    frequency={1208}
+    top="50"
+    left="5"
+    order="6" />
+  <PermissionDialog
+    text="Liquid Fiction wants to ZZZZ"
+    frequency={1208}
+    top="60"
+    left="30"
+    order="7" />
+  <PermissionDialog
+    text="Liquid Fiction wants to QQQQ"
+    frequency={1208}
+    top="40"
+    left="10"
+    order="8" />
+  <PermissionDialog
+    text="Liquid Fiction wants to XXXXXXX"
+    frequency={1208}
+    top="5"
+    left="60"
+    order="9" />
+  <!-- {/if} -->
+  <!-- <video autoplay bind:this={videoElement} muted /> -->
 
-  <canvas bind:this={canvasElement} />
-  <img bind:this={photoElement} class:shown={toneCounter == 2} />
+  <!-- <canvas bind:this={canvasElement} /> -->
+  <!-- <img bind:this={photoElement} class:shown={toneCounter == 2} /> -->
 </div>
 
 <!-- <ErosionMachine /> -->
