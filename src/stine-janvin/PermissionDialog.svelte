@@ -12,15 +12,19 @@
 
   const dispatch = createEventDispatcher();
 
+  // PROPS
   export let frequency = 440;
   export let text = "KFKDK";
   export let order = 1;
   export let top = 10;
   export let left = 10;
 
+  // CONSTANTS
+  const mixer = new Tone.PanVol(-0.5, -24);
+  const reverb = new Tone.Reverb();
+
+  // VARIABLES
   let playing = false;
-  let mixer = new Tone.PanVol(-1, -24);
-  var reverb = new Tone.Reverb();
   let active = true;
 
   let synth = new Tone.Synth({
@@ -39,13 +43,6 @@
   synth.volume.value = -24;
   synth.connect(reverb);
   synth.toMaster();
-
-  //   const toggleSound = () => {
-  //     console.dir(synth);
-  //     if (playing) synth.triggerRelease();
-  //     playing = !playing;
-  //     dispatch("playing", { active: playing });
-  //   };
 
   const allow = () => {
     synth.triggerRelease();
@@ -103,7 +100,7 @@
   <div
     class="permission-dialog order-{order}"
     style="top: {top}%; left: {left}%"
-    in:fly={{ duration: 300, y: 20, delay: order * 100 }}
+    in:fly={{ duration: 300, y: 20, delay: order * 50 }}
     out:scale={{ duration: 300 }}>
     {text}
     <div class="buttons">

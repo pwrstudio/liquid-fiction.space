@@ -12,7 +12,6 @@
 
   // *** COMPONENTS
   import ErosionMachine from "../eeefff/ErosionMachine.svelte";
-  // import Tone from "./Tone.svelte";
   import PermissionDialog from "./PermissionDialog.svelte";
 
   let toneCounter = 0;
@@ -286,64 +285,94 @@
   <!-- {#if consented} -->
   <PermissionDialog
     text="Liquid Fiction wants to use your camera"
-    frequency={523}
+    frequency={130.82}
     top="5"
     left="10"
     order="0" />
   <PermissionDialog
     text="Liquid Fiction wants to use your microphone"
-    frequency={423}
+    frequency={261.63}
     top="20"
     left="40"
     order="1" />
   <PermissionDialog
     text="Liquid Fiction wants to know your location"
-    frequency={553}
+    frequency={294.33}
     top="15"
     left="20"
     order="2" />
   <PermissionDialog
     text="Liquid Fiction wants to access movement data from your device"
-    frequency={578}
+    frequency={310.7}
     top="40"
     left="60"
     order="3" />
   <PermissionDialog
     text="Liquid Fiction wants to access YYY"
-    frequency={778}
-    top="70"
-    left="70"
+    frequency={327.04}
+    top="50"
+    left="30"
     order="4" />
   <PermissionDialog
-    text="Liquid Fiction wants to XXX"
-    frequency={878}
-    top="60"
-    left="10"
+    text="Liquid Fiction wants to access YYY"
+    frequency={343.4}
+    top="70"
+    left="70"
     order="5" />
   <PermissionDialog
-    text="Liquid Fiction wants to ZZZZ"
-    frequency={1208}
-    top="50"
-    left="5"
+    text="Liquid Fiction wants to XXX"
+    frequency={359.74}
+    top="60"
+    left="10"
     order="6" />
   <PermissionDialog
     text="Liquid Fiction wants to ZZZZ"
-    frequency={1208}
-    top="60"
-    left="30"
+    frequency={392.45}
+    top="50"
+    left="5"
     order="7" />
   <PermissionDialog
-    text="Liquid Fiction wants to QQQQ"
-    frequency={1208}
-    top="40"
-    left="10"
+    text="Liquid Fiction wants to ZZZZ"
+    frequency={425.15}
+    top="60"
+    left="30"
     order="8" />
   <PermissionDialog
+    text="Liquid Fiction wants to QQQQ"
+    frequency={457.86}
+    top="40"
+    left="10"
+    order="9" />
+  <PermissionDialog
     text="Liquid Fiction wants to XXXXXXX"
-    frequency={1208}
+    frequency={490.56}
     top="5"
     left="60"
-    order="9" />
+    order="10" />
+  <PermissionDialog
+    text="Liquid Fiction wants to XXXXXXX"
+    frequency={523.26}
+    top="40"
+    left="20"
+    order="11" />
+  <PermissionDialog
+    text="Liquid Fiction wants to XXXXXXX"
+    frequency={555.96}
+    top="32"
+    left="45"
+    order="12" />
+  <PermissionDialog
+    text="Liquid Fiction wants to XXXXXXX"
+    frequency={588.66}
+    top="15"
+    left="40"
+    order="13" />
+  <PermissionDialog
+    text="Liquid Fiction wants to XXXXXXX"
+    frequency={654.08}
+    top="50"
+    left="20"
+    order="14" />
   <!-- {/if} -->
   <!-- <video autoplay bind:this={videoElement} muted /> -->
 
