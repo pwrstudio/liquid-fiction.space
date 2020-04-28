@@ -29,10 +29,10 @@
   const query = "*[ _id == 'meta'][0]{order[]->{title, content}}";
 
   activePage.set("hanni");
-  orbBackgroundOne.set("rgba(244,164,96,1)");
-  orbBackgroundTwo.set("rgba(222,184,135,1)");
+  orbBackgroundOne.set("rgba(244,255,0,1)");
+  orbBackgroundTwo.set("rgba(211,211,211,1)");
 
-  orbColorOne.set("rgba(255,255,255,1)");
+  orbColorOne.set("rgba(0,0,0,1)");
   orbColorTwo.set("rgba(0,0,0,1)");
 
   orbPosition.set({
@@ -59,12 +59,22 @@
   @import "../_variables.scss";
 
   .hanni {
-    background: beige;
+    background: lightgrey;
     min-height: 100vh;
 
     @include screen-size("small") {
       overflow-x: scroll;
     }
+  }
+
+  .background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    object-fit: cover;
   }
 
   .navigation {
@@ -75,23 +85,17 @@
     padding: 0;
     outline: none;
     border-radius: 0;
-    width: 100px;
     cursor: pointer;
     background: transparent;
+    z-index: 100;
 
     &:hover {
-      transition: transform 0.2s ease-out;
-      transform: scale(1.1);
-    }
-
-    &:active {
-      transition: transform 0s ease-out;
-      transform: scale(1.15);
+      color: rgba(255, 255, 0, 1);
     }
 
     svg {
-      height: 90px;
-      width: 90px;
+      height: 110px;
+      width: 110px;
     }
 
     &.next {
@@ -99,6 +103,11 @@
     }
     &.prev {
       left: 10px;
+    }
+
+    @include screen-size("small") {
+      top: unset;
+      bottom: 20px;
     }
   }
 </style>
@@ -108,6 +117,8 @@
 </svelte:head>
 
 <div class="hanni">
+
+  <video class="background-video" src="/img/bgvid.mp4" loop autoplay muted />
 
   {#await meta then meta}
     {#each meta.order as page, index}
@@ -136,7 +147,7 @@
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="2"
+          stroke-width="3"
           class="feather feather-arrow-left">
           <line x1="19" y1="12" x2="5" y2="12" />
           <polyline points="12 19 5 12 12 5" />
@@ -159,7 +170,7 @@
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
-          stroke-width="2"
+          stroke-width="3"
           class="feather feather-arrow-right">
           <line x1="5" y1="12" x2="19" y2="12" />
           <polyline points="12 5 19 12 12 19" />

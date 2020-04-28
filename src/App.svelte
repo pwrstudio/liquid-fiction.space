@@ -207,9 +207,9 @@
   .hanni-kamaly-page,
   .hanni-kamaly-popup {
     a {
-      border-bottom: 1px solid currentColor;
+      border-bottom: 3px dashed currentColor;
       &:hover {
-        border-bottom: 1px solid transparent;
+        border-bottom: 3px dashed transparent;
       }
     }
 
@@ -218,10 +218,11 @@
     }
 
     .detour {
-      border-bottom: 1px dashed currentColor;
+      border-bottom: 3px dashed rgba(255, 255, 0, 1);
       cursor: pointer;
       &:hover {
-        border-bottom: 1px dashed transparent;
+        background: rgba(255, 255, 0, 1);
+        border-bottom: 3px solidtransparent;
       }
     }
   }
@@ -241,13 +242,13 @@
 
     blockquote {
       padding-left: 2em;
-      font-style: italic;
-      font-size: 0.85em;
+      font-size: 0.9em;
+      font-family: serif;
     }
 
     img {
       display: block;
-      max-width: 90%;
+      max-width: 80%;
       margin-left: auto;
       margin-right: auto;
       user-select: none;

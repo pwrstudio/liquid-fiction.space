@@ -35,7 +35,7 @@
   @import "../_variables.scss";
 
   .hanni-kamaly-page {
-    font-family: serif;
+    font-family: helvetica, arial, sans-serif;
     font-size: 24px;
     color: black;
     width: auto;
@@ -43,17 +43,25 @@
     height: auto;
     overflow-y: auto;
     padding: 10px;
-    padding-top: 80px;
+    padding-top: 60px;
     padding-bottom: 120px;
+    // border: 20px dashed rgba(190, 190, 190, 1);
+    min-height: 100vh;
+    z-index: 10;
+    position: relative;
 
-    &.inactive {
-      pointer-events: none;
-      opacity: 0.5;
+    @include screen-size("small") {
+      padding-top: 120px;
+      font-size: 20px;
+      line-height: 1.4em;
     }
   }
 
   .hanni-kamaly-popup {
-    background: beige;
+    font-family: helvetica, arial, sans-serif;
+    font-size: 24px;
+    background: lightgrey;
+    background: rgba(255, 255, 0, 1);
     box-shadow: 0 10px 10px black;
     color: black;
     position: fixed;
@@ -62,6 +70,43 @@
     width: 100vw;
     height: 100vh;
     overflow-y: auto;
+    z-index: 10000;
+    padding: 10px;
+    padding-top: 80px;
+    padding-bottom: 120px;
+
+    @include screen-size("small") {
+      padding-top: 120px;
+      line-height: 1.4em;
+      font-size: 20px;
+    }
+  }
+
+  .skip {
+    position: fixed;
+    top: 45%;
+    border: 0;
+    color: black;
+    padding: 0;
+    outline: none;
+    border-radius: 0;
+    cursor: pointer;
+    background: transparent;
+    right: 10px;
+
+    &:hover {
+      color: lightgrey;
+    }
+
+    svg {
+      height: 110px;
+      width: 110px;
+    }
+
+    @include screen-size("small") {
+      top: unset;
+      bottom: 20px;
+    }
   }
 </style>
 
@@ -87,6 +132,32 @@
               {#if mark.content}
                 {@html hanniRenderBlockText(mark.content)}
               {/if}
+              <button class="skip" on:click={goToNext}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                  class="feather feather-arrow-right">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+                <!-- <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                  class="feather feather-fast-forward">
+                  <polygon points="13 19 22 12 13 5 13 19" />
+                  <polygon points="2 19 11 12 2 5 2 19" />
+                </svg> -->
+              </button>
             </div>
           {/if}
         {/if}
