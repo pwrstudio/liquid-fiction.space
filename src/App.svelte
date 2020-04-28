@@ -226,22 +226,60 @@
     }
   }
 
-  .hanni-kamaly-page {
+  .hanni-kamaly-page,
+  .hanni-kamaly-popup {
     p,
     h1,
     h2,
     h3,
     blockquote {
       width: 700px;
+      max-width: 90%;
       margin-left: auto;
       margin-right: auto;
     }
 
+    blockquote {
+      padding-left: 2em;
+      font-style: italic;
+      font-size: 0.85em;
+    }
+
     img {
       display: block;
-      max-width: 700px;
+      max-width: 90%;
       margin-left: auto;
       margin-right: auto;
+      user-select: none;
+    }
+
+    video {
+      max-width: 90%;
+      display: block;
+      max-height: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      outline: none;
+    }
+
+    audio {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 1em;
+      outline: none;
+      margin-bottom: 1em;
+    }
+
+    iframe {
+      margin-top: 1em;
+      display: block;
+      max-width: 700px;
+      max-height: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      outline: none;
+      margin-bottom: 1em;
     }
   }
 </style>

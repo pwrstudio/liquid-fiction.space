@@ -43,7 +43,7 @@
     height: auto;
     overflow-y: auto;
     padding: 10px;
-    padding-top: 60px;
+    padding-top: 80px;
     padding-bottom: 120px;
 
     &.inactive {
@@ -53,18 +53,15 @@
   }
 
   .hanni-kamaly-popup {
-    background: rgba(230, 230, 230, 0.9);
+    background: beige;
     box-shadow: 0 10px 10px black;
     color: black;
     position: fixed;
-    top: 40%;
-    left: 60%;
-    transform: translateX(-50%) translateY(-40%);
-    width: 500px;
-    max-width: 95vw;
-    height: 80vh;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     overflow-y: auto;
-    padding: 10px;
   }
 </style>
 
@@ -90,7 +87,6 @@
               {#if mark.content}
                 {@html hanniRenderBlockText(mark.content)}
               {/if}
-              <button class="next" on:click={goToNext}>></button>
             </div>
           {/if}
         {/if}

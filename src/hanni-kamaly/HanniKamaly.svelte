@@ -69,7 +69,7 @@
 
   .navigation {
     position: fixed;
-    top: 50%;
+    top: 45%;
     border: 0;
     color: black;
     padding: 0;
@@ -90,15 +90,15 @@
     }
 
     svg {
-      height: 80px;
-      width: 80px;
+      height: 90px;
+      width: 90px;
     }
 
     &.next {
-      right: 0;
+      right: 10px;
     }
     &.prev {
-      left: 0;
+      left: 10px;
     }
   }
 </style>
