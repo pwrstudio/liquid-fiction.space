@@ -59,22 +59,46 @@
   @import "../_variables.scss";
 
   .hanni {
-    background: black;
+    background: beige;
     min-height: 100vh;
 
     @include screen-size("small") {
       overflow-x: scroll;
     }
+  }
 
-    .end {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      padding: 5px;
-      width: 300px;
-      text-align: center;
-      background: red;
-      transform: translateX(-50%) translateY(-50%);
+  .navigation {
+    position: fixed;
+    top: 50%;
+    border: 0;
+    color: black;
+    padding: 0;
+    outline: none;
+    border-radius: 0;
+    width: 100px;
+    cursor: pointer;
+    background: transparent;
+
+    &:hover {
+      transition: transform 0.2s ease-out;
+      transform: scale(1.1);
+    }
+
+    &:active {
+      transition: transform 0s ease-out;
+      transform: scale(1.15);
+    }
+
+    svg {
+      height: 80px;
+      width: 80px;
+    }
+
+    &.next {
+      right: 0;
+    }
+    &.prev {
+      left: 0;
     }
   }
 </style>
@@ -96,11 +120,53 @@
           }} />
       {/if}
     {/each}
-    {#if currentPageIndex == meta.order.length}
-      <div class="end">
-        <h1>END</h1>
-      </div>
+
+    <!-- NAVIGATION: PREVIOUS -->
+    {#if currentPageIndex > 0}
+      <button
+        class="navigation prev"
+        on:click={e => {
+          currentPageIndex -= 1;
+          window.location.hash = '';
+        }}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          class="feather feather-arrow-left">
+          <line x1="19" y1="12" x2="5" y2="12" />
+          <polyline points="12 19 5 12 12 5" />
+        </svg>
+      </button>
     {/if}
+
+    <!-- NAVIGATION: NEXT -->
+    {#if currentPageIndex < meta.order.length - 1}
+      <button
+        class="navigation next"
+        on:click={e => {
+          currentPageIndex += 1;
+          window.location.hash = '';
+        }}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          class="feather feather-arrow-right">
+          <line x1="5" y1="12" x2="19" y2="12" />
+          <polyline points="12 5 19 12 12 19" />
+        </svg>
+      </button>
+    {/if}
+
   {/await}
 </div>
 

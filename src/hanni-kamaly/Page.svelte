@@ -8,7 +8,7 @@
   // *** IMPORT
   import { onMount, onDestroy, createEventDispatcher } from "svelte";
   import { hanniRenderBlockText } from "../sanity.js";
-  import { fade } from "svelte/transition";
+  import { fade, slide, fly } from "svelte/transition";
 
   export let page = false;
 
@@ -35,38 +35,20 @@
   @import "../_variables.scss";
 
   .hanni-kamaly-page {
-    background: white;
+    font-family: serif;
+    font-size: 24px;
     color: black;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    width: 500px;
-    max-width: 95vw;
-    height: 80vh;
+    width: auto;
+    width: 100%;
+    height: auto;
     overflow-y: auto;
     padding: 10px;
+    padding-top: 60px;
+    padding-bottom: 120px;
 
     &.inactive {
       pointer-events: none;
       opacity: 0.5;
-    }
-  }
-
-  .next {
-    float: right;
-    border: 0;
-    font-size: 32px;
-    background: blue;
-    color: white;
-    padding: 10px;
-    outline: none;
-    border-radius: 0;
-    width: 200px;
-    cursor: pointer;
-
-    &:hover {
-      opacity: 0.8;
     }
   }
 
@@ -88,12 +70,14 @@
 
 <div>
 
-  <div class="hanni-kamaly-page" class:inactive={currentHash.length > 1}>
-    <h1>{page.title}</h1>
+  <div
+    class="hanni-kamaly-page"
+    class:inactive={currentHash.length > 1}
+    in:fade>
+
     {#if page.content}
       {@html hanniRenderBlockText(page.content)}
     {/if}
-    <button class="next" on:click={goToNext}>></button>
 
   </div>
 

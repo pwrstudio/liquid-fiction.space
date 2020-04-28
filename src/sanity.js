@@ -40,6 +40,13 @@ const serializers = {
         { className: 'detour', href: '#' + props.mark._key },
         props.children
       )
+    },
+  },
+  types: {
+    embed: props => {
+      console.dir(props.node.code)
+      // const { embedCode } = node
+      return ('{@html ' + props.node.code + '}')
     }
   }
 }

@@ -225,6 +225,25 @@
       }
     }
   }
+
+  .hanni-kamaly-page {
+    p,
+    h1,
+    h2,
+    h3,
+    blockquote {
+      width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    img {
+      display: block;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
 </style>
 
 <Orb />
