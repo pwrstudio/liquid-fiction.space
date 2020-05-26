@@ -122,67 +122,76 @@
       return obj;
     });
 
-    // POSSIBLY FILTER TARGETS
-    // const targets = sampleSize(nodeList, 20);
-    const targets = nodeList;
-    console.dir(targets);
-
     // EDGE LIST
     const edgeList = nodeList.map(p => {
       const obj = {
         data: {
           source: p.data.id,
-          target: sample(targets).data.id
+          target: sample(nodeList).data.id
         }
       };
       return obj;
     });
-    console.dir(edgeList);
 
     // combinedKeywords = _.reverse(
     //   _.sortBy(_.map(_.groupBy(allWords), w => [w[0], w.length]), x => x[1])
     // );
 
     // console.dir(combinedKeywords);
+
+    // console.dir(rawProcessed.reduce(x => x.keywords));
+
+    // const allKeys = _.groupBy([6.1, 4.2, 6.3], Math.floor);
     cy = cytoscape({
       container: document.getElementById("graph"),
       boxSelectionEnabled: false,
-      minZoom: 0.2,
+      minZoom: 0.15,
       maxZoom: 6,
       motionBlur: true,
+      autoungrabify: true,
 
       style: cytoscape
         .stylesheet()
         .selector("node")
         .css({
-          height: 120,
-          width: 120,
           "background-fit": "cover",
           "border-color": "#000",
-          "background-color": "#0000FF",
           "border-width": 0,
           "border-opacity": 0,
-          shape: "circle"
+          opacity: 0.05
         })
         .selector("edge")
         .css({
           "curve-style": "unbundled-bezier",
           width: 6,
-          "line-gradient-stop-colors": "red orange",
+          "line-gradient-stop-colors": "#0000FF #0000FF",
           "line-fill": "linear-gradient",
-          "line-color": "#ffffff"
+          opacity: 0.05
+        })
+        .selector(".raw-image")
+        .css({
+          "background-color": "#0000FF",
+          "background-image": "data(image)",
+          height: 120,
+          width: 120,
+          shape: "ellipse"
         })
         .selector(".raw-video")
+        .css({
+          shape: "rectangle",
+          height: 80,
+          width: 120
+        })
+        .selector(".raw-text")
         .css({
           shape: "rectangle",
           height: 120,
           width: 120
         })
-        .selector(".raw-text")
+        .selector(".shown")
         .css({
-          shape: "circle",
-          height: 120,
-          width: 120
+          "line-gradient-stop-colors": "orange red",
+          opacity: 1
         }),
 
       elements: {
@@ -192,105 +201,114 @@
 
       layout: {
         name: "cose",
-        fit: true,
-        componentSpacing: 40,
-        padding: 30,
-        nodeRepulsion: function(node) {
-          return 6048;
-        },
+        animate: true,
+        componentSpacing: 100,
+        fit: false,
+        zoom: 2,
         randomize: true,
-        gravity: 10
+        gravity: 0.1
       }
-    }); // cy init
+    });
+
+    cy.on("click", "edge", evt => {
+      window.alert("edge clicked");
+    });
 
     cy.on("click", "node", evt => {
-      popUpActive = false;
-      popUpTitle = false;
-      popUpText = false;
-      popUpImage = false;
-      popUpVideo = false;
+      const clickedNodeId = evt.target.data().id;
+      const clickedNodeEl = cy.$("#" + clickedNodeId);
 
-      // console.log(evt.target.data());
-      // console.dir(cy.$("#" + evt.target.data().id));
+      if (clickedNodeEl.hasClass("active")) {
+        popUpActive = false;
+        popUpTitle = false;
+        popUpText = false;
+        popUpImage = false;
+        popUpVideo = false;
 
-      const targetEl = cy.$("#" + evt.target.data().id);
+        const connectedEdges = edgeList.filter(
+          e => e.data.source == clickedNodeId || e.data.target == clickedNodeId
+        );
 
-      const pos = targetEl.position();
-      const renderedPos = targetEl.renderedPosition();
+        // console.log("&&&& – connectedEdges");
+        // console.dir(connectedEdges);
 
-      setTimeout(() => {
-        popUpTitle = evt.target.data().title;
-        popUpText = evt.target.data().text;
-        popUpImage = evt.target.data().fullImage;
-        popUpVideo = evt.target.data().video;
-        popUpActive = true;
-      }, 500);
+        connectedEdges.forEach(selectedEdge => {
+          const newNodeId =
+            selectedEdge.data.target == clickedNodeId
+              ? selectedEdge.data.source
+              : selectedEdge.data.target;
 
-      // console.dir(pos);
-      // console.dir(renderedPos);
+          // console.log("&&&& – newNodeId");
+          // console.dir(newNodeId);
 
-      // console.log(cy.zoom());
-      // cy.zoom(2.1);
+          const newNodeEl = cy.$("#" + newNodeId);
 
-      // cy.zoom({
-      //   // Zoom to the specified position
-      //   level: 3, // 0 <= yourLevel, maybe try out 1,2,3,4... and see what fits
-      //   position: pos
-      // });
+          // console.log("&&&& – newNodeEl");
+          // console.dir(newNodeEl);
 
-      // if (cy.zoom() == 2) {
-      //   cy.animate(
-      //     {
-      //       pan: renderedPos
-      //       // zoom: {
-      //       //   level: 2,
-      //       //   renderedPosition: renderedPos
-      //       // }
-      //     },
-      //     {
-      //       duration: 1000,
-      //       easing: "ease-out-quad"
-      //     }
-      //   );
-      // } else {
-      cy.animate({
-        zoom: {
-          level: 2,
-          renderedPosition: renderedPos
+          const selectedEdgeEl = cy.$("#" + selectedEdge.data.id);
+          selectedEdgeEl.addClass("shown");
+
+          newNodeEl.animate(
+            {
+              style: { opacity: 1 }
+            },
+            {
+              duration: 1000,
+              easing: "ease-out-quad"
+            }
+          );
+
+          newNodeEl.addClass("active");
+        });
+
+        // console.log("&&&& – selectedEdge");
+        // console.dir(selectedEdge);
+
+        setTimeout(() => {
+          popUpTitle = evt.target.data().title;
+          popUpText = evt.target.data().text;
+          popUpImage = evt.target.data().fullImage;
+          popUpVideo = evt.target.data().video;
+          popUpActive = true;
+        }, 500);
+
+        cy.animate({
+          center: {
+            eles: clickedNodeEl
+          },
+          duration: 800,
+          easing: "ease-out-quad"
+        });
+      }
+    });
+
+    cy.on("layoutstop", e => {
+      cy.nodes().panify();
+      layoutLoaded = true;
+
+      let s = sample(cy.nodes());
+
+      s.animate(
+        {
+          style: { opacity: 1 }
         },
-        center: renderedPos,
+        {
+          duration: 1000,
+          easing: "ease-out-quad"
+        }
+      );
+
+      s.addClass("active");
+
+      cy.animate({
+        center: {
+          eles: s
+        },
         duration: 1000,
         easing: "ease-out-quad"
       });
     });
-
-    cy.on("layoutstop", e => {
-      layoutLoaded = true;
-
-      // setTimeout(() => {
-      //   cy.animate(
-      //     {
-      //       // pan: pos
-      //       zoom: 1
-      //     },
-      //     {
-      //       duration: 3000,
-      //       easing: "ease-out"
-      //     }
-      //   );
-      // }, 1000);
-    });
-
-    nodeList.forEach(n => {
-      // console.log(n.data.id);
-      let el = cy.$("#" + n.data.id)[0];
-      // console.dir(el);
-      el.style("background-image", n.data.image);
-    });
-
-    // console.dir(rawProcessed.reduce(x => x.keywords));
-
-    // const allKeys = _.groupBy([6.1, 4.2, 6.3], Math.floor);
 
     return rawProcessed;
   });
@@ -307,8 +325,6 @@
     left: 0;
     top: 0;
 
-    // display: inline-block;
-
     @include screen-size("small") {
       overflow-x: scroll;
     }
@@ -318,11 +334,12 @@
     position: fixed;
     top: 10px;
     right: 10px;
-    width: 600px;
+    width: 300px;
     min-height: 300px;
     background: #0473fa;
     padding: 10px;
     cursor: pointer;
+    font-size: 14px;
 
     img {
       max-width: 100%;
@@ -380,6 +397,7 @@
     top: 0;
     opacity: 0;
     transition: opacity 0.5s ease-out;
+    font-size: 2px;
 
     &.loaded {
       opacity: 1;
@@ -401,7 +419,9 @@
       on:click={() => {
         popUpActive = false;
       }}>
-      <h2>{popUpTitle}</h2>
+      <div>
+        <strong>{popUpTitle}</strong>
+      </div>
       {#if popUpImage}
         <img src={popUpImage} />
       {/if}
