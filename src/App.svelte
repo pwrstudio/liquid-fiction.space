@@ -302,5 +302,6 @@
   <Route path="stine-janvin" component={StineJanvin} />
   <Route path="heba-y-amin" component={HebaYAmin} />
   <Route path="anna-run-tryggvadottir" component={AnnaRunTryggvadottir} />
+  <Route path="anna-run-tryggvadottir/:slug" component={AnnaRunTryggvadottir} />
 
 </Router>

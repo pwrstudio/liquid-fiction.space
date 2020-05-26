@@ -8,7 +8,7 @@
   // *** IMPORT
   import { onMount, onDestroy, createEventDispatcher } from "svelte";
   import { hanniRenderBlockText } from "../sanity.js";
-  import { fade, slide, fly } from "svelte/transition";
+  import { fade, slide, fly, blur } from "svelte/transition";
 
   export let page = false;
 
@@ -115,7 +115,7 @@
   <div
     class="hanni-kamaly-page"
     class:inactive={currentHash.length > 1}
-    in:fade>
+    in:blur={{ duration: 1000 }}>
 
     {#if page.content}
       {@html hanniRenderBlockText(page.content)}
