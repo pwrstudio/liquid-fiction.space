@@ -12,12 +12,12 @@
   import { annaClient, urlForAnna } from "../sanity.js";
   import getVideoId from "get-video-id";
   import { links } from "svelte-routing";
-  import cytoscape from "cytoscape";
   import sampleSize from "lodash/sampleSize";
   import sample from "lodash/sample";
   import kebabCase from "lodash/kebabCase";
-
   import _ from "lodash";
+
+  import cytoscape from "cytoscape";
 
   // *** COMPONENTS
   import ErosionMachine from "../eeefff/ErosionMachine.svelte";
@@ -47,6 +47,10 @@
   let popUpText = false;
   let popUpImage = false;
   let popUpVideo = false;
+  let popUpKeywords = [];
+
+  let edgePopUpActive = false;
+  let edgeTerm = "";
 
   activePage.set("anna");
   orbBackgroundOne.set("rgba(244,164,96,1)");
@@ -74,25 +78,37 @@
   const raw = loadData(query);
 
   raw.then(rawData => {
-    let allWords = [];
+    console.dir(rawData);
+    const keyWordReducer = (a, r) => a.concat(r.keywords);
+    let allWords = rawData.reduce(keyWordReducer, []);
+    // console.log("all");
+    // console.dir(allWords);
+
+    const combinedKeywords = _.map(_.groupBy(allWords), w => [w[0], w.length]);
+    // console.log("combined");
+    // console.dir(combinedKeywords);
+
+    const sharedKeywords = combinedKeywords
+      .filter(w => w[1] > 1)
+      .map(w => w[0]);
+    // console.log("shared");
+    // console.dir(sharedKeywords);
 
     let rawProcessed = rawData.map(r => {
-      if (r.metadata) {
-        r.keywords = _.words(r.metadata);
-        allWords = allWords.concat(r.keywords);
-      } else if (r.textContent) {
-        r.keywords = _.words(r.textContent);
-        allWords = allWords.concat(r.keywords);
-      }
+      console.log(r.keywords);
+      r.keywords = r.keywords
+        ? r.keywords.filter(w => sharedKeywords.includes(w))
+        : [];
       return r;
     });
 
-    console.dir(rawProcessed);
+    // console.log("rawProcessed");
+    // console.dir(rawProcessed);
 
     // NODE LIST
     const nodeList = rawProcessed.map(p => {
       const imageUrl =
-        p._type == "rawImage"
+        p._type == "rawImage" || p._type == "rawVideo"
           ? urlForAnna(p.imageContent)
               .width(300)
               .quality(90)
@@ -115,41 +131,52 @@
           type: p._type,
           fullImage: fullImageUrl,
           text: p._type == "rawText" ? p.textContent : false,
-          video: p._type == "rawVideo" ? p.videoUrl : false
+          video: p._type == "rawVideo" ? p.videoUrl : false,
+          keywords: p.keywords
         },
         classes: [kebabCase(p._type)]
       };
+      // console.dir(obj);
       return obj;
     });
 
-    // EDGE LIST
-    const edgeList = nodeList.map(p => {
-      const obj = {
-        data: {
-          source: p.data.id,
-          target: sample(nodeList).data.id
+    const nodesWithKeywords = nodeList.filter(
+      n => n.data.keywords && n.data.keywords.length > 0
+    );
+
+    console.log("nodesWithKeywords");
+    console.dir(nodesWithKeywords);
+
+    let edgeList = [];
+    nodesWithKeywords.forEach(n => {
+      n.data.keywords.forEach(k => {
+        let targetNode = sample(
+          nodesWithKeywords.filter(
+            x => x.data.keywords.includes(k) && x.data.id !== n.data.id
+          )
+        );
+        if (targetNode) {
+          edgeList.push({
+            data: {
+              source: n.data.id,
+              target: targetNode.data.id,
+              keyword: k
+            }
+          });
         }
-      };
-      return obj;
+      });
     });
 
-    // combinedKeywords = _.reverse(
-    //   _.sortBy(_.map(_.groupBy(allWords), w => [w[0], w.length]), x => x[1])
-    // );
+    console.log("edgelist");
+    console.dir(edgeList);
 
-    // console.dir(combinedKeywords);
-
-    // console.dir(rawProcessed.reduce(x => x.keywords));
-
-    // const allKeys = _.groupBy([6.1, 4.2, 6.3], Math.floor);
     cy = cytoscape({
       container: document.getElementById("graph"),
       boxSelectionEnabled: false,
+      autounselectify: true,
       minZoom: 0.15,
       maxZoom: 6,
-      motionBlur: true,
-      autoungrabify: true,
-
+      // autoungrabify: true,
       style: cytoscape
         .stylesheet()
         .selector("node")
@@ -163,7 +190,7 @@
         .selector("edge")
         .css({
           "curve-style": "unbundled-bezier",
-          width: 6,
+          width: 2,
           "line-gradient-stop-colors": "#0000FF #0000FF",
           "line-fill": "linear-gradient",
           opacity: 0.05
@@ -179,6 +206,7 @@
         .selector(".raw-video")
         .css({
           shape: "rectangle",
+          "background-image": "data(image)",
           height: 80,
           width: 120
         })
@@ -191,27 +219,38 @@
         .selector(".shown")
         .css({
           "line-gradient-stop-colors": "orange red",
-          opacity: 1
+          opacity: 0.8
         }),
 
       elements: {
-        nodes: nodeList,
+        nodes: nodesWithKeywords,
         edges: edgeList
       },
-
       layout: {
         name: "cose",
+        // name: "concentric",
+        // name: "cola",
         animate: true,
-        componentSpacing: 100,
         fit: false,
         zoom: 2,
+        nodeOverlap: 40,
+        initialTemp: 10000,
+        componentSpacing: 100,
         randomize: true,
-        gravity: 0.1
+        gravity: 10
       }
     });
 
     cy.on("click", "edge", evt => {
-      window.alert("edge clicked");
+      const clickedEdgeId = evt.target.data().id;
+      const clickedEdgeEl = cy.$("#" + clickedEdgeId);
+      if (clickedEdgeEl.hasClass("shown")) {
+        edgeTerm = evt.target.data().keyword;
+        edgePopUpActive = true;
+        setTimeout(() => {
+          edgePopUpActive = false;
+        }, 2000);
+      }
     });
 
     cy.on("click", "node", evt => {
@@ -224,6 +263,7 @@
         popUpText = false;
         popUpImage = false;
         popUpVideo = false;
+        popUpKeywords = [];
 
         const connectedEdges = edgeList.filter(
           e => e.data.source == clickedNodeId || e.data.target == clickedNodeId
@@ -249,27 +289,26 @@
           const selectedEdgeEl = cy.$("#" + selectedEdge.data.id);
           selectedEdgeEl.addClass("shown");
 
-          newNodeEl.animate(
-            {
-              style: { opacity: 1 }
-            },
-            {
-              duration: 1000,
-              easing: "ease-out-quad"
-            }
-          );
-
-          newNodeEl.addClass("active");
+          if (!newNodeEl.hasClass("active")) {
+            newNodeEl.animate(
+              {
+                style: { opacity: 1 }
+              },
+              {
+                duration: 1000,
+                easing: "ease-out-quad"
+              }
+            );
+            newNodeEl.addClass("active");
+          }
         });
-
-        // console.log("&&&& – selectedEdge");
-        // console.dir(selectedEdge);
 
         setTimeout(() => {
           popUpTitle = evt.target.data().title;
           popUpText = evt.target.data().text;
           popUpImage = evt.target.data().fullImage;
           popUpVideo = evt.target.data().video;
+          popUpKeywords = evt.target.data().keywords;
           popUpActive = true;
         }, 500);
 
@@ -284,7 +323,7 @@
     });
 
     cy.on("layoutstop", e => {
-      cy.nodes().panify();
+      // cy.nodes().panify();
       layoutLoaded = true;
 
       let s = sample(cy.nodes());
@@ -338,6 +377,22 @@
     min-height: 300px;
     background: #0473fa;
     padding: 10px;
+    cursor: pointer;
+    font-size: 14px;
+
+    img,
+    iframe {
+      max-width: 100%;
+    }
+  }
+
+  .edge-pop-up {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 300px;
+    background: red;
+    padding: 20px;
     cursor: pointer;
     font-size: 14px;
 
@@ -451,6 +506,20 @@
             allowfullscreen />
         {/if}
       {/if}
+      {#each popUpKeywords as k}{k} /{/each}
+    </div>
+  {/if}
+
+  {#if edgePopUpActive}
+    <div
+      class="edge-pop-up"
+      out:fade
+      on:click={() => {
+        edgePopUpActive = false;
+      }}>
+      <div>
+        <strong>{edgeTerm}</strong>
+      </div>
     </div>
   {/if}
 </div>
