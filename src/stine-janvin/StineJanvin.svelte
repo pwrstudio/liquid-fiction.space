@@ -9,109 +9,113 @@
   import { onMount, onDestroy } from "svelte";
   import { fly } from "svelte/transition";
   import { quartOut } from "svelte/easing";
+  import shuffle from "lodash/shuffle";
 
   // *** COMPONENTS
   import ErosionMachine from "../eeefff/ErosionMachine.svelte";
   import PermissionDialog from "./PermissionDialog.svelte";
 
-  let toneCounter = 0;
-
-  $: {
-    if (toneCounter == 2) {
-      takePicture();
-    }
-  }
-
-  const boxes = [
+  const boxes = shuffle([
     {
       text: "We use cookies for advertisement",
       buttons: ["Allow", "Block"],
-      frequency: 130.82
+      frequency: 130.82,
+      pan: -0.8
     },
     {
       text: "Liquid Fiction would like access to your home address",
       buttons: ["Allow", "Deny"],
-      frequency: 261.63
+      frequency: 261.63,
+      pan: -0.7
     },
     {
       text: "This website uses cookies",
       buttons: ["OK", "Learn more"],
-      frequency: 294.33
+      frequency: 294.33,
+      pan: -0.6
     },
-
     {
       text: "Liquid Fiction would like to know your location",
       buttons: ["Allow", "Block"],
-      frequency: 310.7
+      frequency: 310.7,
+      pan: -0.5
     },
-
     {
       text: "Liquid Fiction wants to send you notifications",
       buttons: ["Allow", "Deny"],
-      frequency: 327.04
+      frequency: 327.04,
+      pan: -0.4
     },
-
     {
       text: "To follow our newsletter click here or unfollow here",
-      buttons: ["Foloow", "Unfollow"],
-      frequency: 343.4
+      buttons: ["Follow", "Unfollow"],
+      frequency: 343.4,
+      pan: -0.3
     },
-
     {
       text: "I would like to get updates and exciting news",
       buttons: ["Yes", "No"],
-      frequency: 359.74
+      frequency: 359.74,
+      pan: -0.2
     },
-
     {
       text: "Liquid Fiction needs access to your camera",
       buttons: ["Allow", "Deny"],
-      frequency: 392.45
+      frequency: 392.45,
+      pan: -0.1
     },
-
     {
       text: "Give Liquid Fiction access to your device",
       buttons: ["OK", "Learn more"],
-      frequency: 425.15
+      frequency: 425.15,
+      pan: 0
     },
-
     {
       text: "Your privacy is important to us",
       buttons: ["Agree", "Deny"],
-      frequency: 457.86
+      frequency: 457.86,
+      pan: 0.1
     },
-
     {
       text: "Liquid Fiction would like to use your phone number",
       buttons: ["Allow", "Deny"],
-      frequency: 490.56
+      frequency: 490.56,
+      pan: 0.2
     },
-
     {
       text: "We value your privacy. Allow access to your microphone",
       buttons: ["Yes", "No"],
-      frequency: 523.26
+      frequency: 523.26,
+      pan: 0.3
     },
-
     {
       text:
         "To continue reading, click ok to the use of cookies on this website",
       buttons: ["Ok", "Cancel"],
-      frequency: 555.96
+      frequency: 555.96,
+      pan: 0.4
     },
-
     {
       text: "Liquid Fiction would like you to share your location",
       buttons: ["OK", "No Thanks"],
-      frequency: 588.66
+      frequency: 588.66,
+      pan: 0.5
     },
-
     {
       text: "Liquid Fiction wants to store files on your computer",
       buttons: ["Allow", "Deny"],
-      frequency: 654.08
+      frequency: 654.08,
+      pan: 0.6
     }
-  ];
+  ]);
+
+  let toneCounter = boxes.length - 1;
+
+  // $: {
+  //   if (toneCounter == 2) {
+  //     takePicture();
+  //   }
+  // }
 
   // *** STORES
   import {
@@ -127,10 +131,8 @@
   activePage.set("stine");
   orbBackgroundOne.set("rgba(244,164,96,1)");
   orbBackgroundTwo.set("rgba(222,184,135,1)");
-
   orbColorOne.set("rgba(255,255,255,1)");
   orbColorTwo.set("rgba(0,0,0,1)");
-
   orbPosition.set({
     top: "10px",
     left: "10px"
@@ -140,57 +142,31 @@
 
   const updateToneCounter = event => {
     toneCounter = event.detail.active ? toneCounter + 1 : toneCounter - 1;
+    console.log(toneCounter);
   };
 
-  let videoElement = {};
-  let canvasElement = {};
-  let photoElement = {};
+  // let videoElement = {};
+  // let canvasElement = {};
+  // let photoElement = {};
 
-  const takePicture = () => {
-    var context = canvasElement.getContext("2d");
-    let width = videoElement.videoWidth;
-    let height = videoElement.videoHeight;
-    if (width && height) {
-      canvasElement.width = width;
-      canvasElement.height = height;
-      context.drawImage(videoElement, 0, 0, width, height);
-      const data = canvasElement.toDataURL("image/png");
-      photoElement.setAttribute("src", data);
-    }
-  };
+  // const takePicture = () => {
+  //   var context = canvasElement.getContext("2d");
+  //   let width = videoElement.videoWidth;
+  //   let height = videoElement.videoHeight;
+  //   if (width && height) {
+  //     canvasElement.width = width;
+  //     canvasElement.height = height;
+  //     context.drawImage(videoElement, 0, 0, width, height);
+  //     const data = canvasElement.toDataURL("image/png");
+  //     photoElement.setAttribute("src", data);
+  //   }
+  // };
 
   onMount(async () => {
     // Video
-    navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
-      videoElement.srcObject = stream;
-    });
-    // Microphone
-    // navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+    // navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
     //   videoElement.srcObject = stream;
     // });
-    // Location
-    // navigator.geolocation.getCurrentPosition(position => {
-    //   console.log(position);
-    // });
-    // Accelerometer
-    // let acc = new Accelerometer();
-    // console.dir(acc);
-    // Gyroscope
-    // let gyro = new Gyroscope();
-    // console.dir(gyro);
-    // Notifications
-    // Push
-    // Notification.requestPermission();
-    // Midi
-    // navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
-    // function onMIDISuccess(midiAccess) {
-    //   console.log(midiAccess);
-    //   var inputs = midiAccess.inputs;
-    //   var outputs = midiAccess.outputs;
-    // }
-    // function onMIDIFailure() {
-    //   console.log("Could not access your MIDI devices.");
-    // }
   });
 </script>
 
@@ -373,17 +349,19 @@
     </ul>
   {/if} -->
 
-  <!-- {#if consented} -->
   {#each boxes as box, i}
     <PermissionDialog
       text={box.text}
       buttons={box.buttons}
       frequency={box.frequency}
-      top="5"
-      left="10"
+      pan={box.pan}
+      on:reduceToneCounter={e => {
+        toneCounter--;
+        console.log(toneCounter);
+      }}
+      visible={i == toneCounter}
       order={i} />
   {/each}
-  <!-- {/if} -->
   <!-- <video autoplay bind:this={videoElement} muted /> -->
 
   <!-- <canvas bind:this={canvasElement} /> -->
