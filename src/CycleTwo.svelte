@@ -35,12 +35,20 @@
 
   activePage.set("about");
   orbBackgroundOne.set("rgb(230, 230, 230)");
-  orbBackgroundTwo.set("rgba(255,69,0,1)");
+  orbBackgroundTwo.set("rgba(221,160,221,1)");
 
   orbColorOne.set("rgba(140,140,140,1)");
   orbColorTwo.set("rgba(0,0,0,1)");
 
-  const bgColors = ["seagreen", "orangered", "seagreen", "orangered"];
+  const bgColors = [
+    "olivedrab",
+    "plum",
+    "olivedrab",
+    "plum",
+    "olivedrab",
+    "plum",
+    "olivedrab"
+  ];
 
   $: {
     if (activeOrder === 1000) {
@@ -57,7 +65,8 @@
   }
 
   $textContent.then(content => {
-    textList = get(content, "cycleOne", []);
+    console.dir(content);
+    textList = get(content, "cycleTwo", []);
   });
 </script>
 
@@ -76,7 +85,7 @@
 </svelte:head>
 
 <div class="paneContainer">
-  <!-- {#each textList as text, order}
+  {#each textList as text, order}
     <Pane
       on:activated={event => {
         activeOrder = event.detail.order;
@@ -87,7 +96,7 @@
       hidden={activeOrder != 1000 && activeOrder < order ? true : false}
       {order}
       totalPanes={textList.length} />
-  {/each} -->
+  {/each}
 </div>
 
 <ErosionMachine />

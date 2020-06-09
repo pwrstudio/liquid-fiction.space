@@ -51,7 +51,8 @@
     overflow: auto;
     width: 100%;
     height: 100%;
-    padding-top: 80px;
+    padding-top: 60px;
+    padding-bottom: 120px;
     transition: -webkit-clip-path 0.3s cubic-bezier(0.23, 1, 0.32, 1);
     transition: clip-path 0.3s cubic-bezier(0.23, 1, 0.32, 1);
     transition: clip-path 0.3s cubic-bezier(0.23, 1, 0.32, 1),
@@ -82,14 +83,14 @@
   }
 
   .sub-item {
-    font-size: 50px;
     cursor: pointer;
-    line-height: 50px;
     position: relative;
     display: inline-block;
     display: inline-block;
     width: 100%;
-    height: 50px;
+    font-size: 70px;
+    line-height: 70px;
+    height: 70px;
     margin-bottom: 0;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -98,6 +99,12 @@
     text-transform: uppercase;
     clip-path: inset(0% 0% 0% 0%);
     -webkit-clip-path: inset(0% 0% 0% 0%);
+
+    @include screen-size("small") {
+      font-size: 35px;
+      line-height: 35px;
+      height: 35px;
+    }
   }
 
   .menu .inner .sub-item .line-1,
@@ -131,7 +138,7 @@
 
   @media (max-width: 700px) {
     .menu {
-      padding-top: 120px;
+      padding-top: 80px;
     }
 
     .menu .inner .item {
@@ -150,6 +157,26 @@
     text-align: right;
     white-space: nowrap;
     color: #fff;
+  }
+
+  .menu {
+    .inner {
+      .item {
+        .line-1,
+        .line-2 {
+          position: absolute;
+          top: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          text-align: right;
+          white-space: nowrap;
+          color: #fff;
+          &.header {
+            color: black;
+          }
+        }
+      }
+    }
   }
 
   .menu .inner .item .line-1 {
@@ -257,11 +284,12 @@
   }
 
   .cycle-container {
-    width: 50%;
+    width: 100%;
     float: left;
+    margin-top: 35px;
 
     @include screen-size("small") {
-      width: 100%;
+      margin-top: 15px;
     }
   }
 </style>
@@ -294,59 +322,20 @@
             <span class="line-2">TXTXTXTXT</span>
           </Link>
         </div>
-        <!-- CYCLE 1 -->
+        <!-- CYCLE 2 -->
         <div class="cycle-container">
           <div
-            class="sub-item"
+            class="sub-item header"
             in:fly={{ duration: 400, y: 20, delay: 200, easing: quartOut }}
             out:fly={{ duration: 300, y: 60, delay: 300 }}>
-            <Link to="cycle-1">
-              <span class="line-1">CYCLE ONE</span>
-              <span class="line-2">11111 >>></span>
+            <Link to="cycle-2">
+              <span class="line-1 header">___ CYCLE TWO</span>
+              <span class="line-2 header">>>> 22222 >>></span>
             </Link>
           </div>
           <div
             class="sub-item"
             in:fly={{ duration: 400, y: 20, delay: 300, easing: quartOut }}
-            out:fly={{ duration: 300, y: 60, delay: 200 }}>
-            <Link to="alina-chaiderov">
-              <span class="line-1">Alina Chaiderov</span>
-              <span class="line-2">~~~~~_~~~~~~~~~</span>
-            </Link>
-          </div>
-          <div
-            class="sub-item"
-            in:fly={{ duration: 400, y: 20, delay: 400, easing: quartOut }}
-            out:fly={{ duration: 300, y: 60, delay: 100 }}>
-            <Link to="eeefff">
-              <span class="line-1">eeefff</span>
-              <span class="line-2">~~~~~~</span>
-            </Link>
-          </div>
-          <div
-            class="sub-item"
-            in:fly={{ duration: 400, y: 20, delay: 500, easing: quartOut }}
-            out:fly={{ duration: 300, y: 60, delay: 0 }}>
-            <Link to="olof-marsja">
-              <span class="line-1">Olof Marsja</span>
-              <span class="line-2">~~~~_~~~~~~</span>
-            </Link>
-          </div>
-        </div>
-        <!-- CYCLE 2 -->
-        <div class="cycle-container">
-          <div
-            class="sub-item"
-            in:fly={{ duration: 400, y: 20, delay: 600, easing: quartOut }}
-            out:fly={{ duration: 300, y: 60, delay: 300 }}>
-            <Link to="cycle-2">
-              <span class="line-1">CYCLE TWO</span>
-              <span class="line-2">22222 >>></span>
-            </Link>
-          </div>
-          <div
-            class="sub-item"
-            in:fly={{ duration: 400, y: 20, delay: 700, easing: quartOut }}
             out:fly={{ duration: 300, y: 60, delay: 200 }}>
             <Link to="hanni-kamaly">
               <span class="line-1">Hanni Kamaly</span>
@@ -355,7 +344,7 @@
           </div>
           <div
             class="sub-item"
-            in:fly={{ duration: 400, y: 20, delay: 800, easing: quartOut }}
+            in:fly={{ duration: 400, y: 20, delay: 400, easing: quartOut }}
             out:fly={{ duration: 300, y: 60, delay: 100 }}>
             <Link to="stine-janvin">
               <span class="line-1">Stine Janvin</span>
@@ -364,7 +353,7 @@
           </div>
           <div
             class="sub-item"
-            in:fly={{ duration: 400, y: 20, delay: 900, easing: quartOut }}
+            in:fly={{ duration: 400, y: 20, delay: 500, easing: quartOut }}
             out:fly={{ duration: 300, y: 60, delay: 0 }}>
             <Link to="heba-y-amin">
               <span class="line-1">Heba Y. Amin</span>
@@ -373,11 +362,51 @@
           </div>
           <div
             class="sub-item"
-            in:fly={{ duration: 400, y: 20, delay: 1000, easing: quartOut }}
+            in:fly={{ duration: 400, y: 20, delay: 600, easing: quartOut }}
             out:fly={{ duration: 300, y: 60, delay: 0 }}>
             <Link to="anna-run-tryggvadottir">
               <span class="line-1">Anna Rún Tryggvadottir</span>
               <span class="line-2">~~~~_~~~_~~~~~~~~~~~~~</span>
+            </Link>
+          </div>
+        </div>
+        <!-- CYCLE 1 -->
+        <div class="cycle-container">
+
+          <div
+            class="sub-item header"
+            in:fly={{ duration: 400, y: 20, delay: 700, easing: quartOut }}
+            out:fly={{ duration: 300, y: 60, delay: 300 }}>
+            <Link to="cycle-1">
+              <span class="line-1 header">___ CYCLE ONE</span>
+              <span class="line-2 header">>>> 11111 >>></span>
+            </Link>
+          </div>
+          <div
+            class="sub-item"
+            in:fly={{ duration: 400, y: 20, delay: 800, easing: quartOut }}
+            out:fly={{ duration: 300, y: 60, delay: 200 }}>
+            <Link to="alina-chaiderov">
+              <span class="line-1">Alina Chaiderov</span>
+              <span class="line-2">~~~~~_~~~~~~~~~</span>
+            </Link>
+          </div>
+          <div
+            class="sub-item"
+            in:fly={{ duration: 400, y: 20, delay: 900, easing: quartOut }}
+            out:fly={{ duration: 300, y: 60, delay: 100 }}>
+            <Link to="eeefff">
+              <span class="line-1">eeefff</span>
+              <span class="line-2">~~~~~~</span>
+            </Link>
+          </div>
+          <div
+            class="sub-item"
+            in:fly={{ duration: 400, y: 20, delay: 1000, easing: quartOut }}
+            out:fly={{ duration: 300, y: 60, delay: 0 }}>
+            <Link to="olof-marsja">
+              <span class="line-1">Olof Marsja</span>
+              <span class="line-2">~~~~_~~~~~~</span>
             </Link>
           </div>
         </div>

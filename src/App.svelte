@@ -32,7 +32,7 @@
 
   // ** CONSTANTS
   const query =
-    "*[ _type == 'cycleOne' || _type == 'liquidFiction' || _type == 'editorial' ] | order(customOrder asc)";
+    "*[ _type == 'cycleTwo' || _type == 'cycleOne' || _type == 'liquidFiction' || _type == 'editorial' ] | order(customOrder asc)";
 
   // *** STORES
   import { textContent, activePage } from "./stores.js";
@@ -56,6 +56,10 @@
 
       contentContstruction.cycleOne = res.filter(
         d => get(d, "_type", "") === "cycleOne"
+      );
+
+      contentContstruction.cycleTwo = res.filter(
+        d => get(d, "_type", "") === "cycleTwo"
       );
 
       contentContstruction.editorial = res.filter(
@@ -152,38 +156,42 @@
     display: none;
   }
 
-  .pane img {
-    width: auto;
-    max-height: 400px;
-    max-width: calc(100% - 2rem);
+  .pane {
+    img {
+      width: auto;
+      max-height: 400px;
+      max-width: calc(100% - 2rem);
+    }
+
+    figure {
+      padding-left: 0;
+      margin-left: 0;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      img {
+        max-width: 100%;
+        height: auto;
+        max-width: 39.292rem;
+      }
+    }
+
+    p {
+      font-size: 16px;
+      font-weight: normal;
+      line-height: 1.333;
+      max-width: 39.292rem;
+    }
+
+    &.large {
+      p {
+        font-size: 21.33px;
+        line-height: 1.333;
+        font-weight: 300;
+      }
+    }
   }
 
-  .pane figure {
-    padding-left: 0;
-    margin-left: 0;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
-
-  .pane figure img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  .pane p {
-    font-size: 16px;
-    font-weight: normal;
-    line-height: 1.333;
-    max-width: 39.292rem;
-  }
-
-  .pane.large p {
-    font-size: 21.33px;
-    line-height: 1.333;
-    font-weight: 300;
-  }
-
-  .pane a {
+  .pane .pane a {
     border-bottom: 1px solid currentColor;
     &:hover {
       border-bottom: 1px solid transparent;
