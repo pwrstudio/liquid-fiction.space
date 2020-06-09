@@ -22,6 +22,97 @@
     }
   }
 
+  const boxes = [
+    {
+      text: "We use cookies for advertisement",
+      buttons: ["Allow", "Block"],
+      frequency: 130.82
+    },
+    {
+      text: "Liquid Fiction would like access to your home address",
+      buttons: ["Allow", "Deny"],
+      frequency: 261.63
+    },
+    {
+      text: "This website uses cookies",
+      buttons: ["OK", "Learn more"],
+      frequency: 294.33
+    },
+
+    {
+      text: "Liquid Fiction would like to know your location",
+      buttons: ["Allow", "Block"],
+      frequency: 310.7
+    },
+
+    {
+      text: "Liquid Fiction wants to send you notifications",
+      buttons: ["Allow", "Deny"],
+      frequency: 327.04
+    },
+
+    {
+      text: "To follow our newsletter click here or unfollow here",
+      buttons: ["Foloow", "Unfollow"],
+      frequency: 343.4
+    },
+
+    {
+      text: "I would like to get updates and exciting news",
+      buttons: ["Yes", "No"],
+      frequency: 359.74
+    },
+
+    {
+      text: "Liquid Fiction needs access to your camera",
+      buttons: ["Allow", "Deny"],
+      frequency: 392.45
+    },
+
+    {
+      text: "Give Liquid Fiction access to your device",
+      buttons: ["OK", "Learn more"],
+      frequency: 425.15
+    },
+
+    {
+      text: "Your privacy is important to us",
+      buttons: ["Agree", "Deny"],
+      frequency: 457.86
+    },
+
+    {
+      text: "Liquid Fiction would like to use your phone number",
+      buttons: ["Allow", "Deny"],
+      frequency: 490.56
+    },
+
+    {
+      text: "We value your privacy. Allow access to your microphone",
+      buttons: ["Yes", "No"],
+      frequency: 523.26
+    },
+
+    {
+      text:
+        "To continue reading, click ok to the use of cookies on this website",
+      buttons: ["Ok", "Cancel"],
+      frequency: 555.96
+    },
+
+    {
+      text: "Liquid Fiction would like you to share your location",
+      buttons: ["OK", "No Thanks"],
+      frequency: 588.66
+    },
+
+    {
+      text: "Liquid Fiction wants to store files on your computer",
+      buttons: ["Allow", "Deny"],
+      frequency: 654.08
+    }
+  ];
+
   // *** STORES
   import {
     menuActive,
@@ -283,96 +374,15 @@
   {/if} -->
 
   <!-- {#if consented} -->
-  <PermissionDialog
-    text="Liquid Fiction wants to use your camera"
-    frequency={130.82}
-    top="5"
-    left="10"
-    order="0" />
-  <PermissionDialog
-    text="Liquid Fiction wants to use your microphone"
-    frequency={261.63}
-    top="20"
-    left="40"
-    order="1" />
-  <PermissionDialog
-    text="Liquid Fiction wants to know your location"
-    frequency={294.33}
-    top="15"
-    left="20"
-    order="2" />
-  <PermissionDialog
-    text="Liquid Fiction wants to access movement data from your device"
-    frequency={310.7}
-    top="40"
-    left="60"
-    order="3" />
-  <PermissionDialog
-    text="Liquid Fiction wants to access YYY"
-    frequency={327.04}
-    top="50"
-    left="30"
-    order="4" />
-  <PermissionDialog
-    text="Liquid Fiction wants to access YYY"
-    frequency={343.4}
-    top="70"
-    left="70"
-    order="5" />
-  <PermissionDialog
-    text="Liquid Fiction wants to XXX"
-    frequency={359.74}
-    top="60"
-    left="10"
-    order="6" />
-  <PermissionDialog
-    text="Liquid Fiction wants to ZZZZ"
-    frequency={392.45}
-    top="50"
-    left="5"
-    order="7" />
-  <PermissionDialog
-    text="Liquid Fiction wants to ZZZZ"
-    frequency={425.15}
-    top="60"
-    left="30"
-    order="8" />
-  <PermissionDialog
-    text="Liquid Fiction wants to QQQQ"
-    frequency={457.86}
-    top="40"
-    left="10"
-    order="9" />
-  <PermissionDialog
-    text="Liquid Fiction wants to XXXXXXX"
-    frequency={490.56}
-    top="5"
-    left="60"
-    order="10" />
-  <PermissionDialog
-    text="Liquid Fiction wants to XXXXXXX"
-    frequency={523.26}
-    top="40"
-    left="20"
-    order="11" />
-  <PermissionDialog
-    text="Liquid Fiction wants to XXXXXXX"
-    frequency={555.96}
-    top="32"
-    left="45"
-    order="12" />
-  <PermissionDialog
-    text="Liquid Fiction wants to XXXXXXX"
-    frequency={588.66}
-    top="15"
-    left="40"
-    order="13" />
-  <PermissionDialog
-    text="Liquid Fiction wants to XXXXXXX"
-    frequency={654.08}
-    top="50"
-    left="20"
-    order="14" />
+  {#each boxes as box, i}
+    <PermissionDialog
+      text={box.text}
+      buttons={box.buttons}
+      frequency={box.frequency}
+      top="5"
+      left="10"
+      order={i} />
+  {/each}
   <!-- {/if} -->
   <!-- <video autoplay bind:this={videoElement} muted /> -->
 

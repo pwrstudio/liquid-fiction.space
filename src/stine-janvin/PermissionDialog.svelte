@@ -14,7 +14,8 @@
 
   // PROPS
   export let frequency = 440;
-  export let text = "KFKDK";
+  export let text = "";
+  export let buttons = [];
   export let order = 1;
   export let top = 10;
   export let left = 10;
@@ -104,8 +105,8 @@
     out:scale={{ duration: 300 }}>
     {text}
     <div class="buttons">
-      <button class="button deny">DENY</button>
-      <button class="button allow" on:click={allow}>ALLOW</button>
+      <button class="button" allow on:click={allow}>{buttons[0]}</button>
+      <button class="button" deny on:click={allow}>{buttons[1]}</button>
     </div>
   </div>
 {/if}
