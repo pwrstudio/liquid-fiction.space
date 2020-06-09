@@ -56,6 +56,12 @@
     dispatch("reduceToneCounter");
   };
 
+  const deny = () => {
+    playing = true;
+    active = false;
+    dispatch("reduceToneCounter");
+  };
+
   onMount(async () => {
     synth.triggerAttack(frequency);
     playing = true;
@@ -134,7 +140,7 @@
     <div class="text">{text}</div>
     <div class="buttons">
       <button class="button" allow on:click={allow}>{buttons[0]}</button>
-      <button class="button" deny on:click={allow}>{buttons[1]}</button>
+      <button class="button" deny on:click={deny}>{buttons[1]}</button>
     </div>
   </div>
 {/if}
