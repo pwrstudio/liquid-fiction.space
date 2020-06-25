@@ -48,6 +48,7 @@
   let popUpImage = false;
   let popUpVideo = false;
   let popUpKeywords = [];
+  let popUpSource = false;
 
   let edgePopUpActive = false;
   let edgeTerm = "";
@@ -78,7 +79,7 @@
   const raw = loadData(query);
 
   raw.then(rawData => {
-    console.dir(rawData);
+    // console.dir(rawData);
     const keyWordReducer = (a, r) => a.concat(r.keywords);
     let allWords = rawData.reduce(keyWordReducer, []);
     // console.log("all");
@@ -95,7 +96,7 @@
     // console.dir(sharedKeywords);
 
     let rawProcessed = rawData.map(r => {
-      console.log(r.keywords);
+      // console.log(r.keywords);
       r.keywords = r.keywords
         ? r.keywords.filter(w => sharedKeywords.includes(w))
         : [];
@@ -132,7 +133,8 @@
           fullImage: fullImageUrl,
           text: p._type == "rawText" ? p.textContent : false,
           video: p._type == "rawVideo" ? p.videoUrl : false,
-          keywords: p.keywords
+          keywords: p.keywords,
+          source: p.sourceUrl
         },
         classes: [kebabCase(p._type)]
       };
@@ -144,8 +146,8 @@
       n => n.data.keywords && n.data.keywords.length > 0
     );
 
-    console.log("nodesWithKeywords");
-    console.dir(nodesWithKeywords);
+    // console.log("nodesWithKeywords");
+    // console.dir(nodesWithKeywords);
 
     let edgeList = [];
     nodesWithKeywords.forEach(n => {
@@ -167,8 +169,8 @@
       });
     });
 
-    console.log("edgelist");
-    console.dir(edgeList);
+    // console.log("edgelist");
+    // console.dir(edgeList);
 
     cy = cytoscape({
       container: document.getElementById("graph"),
@@ -233,7 +235,7 @@
         animate: true,
         fit: false,
         zoom: 2,
-        nodeOverlap: 40,
+        nodeOverlap: 4000,
         initialTemp: 10000,
         componentSpacing: 100,
         randomize: true,
@@ -264,6 +266,7 @@
         popUpImage = false;
         popUpVideo = false;
         popUpKeywords = [];
+        popUpSource = false;
 
         const connectedEdges = edgeList.filter(
           e => e.data.source == clickedNodeId || e.data.target == clickedNodeId
@@ -309,6 +312,7 @@
           popUpImage = evt.target.data().fullImage;
           popUpVideo = evt.target.data().video;
           popUpKeywords = evt.target.data().keywords;
+          popUpSource = evt.target.data().source;
           popUpActive = true;
         }, 500);
 
@@ -373,12 +377,14 @@
     position: fixed;
     top: 10px;
     right: 10px;
-    width: 300px;
+    width: 350px;
     min-height: 300px;
-    background: #0473fa;
-    padding: 10px;
+    background: #dda794;
+    padding: 20px;
     cursor: pointer;
     font-size: 14px;
+    max-height: calc(100vh - 20px);
+    overflow-y: auto;
 
     img,
     iframe {
@@ -458,6 +464,37 @@
       opacity: 1;
     }
   }
+
+  .divider {
+    margin-right: 1ch;
+  }
+
+  .keyword {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .source-link {
+    border: 1px solid white;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 18px;
+    float: right;
+
+    &:hover {
+      color: #dda794;
+      background: white;
+    }
+  }
+
+  .source-container {
+    margin-top: 0.5em;
+  }
+
+  .title {
+    margin-bottom: 0.5em;
+  }
 </style>
 
 <svelte:head>
@@ -474,7 +511,7 @@
       on:click={() => {
         popUpActive = false;
       }}>
-      <div>
+      <div class="title">
         <strong>{popUpTitle}</strong>
       </div>
       {#if popUpImage}
@@ -506,7 +543,23 @@
             allowfullscreen />
         {/if}
       {/if}
-      {#each popUpKeywords as k}{k} /{/each}
+      {#each popUpKeywords as k, i}
+        <a
+          href={'https://www.google.fi/search?q=' + encodeURIComponent(k)}
+          class="keyword"
+          target="_blank">
+          {k}
+        </a>
+        {#if i != popUpKeywords.length - 1}
+          <span class="divider">/</span>
+        {/if}
+      {/each}
+      {#if popUpSource}
+        <div class="source-container">
+          <a href={popUpSource} class="source-link" target="_blank">↳</a>
+        </div>
+      {/if}
+
     </div>
   {/if}
 
