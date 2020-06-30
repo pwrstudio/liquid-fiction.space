@@ -63,7 +63,8 @@
   }
 
   $textContent.then(content => {
-    textList = get(content, "editorial", []);
+    textList = get(content, "editorial", []).filter(t => !t.cycleTwo);
+    console.log(textList);
   });
 </script>
 
