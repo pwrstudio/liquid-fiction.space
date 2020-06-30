@@ -178,7 +178,7 @@
       autounselectify: true,
       minZoom: 0.15,
       maxZoom: 6,
-      // autoungrabify: true,
+      autoungrabify: true,
       style: cytoscape
         .stylesheet()
         .selector("node")
@@ -243,7 +243,7 @@
       }
     });
 
-    cy.on("click", "edge", evt => {
+    cy.on("tap", "edge", evt => {
       const clickedEdgeId = evt.target.data().id;
       const clickedEdgeEl = cy.$("#" + clickedEdgeId);
       if (clickedEdgeEl.hasClass("shown")) {
@@ -255,7 +255,7 @@
       }
     });
 
-    cy.on("click", "node", evt => {
+    cy.on("tap", "node", evt => {
       const clickedNodeId = evt.target.data().id;
       const clickedNodeEl = cy.$("#" + clickedNodeId);
 
@@ -379,16 +379,24 @@
     right: 10px;
     width: 350px;
     min-height: 300px;
-    background: #dda794;
-    padding: 20px;
+    background: rgba(244, 164, 96, 1);
+    padding: 15px;
     cursor: pointer;
     font-size: 14px;
     max-height: calc(100vh - 20px);
     overflow-y: auto;
+    border-radius: 10px;
+    z-index: 10001;
 
     img,
     iframe {
       max-width: 100%;
+    }
+
+    @include screen-size("small") {
+      top: unset;
+      bottom: 10px;
+      width: calc(100% - 20px);
     }
   }
 
@@ -396,10 +404,12 @@
     position: fixed;
     bottom: 10px;
     right: 10px;
-    width: 300px;
-    background: red;
-    padding: 20px;
+    width: auto;
+    background: rgba(222, 184, 135, 1);
+    padding: 10px;
+    color: black;
     cursor: pointer;
+    font-weight: normal;
     font-size: 14px;
 
     img {
@@ -495,6 +505,24 @@
   .title {
     margin-bottom: 0.5em;
   }
+
+  .loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    font-size: 64px;
+    animation: pulse 1s infinite alternate-reverse;
+  }
+
+  @keyframes pulse {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 </style>
 
 <svelte:head>
@@ -502,6 +530,11 @@
 </svelte:head>
 
 <div class="anna">
+
+  {#if !layoutLoaded}
+    <div class="loading">LOADING</div>
+  {/if}
+
   <div id="graph" class="graph" class:loaded={layoutLoaded} />
 
   {#if popUpActive}
@@ -570,9 +603,7 @@
       on:click={() => {
         edgePopUpActive = false;
       }}>
-      <div>
-        <strong>{edgeTerm}</strong>
-      </div>
+      <div>{edgeTerm}</div>
     </div>
   {/if}
 </div>
