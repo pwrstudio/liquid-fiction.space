@@ -27,6 +27,20 @@ export const annaClient = sanityClient({
 const h = blocksToHtml.h
 
 const serializers = {
+  types: {
+    audioFile: props => {
+      console.dir(props)
+      const audioUrl = 'https://cdn.sanity.io/files/ylcal1e4/production/' + props.node.audio.asset._ref
+        .replace('file-', '')
+        .replace('-mp3', '.mp3')
+      return h(
+        'audio',
+        { src: audioUrl, controls: true })
+    }
+  }
+}
+
+const hanniSerializers = {
   marks: {
     link: props =>
       h(
@@ -83,7 +97,9 @@ export const renderBlockText = text =>
   blocksToHtml({
     blocks: text,
     projectId: 'ylcal1e4',
-    dataset: 'production'
+    dataset: 'production',
+    serializers: serializers
+
   })
 
 export const hanniRenderBlockText = text =>
@@ -91,7 +107,7 @@ export const hanniRenderBlockText = text =>
     blocks: text,
     projectId: 'em610obk',
     dataset: 'production',
-    serializers: serializers
+    serializers: hanniSerializers
   })
 
 const builder = imageUrlBuilder(client)
