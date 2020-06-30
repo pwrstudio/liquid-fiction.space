@@ -174,7 +174,7 @@
   @import "../_variables.scss";
 
   .stine {
-    background: blue;
+    background: lightgray;
     min-height: 100vh;
 
     @include screen-size("small") {
