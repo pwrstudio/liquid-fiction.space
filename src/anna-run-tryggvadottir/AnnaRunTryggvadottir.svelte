@@ -187,7 +187,8 @@
           "border-color": "#000",
           "border-width": 0,
           "border-opacity": 0,
-          opacity: 0.05
+          // "overlay-opacity": 0,
+          opacity: 0
         })
         .selector("edge")
         .css({
@@ -195,7 +196,8 @@
           width: 2,
           "line-gradient-stop-colors": "#0000FF #0000FF",
           "line-fill": "linear-gradient",
-          opacity: 0.05
+          // "overlay-opacity": 0,
+          opacity: 0
         })
         .selector(".raw-image")
         .css({
@@ -223,6 +225,14 @@
           "line-gradient-stop-colors": "orange red",
           opacity: 0.8
         }),
+      // .selector(".shown:active")
+      // .css({
+      //   "overlay-opacity": 0.2
+      // })
+      // .selector(".shown:selected")
+      // .css({
+      //   "overlay-opacity": 0.2
+      // }),
 
       elements: {
         nodes: nodesWithKeywords,
@@ -234,8 +244,8 @@
         // name: "cola",
         animate: true,
         fit: false,
-        zoom: 2,
-        nodeOverlap: 4000,
+        zoom: 3,
+        nodeOverlap: 2000,
         initialTemp: 10000,
         componentSpacing: 100,
         randomize: true,
@@ -327,7 +337,7 @@
     });
 
     cy.on("layoutstop", e => {
-      // cy.nodes().panify();
+      cy.nodes().panify();
       layoutLoaded = true;
 
       let s = sample(cy.nodes());
@@ -374,29 +384,47 @@
   }
 
   .pop-up {
-    position: fixed;
+    position: absolute;
     top: 10px;
     right: 10px;
     width: 350px;
     min-height: 300px;
     background: rgba(244, 164, 96, 1);
-    padding: 15px;
     cursor: pointer;
     font-size: 14px;
     max-height: calc(100vh - 20px);
     overflow-y: auto;
     border-radius: 10px;
     z-index: 10001;
+    padding: 10px;
 
     img,
     iframe {
       max-width: 100%;
+      margin-bottom: 10px;
     }
 
     @include screen-size("small") {
       top: unset;
       bottom: 10px;
       width: calc(100% - 20px);
+    }
+
+    .gradient {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 10px;
+      width: 100%;
+      background: linear-gradient(rgba(244, 164, 96, 1), rgba(244, 164, 96, 0));
+    }
+
+    .inner {
+      background: red;
+      position: relative;
+      top: 100%;
+      height: 100%;
+      padding: 15px;
     }
   }
 
@@ -510,8 +538,10 @@
     position: fixed;
     top: 50%;
     left: 50%;
+    font-weight: normal;
+    color: rgb(105, 105, 245);
     transform: translateX(-50%) translateY(-50%);
-    font-size: 64px;
+    font-size: 16vw;
     animation: pulse 1s infinite alternate-reverse;
   }
 
@@ -521,6 +551,21 @@
     }
     100% {
       opacity: 1;
+    }
+  }
+
+  .iframe-container {
+    overflow: hidden;
+    // Calculated from the aspect ration of the content (in case of 16:9 it is 9/16= 0.5625)
+    padding-top: 56.25%;
+    position: relative;
+    iframe {
+      border: 0;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
     }
   }
 </style>
@@ -552,29 +597,32 @@
       {/if}
       {#if popUpText}
         <div>{popUpText}</div>
+        <div class="gradient" />
       {/if}
       {#if popUpVideo}
-        {#if popUpVideo.includes('youtube')}
-          <iframe
-            width="480"
-            height="320"
-            src="https://www.youtube.com/embed/{getVideoId(popUpVideo).id}"
-            frameborder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope;
-            picture-in-picture"
-            allowfullscreen />
-        {/if}
-        {#if popUpVideo.includes('vimeo')}
-          <iframe
-            width="480"
-            height="320"
-            src="https://player.vimeo.com/video/{getVideoId(popUpVideo).id}"
-            frameborder="0"
-            byline="false"
-            color="#ffffff"
-            allow="autoplay; fullscreen"
-            allowfullscreen />
-        {/if}
+        <div class="iframe-container">
+          {#if popUpVideo.includes('youtube')}
+            <iframe
+              width="480"
+              height="320"
+              src="https://www.youtube.com/embed/{getVideoId(popUpVideo).id}"
+              frameborder="0"
+              allow="accelerometer; autoplay; encrypted-media; gyroscope;
+              picture-in-picture"
+              allowfullscreen />
+          {/if}
+          {#if popUpVideo.includes('vimeo')}
+            <iframe
+              width="480"
+              height="320"
+              src="https://player.vimeo.com/video/{getVideoId(popUpVideo).id}"
+              frameborder="0"
+              byline="false"
+              color="#ffffff"
+              allow="autoplay; fullscreen"
+              allowfullscreen />
+          {/if}
+        </div>
       {/if}
       {#each popUpKeywords as k, i}
         <a
