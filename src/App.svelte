@@ -182,6 +182,11 @@
       max-width: 39.292rem;
     }
 
+    .editorial-audio {
+      width: 39.292rem;
+      margin-bottom: 1em;
+    }
+
     &.large {
       p {
         font-size: 21.33px;

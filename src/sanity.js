@@ -34,7 +34,7 @@ const serializers = {
         .replace('file-', '')
         .replace('-mp3', '.mp3')
       return h(
-        'audio',
+        'audio.editorial-audio',
         { src: audioUrl, controls: true })
     }
   }
