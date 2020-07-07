@@ -306,6 +306,21 @@
     display: block;
     text-align: center;
   }
+
+  .spectrophilia {
+    figure {
+      padding: 0;
+      margin: 0;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      user-select: none;
+    }
+  }
 </style>
 
 <Orb />

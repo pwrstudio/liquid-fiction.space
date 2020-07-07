@@ -32,15 +32,6 @@
     textContent
   } from "./stores.js";
 
-  const bgColors = [
-    "Gold",
-    "RosyBrown",
-    "Gold",
-    "RosyBrown",
-    "Gold",
-    "RosyBrown"
-  ];
-
   activePage.set("about");
   orbBackgroundOne.set("rgb(255, 69, 0)");
   orbBackgroundTwo.set("rgba(255,140,0,1)");
@@ -68,7 +59,41 @@
   .spectrophilia {
     min-height: 100%;
     width: 100%;
-    background-color: red;
+    // background-color: red;
+    // Heavy rain
+    // background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+    // Cloudy knoxville
+    // background-image: linear-gradient(
+    //   120deg,
+    //   #fdfbfb 0%,
+    //   #ebedee 100%
+    // );
+    // St. Petersburg
+    background-image: linear-gradient(-90deg, #f5f7fa 0%, #c3cfe2 100%);
+    // background-image: linear-gradient(90deg, #f5f7fa 0%,#00ff00 100%);
+
+    // background-color: #dcd9d4;
+    // background-image: linear-gradient(
+    //     to bottom,
+    //     rgba(255, 255, 255, 0.5) 0%,
+    //     rgba(0, 0, 0, 0.5) 100%
+    //   ),
+    //   radial-gradient(
+    //     at 50% 0%,
+    //     rgba(255, 255, 255, 0.1) 0%,
+    //     rgba(0, 0, 0, 0.5) 50%
+    //   );
+    // background-blend-mode: soft-light, screen;
+    color: black;
+
+    .inner {
+      width: 70ch;
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
   }
 </style>
 
@@ -78,6 +103,8 @@
 
 <div class="spectrophilia">
   {#await text then text}
-    {@html renderBlockText(text.content)}
+    <div class="inner">
+      {@html renderBlockText(text.content)}
+    </div>
   {/await}
 </div>
