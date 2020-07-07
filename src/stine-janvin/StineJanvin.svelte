@@ -12,9 +12,31 @@
   import shuffle from "lodash/shuffle";
 
   // *** COMPONENTS
-  import ErosionMachine from "../eeefff/ErosionMachine.svelte";
   import PermissionDialog from "./PermissionDialog.svelte";
 
+  // *** STORES
+  import {
+    menuActive,
+    orbBackgroundOne,
+    orbBackgroundTwo,
+    orbColorOne,
+    orbColorTwo,
+    orbPosition,
+    activePage
+  } from "../stores.js";
+
+  // GLOBAL SETTINGS
+  activePage.set("stine");
+  orbBackgroundOne.set("rgba(244,164,96,1)");
+  orbBackgroundTwo.set("rgba(222,184,135,1)");
+  orbColorOne.set("rgba(255,255,255,1)");
+  orbColorTwo.set("rgba(0,0,0,1)");
+  orbPosition.set({
+    top: "10px",
+    left: "10px"
+  });
+
+  // CONSTANTS
   const boxes = shuffle([
     {
       text: "We use cookies for advertisement",
@@ -23,7 +45,8 @@
       pan: -0.8
     },
     {
-      text: "Liquid Fiction would like access to your home address",
+      text:
+        "<strong>Liquid Fiction</strong> would like access to your home address",
       buttons: ["Allow", "Deny"],
       frequency: 261.63,
       pan: -0.7
@@ -35,13 +58,13 @@
       pan: -0.6
     },
     {
-      text: "Liquid Fiction would like to know your location",
+      text: "<strong>Liquid Fiction</strong> would like to know your location",
       buttons: ["Allow", "Block"],
       frequency: 310.7,
       pan: -0.5
     },
     {
-      text: "Liquid Fiction wants to send you notifications",
+      text: "<strong>Liquid Fiction</strong> wants to send you notifications",
       buttons: ["Allow", "Deny"],
       frequency: 327.04,
       pan: -0.4
@@ -59,13 +82,13 @@
       pan: -0.2
     },
     {
-      text: "Liquid Fiction needs access to your camera",
+      text: "<strong>Liquid Fiction</strong> needs access to your camera",
       buttons: ["Allow", "Deny"],
       frequency: 392.45,
       pan: -0.1
     },
     {
-      text: "Give Liquid Fiction access to your device",
+      text: "Give <strong>Liquid Fiction</strong> access to your device",
       buttons: ["OK", "Learn more"],
       frequency: 425.15,
       pan: 0
@@ -77,7 +100,8 @@
       pan: 0.1
     },
     {
-      text: "Liquid Fiction would like to use your phone number",
+      text:
+        "<strong>Liquid Fiction</strong> would like to use your phone number",
       buttons: ["Allow", "Deny"],
       frequency: 490.56,
       pan: 0.2
@@ -90,83 +114,72 @@
     },
     {
       text:
-        "To continue reading, click ok to the use of cookies on this website",
+        "To continue reading, click <strong>ok</strong> to the use of cookies on this website",
       buttons: ["Ok", "Cancel"],
       frequency: 555.96,
       pan: 0.4
     },
     {
-      text: "Liquid Fiction would like you to share your location",
+      text:
+        "<strong>Liquid Fiction</strong> would like you to share your location",
       buttons: ["OK", "No Thanks"],
       frequency: 588.66,
       pan: 0.5
     },
     {
-      text: "Liquid Fiction wants to store files on your computer",
+      text:
+        "<strong>Liquid Fiction</strong> wants to store files on your computer",
       buttons: ["Allow", "Deny"],
       frequency: 654.08,
       pan: 0.6
     }
   ]);
 
+  // DOM REFERENCES
+  let videoElement = {};
+  let canvasElement = {};
+  let photoElement = {};
+
+  // VARIABLES
   let toneCounter = boxes.length - 1;
-
-  // $: {
-  //   if (toneCounter == 2) {
-  //     takePicture();
-  //   }
-  // }
-
-  // *** STORES
-  import {
-    menuActive,
-    orbBackgroundOne,
-    orbBackgroundTwo,
-    orbColorOne,
-    orbColorTwo,
-    orbPosition,
-    activePage
-  } from "../stores.js";
-
-  activePage.set("stine");
-  orbBackgroundOne.set("rgba(244,164,96,1)");
-  orbBackgroundTwo.set("rgba(222,184,135,1)");
-  orbColorOne.set("rgba(255,255,255,1)");
-  orbColorTwo.set("rgba(0,0,0,1)");
-  orbPosition.set({
-    top: "10px",
-    left: "10px"
-  });
-
   let consented = false;
+  let hidePhoto = false;
+
+  // REACTIVES
+  $: {
+    if (toneCounter == 2) {
+      takePicture();
+    }
+  }
 
   const updateToneCounter = event => {
     toneCounter = event.detail.active ? toneCounter + 1 : toneCounter - 1;
     console.log(toneCounter);
   };
 
-  // let videoElement = {};
-  // let canvasElement = {};
-  // let photoElement = {};
+  const takePicture = () => {
+    var context = canvasElement.getContext("2d");
+    let width = videoElement.videoWidth;
+    let height = videoElement.videoHeight;
+    if (width && height) {
+      canvasElement.width = width;
+      canvasElement.height = height;
+      context.drawImage(videoElement, 0, 0, width, height);
+      const data = canvasElement.toDataURL("image/png");
+      photoElement.setAttribute("src", data);
+      photoElement.classList.add("shown");
+      setTimeout(() => {
+        hidePhoto = true;
+      }, 2000);
+    }
+  };
 
-  // const takePicture = () => {
-  //   var context = canvasElement.getContext("2d");
-  //   let width = videoElement.videoWidth;
-  //   let height = videoElement.videoHeight;
-  //   if (width && height) {
-  //     canvasElement.width = width;
-  //     canvasElement.height = height;
-  //     context.drawImage(videoElement, 0, 0, width, height);
-  //     const data = canvasElement.toDataURL("image/png");
-  //     photoElement.setAttribute("src", data);
-  //   }
-  // };
-
+  // ONMOUNT
   onMount(async () => {
     // Video
-    // navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
-    //   videoElement.srcObject = stream;
-    // });
+    navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+      videoElement.srcObject = stream;
+    });
   });
 </script>
 
@@ -174,7 +187,7 @@
   @import "../_variables.scss";
 
   .stine {
-    background: lightgray;
+    background: #0000ff;
     min-height: 100vh;
 
     @include screen-size("small") {
@@ -256,6 +269,7 @@
 </svelte:head>
 
 <div class="stine">
+  <!-- INTRO BOX -->
   {#if !consented}
     <div
       class="introduction"
@@ -280,61 +294,8 @@
     </div>
   {/if}
 
-  <!-- {#if consented && toneCounter < 2}
-    <ul class="scale" in:fly={{ duration: 600, y: 40, delay: 300 }}>
-      <Tone
-        background="red"
-        frequency={457.86}
-        order={1}
-        on:playing={event => {
-          updateToneCounter(event);
-        }} />
-      <Tone
-        background="orange"
-        frequency={523.26}
-        order={2}
-        on:playing={event => {
-          updateToneCounter(event);
-        }} />
-      <Tone
-        background="yellow"
-        frequency={588.66}
-        order={3}
-        on:playing={event => {
-          updateToneCounter(event);
-        }} />
-      <Tone
-        background="green"
-        frequency={654.08}
-        order={4}
-        on:playing={event => {
-          updateToneCounter(event);
-        }} />
-      <Tone
-        background="blue"
-        frequency={719.48}
-        order={5}
-        on:playing={event => {
-          updateToneCounter(event);
-        }} />
-      <Tone
-        background="indigo"
-        frequency={784.9}
-        order={6}
-        on:playing={event => {
-          updateToneCounter(event);
-        }} />
-      <Tone
-        background="violet"
-        frequency={850.3}
-        order={7}
-        on:playing={event => {
-          updateToneCounter(event);
-        }} />
-    </ul>
-  {/if} -->
-
-  {#if consented}
+  <!-- PERMISSION BOXES -->
+  {#if consented && toneCounter > 2}
     {#each boxes as box, i}
       <PermissionDialog
         text={box.text}
@@ -349,10 +310,12 @@
         order={i} />
     {/each}
   {/if}
-  <!-- <video autoplay bind:this={videoElement} muted /> -->
 
-  <!-- <canvas bind:this={canvasElement} /> -->
-  <!-- <img bind:this={photoElement} class:shown={toneCounter == 2} /> -->
+  <!-- WEBCAM  -->
+  <video autoplay bind:this={videoElement} muted />
+  <canvas bind:this={canvasElement} />
+  <img
+    bind:this={photoElement}
+    alt="Liquid Fiction – Stine Janvin"
+    class:shown={toneCounter == 2 && !hidePhoto} />
 </div>
-
-<!-- <ErosionMachine /> -->

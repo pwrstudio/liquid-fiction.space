@@ -137,7 +137,9 @@
     class="permission-dialog order-{order}"
     style="top: {top}px; left: {left}px"
     out:fly={{ duration: 300, y: -20 }}>
-    <div class="text">{text}</div>
+    <div class="text">
+      {@html text}
+    </div>
     <div class="buttons">
       <button class="button" allow on:click={allow}>{buttons[0]}</button>
       <button class="button" deny on:click={deny}>{buttons[1]}</button>
