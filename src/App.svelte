@@ -256,8 +256,8 @@
     }
 
     blockquote {
-      padding-left: 2em;
-      font-size: 0.8em;
+      padding-left: 0em;
+      font-size: 1.6em;
       font-family: serif;
       font-style: italic;
     }
@@ -277,6 +277,7 @@
       margin-left: auto;
       margin-right: auto;
       outline: none;
+      margin-top: 1em;
     }
 
     audio {

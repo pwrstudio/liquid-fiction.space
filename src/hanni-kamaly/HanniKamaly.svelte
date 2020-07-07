@@ -128,6 +128,9 @@
           on:next={e => {
             currentPageIndex += 1;
             window.location.hash = '';
+          }}
+          on:prev={e => {
+            window.location.hash = '';
           }} />
       {/if}
     {/each}

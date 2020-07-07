@@ -79,7 +79,7 @@ const hanniSerializers = {
         .replace('-mp4', '.mp4')
       return h(
         'video',
-        { src: videoUrl, controls: true })
+        { src: videoUrl, controls: true, loop: true, autoplay: props.node.autoPlay })
     },
     audioBlock: props => {
       console.dir(props)

@@ -22,6 +22,10 @@
     dispatch("next", {});
   };
 
+  const goToPrev = () => {
+    dispatch("prev", {});
+  };
+
   window.addEventListener(
     "hashchange",
     () => {
@@ -108,6 +112,33 @@
       bottom: 20px;
     }
   }
+
+  .skip-back {
+    position: fixed;
+    top: 45%;
+    border: 0;
+    color: black;
+    padding: 0;
+    outline: none;
+    border-radius: 0;
+    cursor: pointer;
+    background: transparent;
+    left: 10px;
+
+    &:hover {
+      color: lightgrey;
+    }
+
+    svg {
+      height: 110px;
+      width: 110px;
+    }
+
+    @include screen-size("small") {
+      top: unset;
+      bottom: 20px;
+    }
+  }
 </style>
 
 <div>
@@ -145,7 +176,10 @@
                   <line x1="5" y1="12" x2="19" y2="12" />
                   <polyline points="12 5 19 12 12 19" />
                 </svg>
-                <!-- <svg
+
+              </button>
+              <button class="skip-back" on:click={goToPrev}>
+                <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -153,10 +187,10 @@
                   fill="none"
                   stroke="currentColor"
                   stroke-width="3"
-                  class="feather feather-fast-forward">
-                  <polygon points="13 19 22 12 13 5 13 19" />
-                  <polygon points="2 19 11 12 2 5 2 19" />
-                </svg> -->
+                  class="feather feather-arrow-left">
+                  <line x1="19" y1="12" x2="5" y2="12" />
+                  <polyline points="12 19 5 12 12 5" />
+                </svg>
               </button>
             </div>
           {/if}
