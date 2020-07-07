@@ -328,6 +328,19 @@
             <span class="line-2">TXTXTXTXT</span>
           </Link>
         </div>
+
+        <div class="cycle-container">
+          <div
+            class="sub-item"
+            in:fly={{ duration: 400, y: 20, delay: 300, easing: quartOut }}
+            out:fly={{ duration: 300, y: 60, delay: 200 }}>
+            <Link to="spectrophilia">
+              <span class="line-1">SPECTROPHILIA</span>
+              <span class="line-2">~_~_~_~_~_~_~</span>
+            </Link>
+          </div>
+        </div>
+
         <!-- CYCLE 2 -->
         <div class="cycle-container">
           <div

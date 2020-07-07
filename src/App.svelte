@@ -18,6 +18,7 @@
   import Landing from "./Landing.svelte";
   import Editorial from "./Editorial.svelte";
   import About from "./About.svelte";
+  import Spectrophilia from "./Spectrophilia.svelte";
   // CYCLE 1
   import CycleOne from "./CycleOne.svelte";
   import EEEFFF from "./eeefff/EEEFFF.svelte";
@@ -313,6 +314,8 @@
   <Route path="/" component={Landing} />
   <Route path="liquid-fiction" component={About} />
   <Route path="editorial" component={Editorial} />
+  <Route path="spectrophilia" component={Spectrophilia} />
+
   <!-- CYCLE 1 -->
   <Route path="cycle-1" component={CycleOne} />
   <Route path="eeefff" component={EEEFFF} />
