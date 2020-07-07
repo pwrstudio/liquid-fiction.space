@@ -101,9 +101,9 @@
     -webkit-clip-path: inset(0% 0% 0% 0%);
 
     @include screen-size("small") {
-      font-size: 35px;
-      line-height: 35px;
-      height: 35px;
+      font-size: 26px;
+      line-height: 26px;
+      height: 26px;
     }
   }
 
@@ -142,9 +142,9 @@
     }
 
     .menu .inner .item {
-      font-size: 42px;
-      line-height: 45px;
-      height: 40px;
+      font-size: 38px;
+      line-height: 38px;
+      height: 38px;
     }
   }
 
@@ -236,6 +236,12 @@
     -webkit-appearance: none;
     width: 60px;
     height: 60px;
+
+    @include screen-size("small") {
+      font-size: 54px;
+      width: 36px;
+      height: 36px;
+    }
   }
 
   .menu.active .close svg {

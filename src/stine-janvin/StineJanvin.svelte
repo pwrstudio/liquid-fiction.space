@@ -218,6 +218,12 @@
     transform: translateX(-50%) translateY(-50%);
     color: black;
     z-index: 1000;
+
+    @include screen-size("small") {
+      width: calc(100vw - 20px);
+      left: 10px;
+      transform: translateY(-50%);
+    }
   }
 
   .consent {
