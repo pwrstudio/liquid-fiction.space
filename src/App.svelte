@@ -257,8 +257,9 @@
 
     blockquote {
       padding-left: 2em;
-      font-size: 0.9em;
+      font-size: 0.8em;
       font-family: serif;
+      font-style: italic;
     }
 
     img {
