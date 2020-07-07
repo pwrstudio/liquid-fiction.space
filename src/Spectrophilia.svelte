@@ -33,8 +33,8 @@
   } from "./stores.js";
 
   activePage.set("about");
-  orbBackgroundOne.set("rgb(255, 69, 0)");
-  orbBackgroundTwo.set("rgba(255,140,0,1)");
+  orbBackgroundOne.set("rgb(80, 80, 80)");
+  orbBackgroundTwo.set("rgba(0,0,255,1)");
 
   orbColorTwo.set("rgba(255,255,255,1)");
   orbColorOne.set("rgba(255,255,255,1)");
