@@ -116,6 +116,8 @@
     color: #fff;
     margin: 0;
     padding: 0;
+    width: 100vw;
+    overflow-x: hidden;
     font-family: "GT Pressura Mono", "Basis Grotesque Pro", "Akkurat-Mono",
       monospace;
   }
