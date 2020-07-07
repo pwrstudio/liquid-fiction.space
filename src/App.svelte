@@ -300,6 +300,11 @@
       margin-bottom: 1em;
     }
   }
+
+  .centered {
+    display: block;
+    text-align: center;
+  }
 </style>
 
 <Orb />

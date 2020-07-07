@@ -56,6 +56,14 @@ const hanniSerializers = {
         props.children
       )
     },
+    centerText: props => {
+      console.dir(props)
+      return h(
+        'span',
+        { className: 'centered' },
+        props.children
+      )
+    },
   },
   types: {
     embedBlock: props => {
