@@ -66,6 +66,23 @@ const hanniSerializers = {
     },
   },
   types: {
+    block: props => {
+      const style = props.node.style || 'normal'
+
+      if (style === 'blockquote')
+        return h('blockquote', {}, props.children)
+
+      if (style === 'h2')
+        return h('h2', {}, props.children)
+
+      if (style === 'h3')
+        return h('h3', {}, props.children)
+
+      if (style === 'h1')
+        return h('h1', {}, props.children)
+
+      return h('p', { className: style }, props.children)
+    },
     embedBlock: props => {
       console.dir(props)
       const url = props.node.url

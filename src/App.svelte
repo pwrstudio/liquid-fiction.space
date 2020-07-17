@@ -302,7 +302,7 @@
     }
   }
 
-  .centered {
+  .center-aligned {
     display: block;
     text-align: center;
   }
