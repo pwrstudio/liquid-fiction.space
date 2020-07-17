@@ -7,15 +7,21 @@
 
   // *** IMPORT
   //   import intro from "./texts.js";
-  import { fly, blur } from "svelte/transition";
-  import { quartOut } from "svelte/easing";
   import { client, renderBlockText, urlFor } from "./sanity.js";
   import get from "lodash/get";
-  import concat from "lodash/concat";
+  import sample from "lodash/sample";
 
   // *** COMPONENTS
   //   import Pane from "./Pane.svelte";
   //   import ErosionMachine from "./eeefff/ErosionMachine.svelte";
+
+  const drapes = [
+    "/img/drapes/1.png",
+    "/img/drapes/2.png",
+    "/img/drapes/3.png",
+    "/img/drapes/4.png",
+    "/img/drapes/5.png"
+  ];
 
   // *** VARIABLES
   let activeOrder = 1000;
@@ -51,7 +57,8 @@
     }
   }
 
-  let text = loadData(query, {});
+  let spectrophilia = loadData(query, {});
+  let pageIndex = 0;
 </script>
 
 <style lang="scss">
@@ -86,13 +93,56 @@
     // background-blend-mode: soft-light, screen;
     color: black;
 
-    .inner {
+    .page {
       width: 70ch;
       max-width: 90%;
       margin-left: auto;
       margin-right: auto;
       padding-top: 80px;
       padding-bottom: 80px;
+
+      .background-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+        object-position: center;
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.8;
+      }
+
+      .inner {
+        z-index: 10;
+        position: relative;
+
+        .nav-container {
+          width: 100%;
+
+          .nav {
+            background: rgba(160, 160, 160, 0.5);
+            padding: 10px;
+            width: auto;
+
+            &.next {
+              float: right;
+            }
+
+            &.prev {
+              float: left;
+            }
+
+            cursor: pointer;
+
+            &:hover {
+              color: white;
+              background: rgba(160, 160, 160, 1);
+            }
+          }
+        }
+      }
     }
   }
 </style>
@@ -102,9 +152,55 @@
 </svelte:head>
 
 <div class="spectrophilia">
-  {#await text then text}
-    <div class="inner">
-      {@html renderBlockText(text.content)}
-    </div>
+  {#await spectrophilia then spectrophilia}
+    {#each spectrophilia.content as page, i}
+      {#if i == pageIndex}
+        <div class="page">
+
+          <!-- BACKGROUND IMAGE -->
+          {#if i > 0}
+            <img class="background-image" src={sample(drapes)} />
+          {/if}
+
+          <div class="inner">
+            <!-- CONTENT -->
+            {@html renderBlockText(page.content)}
+
+            <!-- NAVIGATION -->
+            <div class="nav-container">
+              {#if pageIndex < spectrophilia.content.length - 1}
+                <div
+                  class="nav next"
+                  on:click={e => {
+                    pageIndex++;
+                  }}>
+                  NEXT &#x3E;&#x3E;&#x3E;
+                </div>
+              {/if}
+              {#if pageIndex > 0}
+                <div
+                  class="nav prev"
+                  on:click={e => {
+                    pageIndex--;
+                  }}>
+                  &#x3C;&#x3C;&#x3C; PREVIOUS
+                </div>
+              {/if}
+            </div>
+
+            <!-- AUDIO -->
+            {#if page.audio}
+              <audio
+                src={'https://cdn.sanity.io/files/ylcal1e4/production/' + page.audio.asset._ref
+                    .replace('file-', '')
+                    .replace('-mp3', '.mp3')}
+                autoplay
+                loop />
+            {/if}
+          </div>
+
+        </div>
+      {/if}
+    {/each}
   {/await}
 </div>
