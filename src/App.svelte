@@ -320,6 +320,27 @@
       margin-right: auto;
       user-select: none;
     }
+
+    h2 {
+      text-align: center;
+      font-size: 2em;
+    }
+
+    h3 {
+      text-align: center;
+      max-width: 30ch;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 1.4em;
+      margin-bottom: 2em;
+    }
+
+    strong {
+      padding-top: 1em;
+      font-weight: normal;
+      letter-spacing: 0.2em;
+      border-bottom: 1px solid black;
+    }
   }
 </style>
 

@@ -63,34 +63,11 @@
 
 <style lang="scss">
   @import "./variables.scss";
+
   .spectrophilia {
     min-height: 100%;
     width: 100%;
-    // background-color: red;
-    // Heavy rain
-    // background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
-    // Cloudy knoxville
-    // background-image: linear-gradient(
-    //   120deg,
-    //   #fdfbfb 0%,
-    //   #ebedee 100%
-    // );
-    // St. Petersburg
     background-image: linear-gradient(-90deg, #f5f7fa 0%, #c3cfe2 100%);
-    // background-image: linear-gradient(90deg, #f5f7fa 0%,#00ff00 100%);
-
-    // background-color: #dcd9d4;
-    // background-image: linear-gradient(
-    //     to bottom,
-    //     rgba(255, 255, 255, 0.5) 0%,
-    //     rgba(0, 0, 0, 0.5) 100%
-    //   ),
-    //   radial-gradient(
-    //     at 50% 0%,
-    //     rgba(255, 255, 255, 0.1) 0%,
-    //     rgba(0, 0, 0, 0.5) 50%
-    //   );
-    // background-blend-mode: soft-light, screen;
     color: black;
 
     .page {
@@ -120,6 +97,8 @@
 
         .nav-container {
           width: 100%;
+          padding-top: 60px;
+          padding-bottom: 60px;
 
           .nav {
             background: rgba(160, 160, 160, 0.5);
@@ -173,6 +152,7 @@
                   class="nav next"
                   on:click={e => {
                     pageIndex++;
+                    window.scrollTo(0, 0);
                   }}>
                   NEXT &#x3E;&#x3E;&#x3E;
                 </div>
@@ -182,6 +162,7 @@
                   class="nav prev"
                   on:click={e => {
                     pageIndex--;
+                    window.scrollTo(0, 0);
                   }}>
                   &#x3C;&#x3C;&#x3C; PREVIOUS
                 </div>
