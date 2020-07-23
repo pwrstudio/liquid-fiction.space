@@ -22,6 +22,9 @@
   export let left = 120;
   export let visible = false;
 
+  // *** STORES
+  import { menuActive } from "../stores.js";
+
   // CONSTANTS
   const mixer = new Tone.PanVol(-0.5, -24);
   const reverb = new Tone.Reverb();
@@ -41,13 +44,25 @@
       attack: 0.05,
       decay: 0.1,
       sustain: 1,
-      release: 0.5
+      release: 0.2
     }
   });
 
   synth.volume.value = -24;
   panner.pan.value = pan;
   synth.connect(panner).toMaster();
+
+  $: {
+    if ($menuActive) {
+      if (playing) {
+        synth.triggerRelease();
+      }
+    } else {
+      if (playing) {
+        synth.triggerAttack(frequency);
+      }
+    }
+  }
 
   const allow = () => {
     synth.triggerRelease();
@@ -65,6 +80,12 @@
   onMount(async () => {
     synth.triggerAttack(frequency);
     playing = true;
+  });
+
+  onDestroy(async () => {
+    if (playing) {
+      synth.triggerRelease();
+    }
   });
 </script>
 
@@ -141,10 +162,12 @@
       {@html text}
     </div>
     <div class="buttons">
-      <button class="button" allow on:click={allow}>{buttons[0]}</button>
-      <button class="button" deny on:click={deny}>{buttons[1]}</button>
+      {#if buttons[0]}
+        <button class="button" allow on:click={allow}>{buttons[0]}</button>
+      {/if}
+      {#if buttons[1]}
+        <button class="button" deny on:click={deny}>{buttons[1]}</button>
+      {/if}
     </div>
   </div>
 {/if}
-
-<!-- in:fly={{ duration: 300, y: 20, delay: order * 50 }} -->

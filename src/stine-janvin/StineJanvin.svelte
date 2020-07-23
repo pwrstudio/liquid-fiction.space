@@ -37,103 +37,95 @@
   });
 
   // CONSTANTS
-  const boxes = shuffle([
+  const boxes = [
     {
-      text: "We use cookies for advertisement",
-      buttons: ["Allow", "Block"],
+      text: "The sound you are hearing is intense. Click ok to change it.",
+      buttons: ["OK", "Not OK"],
       frequency: 130.82,
       pan: -0.8
     },
     {
       text:
-        "<strong>Liquid Fiction</strong> would like access to your home address",
-      buttons: ["Allow", "Deny"],
+        "<strong>Liquid Fiction</strong> would like you to share your location.",
+      buttons: ["OK", "No thanks"],
       frequency: 261.63,
       pan: -0.7
     },
     {
-      text: "This website uses cookies",
-      buttons: ["OK", "Learn more"],
+      text:
+        "Your actions matter, click ok if you would like to make a difference.",
+      buttons: ["OK", "Deny"],
       frequency: 294.33,
       pan: -0.6
     },
     {
-      text: "<strong>Liquid Fiction</strong> would like to know your location",
-      buttons: ["Allow", "Block"],
+      text: "Click ok to get more information.",
+      buttons: ["OK", "Deny"],
       frequency: 310.7,
       pan: -0.5
     },
     {
-      text: "<strong>Liquid Fiction</strong> wants to send you notifications",
-      buttons: ["Allow", "Deny"],
+      text: "Are you sure you don’t want to know what this is all about?",
+      buttons: ["Yes", "Tell me more"],
       frequency: 327.04,
       pan: -0.4
     },
     {
-      text: "To follow our newsletter click here or unfollow here",
-      buttons: ["Follow", "Unfollow"],
+      text: "We would like you to listen carefully.",
+      buttons: ["OK", "No thanks"],
       frequency: 343.4,
       pan: -0.3
     },
     {
-      text: "I would like to get updates and exciting news",
-      buttons: ["Yes", "No"],
+      text: "We are asking permission to give you information.",
+      buttons: ["Allow", "Deny"],
       frequency: 359.74,
       pan: -0.2
     },
     {
-      text: "<strong>Liquid Fiction</strong> needs access to your camera",
-      buttons: ["Allow", "Deny"],
+      text:
+        "You may be missing out on important information. Would you like to open up?",
+      buttons: ["OK", "No thanks"],
       frequency: 392.45,
       pan: -0.1
     },
     {
-      text: "Give <strong>Liquid Fiction</strong> access to your device",
-      buttons: ["OK", "Learn more"],
+      text: "Do you like cookies?",
+      buttons: ["Yes", "No"],
       frequency: 425.15,
       pan: 0
     },
     {
-      text: "Your privacy is important to us",
-      buttons: ["Agree", "Deny"],
+      text: "<strong>Liquid Fiction</strong> wants to know your location",
+      buttons: ["Allow", "Block"],
       frequency: 457.86,
       pan: 0.1
     },
     {
-      text:
-        "<strong>Liquid Fiction</strong> would like to use your phone number",
+      text: "You are almost there. Allow us to bring you closer.",
       buttons: ["Allow", "Deny"],
       frequency: 490.56,
       pan: 0.2
     },
     {
-      text: "We value your privacy. Allow access to your microphone",
+      text: "Do you think the sound is less intense now?",
       buttons: ["Yes", "No"],
       frequency: 523.26,
       pan: 0.3
     },
     {
-      text:
-        "To continue reading, click <strong>ok</strong> to the use of cookies on this website",
-      buttons: ["Ok", "Cancel"],
+      text: "Your privacy is important:",
+      buttons: ["Yes", "No"],
       frequency: 555.96,
       pan: 0.4
     },
     {
-      text:
-        "<strong>Liquid Fiction</strong> would like you to share your location",
-      buttons: ["OK", "No Thanks"],
+      text: "Click ok if you feel ok",
+      buttons: ["Ok"],
       frequency: 588.66,
       pan: 0.5
-    },
-    {
-      text:
-        "<strong>Liquid Fiction</strong> wants to store files on your computer",
-      buttons: ["Allow", "Deny"],
-      frequency: 654.08,
-      pan: 0.6
     }
-  ]);
+  ];
 
   // DOM REFERENCES
   let videoElement = {};
@@ -213,28 +205,60 @@
     background: white;
     padding: 20px;
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
+    top: 0;
+    left: 120px;
+    // transform: translateX(-50%) translateY(-50%);
     color: black;
     z-index: 1000;
+    color: #202124;
+    font-size: 16px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol";
 
     @include screen-size("small") {
+      top: 50%;
+      // left: 50%;
       width: calc(100vw - 20px);
       left: 10px;
       transform: translateY(-50%);
     }
+
+    @media (prefers-color-scheme: dark) {
+      background: rgba(41, 42, 45, 1);
+      color: rgba(232, 234, 237, 1);
+    }
   }
 
+  // .consent {
+  //   padding: 20px;
+  //   background: grey;
+  //   border: 0;
+  //   outline: 0;
+  //   min-width: 300px;
+  //   cursor: pointer;
+  //   &:hover {
+  //     background: darkgrey;
+  //   }
+  // }
+
   .consent {
-    padding: 20px;
-    background: grey;
-    border: 0;
-    outline: 0;
     min-width: 300px;
+    background: transparent;
+    color: #3574e0;
+    border: 1px solid lightgray;
+    border-radius: 4px;
+    padding: 8px 16px;
     cursor: pointer;
+    user-select: none;
+    font-size: 16px;
+    outline: none;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol";
+
     &:hover {
-      background: darkgrey;
+      background: lightgray;
     }
   }
 
@@ -300,7 +324,7 @@
   {/if}
 
   <!-- PERMISSION BOXES -->
-  {#if consented && toneCounter > 2}
+  {#if consented}
     {#each boxes as box, i}
       <PermissionDialog
         text={box.text}
@@ -311,7 +335,7 @@
           toneCounter--;
           console.log(toneCounter);
         }}
-        visible={i == toneCounter}
+        visible={i == toneCounter && toneCounter > 2}
         order={i} />
     {/each}
   {/if}
