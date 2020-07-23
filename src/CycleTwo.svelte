@@ -74,8 +74,8 @@
   @import "./variables.scss";
   .paneContainer {
     min-height: 100%;
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
     background-color: blue;
   }
 </style>
@@ -89,6 +89,7 @@
     <Pane
       on:activated={event => {
         activeOrder = event.detail.order;
+        window.alert(activeOrder);
       }}
       essay={text}
       bgColor={bgColors[order]}

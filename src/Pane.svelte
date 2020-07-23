@@ -52,23 +52,11 @@
     dispatch("activated", {
       order: 1000
     });
-    // if (active) {
-    //   dispatch("activated", {
-    //     order: 1000
-    //   });
-    // } else {
-    //   dispatch("activated", {
-    //     order: order
-    //   });
-    // }
   };
 </script>
 
 <style lang="scss">
   @import "./variables.scss";
-
-  .paneSection {
-  }
 
   .pane {
     padding: 2rem;
@@ -90,95 +78,93 @@
     right: 0;
     width: 100vw;
     height: 100vh;
-  }
 
-  .pane:not(.active) {
-    cursor: pointer;
-  }
-
-  .pane.active {
-    transform: translateX(0);
-  }
-
-  .pane.hidden {
-    transition: transform 0.3s ease-out;
-    transform: translateX(100%) !important;
-  }
-
-  button.close-pane {
-    font: inherit;
-    font-size: 72px;
-    line-height: normal;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    display: block;
-    overflow: visible;
-    width: auto;
-    margin: 0;
-    padding: 0;
-    padding: 30px;
-    cursor: pointer;
-    border: none;
-    background: transparent;
-    -webkit-font-smoothing: inherit;
-    -moz-osx-font-smoothing: inherit;
-    -webkit-appearance: none;
-    width: 60px;
-    height: 60px;
-
-    transition: transform 500ms cubic-bezier(0.23, 1, 0.32, 1), fill 200ms ease;
-    transform: rotate(0deg);
-
-    &:hover {
-      transform: rotate(180deg);
+    &:not(.active) {
+      cursor: pointer;
     }
-  }
 
-  button.close-pane svg {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    display: block;
-    margin-top: -20px;
-    margin-left: -20px;
-    width: 40px;
-    height: 40px;
-    fill: #000;
-  }
+    .close-pane {
+      font: inherit;
+      font-size: 72px;
+      line-height: normal;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: block;
+      overflow: visible;
+      width: auto;
+      margin: 0;
+      padding: 0;
+      padding: 30px;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      -webkit-font-smoothing: inherit;
+      -moz-osx-font-smoothing: inherit;
+      -webkit-appearance: none;
+      width: 60px;
+      height: 60px;
 
-  button.close-pane:hover svg,
-  button.close-pane:focus svg,
-  button.close-pane:active svg {
-    fill: #000;
-  }
+      transition: transform 500ms cubic-bezier(0.23, 1, 0.32, 1),
+        fill 200ms ease;
+      transform: rotate(0deg);
 
-  button.close-pane:focus,
-  button.close-pane:active {
-    outline: 0;
-  }
+      &:hover {
+        transform: rotate(180deg);
+      }
 
-  .pane.active + button.close-pane {
-    opacity: 1;
-  }
-  .pane:not(.active) + button.close-pane {
-    opacity: 0;
+      svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: block;
+        margin-top: -20px;
+        margin-left: -20px;
+        width: 40px;
+        height: 40px;
+        fill: #000;
+      }
+
+      &:hover,
+      &:focus,
+      &:active {
+        outline: 0;
+
+        svg {
+          fill: #000;
+        }
+      }
+    }
+
+    &.active {
+      transform: translateX(0);
+    }
+
+    &.hidden {
+      transition: transform 0.3s ease-out;
+      transform: translateX(100%) !important;
+    }
   }
 </style>
 
-<section class="paneSection">
-  <div
-    class="pane"
-    style="transform: translateX({left}vw); background: {bgColor};"
-    on:click={open}
-    class:active
-    class:hidden
-    class:large={essay.largeText}
-    in:fly={{ x: 300, delay: order * 100, opacity: 0 }}>
-    {@html renderBlockText(essay.content)}
-  </div>
+<div
+  class="pane"
+  style="transform: translateX({left}vw); background: {bgColor};"
+  on:click={open}
+  class:active
+  class:hidden
+  class:large={essay.largeText}
+  in:fly={{ x: 300, delay: order * 100, opacity: 0 }}>
+  {@html renderBlockText(essay.content)}
 
-  <button role="button" class="close-pane" on:click={close}>
+  <button
+    role="button"
+    class="close-pane"
+    on:click={e => {
+      close();
+      e.stopPropagation();
+      e.preventDefault();
+    }}>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55.46 55.39">
       <path
         d="M1.04 48.35a3.91 3.91 0 00-1 2.4 3.08 3.08 0 001 2.41l1.23 1.23a3.37
@@ -194,4 +180,4 @@
     <span class="sr-only">Close Pane</span>
   </button>
 
-</section>
+</div>

@@ -30,7 +30,7 @@
 
   activePage.set("hanni");
   orbBackgroundOne.set("rgba(244,255,0,1)");
-  orbBackgroundTwo.set("rgba(211,211,211,1)");
+  orbBackgroundTwo.set("rgba(211,211,211,0)");
 
   orbColorOne.set("rgba(0,0,0,1)");
   orbColorTwo.set("rgba(0,0,0,1)");
