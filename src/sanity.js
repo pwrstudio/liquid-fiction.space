@@ -3,6 +3,7 @@ import blocksToHtml from '@sanity/block-content-to-html'
 import imageUrlBuilder from '@sanity/image-url'
 import getVideoId from "get-video-id";
 
+
 export const client = sanityClient({
   projectId: 'ylcal1e4',
   dataset: 'production',
@@ -22,6 +23,13 @@ export const annaClient = sanityClient({
   dataset: 'production',
   token: '', // or leave blank to be anonymous user
   useCdn: true // `false` if you want to ensure fresh data
+})
+
+export const hebaClient = sanityClient({
+  projectId: '3enq4fx1',
+  dataset: 'production',
+  token: '', // or leave blank to be anonymous user
+  useCdn: false // `false` if you want to ensure fresh data
 })
 
 const h = blocksToHtml.h
@@ -133,6 +141,13 @@ export const hanniRenderBlockText = text =>
     projectId: 'em610obk',
     dataset: 'production',
     serializers: hanniSerializers
+  })
+
+export const hebaRenderBlockText = text =>
+  blocksToHtml({
+    blocks: text,
+    projectId: '3enq4fx1',
+    dataset: 'production',
   })
 
 const builder = imageUrlBuilder(client)

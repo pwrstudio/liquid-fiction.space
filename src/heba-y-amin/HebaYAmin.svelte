@@ -9,6 +9,7 @@
   import { onMount, onDestroy } from "svelte";
   import { fly } from "svelte/transition";
   import { quartOut } from "svelte/easing";
+  import { hebaClient, hebaRenderBlockText } from "../sanity.js";
 
   // *** COMPONENTS
   import ErosionMachine from "../eeefff/ErosionMachine.svelte";
@@ -25,8 +26,8 @@
   } from "../stores.js";
 
   activePage.set("heba");
-  orbBackgroundOne.set("rgba(244,164,96,1)");
-  orbBackgroundTwo.set("rgba(222,184,135,1)");
+  orbBackgroundOne.set("rgba(0,150,255,1)");
+  orbBackgroundTwo.set("rgba(147,101,0,1)");
 
   orbColorOne.set("rgba(255,255,255,1)");
   orbColorTwo.set("rgba(0,0,0,1)");
@@ -35,17 +36,45 @@
     top: "10px",
     left: "10px"
   });
+
+  // ** CONSTANTS
+  const query = "*[ _type == 'page'][0]";
+
+  async function loadData(query) {
+    try {
+      const res = await hebaClient.fetch(query);
+      console.dir(res);
+      return res;
+    } catch (err) {
+      console.log(err);
+      Sentry.captureException(err);
+    }
+  }
+
+  const post = loadData(query);
 </script>
 
 <style lang="scss">
   @import "../_variables.scss";
 
   .heba {
-    background: blue;
+    background: azure;
     min-height: 100vh;
 
     @include screen-size("small") {
       overflow-x: scroll;
+    }
+
+    .speech {
+      color: black;
+      width: 70ch;
+      max-width: 100%;
+      font-family: "Times New Roman", Times, serif;
+      font-size: 26px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-top: 80px;
+      padding-bottom: 80px;
     }
   }
 </style>
@@ -55,7 +84,12 @@
 </svelte:head>
 
 <div class="heba">
-  <h1>Heba Y Amin</h1>
+  {#await post then post}
+    <div class="speech">
+      {@html hebaRenderBlockText(post.content)}
+    </div>
+  {/await}
+
 </div>
 
-<ErosionMachine />
+<!-- <ErosionMachine /> -->
