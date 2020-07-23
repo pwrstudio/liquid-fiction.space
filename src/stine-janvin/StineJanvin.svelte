@@ -282,12 +282,11 @@
       in:fly={{ duration: 600, y: 40, delay: 300 }}
       out:fly={{ duration: 400, y: -40 }}>
       <div class="inner">
-        <p>some text</p>
-        <p>some text</p>
-        <p>some text</p>
-        <p>some text</p>
+        <p>
+          The following content is asking your permission to lead you towards a
+          state of balance. The more you allow, the closer you will get.
+        </p>
         <p>Click ”ok” to continue</p>
-
         <button
           class="consent"
           on:click={() => {
