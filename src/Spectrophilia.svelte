@@ -132,7 +132,7 @@
 
 <div class="spectrophilia">
   {#await spectrophilia then spectrophilia}
-    {#each spectrophilia.content as page, i}
+    {#each spectrophilia.content as page, i (page._key)}
       {#if i == pageIndex}
         <div class="page">
 
@@ -152,7 +152,9 @@
                   class="nav next"
                   on:click={e => {
                     pageIndex++;
-                    window.scrollTo(0, 0);
+                    window.setTimeout(() => {
+                      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+                    }, 1000);
                   }}>
                   NEXT &#x3E;&#x3E;&#x3E;
                 </div>
@@ -162,7 +164,9 @@
                   class="nav prev"
                   on:click={e => {
                     pageIndex--;
-                    window.scrollTo(0, 0);
+                    window.setTimeout(() => {
+                      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+                    }, 1000);
                   }}>
                   &#x3C;&#x3C;&#x3C; PREVIOUS
                 </div>
@@ -174,7 +178,7 @@
               <audio
                 src={'https://cdn.sanity.io/files/ylcal1e4/production/' + page.audio.asset._ref
                     .replace('file-', '')
-                    .replace('-mp3', '.mp3')}
+                    .replace('-wav', '.wav')}
                 autoplay
                 loop />
             {/if}

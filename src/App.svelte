@@ -336,7 +336,10 @@
     }
 
     strong {
+      line-height: 1em;
+      display: inline-block;
       padding-top: 1em;
+      margin-bottom: 0.5em;
       font-weight: normal;
       letter-spacing: 0.2em;
       border-bottom: 1px solid black;
