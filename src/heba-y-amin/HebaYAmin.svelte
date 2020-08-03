@@ -55,7 +55,7 @@
       );
       // console.dir(tags);
       const rawResponse = await fetch(
-        "http://cycle-2--liquid-fiction-dev.netlify.com/.netlify/functions/twitter",
+        "https://cycle-2--liquid-fiction-dev.netlify.com/.netlify/functions/twitter",
         {
           method: "POST",
           headers: {
