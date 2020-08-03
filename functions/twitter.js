@@ -24,6 +24,9 @@ exports.handler = function (event, context, callback) {
 
         console.log(event)
 
+        console.log(event.body)
+        console.log(typeof event.body)
+
         try {
             body = JSON.parse(event.body)
         } catch (e) {
