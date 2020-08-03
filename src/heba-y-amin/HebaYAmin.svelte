@@ -14,7 +14,7 @@
   import filter from "lodash/filter";
 
   // *** COMPONENTS
-  import ErosionMachine from "../eeefff/ErosionMachine.svelte";
+  // import ErosionMachine from "../eeefff/ErosionMachine.svelte";
 
   // *** STORES
   import {
@@ -54,14 +54,17 @@
         x => x._type === "hashTag"
       );
       // console.dir(tags);
-      const rawResponse = await fetch("http://localhost:4444", {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(tags)
-      });
+      const rawResponse = await fetch(
+        "http://cycle-2--liquid-fiction-dev.netlify.com/.netlify/functions/twitter",
+        {
+          method: "POST",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(tags)
+        }
+      );
       tagsResponse = await rawResponse.json();
       // console.dir(tagsResponse);
       return res;

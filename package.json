@@ -37,7 +37,8 @@
     "svelte-media-query": "^0.0.4",
     "svelte-routing": "^1.4.2",
     "tiny-slider": "^2.9.2",
-    "tone": "^13.8.25"
+    "tone": "^13.8.25",
+    "twitter": "^1.7.1"
   },
   "scripts": {
     "build": "rollup -c",
