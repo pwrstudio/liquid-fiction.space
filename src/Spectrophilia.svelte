@@ -6,14 +6,10 @@
   // # # # # # # # # # # # # #
 
   // *** IMPORT
-  //   import intro from "./texts.js";
   import { client, renderBlockText, urlFor } from "./sanity.js";
   import get from "lodash/get";
   import sample from "lodash/sample";
-
-  // *** COMPONENTS
-  //   import Pane from "./Pane.svelte";
-  //   import ErosionMachine from "./eeefff/ErosionMachine.svelte";
+  import { fade } from "svelte/transition";
 
   const drapes = [
     "/img/drapes/1.png",
@@ -23,9 +19,8 @@
     "/img/drapes/5.png"
   ];
 
-  // *** VARIABLES
-  let activeOrder = 1000;
-  let textList = [];
+  // *** DOM REFS.
+  let spectrophiliaEl = {};
 
   // *** STORES
   import {
@@ -44,6 +39,11 @@
 
   orbColorTwo.set("rgba(255,255,255,1)");
   orbColorOne.set("rgba(255,255,255,1)");
+
+  orbPosition.set({
+    top: "10px",
+    left: "10px"
+  });
 
   const query = "*[ _type == 'spectrophilia'][0]";
 
@@ -65,18 +65,35 @@
   @import "./variables.scss";
 
   .spectrophilia {
-    min-height: 100%;
-    width: 100%;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 20px;
+    height: 100vh;
+    overflow-y: scroll;
+    width: 100vw;
     background-image: linear-gradient(-90deg, #f5f7fa 0%, #c3cfe2 100%);
     color: black;
 
+    @include screen-size("small") {
+      font-size: 18px;
+    }
+
     .page {
-      width: 70ch;
+      width: 60ch;
       max-width: 90%;
       margin-left: auto;
       margin-right: auto;
       padding-top: 80px;
       padding-bottom: 80px;
+
+      @include screen-size("small") {
+        padding-top: 120px;
+      }
+
+      display: block;
+
+      // &.shown {
+      //   display: block;
+      // }
 
       .background-image {
         position: absolute;
@@ -88,16 +105,20 @@
         object-position: center;
         pointer-events: none;
         z-index: 1;
-        opacity: 0.8;
+        opacity: 0.25;
       }
 
       .inner {
         z-index: 10;
         position: relative;
 
+        h2 {
+          margin-top: 0;
+        }
+
         .nav-container {
           width: 100%;
-          padding-top: 60px;
+          padding-top: 40px;
           padding-bottom: 60px;
 
           .nav {
@@ -127,14 +148,14 @@
 </style>
 
 <svelte:head>
-  <title>Spectrophilia| LIQUID FICTION</title>
+  <title>Spectrophilia | LIQUID FICTION</title>
 </svelte:head>
 
-<div class="spectrophilia">
+<div class="spectrophilia" bind:this={spectrophiliaEl}>
   {#await spectrophilia then spectrophilia}
     {#each spectrophilia.content as page, i (page._key)}
       {#if i == pageIndex}
-        <div class="page">
+        <div class="page page-{i}-" in:fade>
 
           <!-- BACKGROUND IMAGE -->
           {#if i > 0}
@@ -152,9 +173,7 @@
                   class="nav next"
                   on:click={e => {
                     pageIndex++;
-                    window.setTimeout(() => {
-                      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-                    }, 1000);
+                    spectrophiliaEl.scrollTo({ top: 0, left: 0 });
                   }}>
                   NEXT &#x3E;&#x3E;&#x3E;
                 </div>
@@ -164,9 +183,7 @@
                   class="nav prev"
                   on:click={e => {
                     pageIndex--;
-                    window.setTimeout(() => {
-                      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-                    }, 1000);
+                    spectrophiliaEl.scrollTo({ top: 0, left: 0 });
                   }}>
                   &#x3C;&#x3C;&#x3C; PREVIOUS
                 </div>
@@ -176,9 +193,14 @@
             <!-- AUDIO -->
             {#if page.audio}
               <audio
-                src={'https://cdn.sanity.io/files/ylcal1e4/production/' + page.audio.asset._ref
-                    .replace('file-', '')
-                    .replace('-wav', '.wav')}
+                src={page.audio.asset._ref.includes('-wav') ? 'https://cdn.sanity.io/files/ylcal1e4/production/' + page.audio.asset._ref
+                      .replace('file-', '')
+                      .replace(
+                        '-wav',
+                        '.wav'
+                      ) : 'https://cdn.sanity.io/files/ylcal1e4/production/' + page.audio.asset._ref
+                      .replace('file-', '')
+                      .replace('-mp3', '.mp3')}
                 autoplay
                 loop />
             {/if}

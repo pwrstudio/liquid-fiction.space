@@ -324,6 +324,7 @@
     h2 {
       text-align: center;
       font-size: 2em;
+      margin-top: 0;
     }
 
     h3 {
