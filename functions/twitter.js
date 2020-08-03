@@ -5,7 +5,7 @@
  */
 
 const Twitter = require('twitter');
-import { parse } from 'querystring'
+// import { parse } from 'querystring'
 
 
 const client = new Twitter({
@@ -27,7 +27,8 @@ exports.handler = function (event, context, callback) {
         try {
             body = JSON.parse(event.body)
         } catch (e) {
-            body = parse(event.body)
+            console.log(e)
+            // body = parse(event.body)
         }
 
         console.dir(body)
@@ -36,7 +37,7 @@ exports.handler = function (event, context, callback) {
 
         callback(
             null, {
-            statusCode: 500,
+            statusCode: 200,
             body: event
         });
 
