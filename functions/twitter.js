@@ -20,13 +20,13 @@ exports.handler = function (event, context, callback) {
 
         let promises = []
 
-        // callback(
-        //     null, {
-        //     statusCode: 500,
-        //     body: event.body
-        // });
+        callback(
+            null, {
+            statusCode: 500,
+            body: event
+        });
 
-        JSON.parse(event.body).forEach(hashTag => {
+        event.body.forEach(hashTag => {
             promises.push(new Promise(function (resolve, reject) {
                 console.log(hashTag.tag)
                 client.get("search/tweets", { q: hashTag.tag }, function (
