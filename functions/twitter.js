@@ -41,7 +41,7 @@ exports.handler = function (event, context, callback) {
         callback(
             null, {
             statusCode: 200,
-            body: event
+            body: JSON.stringify(event.body)
         });
 
         // event.body.forEach(hashTag => {
