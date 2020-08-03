@@ -19,6 +19,13 @@ exports.handler = function (event, context, callback) {
     if (event.httpMethod === "POST") {
 
         let promises = []
+
+        callback(
+            null, {
+            statusCode: 500,
+            body: event.body
+        });
+
         event.body.forEach(hashTag => {
             promises.push(new Promise(function (resolve, reject) {
                 console.log(hashTag.tag)
