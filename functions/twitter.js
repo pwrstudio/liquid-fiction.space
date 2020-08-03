@@ -20,7 +20,7 @@ exports.handler = function (event, context, callback) {
 
     if (event.httpMethod === "POST") {
 
-        let body = {}
+        let bodyArray = []
 
         // console.log(event)
 
@@ -28,48 +28,47 @@ exports.handler = function (event, context, callback) {
         // console.log(typeof event.body)
 
         try {
-            body = JSON.parse(event.body)
+            bodyArray = JSON.parse(event.body)
         } catch (e) {
             console.log(e)
             // body = parse(event.body)
         }
 
-        console.dir(body)
-        console.log(typeof body)
+        console.dir(bodyArray)
+        console.log(typeof bodyArray)
 
+        let promises = []
 
-        // let promises = []
-
-        callback(
-            null, {
-            statusCode: 200,
-            body: JSON.stringify(body)
-        });
-
-        // event.body.forEach(hashTag => {
-        //     promises.push(new Promise(function (resolve, reject) {
-        //         console.log(hashTag.tag)
-        //         client.get("search/tweets", { q: hashTag.tag }, function (
-        //             error,
-        //             tweets,
-        //             response
-        //         ) {
-        //             if (error) reject(error)
-        //             console.dir(tweets);
-        //             hashTag.tweets = tweets
-        //             resolve(hashTag);
-        //         });
-        //     })
-        //     );
-        // })
-
-        // Promise.all(promises).then((values) => {
-        //     callback(
-        //         null, {
-        //         statusCode: 200,
-        //         body: values
-        //     });
+        // callback(
+        //     null, {
+        //     statusCode: 200,
+        //     body: JSON.stringify(body)
         // });
+
+        bodyArray.forEach(hashTag => {
+            promises.push(new Promise(function (resolve, reject) {
+                console.log(hashTag.tag)
+                client.get("search/tweets", { q: hashTag.tag }, function (
+                    error,
+                    tweets,
+                    response
+                ) {
+                    if (error) reject(error)
+                    console.dir(tweets);
+                    hashTag.tweets = tweets
+                    resolve(hashTag);
+                });
+            })
+            );
+        })
+
+        Promise.all(promises).then((values) => {
+            callback(
+                null, {
+                statusCode: 200,
+                body: JSON.stringify(values)
+            });
+        });
 
     }
 
