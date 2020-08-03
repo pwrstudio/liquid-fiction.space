@@ -346,6 +346,10 @@
       border-bottom: 1px solid black;
     }
   }
+
+  .hashtag {
+    background: yellow;
+  }
 </style>
 
 <Orb />

@@ -10,6 +10,8 @@
   import { fly } from "svelte/transition";
   import { quartOut } from "svelte/easing";
   import { hebaClient, hebaRenderBlockText } from "../sanity.js";
+  import flatMap from "lodash/flatMap";
+  import filter from "lodash/filter";
 
   // *** COMPONENTS
   import ErosionMachine from "../eeefff/ErosionMachine.svelte";
@@ -37,13 +39,31 @@
     left: "10px"
   });
 
+  let tagsResponse = [];
+
   // ** CONSTANTS
   const query = "*[ _type == 'page'][0]";
 
   async function loadData(query) {
     try {
       const res = await hebaClient.fetch(query);
-      console.dir(res);
+      // console.dir(res);
+      // console.dir(res.content.map(c => c.markDefs).filter(c => c.length > 0));
+      let tags = filter(
+        flatMap(res.content, c => c.markDefs),
+        x => x._type === "hashTag"
+      );
+      // console.dir(tags);
+      const rawResponse = await fetch("http://localhost:4444", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(tags)
+      });
+      tagsResponse = await rawResponse.json();
+      // console.dir(tagsResponse);
       return res;
     } catch (err) {
       console.log(err);
@@ -58,6 +78,7 @@
   @import "../_variables.scss";
 
   .heba {
+    color: black;
     background: azure;
     min-height: 100vh;
 
@@ -77,6 +98,15 @@
       padding-bottom: 80px;
     }
   }
+
+  .tags {
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+
+    .tweet {
+      bortder-bottom: 1px solid black;
+    }
+  }
 </style>
 
 <svelte:head>
@@ -84,7 +114,23 @@
 </svelte:head>
 
 <div class="heba">
+
   {#await post then post}
+
+    {#each tagsResponse as t}
+      <div class="tags">
+        <h2>{t.tag}</h2>
+        {#if t.tweets && t.tweets.statuses && t.tweets.statuses.length > 0}
+          {#each t.tweets.statuses as tweet}
+            <div class="tweet">
+              <div class="date">{tweet.created_at}</div>
+              <div class="text">{tweet.text}</div>
+            </div>
+          {/each}
+        {/if}
+      </div>
+    {/each}
+
     <div class="speech">
       {@html hebaRenderBlockText(post.content)}
     </div>
