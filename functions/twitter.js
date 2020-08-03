@@ -22,21 +22,21 @@ exports.handler = function (event, context, callback) {
 
         let body = {}
 
-        console.log(event)
+        // console.log(event)
 
         console.log(event.body)
         console.log(typeof event.body)
 
-        try {
-            body = JSON.parse(event.body)
-        } catch (e) {
-            console.log(e)
-            // body = parse(event.body)
-        }
+        // try {
+        //     body = JSON.parse(event.body)
+        // } catch (e) {
+        //     console.log(e)
+        //     // body = parse(event.body)
+        // }
 
-        console.dir(body)
+        // console.dir(body)
 
-        let promises = []
+        // let promises = []
 
         callback(
             null, {
