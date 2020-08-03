@@ -6,10 +6,8 @@
   // # # # # # # # # # # # # #
 
   // *** IMPORT
-  import { onMount, onDestroy } from "svelte";
+  import { onMount } from "svelte";
   import { fly } from "svelte/transition";
-  import { quartOut } from "svelte/easing";
-  import shuffle from "lodash/shuffle";
 
   // *** COMPONENTS
   import PermissionDialog from "./PermissionDialog.svelte";
@@ -325,7 +323,7 @@
 
   <!-- PERMISSION BOXES -->
   {#if consented}
-    {#each boxes as box, i}
+    {#each boxes.reverse() as box, i}
       <PermissionDialog
         text={box.text}
         buttons={box.buttons}

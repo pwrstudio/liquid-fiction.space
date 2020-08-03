@@ -8,7 +8,7 @@
   // *** IMPORT
   import { onMount, onDestroy, createEventDispatcher } from "svelte";
   import Tone from "tone";
-  import { fly, scale } from "svelte/transition";
+  import { fly } from "svelte/transition";
 
   const dispatch = createEventDispatcher();
 
@@ -23,7 +23,7 @@
   export let visible = false;
 
   // *** STORES
-  import { menuActive } from "../stores.js";
+  import { menuActive, activePage } from "../stores.js";
 
   // CONSTANTS
   const mixer = new Tone.PanVol(-0.5, -24);
@@ -58,7 +58,7 @@
         synth.triggerRelease();
       }
     } else {
-      if (playing) {
+      if (playing && $activePage == "stine") {
         synth.triggerAttack(frequency);
       }
     }
@@ -84,6 +84,7 @@
 
   onDestroy(async () => {
     if (playing) {
+      synth.volume.value = -100;
       synth.triggerRelease();
     }
   });
