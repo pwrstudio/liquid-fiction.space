@@ -20,13 +20,13 @@ exports.handler = function (event, context, callback) {
 
         let promises = []
 
-        callback(
-            null, {
-            statusCode: 500,
-            body: event.body
-        });
+        // callback(
+        //     null, {
+        //     statusCode: 500,
+        //     body: event.body
+        // });
 
-        event.body.forEach(hashTag => {
+        JSON.parse(event.body).forEach(hashTag => {
             promises.push(new Promise(function (resolve, reject) {
                 console.log(hashTag.tag)
                 client.get("search/tweets", { q: hashTag.tag }, function (
@@ -46,7 +46,7 @@ exports.handler = function (event, context, callback) {
         Promise.all(promises).then((values) => {
             callback(
                 null, {
-                statusCode: 500,
+                statusCode: 200,
                 body: values
             });
         });
