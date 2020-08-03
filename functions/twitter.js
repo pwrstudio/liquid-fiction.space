@@ -24,24 +24,26 @@ exports.handler = function (event, context, callback) {
 
         // console.log(event)
 
-        console.log(event.body)
-        console.log(typeof event.body)
+        // console.log(event.body)
+        // console.log(typeof event.body)
 
-        // try {
-        //     body = JSON.parse(event.body)
-        // } catch (e) {
-        //     console.log(e)
-        //     // body = parse(event.body)
-        // }
+        try {
+            body = JSON.parse(event.body)
+        } catch (e) {
+            console.log(e)
+            // body = parse(event.body)
+        }
 
-        // console.dir(body)
+        console.dir(body)
+        console.log(typeof body)
+
 
         // let promises = []
 
         callback(
             null, {
             statusCode: 200,
-            body: JSON.stringify(event.body)
+            body: JSON.stringify(body)
         });
 
         // event.body.forEach(hashTag => {
