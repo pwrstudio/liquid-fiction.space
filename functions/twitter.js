@@ -13,7 +13,6 @@ const client = new Twitter({
     access_token_secret: ""
 });
 
-
 exports.handler = function (event, context, callback) {
 
     if (event.httpMethod === "POST") {

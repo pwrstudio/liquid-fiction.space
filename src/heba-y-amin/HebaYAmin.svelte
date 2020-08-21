@@ -6,12 +6,12 @@
   // # # # # # # # # # # # # #
 
   // *** IMPORT
-  import { onMount, onDestroy } from "svelte";
-  import { fly } from "svelte/transition";
-  import { quartOut } from "svelte/easing";
-  import { hebaClient, hebaRenderBlockText } from "../sanity.js";
-  import flatMap from "lodash/flatMap";
-  import filter from "lodash/filter";
+  import { onMount, onDestroy } from 'svelte'
+  import { fly } from 'svelte/transition'
+  import { quartOut } from 'svelte/easing'
+  import { hebaClient, hebaRenderBlockText } from '../sanity.js'
+  import flatMap from 'lodash/flatMap'
+  import filter from 'lodash/filter'
 
   // *** COMPONENTS
   // import ErosionMachine from "../eeefff/ErosionMachine.svelte";
@@ -24,68 +24,74 @@
     orbColorOne,
     orbColorTwo,
     orbPosition,
-    activePage
-  } from "../stores.js";
+    activePage,
+  } from '../stores.js'
 
-  activePage.set("heba");
-  orbBackgroundOne.set("rgba(0,150,255,1)");
-  orbBackgroundTwo.set("rgba(147,101,0,1)");
+  activePage.set('heba')
+  orbBackgroundOne.set('rgba(0,150,255,1)')
+  orbBackgroundTwo.set('rgba(147,101,0,1)')
 
-  orbColorOne.set("rgba(255,255,255,1)");
-  orbColorTwo.set("rgba(0,0,0,1)");
+  orbColorOne.set('rgba(255,255,255,1)')
+  orbColorTwo.set('rgba(0,0,0,1)')
 
   orbPosition.set({
-    top: "10px",
-    left: "10px"
-  });
+    top: '10px',
+    left: '10px',
+  })
 
-  let tagsResponse = [];
+  let tagsResponse = []
 
   // ** CONSTANTS
-  const query = "*[ _type == 'page'][0]";
+  const query = '*[]'
 
   async function loadData(query) {
     try {
-      const res = await hebaClient.fetch(query);
+      const res = await hebaClient.fetch(query)
       // console.dir(res);
       // console.dir(res.content.map(c => c.markDefs).filter(c => c.length > 0));
-      let tags = filter(
-        flatMap(res.content, c => c.markDefs),
-        x => x._type === "hashTag"
-      );
-      // console.dir(tags);
-      const rawResponse = await fetch(
-        "https://cycle-2--liquid-fiction-dev.netlify.app/.netlify/functions/twitter",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(tags)
-        }
-      );
-      tagsResponse = await rawResponse.json();
+
+      console.dir(res)
+
+      let content = res.find((p) => p._type == 'page')
+      let tags = res.filter((p) => p._type == 'hashtag')
+
+      // let tags = filter(
+      //   flatMap(res.content, (c) => c.markDefs),
+      //   (x) => x._type === 'hashTag'
+      // )
+      console.dir(tags)
+      // const rawResponse = await fetch(
+      //   "https://cycle-2--liquid-fiction-dev.netlify.app/.netlify/functions/twitter",
+      //   {
+      //     method: "POST",
+      //     headers: {
+      //       Accept: "application/json",
+      //       "Content-Type": "application/json"
+      //     },
+      //     body: JSON.stringify(tags)
+      //   }
+      // );
+      // tagsResponse = await rawResponse.json();
       // console.dir(tagsResponse);
-      return res;
+      return content
     } catch (err) {
-      console.log(err);
-      Sentry.captureException(err);
+      console.log(err)
+      Sentry.captureException(err)
     }
   }
 
-  const post = loadData(query);
+  const post = loadData(query)
 </script>
 
 <style lang="scss">
-  @import "../_variables.scss";
+  @import '../_variables.scss';
 
   .heba {
     color: black;
     background: azure;
     min-height: 100vh;
 
-    @include screen-size("small") {
+    @include screen-size('small') {
       overflow-x: scroll;
     }
 
@@ -93,7 +99,7 @@
       color: black;
       width: 70ch;
       max-width: 100%;
-      font-family: "Times New Roman", Times, serif;
+      font-family: 'Times New Roman', Times, serif;
       font-size: 26px;
       margin-left: auto;
       margin-right: auto;
