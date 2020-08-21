@@ -341,9 +341,9 @@
       display: inline-block;
       padding-top: 1em;
       margin-bottom: 0.5em;
-      font-weight: normal;
+      // font-weight: normal;
       letter-spacing: 0.2em;
-      border-bottom: 1px solid black;
+      border-bottom: 2px solid black;
     }
   }
 

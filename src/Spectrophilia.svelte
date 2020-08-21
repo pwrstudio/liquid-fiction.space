@@ -66,6 +66,7 @@
 
   .spectrophilia {
     font-family: "Courier New", Courier, monospace;
+    font-weight: bold;
     font-size: 20px;
     height: 100vh;
     overflow-y: scroll;
@@ -90,10 +91,6 @@
       }
 
       display: block;
-
-      // &.shown {
-      //   display: block;
-      // }
 
       .background-image {
         position: absolute;

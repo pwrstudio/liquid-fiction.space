@@ -5,8 +5,6 @@
  */
 
 const Twitter = require('twitter');
-// import { parse } from 'querystring'
-
 
 const client = new Twitter({
     consumer_key: process.env.CONSUMER_KEY,
@@ -34,8 +32,8 @@ exports.handler = function (event, context, callback) {
             // body = parse(event.body)
         }
 
-        console.dir(bodyArray)
-        console.log(typeof bodyArray)
+        // console.dir(bodyArray)
+        // console.log(typeof bodyArray)
 
         let promises = []
 
@@ -47,14 +45,14 @@ exports.handler = function (event, context, callback) {
 
         bodyArray.forEach(hashTag => {
             promises.push(new Promise(function (resolve, reject) {
-                console.log(hashTag.tag)
+                // console.log(hashTag.tag)
                 client.get("search/tweets", { q: hashTag.tag }, function (
                     error,
                     tweets,
                     response
                 ) {
                     if (error) reject(error)
-                    console.dir(tweets);
+                    // console.dir(tweets);
                     hashTag.tweets = tweets
                     resolve(hashTag);
                 });
