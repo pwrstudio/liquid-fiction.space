@@ -31,6 +31,7 @@
     "@sketchfab/viewer-api": "^1.7.1",
     "animejs": "^3.2.0",
     "cytoscape": "^3.15.1",
+    "draggable": "^4.2.0",
     "get-video-id": "^3.1.4",
     "just-throttle": "^1.1.0",
     "lodash.get": "^4.4.2",
