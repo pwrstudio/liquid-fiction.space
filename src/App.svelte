@@ -348,7 +348,12 @@
   }
 
   .hashtag {
-    background: yellow;
+    border-bottom: 1px dashed black;
+    cursor: pointer;
+
+    &:hover {
+      border-bottom: 1px solid black;
+    }
   }
 </style>
 

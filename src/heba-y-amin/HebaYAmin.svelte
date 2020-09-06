@@ -7,11 +7,12 @@
 
   // *** IMPORT
   import { onMount, onDestroy } from 'svelte'
-  import { fly } from 'svelte/transition'
+  import { fly, fade, scale } from 'svelte/transition'
   import { quartOut } from 'svelte/easing'
   import { hebaClient, hebaRenderBlockText } from '../sanity.js'
   import flatMap from 'lodash/flatMap'
   import filter from 'lodash/filter'
+  import random from 'lodash/random'
 
   // *** COMPONENTS
   // import ErosionMachine from "../eeefff/ErosionMachine.svelte";
@@ -39,7 +40,10 @@
     left: '10px',
   })
 
-  let tagsResponse = []
+  let tagMap = {}
+  let msg = ''
+  let activeTweets = []
+  let stopTweets = false
 
   // ** CONSTANTS
   const query = '*[]'
@@ -54,25 +58,14 @@
 
       let content = res.find((p) => p._type == 'page')
       let tags = res.filter((p) => p._type == 'hashtag')
-
-      // let tags = filter(
-      //   flatMap(res.content, (c) => c.markDefs),
-      //   (x) => x._type === 'hashTag'
-      // )
       console.dir(tags)
-      // const rawResponse = await fetch(
-      //   "https://cycle-2--liquid-fiction-dev.netlify.app/.netlify/functions/twitter",
-      //   {
-      //     method: "POST",
-      //     headers: {
-      //       Accept: "application/json",
-      //       "Content-Type": "application/json"
-      //     },
-      //     body: JSON.stringify(tags)
-      //   }
-      // );
-      // tagsResponse = await rawResponse.json();
-      // console.dir(tagsResponse);
+
+      tags.forEach(t => {
+        tagMap[t._id] = t
+      })
+
+      console.dir(tagMap)
+   
       return content
     } catch (err) {
       console.log(err)
@@ -81,6 +74,36 @@
   }
 
   const post = loadData(query)
+
+  const showTweets = (tweets, i) => {
+    tweets[i].top = random(10, window.innerHeight - 300)
+    tweets[i].left = random(10, window.innerWidth - 370)
+    activeTweets.push(tweets[i])
+    activeTweets = activeTweets
+    setTimeout(() => {
+      if(i < (tweets.length - 1) && !stopTweets) {
+        showTweets(tweets, ++i)
+      }
+    }, 1000)
+  }
+
+  post.then(post => {
+    setTimeout(() => {
+        let hashtagElements = Array.from(document.querySelectorAll('.hashtag'))
+          hashtagElements.forEach(ht => {
+            // ht.addEventListener('mouseenter', e => {
+            //   activeTweets = []
+            //   stopTweets = false
+            //   showTweets(tagMap[ht.dataset.target].connectedContent, 0)
+            // })
+            ht.addEventListener('click', e => {
+              activeTweets = []
+              stopTweets = false
+              showTweets(tagMap[ht.dataset.target].connectedContent, 0)
+            })
+          })
+      }, 500)
+  })
 </script>
 
 <style lang="scss">
@@ -107,14 +130,52 @@
       padding-bottom: 80px;
     }
   }
+  .tweet {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 360px;
+    background: lightgray;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px grey; 
+    cursor: pointer;
 
-  .tags {
-    font-size: 12px;
-    font-family: Arial, Helvetica, sans-serif;
+    .meta {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 13px;
 
-    .tweet {
-      bortder-bottom: 1px solid black;
+      .avatar {
+          height: 48px;
+          width: 48px;
+          border-radius: 24px;
+          margin-right: 10px;
+          background: grey;
+      }
+
+      // .name {
+      //   margin-right: 10px;
+      // }
+
+      .username {
+        opacity: 0.6;
+      }
+      
     }
+
+    .content {
+      font-family: Helvetica, Arial, sans-serif;
+      .text {
+        font-size: 16px;
+      }
+    }
+
+    .bottom {
+      font-size: 11px;
+    }
+
   }
 </style>
 
@@ -126,17 +187,25 @@
 
   {#await post then post}
 
-    {#each tagsResponse as t}
-      <div class="tags">
-        <h2>{t.tag}</h2>
-        {#if t.tweets && t.tweets.statuses && t.tweets.statuses.length > 0}
-          {#each t.tweets.statuses as tweet}
-            <div class="tweet">
-              <div class="date">{tweet.created_at}</div>
-              <div class="text">{tweet.text}</div>
-            </div>
-          {/each}
-        {/if}
+   {#each activeTweets as t (t._key)}
+      <div class="tweet" in:fade={{duration: 300}} out:scale style={'top: ' + t.top + 'px; left: ' + t.left + 'px;'} on:click={e=>{activeTweets=[];stopTweets=true;}}>
+        <div class="meta">
+          <img src={t.avatar} class='avatar'/>
+          <span class='name'>{t.author}<br/>
+            <span class='username'>@{t.screenName}</span>
+          </span>
+        </div>
+        <div class='content'>
+          <div class='text'>
+            {t.text}
+          </div>
+          <div class='image'>
+            <img src={t.image}/>
+          </div>
+          <div class="bottom">
+            <span class='date'>{t.date}</span>
+          </div>
+        </div>
       </div>
     {/each}
 

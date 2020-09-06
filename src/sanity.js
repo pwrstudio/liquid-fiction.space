@@ -136,7 +136,7 @@ const hebaSerializers = {
     hashTag: props => {
       return h(
         'span',
-        { className: 'hashtag', 'data-target': props.mark.tag },
+        { className: 'hashtag', 'data-target': props.mark.tag._ref },
         props.children
       )
     },
