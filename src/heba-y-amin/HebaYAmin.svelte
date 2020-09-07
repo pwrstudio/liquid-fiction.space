@@ -48,6 +48,7 @@
   let tweetsActive = false
   // ** CONSTANTS
   const query = '*[]'
+  let highZ = 100;
 
   async function loadData(query) {
     try {
@@ -84,7 +85,13 @@
     tweetsActive = true
     setTimeout(() => {
       let element = document.getElementById(tweets[i]._key);
-      new Draggable(element);
+      new Draggable(element, {
+        onDragEnd: el => {
+          console.dir(el)
+          el.style.zIndex = ++highZ;
+          console.log(highZ)
+        }
+      });
     }, 100)
     setTimeout(() => {
       if(i < (tweets.length - 1) && !stopTweets) {
