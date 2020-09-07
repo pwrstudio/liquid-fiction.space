@@ -179,7 +179,7 @@
       right: 10px;
       font-size: 32px;
       cursor: pointer;
-      transition: transform 0.2s ease-out;
+      // transition: transform 0.2s ease-out;
 
       &:hover {
         transform: scale(1.1);
