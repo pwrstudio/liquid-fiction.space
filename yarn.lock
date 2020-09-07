@@ -799,11 +799,6 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@interactjs/types@1.9.22":
-  version "1.9.22"
-  resolved "https://registry.yarnpkg.com/@interactjs/types/-/types-1.9.22.tgz#1504d3170b062555b03ee8eb954ae653b7f614e2"
-  integrity sha512-GMMMCYE+FPrKCOOOqQ/ImpqLyinb6e8psw9MR9ymTJxnkmJMKrY/GDC/187PVxpWdtSqW+GibkeRfUCOv6vFjg==
-
 "@polka/url@^1.0.0-next.9":
   version "1.0.0-next.11"
   resolved "https://registry.yarnpkg.com/@polka/url/-/url-1.0.0-next.11.tgz#aeb16f50649a91af79dbe36574b66d0f9e4d9f71"
@@ -1791,18 +1786,6 @@ inherits@2, inherits@^2.0.1, inherits@~2.0.0, inherits@~2.0.3:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
   integrity sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
-
-interact-js@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/interact-js/-/interact-js-2.1.0.tgz#894d2205aa125250a6f10f726ad6a53bf3fafbca"
-  integrity sha512-/YYL/90vRUCPBLDi+BHU87Xu1C9d9pKzOGCEIbqrSWabZQcuDlo8FCjkTHoZtmzNovXhjcGOLWaLDOnKMTf/Xw==
-
-interactjs@^1.9.22:
-  version "1.9.22"
-  resolved "https://registry.yarnpkg.com/interactjs/-/interactjs-1.9.22.tgz#5ae98d2dd46d720cccdb89222b4e1ddcbe5cfeb9"
-  integrity sha512-zUQefYtYJTazWKqDCSYV0vMJPFWp/PKXwpA3v75fD3+4+4J3/ItjlO7K3L1CpNWYU6s8uoEmwwOD6uDy6OoI/w==
-  dependencies:
-    "@interactjs/types" "1.9.22"
 
 into-stream@^3.1.0:
   version "3.1.0"
