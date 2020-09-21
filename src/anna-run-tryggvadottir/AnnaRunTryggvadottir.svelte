@@ -164,6 +164,8 @@
     // console.log("edgelist");
     // console.dir(edgeList);
 
+    const initialZoom = window.matchMedia("(max-width: 700px)").matches ? 5 : 3
+
     cy = cytoscape({
       container: document.getElementById("graph"),
       boxSelectionEnabled: false,
@@ -217,14 +219,6 @@
           "line-gradient-stop-colors": "orange red",
           opacity: 0.8,
         }),
-      // .selector(".shown:active")
-      // .css({
-      //   "overlay-opacity": 0.2
-      // })
-      // .selector(".shown:selected")
-      // .css({
-      //   "overlay-opacity": 0.2
-      // }),
 
       elements: {
         nodes: nodesWithKeywords,
@@ -232,11 +226,9 @@
       },
       layout: {
         name: "cose",
-        // name: "concentric",
-        // name: "cola",
         animate: true,
         fit: false,
-        zoom: 3,
+        zoom: initialZoom,
         nodeOverlap: 2000,
         initialTemp: 10000,
         componentSpacing: 100,
@@ -275,22 +267,13 @@
             e.data.source == clickedNodeId || e.data.target == clickedNodeId
         )
 
-        // console.log("&&&& – connectedEdges");
-        // console.dir(connectedEdges);
-
         connectedEdges.forEach((selectedEdge) => {
           const newNodeId =
             selectedEdge.data.target == clickedNodeId
               ? selectedEdge.data.source
               : selectedEdge.data.target
 
-          // console.log("&&&& – newNodeId");
-          // console.dir(newNodeId);
-
           const newNodeEl = cy.$("#" + newNodeId)
-
-          // console.log("&&&& – newNodeEl");
-          // console.dir(newNodeEl);
 
           const selectedEdgeEl = cy.$("#" + selectedEdge.data.id)
           selectedEdgeEl.addClass("shown")

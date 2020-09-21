@@ -214,7 +214,6 @@
 
     @include screen-size("small") {
       top: 50%;
-      // left: 50%;
       width: calc(100vw - 20px);
       left: 10px;
       transform: translateY(-50%);
@@ -225,18 +224,6 @@
       color: rgba(232, 234, 237, 1);
     }
   }
-
-  // .consent {
-  //   padding: 20px;
-  //   background: grey;
-  //   border: 0;
-  //   outline: 0;
-  //   min-width: 300px;
-  //   cursor: pointer;
-  //   &:hover {
-  //     background: darkgrey;
-  //   }
-  // }
 
   .consent {
     min-width: 300px;

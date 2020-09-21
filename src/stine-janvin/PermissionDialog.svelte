@@ -6,88 +6,93 @@
   // # # # # # # # # # # # # # # # # #
 
   // *** IMPORT
-  import { onMount, onDestroy, createEventDispatcher } from "svelte";
-  import Tone from "tone";
-  import { fly } from "svelte/transition";
+  import { onMount, onDestroy, createEventDispatcher } from "svelte"
+  import Tone from "tone"
+  import { fly } from "svelte/transition"
 
-  const dispatch = createEventDispatcher();
+  const dispatch = createEventDispatcher()
 
   // PROPS
-  export let frequency = 440;
-  export let pan = 0;
-  export let text = "";
-  export let buttons = [];
-  export let order = 0;
-  export let top = 0;
-  export let left = 120;
-  export let visible = false;
+  export let frequency = 440
+  export let pan = 0
+  export let text = ""
+  export let buttons = []
+  export let order = 0
+  export let top = 0
+  export let left = 120
+  export let visible = false
+
+  if (window.matchMedia("(max-width: 700px)").matches) {
+    top = 160
+    left = 10
+  }
 
   // *** STORES
-  import { menuActive, activePage } from "../stores.js";
+  import { menuActive, activePage } from "../stores.js"
 
   // CONSTANTS
-  const mixer = new Tone.PanVol(-0.5, -24);
-  const reverb = new Tone.Reverb();
+  const mixer = new Tone.PanVol(-0.5, -24)
+  const reverb = new Tone.Reverb()
 
   // VARIABLES
-  let playing = false;
-  let active = true;
+  let playing = false
+  let active = true
 
-  let panner = new Tone.Panner();
+  let panner = new Tone.Panner()
 
   let synth = new Tone.Synth({
     oscillator: {
       type: "sine",
-      partialCount: 0
+      partialCount: 0,
     },
     envelope: {
       attack: 0.05,
       decay: 0.1,
       sustain: 1,
-      release: 0.2
-    }
-  });
+      release: 0.2,
+    },
+  })
 
-  synth.volume.value = -24;
-  panner.pan.value = pan;
-  synth.connect(panner).toMaster();
+  synth.volume.value = -24
+  panner.pan.value = pan
+  synth.connect(panner).toMaster()
 
   $: {
     if ($menuActive) {
       if (playing) {
-        synth.triggerRelease();
+        synth.triggerRelease()
       }
     } else {
       if (playing && $activePage == "stine") {
-        synth.triggerAttack(frequency);
+        synth.triggerAttack(frequency)
       }
     }
   }
 
   const allow = () => {
-    synth.triggerRelease();
-    playing = false;
-    active = false;
-    dispatch("reduceToneCounter");
-  };
+    synth.triggerRelease()
+    playing = false
+    active = false
+    dispatch("reduceToneCounter")
+  }
 
   const deny = () => {
-    playing = true;
-    active = false;
-    dispatch("reduceToneCounter");
-  };
+    playing = true
+    active = false
+    dispatch("reduceToneCounter")
+  }
 
   onMount(async () => {
-    synth.triggerAttack(frequency);
-    playing = true;
-  });
+    synth.triggerAttack(frequency)
+    playing = true
+  })
 
   onDestroy(async () => {
     if (playing) {
-      synth.volume.value = -100;
-      synth.triggerRelease();
+      synth.volume.value = -100
+      synth.triggerRelease()
     }
-  });
+  })
 </script>
 
 <style lang="scss">
@@ -116,6 +121,10 @@
     &.visible {
       opacity: 1;
     }
+
+    @include screen-size("small") {
+      width: calc(100vw - 20px);
+    }
   }
 
   .buttons {
@@ -135,6 +144,11 @@
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
       Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
       "Segoe UI Emoji", "Segoe UI Symbol";
+    margin-right: 10px;
+
+    &:last-child {
+      margin-right: 0;
+    }
 
     &:hover {
       background: lightgray;
