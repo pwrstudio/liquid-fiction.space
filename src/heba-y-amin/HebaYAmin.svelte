@@ -6,21 +6,17 @@
   // # # # # # # # # # # # # #
 
   // *** IMPORT
-  import { onMount, onDestroy } from "svelte"
-  import { fly, fade, scale } from "svelte/transition"
-  import { quartOut } from "svelte/easing"
+  import { fade, scale } from "svelte/transition"
   import { hebaClient, hebaRenderBlockText } from "../sanity.js"
-  import flatMap from "lodash/flatMap"
-  import filter from "lodash/filter"
+  import throttle from "lodash/throttle"
   import random from "lodash/random"
   import Draggable from "draggable"
 
   // *** COMPONENTS
-  // import ErosionMachine from "../eeefff/ErosionMachine.svelte";
+  import Video from "./Video.svelte"
 
   // *** STORES
   import {
-    menuActive,
     orbBackgroundOne,
     orbBackgroundTwo,
     orbColorOne,
@@ -46,16 +42,15 @@
   let activeTweets = []
   let stopTweets = false
   let tweetsActive = false
+  let activeVideo = false
   // ** CONSTANTS
   const query = "*[]"
   let highZ = 100
+  // let counter = 0
 
   async function loadData(query) {
     try {
       const res = await hebaClient.fetch(query)
-      // console.dir(res);
-      // console.dir(res.content.map(c => c.markDefs).filter(c => c.length > 0));
-
       console.dir(res)
 
       let content = res.find((p) => p._type == "page")
@@ -100,8 +95,17 @@
     }, 500)
   }
 
+  // const handleMouseMove = () => {
+  //   counter = 0
+  // }
+
+  const showVideo = (link) => {
+    activeVideo = link
+  }
+
   post.then((post) => {
     setTimeout(() => {
+      // Hashtags
       let hashtagElements = Array.from(document.querySelectorAll(".hashtag"))
       hashtagElements.forEach((ht) => {
         ht.addEventListener("click", (e) => {
@@ -110,6 +114,22 @@
           showTweets(tagMap[ht.dataset.target].connectedContent, 0)
         })
       })
+      // Video-links
+      let videoLinkElements = Array.from(
+        document.querySelectorAll(".video-link")
+      )
+      videoLinkElements.forEach((vl) => {
+        vl.addEventListener("click", (e) => {
+          showVideo(vl.dataset.link)
+        })
+      })
+
+      // window.setInterval(() => {
+      //   if (counter === 10) {
+
+      //   }
+      //   counter += 1
+      // }, 1000)
     }, 500)
   })
 </script>
@@ -222,6 +242,8 @@
   }
 </style>
 
+<!-- <svelte:window on:mousemove={throttle(handleMouseMove, 200)} /> -->
+
 <svelte:head>
   <title>Heba Y Amin | LIQUID FICTION</title>
 </svelte:head>
@@ -286,7 +308,13 @@
     <div class="speech">
       {@html hebaRenderBlockText(post.content)}
     </div>
+
+    {#if activeVideo}
+      <Video
+        url={activeVideo}
+        on:close={(e) => {
+          activeVideo = false
+        }} />
+    {/if}
   {/await}
 </div>
-
-<!-- <ErosionMachine /> -->

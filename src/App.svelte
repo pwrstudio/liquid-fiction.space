@@ -355,6 +355,16 @@
       border-bottom: 1px solid black;
     }
   }
+
+  .video-link {
+    border-bottom: 1px dashed rgba(0, 150, 255, 1);
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(0, 150, 255, 1);
+      border-bottom: 1px solid rgba(0, 150, 255, 1);
+    }
+  }
 </style>
 
 <Orb />

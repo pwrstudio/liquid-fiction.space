@@ -2,6 +2,7 @@ import sanityClient from "@sanity/client"
 import blocksToHtml from "@sanity/block-content-to-html"
 import imageUrlBuilder from "@sanity/image-url"
 import getVideoId from "get-video-id"
+import get from "lodash/get"
 
 export const client = sanityClient({
   projectId: "ylcal1e4",
@@ -137,12 +138,24 @@ const hebaSerializers = {
     hashTag: (props) => {
       return h(
         "span",
-        { className: "hashtag", "data-target": props.mark.tag._ref },
+        {
+          className: "hashtag",
+          "data-target": get(props, "mark.tag._ref", ""),
+        },
         props.children
       )
     },
-    centerText: (props) => {
-      return h("span", { className: "centered" }, props.children)
+    videoLink: (props) => {
+      console.dir(props)
+      return h(
+        "span",
+        {
+          className: "video-link",
+          "data-ref": get(props, "mark._key", ""),
+          "data-link": get(props, "mark.link", ""),
+        },
+        props.children
+      )
     },
   },
   types: {
