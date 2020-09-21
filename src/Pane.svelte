@@ -6,69 +6,45 @@
   // # # # # # # # # # # # # #
 
   // *** IMPORT
-  //   import intro from "./texts.js";
-  import { fly, blur, slide } from "svelte/transition";
-  import { quartOut } from "svelte/easing";
-  import { renderBlockText, urlFor } from "./sanity.js";
-  import { createEventDispatcher } from "svelte";
-  import { fade } from "svelte/transition";
+  import { fly } from "svelte/transition"
+  import { renderBlockText } from "./sanity.js"
+  import { createEventDispatcher } from "svelte"
 
-  const dispatch = createEventDispatcher();
-
-  // *** STORES
-  import {
-    orbBackgroundOne,
-    orbBackgroundTwo,
-    orbColorOne,
-    orbColorTwo,
-    orbPosition
-  } from "./stores.js";
+  const dispatch = createEventDispatcher()
 
   // *** PROPS
-  export let essay = {};
-  export let totalPanes = 1;
-  export let order = 1;
-  export let active = false;
-  export let large = false;
-  export let hidden = false;
-  export let bgColor = "#0000ff";
-  export let section = "";
+  export let essay = {}
+  export let totalPanes = 1
+  export let order = 1
+  export let active = false
+  export let large = false
+  export let hidden = false
+  export let bgColor = "#0000ff"
+  export let section = ""
 
   // *** VARIABLES
-  let width = 100;
-  let left = 0;
+  let width = 100
+  let left = 0
   // *** REACTIVES
-  $: width = 100 / totalPanes;
-  $: left = active ? 0 : ((100 - width) / (totalPanes - 1)) * order;
+  $: width = 100 / totalPanes
+  $: left = active ? 0 : ((100 - width) / (totalPanes - 1)) * order
 
   const open = () => {
     // active = !active;
     dispatch("activated", {
-      order: order
-    });
-  };
+      order: order,
+    })
+  }
 
   const close = () => {
     dispatch("activated", {
-      order: 1000
-    });
-    // if (active) {
-    //   dispatch("activated", {
-    //     order: 1000
-    //   });
-    // } else {
-    //   dispatch("activated", {
-    //     order: order
-    //   });
-    // }
-  };
+      order: 1000,
+    })
+  }
 </script>
 
 <style lang="scss">
   @import "./variables.scss";
-
-  .paneSection {
-  }
 
   .pane {
     padding: 2rem;
@@ -90,95 +66,93 @@
     right: 0;
     width: 100vw;
     height: 100vh;
-  }
 
-  .pane:not(.active) {
-    cursor: pointer;
-  }
-
-  .pane.active {
-    transform: translateX(0);
-  }
-
-  .pane.hidden {
-    transition: transform 0.3s ease-out;
-    transform: translateX(100%) !important;
-  }
-
-  button.close-pane {
-    font: inherit;
-    font-size: 72px;
-    line-height: normal;
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    display: block;
-    overflow: visible;
-    width: auto;
-    margin: 0;
-    padding: 0;
-    padding: 30px;
-    cursor: pointer;
-    border: none;
-    background: transparent;
-    -webkit-font-smoothing: inherit;
-    -moz-osx-font-smoothing: inherit;
-    -webkit-appearance: none;
-    width: 60px;
-    height: 60px;
-
-    transition: transform 500ms cubic-bezier(0.23, 1, 0.32, 1), fill 200ms ease;
-    transform: rotate(0deg);
-
-    &:hover {
-      transform: rotate(180deg);
+    &:not(.active) {
+      cursor: pointer;
     }
-  }
 
-  button.close-pane svg {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    display: block;
-    margin-top: -20px;
-    margin-left: -20px;
-    width: 40px;
-    height: 40px;
-    fill: #000;
-  }
+    .close-pane {
+      font: inherit;
+      font-size: 72px;
+      line-height: normal;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: block;
+      overflow: visible;
+      width: auto;
+      margin: 0;
+      padding: 0;
+      padding: 30px;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      -webkit-font-smoothing: inherit;
+      -moz-osx-font-smoothing: inherit;
+      -webkit-appearance: none;
+      width: 60px;
+      height: 60px;
 
-  button.close-pane:hover svg,
-  button.close-pane:focus svg,
-  button.close-pane:active svg {
-    fill: #000;
-  }
+      transition: transform 500ms cubic-bezier(0.23, 1, 0.32, 1),
+        fill 200ms ease;
+      transform: rotate(0deg);
 
-  button.close-pane:focus,
-  button.close-pane:active {
-    outline: 0;
-  }
+      &:hover {
+        transform: rotate(180deg);
+      }
 
-  .pane.active + button.close-pane {
-    opacity: 1;
-  }
-  .pane:not(.active) + button.close-pane {
-    opacity: 0;
+      svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: block;
+        margin-top: -20px;
+        margin-left: -20px;
+        width: 40px;
+        height: 40px;
+        fill: #000;
+      }
+
+      &:hover,
+      &:focus,
+      &:active {
+        outline: 0;
+
+        svg {
+          fill: #000;
+        }
+      }
+    }
+
+    &.active {
+      transform: translateX(0);
+    }
+
+    &.hidden {
+      transition: transform 0.3s ease-out;
+      transform: translateX(100%) !important;
+    }
   }
 </style>
 
-<section class="paneSection">
-  <div
-    class="pane"
-    style="transform: translateX({left}vw); background: {bgColor};"
-    on:click={open}
-    class:active
-    class:hidden
-    class:large={essay.largeText}
-    in:fly={{ x: 300, delay: order * 100, opacity: 0 }}>
-    {@html renderBlockText(essay.content)}
-  </div>
+<div
+  class="pane"
+  style="transform: translateX({left}vw); background: {bgColor};"
+  on:click={open}
+  class:active
+  class:hidden
+  class:large={essay.largeText}
+  in:fly={{ x: 300, delay: order * 100, opacity: 0 }}>
+  {@html renderBlockText(essay.content)}
 
-  <button role="button" class="close-pane" on:click={close}>
+  <button
+    role="button"
+    class="close-pane"
+    on:click={(e) => {
+      close()
+      e.stopPropagation()
+      e.preventDefault()
+    }}>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55.46 55.39">
       <path
         d="M1.04 48.35a3.91 3.91 0 00-1 2.4 3.08 3.08 0 001 2.41l1.23 1.23a3.37
@@ -193,5 +167,4 @@
     </svg>
     <span class="sr-only">Close Pane</span>
   </button>
-
-</section>
+</div>

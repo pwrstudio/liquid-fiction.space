@@ -6,19 +6,15 @@
   // # # # # # # # # # # # # #
 
   // *** IMPORT
-  import { fly, blur } from "svelte/transition";
-  import { quartOut } from "svelte/easing";
-  import { client, renderBlockText, urlFor } from "./sanity.js";
-  import get from "lodash/get";
-  import concat from "lodash/concat";
+  import get from "lodash/get"
 
   // *** COMPONENTS
-  import ErosionMachine from "./eeefff/ErosionMachine.svelte";
-  import Pane from "./Pane.svelte";
+  import ErosionMachine from "./eeefff/ErosionMachine.svelte"
+  import Pane from "./Pane.svelte"
 
   // *** VARIABLES
-  let activeOrder = 1000;
-  let textList = [];
+  let activeOrder = 1000
+  let textList = []
 
   // *** STORES
   import {
@@ -28,8 +24,8 @@
     orbColorTwo,
     orbPosition,
     activePage,
-    textContent
-  } from "./stores.js";
+    textContent,
+  } from "./stores.js"
 
   const bgColors = [
     "darkorange",
@@ -41,33 +37,33 @@
     "darkorange",
     "darkgoldenrod",
     "darkorange",
-    "darkgoldenrod"
-  ];
+    "darkgoldenrod",
+  ]
 
-  activePage.set("about");
-  orbBackgroundOne.set("rgb(0, 0, 0)");
-  orbBackgroundTwo.set("rgba(255,69,0,1)");
+  activePage.set("about")
+  orbBackgroundOne.set("rgb(0, 0, 0)")
+  orbBackgroundTwo.set("rgba(255,69,0,1)")
 
-  orbColorTwo.set("rgba(255,255,255,1)");
-  orbColorOne.set("rgba(255,255,255,1)");
+  orbColorTwo.set("rgba(255,255,255,1)")
+  orbColorOne.set("rgba(255,255,255,1)")
 
   $: {
     if (activeOrder === 1000) {
       orbPosition.set({
         top: window.innerHeight - 110 + "px",
-        left: "10px"
-      });
+        left: "10px",
+      })
     } else {
       orbPosition.set({
         top: window.innerHeight - 110 + "px",
-        left: window.innerWidth - 110 + "px"
-      });
+        left: window.innerWidth - 110 + "px",
+      })
     }
   }
 
-  $textContent.then(content => {
-    textList = get(content, "liquidFiction", []);
-  });
+  $textContent.then((content) => {
+    textList = get(content, "liquidFiction", [])
+  })
 </script>
 
 <style lang="scss">
@@ -158,8 +154,8 @@
 <div class="about">
   {#each textList as text, order}
     <Pane
-      on:activated={event => {
-        activeOrder = event.detail.order;
+      on:activated={(event) => {
+        activeOrder = event.detail.order
       }}
       essay={text}
       bgColor={bgColors[order]}
