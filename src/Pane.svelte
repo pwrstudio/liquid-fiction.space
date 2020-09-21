@@ -6,53 +6,41 @@
   // # # # # # # # # # # # # #
 
   // *** IMPORT
-  //   import intro from "./texts.js";
-  import { fly, blur, slide } from "svelte/transition";
-  import { quartOut } from "svelte/easing";
-  import { renderBlockText, urlFor } from "./sanity.js";
-  import { createEventDispatcher } from "svelte";
-  import { fade } from "svelte/transition";
+  import { fly } from "svelte/transition"
+  import { renderBlockText } from "./sanity.js"
+  import { createEventDispatcher } from "svelte"
 
-  const dispatch = createEventDispatcher();
-
-  // *** STORES
-  import {
-    orbBackgroundOne,
-    orbBackgroundTwo,
-    orbColorOne,
-    orbColorTwo,
-    orbPosition
-  } from "./stores.js";
+  const dispatch = createEventDispatcher()
 
   // *** PROPS
-  export let essay = {};
-  export let totalPanes = 1;
-  export let order = 1;
-  export let active = false;
-  export let large = false;
-  export let hidden = false;
-  export let bgColor = "#0000ff";
-  export let section = "";
+  export let essay = {}
+  export let totalPanes = 1
+  export let order = 1
+  export let active = false
+  export let large = false
+  export let hidden = false
+  export let bgColor = "#0000ff"
+  export let section = ""
 
   // *** VARIABLES
-  let width = 100;
-  let left = 0;
+  let width = 100
+  let left = 0
   // *** REACTIVES
-  $: width = 100 / totalPanes;
-  $: left = active ? 0 : ((100 - width) / (totalPanes - 1)) * order;
+  $: width = 100 / totalPanes
+  $: left = active ? 0 : ((100 - width) / (totalPanes - 1)) * order
 
   const open = () => {
     // active = !active;
     dispatch("activated", {
-      order: order
-    });
-  };
+      order: order,
+    })
+  }
 
   const close = () => {
     dispatch("activated", {
-      order: 1000
-    });
-  };
+      order: 1000,
+    })
+  }
 </script>
 
 <style lang="scss">
@@ -160,10 +148,10 @@
   <button
     role="button"
     class="close-pane"
-    on:click={e => {
-      close();
-      e.stopPropagation();
-      e.preventDefault();
+    on:click={(e) => {
+      close()
+      e.stopPropagation()
+      e.preventDefault()
     }}>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55.46 55.39">
       <path
@@ -179,5 +167,4 @@
     </svg>
     <span class="sr-only">Close Pane</span>
   </button>
-
 </div>

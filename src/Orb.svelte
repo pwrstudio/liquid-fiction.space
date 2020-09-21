@@ -5,18 +5,13 @@
   //
   // # # # # # # # # # # # # #
 
-  // *** IMPORT
-  import { Router, Link, Route } from "svelte-routing";
-  import throttle from "just-throttle";
-  import { onMount, onDestroy } from "svelte";
-
   // *** COMPONENTS
-  import Menu from "./Menu.svelte";
+  import Menu from "./Menu.svelte"
 
-  let orbObject = {};
-  let orbInnerOne = {};
-  let orbInnerTwo = {};
-  let y = 0;
+  let orbObject = {}
+  let orbInnerOne = {}
+  let orbInnerTwo = {}
+  let y = 0
 
   // *** STORES
   import {
@@ -26,28 +21,27 @@
     orbColorTwo,
     orbPosition,
     menuActive,
-    activePage
-  } from "./stores.js";
+    activePage,
+  } from "./stores.js"
 
   $: {
     TweenMax.to(orbInnerOne, 0.1, {
-      css: { backgroundColor: $orbBackgroundOne, color: $orbColorOne }
-    });
+      css: { backgroundColor: $orbBackgroundOne, color: $orbColorOne },
+    })
 
     TweenMax.to(orbInnerTwo, 0.1, {
-      css: { backgroundColor: $orbBackgroundTwo, color: $orbColorTwo }
-    });
+      css: { backgroundColor: $orbBackgroundTwo, color: $orbColorTwo },
+    })
 
     TweenMax.to(orbObject, 2, {
       top: $orbPosition.top,
       left: $orbPosition.left,
-      ease: Power4.easeOut
-    });
+      ease: Power4.easeOut,
+    })
   }
 
   // *** VARIABLES
-  let scrolling = false;
-  let menuExit = false;
+  let scrolling = false
 </script>
 
 <style lang="scss">
@@ -189,7 +183,7 @@
   class:inactive={$menuActive}
   class:hidden={$activePage === 'landing'}
   on:click={() => {
-    menuActive.set(!$menuActive);
+    menuActive.set(!$menuActive)
   }}
   bind:this={orbObject}>
   <div class="nav-text" class:scrolling>
@@ -205,5 +199,5 @@
 <Menu
   active={$menuActive}
   on:close={() => {
-    menuActive.set(false);
+    menuActive.set(false)
   }} />

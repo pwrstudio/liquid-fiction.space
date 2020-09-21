@@ -6,35 +6,21 @@
   // # # # # # # # # # # # # #
 
   // *** IMPORT
-  import { Router, Link } from "svelte-routing";
-  import { createEventDispatcher } from "svelte";
-  import { fly } from "svelte/transition";
-  import { quartOut } from "svelte/easing";
+  import { Router, Link } from "svelte-routing"
+  import { createEventDispatcher } from "svelte"
+  import { fly } from "svelte/transition"
+  import { quartOut } from "svelte/easing"
 
   // *** STORES
-  import {
-    menuActive,
-    orbBackgroundOne,
-    orbBackgroundTwo,
-    orbColorOne,
-    orbColorTwo
-  } from "./stores.js";
+  import { menuActive } from "./stores.js"
 
   $: {
-    menuActive.set(active);
+    menuActive.set(active)
   }
 
-  // const handleExit = () => {
-  //   exit = true;
-  //   setTimeout(() => {
-  //     exit = false;
-  //   }, 1000);
-  // };
-
   // *** VARIABLES
-  export let active = false;
-  const dispatch = createEventDispatcher();
-  // export let exit = false;
+  export let active = false
+  const dispatch = createEventDispatcher()
 </script>
 
 <style lang="scss">
@@ -304,9 +290,8 @@
   class="menu"
   class:active
   on:click={() => {
-    dispatch('close');
+    dispatch('close')
   }}>
-
   <Router>
     <nav class="inner" role="navigation">
       {#if active}
@@ -393,7 +378,6 @@
 
         <!-- CYCLE 1 -->
         <div class="cycle-container">
-
           <div
             class="sub-item header"
             in:fly={{ duration: 400, y: 20, delay: 700, easing: quartOut }}
@@ -450,5 +434,4 @@
     </svg>
     <span class="sr-only">Close Menu</span>
   </button>
-
 </div>

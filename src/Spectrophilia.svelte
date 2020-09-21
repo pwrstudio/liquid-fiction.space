@@ -6,21 +6,21 @@
   // # # # # # # # # # # # # #
 
   // *** IMPORT
-  import { client, renderBlockText, urlFor } from "./sanity.js";
-  import get from "lodash/get";
-  import sample from "lodash/sample";
-  import { fade } from "svelte/transition";
+  import { client, renderBlockText, urlFor } from "./sanity.js"
+  import get from "lodash/get"
+  import sample from "lodash/sample"
+  import { fade } from "svelte/transition"
 
   const drapes = [
     "/img/drapes/1.png",
     "/img/drapes/2.png",
     "/img/drapes/3.png",
     "/img/drapes/4.png",
-    "/img/drapes/5.png"
-  ];
+    "/img/drapes/5.png",
+  ]
 
   // *** DOM REFS.
-  let spectrophiliaEl = {};
+  let spectrophiliaEl = {}
 
   // *** STORES
   import {
@@ -30,35 +30,35 @@
     orbColorTwo,
     orbPosition,
     activePage,
-    textContent
-  } from "./stores.js";
+    textContent,
+  } from "./stores.js"
 
-  activePage.set("about");
-  orbBackgroundOne.set("rgb(80, 80, 80)");
-  orbBackgroundTwo.set("rgba(0,0,255,1)");
+  activePage.set("about")
+  orbBackgroundOne.set("rgb(80, 80, 80)")
+  orbBackgroundTwo.set("rgba(0,0,255,1)")
 
-  orbColorTwo.set("rgba(255,255,255,1)");
-  orbColorOne.set("rgba(255,255,255,1)");
+  orbColorTwo.set("rgba(255,255,255,1)")
+  orbColorOne.set("rgba(255,255,255,1)")
 
   orbPosition.set({
     top: "10px",
-    left: "10px"
-  });
+    left: "10px",
+  })
 
-  const query = "*[ _type == 'spectrophilia'][0]";
+  const query = "*[ _type == 'spectrophilia'][0]"
 
   async function loadData(query, params) {
     try {
-      const res = await client.fetch(query, params);
-      return res;
+      const res = await client.fetch(query, params)
+      return res
     } catch (err) {
-      console.log(err);
-      Sentry.captureException(err);
+      console.log(err)
+      Sentry.captureException(err)
     }
   }
 
-  let spectrophilia = loadData(query, {});
-  let pageIndex = 0;
+  let spectrophilia = loadData(query, {})
+  let pageIndex = 0
 </script>
 
 <style lang="scss">
@@ -153,11 +153,8 @@
     {#each spectrophilia.content as page, i (page._key)}
       {#if i == pageIndex}
         <div class="page page-{i}-" in:fade>
-
           <!-- BACKGROUND IMAGE -->
-          {#if i > 0}
-            <img class="background-image" src={sample(drapes)} />
-          {/if}
+          {#if i > 0}<img class="background-image" src={sample(drapes)} />{/if}
 
           <div class="inner">
             <!-- CONTENT -->
@@ -168,9 +165,9 @@
               {#if pageIndex < spectrophilia.content.length - 1}
                 <div
                   class="nav next"
-                  on:click={e => {
-                    pageIndex++;
-                    spectrophiliaEl.scrollTo({ top: 0, left: 0 });
+                  on:click={(e) => {
+                    pageIndex++
+                    spectrophiliaEl.scrollTo({ top: 0, left: 0 })
                   }}>
                   NEXT &#x3E;&#x3E;&#x3E;
                 </div>
@@ -178,9 +175,9 @@
               {#if pageIndex > 0}
                 <div
                   class="nav prev"
-                  on:click={e => {
-                    pageIndex--;
-                    spectrophiliaEl.scrollTo({ top: 0, left: 0 });
+                  on:click={(e) => {
+                    pageIndex--
+                    spectrophiliaEl.scrollTo({ top: 0, left: 0 })
                   }}>
                   &#x3C;&#x3C;&#x3C; PREVIOUS
                 </div>
@@ -202,7 +199,6 @@
                 loop />
             {/if}
           </div>
-
         </div>
       {/if}
     {/each}

@@ -6,14 +6,14 @@
   // # # # # # # # # # # # # #
 
   // *** IMPORT
-  import { onMount, onDestroy } from "svelte";
-  import { fly, fade, scale } from "svelte/transition";
-  import { quartOut } from "svelte/easing";
-  import { hebaClient, hebaRenderBlockText } from "../sanity.js";
-  import flatMap from "lodash/flatMap";
-  import filter from "lodash/filter";
-  import random from "lodash/random";
-  import Draggable from "draggable";
+  import { onMount, onDestroy } from "svelte"
+  import { fly, fade, scale } from "svelte/transition"
+  import { quartOut } from "svelte/easing"
+  import { hebaClient, hebaRenderBlockText } from "../sanity.js"
+  import flatMap from "lodash/flatMap"
+  import filter from "lodash/filter"
+  import random from "lodash/random"
+  import Draggable from "draggable"
 
   // *** COMPONENTS
   // import ErosionMachine from "../eeefff/ErosionMachine.svelte";
@@ -26,92 +26,92 @@
     orbColorOne,
     orbColorTwo,
     orbPosition,
-    activePage
-  } from "../stores.js";
+    activePage,
+  } from "../stores.js"
 
-  activePage.set("heba");
-  orbBackgroundOne.set("rgba(0,150,255,1)");
-  orbBackgroundTwo.set("rgba(147,101,0,1)");
+  activePage.set("heba")
+  orbBackgroundOne.set("rgba(0,150,255,1)")
+  orbBackgroundTwo.set("rgba(147,101,0,1)")
 
-  orbColorOne.set("rgba(255,255,255,1)");
-  orbColorTwo.set("rgba(0,0,0,1)");
+  orbColorOne.set("rgba(255,255,255,1)")
+  orbColorTwo.set("rgba(0,0,0,1)")
 
   orbPosition.set({
     top: "10px",
-    left: "10px"
-  });
+    left: "10px",
+  })
 
-  let tagMap = {};
-  let msg = "";
-  let activeTweets = [];
-  let stopTweets = false;
-  let tweetsActive = false;
+  let tagMap = {}
+  let msg = ""
+  let activeTweets = []
+  let stopTweets = false
+  let tweetsActive = false
   // ** CONSTANTS
-  const query = '*[]'
-  let highZ = 100;
+  const query = "*[]"
+  let highZ = 100
 
   async function loadData(query) {
     try {
-      const res = await hebaClient.fetch(query);
+      const res = await hebaClient.fetch(query)
       // console.dir(res);
       // console.dir(res.content.map(c => c.markDefs).filter(c => c.length > 0));
 
-      console.dir(res);
+      console.dir(res)
 
-      let content = res.find(p => p._type == "page");
-      let tags = res.filter(p => p._type == "hashtag");
-      console.dir(tags);
+      let content = res.find((p) => p._type == "page")
+      let tags = res.filter((p) => p._type == "hashtag")
+      console.dir(tags)
 
-      tags.forEach(t => {
-        tagMap[t._id] = t;
-      });
+      tags.forEach((t) => {
+        tagMap[t._id] = t
+      })
 
-      console.dir(tagMap);
+      console.dir(tagMap)
 
-      return content;
+      return content
     } catch (err) {
-      console.log(err);
-      Sentry.captureException(err);
+      console.log(err)
+      Sentry.captureException(err)
     }
   }
 
-  const post = loadData(query);
+  const post = loadData(query)
 
   const showTweets = (tweets, i) => {
-    tweets[i].top = random(10, window.innerHeight - 300);
-    tweets[i].left = random(10, window.innerWidth - 370);
-    activeTweets.push(tweets[i]);
-    activeTweets = activeTweets;
-    tweetsActive = true;
+    tweets[i].top = random(10, window.innerHeight - 300)
+    tweets[i].left = random(10, window.innerWidth - 370)
+    activeTweets.push(tweets[i])
+    activeTweets = activeTweets
+    tweetsActive = true
     setTimeout(() => {
-      let element = document.getElementById(tweets[i]._key);
+      let element = document.getElementById(tweets[i]._key)
       new Draggable(element, {
-        onDragEnd: el => {
+        onDragEnd: (el) => {
           console.dir(el)
-          el.style.zIndex = ++highZ;
+          el.style.zIndex = ++highZ
           console.log(highZ)
-        }
-      });
+        },
+      })
     }, 100)
     setTimeout(() => {
       if (i < tweets.length - 1 && !stopTweets) {
-        showTweets(tweets, ++i);
+        showTweets(tweets, ++i)
       }
-    }, 500);
-  };
+    }, 500)
+  }
 
-  post.then(post => {
+  post.then((post) => {
     setTimeout(() => {
-      let hashtagElements = Array.from(document.querySelectorAll(".hashtag"));
-      hashtagElements.forEach(ht => {
-        ht.addEventListener("click", e => {
-          activeTweets = [];
-          stopTweets = false;
-          showTweets(tagMap[ht.dataset.target].connectedContent, 0);
-        });
-      });
-    }, 500);
-  });
+      let hashtagElements = Array.from(document.querySelectorAll(".hashtag"))
+      hashtagElements.forEach((ht) => {
+        ht.addEventListener("click", (e) => {
+          activeTweets = []
+          stopTweets = false
+          showTweets(tagMap[ht.dataset.target].connectedContent, 0)
+        })
+      })
+    }, 500)
+  })
 </script>
 
 <style lang="scss">
@@ -227,16 +227,15 @@
 </svelte:head>
 
 <div class="heba">
-
   {#if activeTweets.length > 0}
     <div
       class="close"
       in:scale={{ delay: 600 }}
       out:scale
-      on:click={e => {
-        activeTweets = [];
-        stopTweets = true;
-        tweetsActive = false;
+      on:click={(e) => {
+        activeTweets = []
+        stopTweets = true
+        tweetsActive = false
       }}>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55.46 55.39">
         <path
@@ -254,7 +253,6 @@
   {/if}
 
   {#await post then post}
-
     {#each activeTweets as t (t._key)}
       <div
         id={t._key}
@@ -262,11 +260,10 @@
         in:fade={{ duration: 200 }}
         out:scale
         style={'top: ' + t.top + 'px; left: ' + t.left + 'px;'}>
-
         <div
           class="close-tweet"
-          on:click={e => {
-            activeTweets = activeTweets.filter(a => a._key !== t._key);
+          on:click={(e) => {
+            activeTweets = activeTweets.filter((a) => a._key !== t._key)
           }}>
           ×
         </div>
@@ -280,12 +277,8 @@
         </div>
         <div class="content">
           <div class="text">{t.text}</div>
-          <div class="image">
-            <img src={t.image} />
-          </div>
-          <div class="bottom">
-            <span class="date">{t.date}</span>
-          </div>
+          <div class="image"><img src={t.image} /></div>
+          <div class="bottom"><span class="date">{t.date}</span></div>
         </div>
       </div>
     {/each}
@@ -294,7 +287,6 @@
       {@html hebaRenderBlockText(post.content)}
     </div>
   {/await}
-
 </div>
 
 <!-- <ErosionMachine /> -->

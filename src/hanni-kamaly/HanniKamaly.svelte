@@ -6,53 +6,48 @@
   // # # # # # # # # # # # # #
 
   // *** IMPORT
-  import { onMount, onDestroy } from "svelte";
-  import { fly } from "svelte/transition";
-  import { quartOut } from "svelte/easing";
-  import { hanniClient } from "../sanity.js";
+  import { hanniClient } from "../sanity.js"
 
   // *** COMPONENTS
-  import Page from "./Page.svelte";
+  import Page from "./Page.svelte"
 
   // *** STORES
   import {
-    menuActive,
     orbBackgroundOne,
     orbBackgroundTwo,
     orbColorOne,
     orbColorTwo,
     orbPosition,
-    activePage
-  } from "../stores.js";
+    activePage,
+  } from "../stores.js"
 
   // ** CONSTANTS
-  const query = "*[ _id == 'meta'][0]{order[]->{title, content}}";
+  const query = "*[ _id == 'meta'][0]{order[]->{title, content}}"
 
-  activePage.set("hanni");
-  orbBackgroundOne.set("rgba(244,255,0,1)");
-  orbBackgroundTwo.set("rgba(211,211,211,0)");
+  activePage.set("hanni")
+  orbBackgroundOne.set("rgba(244,255,0,1)")
+  orbBackgroundTwo.set("rgba(211,211,211,0)")
 
-  orbColorOne.set("rgba(0,0,0,1)");
-  orbColorTwo.set("rgba(0,0,0,1)");
+  orbColorOne.set("rgba(0,0,0,1)")
+  orbColorTwo.set("rgba(0,0,0,1)")
 
   orbPosition.set({
     top: "10px",
-    left: "10px"
-  });
+    left: "10px",
+  })
 
   async function loadData(query, params) {
     try {
-      const res = await hanniClient.fetch(query, params);
-      console.dir(res);
-      return res;
+      const res = await hanniClient.fetch(query, params)
+      return res
     } catch (err) {
-      console.log(err);
-      Sentry.captureException(err);
+      console.log(err)
+      Sentry.captureException(err)
     }
   }
 
-  const meta = loadData(query);
-  let currentPageIndex = 0;
+  const meta = loadData(query)
+  let currentPageIndex = 0
 </script>
 
 <style lang="scss">
@@ -117,7 +112,6 @@
 </svelte:head>
 
 <div class="hanni">
-
   <video class="background-video" src="/img/bgvid.mp4" loop autoplay muted />
 
   {#await meta then meta}
@@ -125,12 +119,12 @@
       {#if currentPageIndex == index}
         <Page
           {page}
-          on:next={e => {
-            currentPageIndex += 1;
-            window.location.hash = '';
+          on:next={(e) => {
+            currentPageIndex += 1
+            window.location.hash = ''
           }}
-          on:prev={e => {
-            window.location.hash = '';
+          on:prev={(e) => {
+            window.location.hash = ''
           }} />
       {/if}
     {/each}
@@ -139,9 +133,9 @@
     {#if currentPageIndex > 0}
       <button
         class="navigation prev"
-        on:click={e => {
-          currentPageIndex -= 1;
-          window.location.hash = '';
+        on:click={(e) => {
+          currentPageIndex -= 1
+          window.location.hash = ''
         }}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -162,9 +156,9 @@
     {#if currentPageIndex < meta.order.length - 1}
       <button
         class="navigation next"
-        on:click={e => {
-          currentPageIndex += 1;
-          window.location.hash = '';
+        on:click={(e) => {
+          currentPageIndex += 1
+          window.location.hash = ''
         }}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -180,7 +174,6 @@
         </svg>
       </button>
     {/if}
-
   {/await}
 </div>
 

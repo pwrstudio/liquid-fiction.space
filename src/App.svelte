@@ -6,81 +6,81 @@
   // # # # # # # # # # # # # #
 
   // *** IMPORT
-  import { Router, Link, Route } from "svelte-routing";
-  import { onMount, onDestroy } from "svelte";
-  import { client } from "./sanity.js";
-  import get from "lodash/get";
+  import { Router, Route } from "svelte-routing"
+  import { onMount } from "svelte"
+  import { client } from "./sanity.js"
+  import get from "lodash/get"
 
   // *** COMPONENTS
-  import Orb from "./Orb.svelte";
+  import Orb from "./Orb.svelte"
 
   // ROUTES
-  import Landing from "./Landing.svelte";
-  import Editorial from "./Editorial.svelte";
-  import About from "./About.svelte";
-  import Spectrophilia from "./Spectrophilia.svelte";
+  import Landing from "./Landing.svelte"
+  import Editorial from "./Editorial.svelte"
+  import About from "./About.svelte"
+  import Spectrophilia from "./Spectrophilia.svelte"
   // CYCLE 1
-  import CycleOne from "./CycleOne.svelte";
-  import EEEFFF from "./eeefff/EEEFFF.svelte";
-  import OlofMarsja from "./olof-marsja/OlofMarsja.svelte";
-  import AlinaChaiderov from "./alina-chaiderov/AlinaChaiderov.svelte";
+  import CycleOne from "./CycleOne.svelte"
+  import EEEFFF from "./eeefff/EEEFFF.svelte"
+  import OlofMarsja from "./olof-marsja/OlofMarsja.svelte"
+  import AlinaChaiderov from "./alina-chaiderov/AlinaChaiderov.svelte"
   // CYCLE 2
-  import CycleTwo from "./CycleTwo.svelte";
-  import HanniKamaly from "./hanni-kamaly/HanniKamaly.svelte";
-  import StineJanvin from "./stine-janvin/StineJanvin.svelte";
-  import HebaYAmin from "./heba-y-amin/HebaYAmin.svelte";
-  import AnnaRunTryggvadottir from "./anna-run-tryggvadottir/AnnaRunTryggvadottir.svelte";
+  import CycleTwo from "./CycleTwo.svelte"
+  import HanniKamaly from "./hanni-kamaly/HanniKamaly.svelte"
+  import StineJanvin from "./stine-janvin/StineJanvin.svelte"
+  import HebaYAmin from "./heba-y-amin/HebaYAmin.svelte"
+  import AnnaRunTryggvadottir from "./anna-run-tryggvadottir/AnnaRunTryggvadottir.svelte"
 
   // ** CONSTANTS
   const query =
-    "*[ _type == 'cycleTwo' || _type == 'cycleOne' || _type == 'liquidFiction' || _type == 'editorial' ] | order(customOrder asc)";
+    "*[ _type == 'cycleTwo' || _type == 'cycleOne' || _type == 'liquidFiction' || _type == 'editorial' ] | order(customOrder asc)"
 
   // *** STORES
-  import { textContent, activePage } from "./stores.js";
+  import { textContent, activePage } from "./stores.js"
 
-  textContent.set(loadData(query, {}));
+  textContent.set(loadData(query, {}))
 
   async function loadData(query, params) {
     try {
-      const res = await client.fetch(query, params);
+      const res = await client.fetch(query, params)
 
       if (!Array.isArray(res)) {
-        throw "Return data is not an array";
-        return false;
+        throw "Return data is not an array"
+        return false
       }
 
       let contentContstruction = {
         liquidFiction: [],
         editorial: [],
-        cycleOne: []
-      };
+        cycleOne: [],
+      }
 
       contentContstruction.cycleOne = res.filter(
-        d => get(d, "_type", "") === "cycleOne"
-      );
+        (d) => get(d, "_type", "") === "cycleOne"
+      )
 
       contentContstruction.cycleTwo = res.filter(
-        d => get(d, "_type", "") === "cycleTwo"
-      );
+        (d) => get(d, "_type", "") === "cycleTwo"
+      )
 
       contentContstruction.editorial = res.filter(
-        d => get(d, "_type", "") === "editorial"
-      );
+        (d) => get(d, "_type", "") === "editorial"
+      )
 
       contentContstruction.liquidFiction = res.filter(
-        d => get(d, "_type", "") === "liquidFiction"
-      );
+        (d) => get(d, "_type", "") === "liquidFiction"
+      )
 
-      return contentContstruction;
+      return contentContstruction
     } catch (err) {
-      console.log(err);
-      Sentry.captureException(err);
+      console.log(err)
+      Sentry.captureException(err)
     }
   }
 
   onMount(async () => {
-    window.scrollTo(0, 0);
-  });
+    window.scrollTo(0, 0)
+  })
 </script>
 
 <style lang="scss" global>
@@ -377,5 +377,4 @@
   <Route path="heba-y-amin" component={HebaYAmin} />
   <Route path="anna-run-tryggvadottir" component={AnnaRunTryggvadottir} />
   <Route path="anna-run-tryggvadottir/:slug" component={AnnaRunTryggvadottir} />
-
 </Router>

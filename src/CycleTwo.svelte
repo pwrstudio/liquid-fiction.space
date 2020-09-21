@@ -6,21 +6,16 @@
   // # # # # # # # # # # # # #
 
   // *** IMPORT
-  //   import intro from "./texts.js";
-  import { fly, blur } from "svelte/transition";
-  import { quartOut } from "svelte/easing";
-  import { client, renderBlockText, urlFor } from "./sanity.js";
-  import get from "lodash/get";
-  import concat from "lodash/concat";
+  import get from "lodash/get"
 
   // *** COMPONENTS
-  import ErosionMachine from "./eeefff/ErosionMachine.svelte";
+  import ErosionMachine from "./eeefff/ErosionMachine.svelte"
 
-  import Pane from "./Pane.svelte";
+  import Pane from "./Pane.svelte"
 
   // *** VARIABLES
-  let activeOrder = 1000;
-  let textList = [];
+  let activeOrder = 1000
+  let textList = []
 
   // *** STORES
   import {
@@ -30,15 +25,15 @@
     orbColorTwo,
     orbPosition,
     activePage,
-    textContent
-  } from "./stores.js";
+    textContent,
+  } from "./stores.js"
 
-  activePage.set("about");
-  orbBackgroundOne.set("rgb(230, 230, 230)");
-  orbBackgroundTwo.set("rgba(221,160,221,1)");
+  activePage.set("about")
+  orbBackgroundOne.set("rgb(230, 230, 230)")
+  orbBackgroundTwo.set("rgba(221,160,221,1)")
 
-  orbColorOne.set("rgba(140,140,140,1)");
-  orbColorTwo.set("rgba(0,0,0,1)");
+  orbColorOne.set("rgba(140,140,140,1)")
+  orbColorTwo.set("rgba(0,0,0,1)")
 
   const bgColors = [
     "olivedrab",
@@ -47,27 +42,26 @@
     "plum",
     "olivedrab",
     "plum",
-    "olivedrab"
-  ];
+    "olivedrab",
+  ]
 
   $: {
     if (activeOrder === 1000) {
       orbPosition.set({
         top: window.innerHeight - 110 + "px",
-        left: "10px"
-      });
+        left: "10px",
+      })
     } else {
       orbPosition.set({
         top: window.innerHeight - 110 + "px",
-        left: window.innerWidth - 110 + "px"
-      });
+        left: window.innerWidth - 110 + "px",
+      })
     }
   }
 
-  $textContent.then(content => {
-    console.dir(content);
-    textList = get(content, "cycleTwo", []);
-  });
+  $textContent.then((content) => {
+    textList = get(content, "cycleTwo", [])
+  })
 </script>
 
 <style lang="scss">
@@ -87,9 +81,8 @@
 <div class="paneContainer">
   {#each textList as text, order}
     <Pane
-      on:activated={event => {
-        activeOrder = event.detail.order;
-        window.alert(activeOrder);
+      on:activated={(event) => {
+        activeOrder = event.detail.order
       }}
       essay={text}
       bgColor={bgColors[order]}

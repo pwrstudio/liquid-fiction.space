@@ -6,33 +6,31 @@
   // # # # # # # # # # # # # #
 
   // *** IMPORT
-  import { onMount, onDestroy, createEventDispatcher } from "svelte";
-  import { hanniRenderBlockText } from "../sanity.js";
-  import { fade, slide, fly, blur } from "svelte/transition";
+  import { createEventDispatcher } from "svelte"
+  import { hanniRenderBlockText } from "../sanity.js"
+  import { blur } from "svelte/transition"
 
-  export let page = false;
+  export let page = false
 
-  let currentHash = window.location.hash;
+  let currentHash = window.location.hash
 
-  const dispatch = createEventDispatcher();
-
-  console.dir(page);
+  const dispatch = createEventDispatcher()
 
   const goToNext = () => {
-    dispatch("next", {});
-  };
+    dispatch("next", {})
+  }
 
   const goToPrev = () => {
-    dispatch("prev", {});
-  };
+    dispatch("prev", {})
+  }
 
   window.addEventListener(
     "hashchange",
     () => {
-      currentHash = window.location.hash;
+      currentHash = window.location.hash
     },
     false
-  );
+  )
 </script>
 
 <style lang="scss">
@@ -142,16 +140,13 @@
 </style>
 
 <div>
-
   <div
     class="hanni-kamaly-page"
     class:inactive={currentHash.length > 1}
     in:blur={{ duration: 1000 }}>
-
     {#if page.content}
       {@html hanniRenderBlockText(page.content)}
     {/if}
-
   </div>
 
   {#each page.content as content}
@@ -183,5 +178,4 @@
       {/each}
     {/if}
   {/each}
-
 </div>

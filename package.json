@@ -33,8 +33,6 @@
     "cytoscape": "^3.15.1",
     "draggable": "^4.2.0",
     "get-video-id": "^3.1.4",
-    "just-throttle": "^1.1.0",
-    "lodash.get": "^4.4.2",
     "svelte-media-query": "^0.0.4",
     "svelte-routing": "^1.4.2",
     "tiny-slider": "^2.9.2",

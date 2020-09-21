@@ -6,33 +6,32 @@
   // # # # # # # # # # # # # #
 
   // *** IMPORT
-  import { onMount } from "svelte";
-  import { fly } from "svelte/transition";
+  import { onMount } from "svelte"
+  import { fly } from "svelte/transition"
 
   // *** COMPONENTS
-  import PermissionDialog from "./PermissionDialog.svelte";
+  import PermissionDialog from "./PermissionDialog.svelte"
 
   // *** STORES
   import {
-    menuActive,
     orbBackgroundOne,
     orbBackgroundTwo,
     orbColorOne,
     orbColorTwo,
     orbPosition,
-    activePage
-  } from "../stores.js";
+    activePage,
+  } from "../stores.js"
 
   // GLOBAL SETTINGS
-  activePage.set("stine");
-  orbBackgroundOne.set("rgba(244,164,96,1)");
-  orbBackgroundTwo.set("rgba(222,184,135,1)");
-  orbColorOne.set("rgba(255,255,255,1)");
-  orbColorTwo.set("rgba(0,0,0,1)");
+  activePage.set("stine")
+  orbBackgroundOne.set("rgba(244,164,96,1)")
+  orbBackgroundTwo.set("rgba(222,184,135,1)")
+  orbColorOne.set("rgba(255,255,255,1)")
+  orbColorTwo.set("rgba(0,0,0,1)")
   orbPosition.set({
     top: "10px",
-    left: "10px"
-  });
+    left: "10px",
+  })
 
   // CONSTANTS
   const boxes = [
@@ -40,137 +39,136 @@
       text: "The sound you are hearing is intense. Click ok to change it.",
       buttons: ["OK", "Not OK"],
       frequency: 130.82,
-      pan: -0.8
+      pan: -0.8,
     },
     {
       text:
         "<strong>Liquid Fiction</strong> would like you to share your location.",
       buttons: ["OK", "No thanks"],
       frequency: 261.63,
-      pan: -0.7
+      pan: -0.7,
     },
     {
       text:
         "Your actions matter, click ok if you would like to make a difference.",
       buttons: ["OK", "Deny"],
       frequency: 294.33,
-      pan: -0.6
+      pan: -0.6,
     },
     {
       text: "Click ok to get more information.",
       buttons: ["OK", "Deny"],
       frequency: 310.7,
-      pan: -0.5
+      pan: -0.5,
     },
     {
       text: "Are you sure you don’t want to know what this is all about?",
       buttons: ["Yes", "Tell me more"],
       frequency: 327.04,
-      pan: -0.4
+      pan: -0.4,
     },
     {
       text: "We would like you to listen carefully.",
       buttons: ["OK", "No thanks"],
       frequency: 343.4,
-      pan: -0.3
+      pan: -0.3,
     },
     {
       text: "We are asking permission to give you information.",
       buttons: ["Allow", "Deny"],
       frequency: 359.74,
-      pan: -0.2
+      pan: -0.2,
     },
     {
       text:
         "You may be missing out on important information. Would you like to open up?",
       buttons: ["OK", "No thanks"],
       frequency: 392.45,
-      pan: -0.1
+      pan: -0.1,
     },
     {
       text: "Do you like cookies?",
       buttons: ["Yes", "No"],
       frequency: 425.15,
-      pan: 0
+      pan: 0,
     },
     {
       text: "<strong>Liquid Fiction</strong> wants to know your location",
       buttons: ["Allow", "Block"],
       frequency: 457.86,
-      pan: 0.1
+      pan: 0.1,
     },
     {
       text: "You are almost there. Allow us to bring you closer.",
       buttons: ["Allow", "Deny"],
       frequency: 490.56,
-      pan: 0.2
+      pan: 0.2,
     },
     {
       text: "Do you think the sound is less intense now?",
       buttons: ["Yes", "No"],
       frequency: 523.26,
-      pan: 0.3
+      pan: 0.3,
     },
     {
       text: "Your privacy is important:",
       buttons: ["Yes", "No"],
       frequency: 555.96,
-      pan: 0.4
+      pan: 0.4,
     },
     {
       text: "Click ok if you feel ok",
       buttons: ["Ok"],
       frequency: 588.66,
-      pan: 0.5
-    }
-  ];
+      pan: 0.5,
+    },
+  ]
 
   // DOM REFERENCES
-  let videoElement = {};
-  let canvasElement = {};
-  let photoElement = {};
+  let videoElement = {}
+  let canvasElement = {}
+  let photoElement = {}
 
   // VARIABLES
-  let toneCounter = boxes.length - 1;
-  let consented = false;
-  let hidePhoto = false;
+  let toneCounter = boxes.length - 1
+  let consented = false
+  let hidePhoto = false
 
   // REACTIVES
   $: {
     if (toneCounter == 2) {
-      takePicture();
+      takePicture()
     }
   }
 
-  const updateToneCounter = event => {
-    toneCounter = event.detail.active ? toneCounter + 1 : toneCounter - 1;
-    console.log(toneCounter);
-  };
+  const updateToneCounter = (event) => {
+    toneCounter = event.detail.active ? toneCounter + 1 : toneCounter - 1
+  }
 
   const takePicture = () => {
-    var context = canvasElement.getContext("2d");
-    let width = videoElement.videoWidth;
-    let height = videoElement.videoHeight;
+    var context = canvasElement.getContext("2d")
+    let width = videoElement.videoWidth
+    let height = videoElement.videoHeight
     if (width && height) {
-      canvasElement.width = width;
-      canvasElement.height = height;
-      context.drawImage(videoElement, 0, 0, width, height);
-      const data = canvasElement.toDataURL("image/png");
-      photoElement.setAttribute("src", data);
-      photoElement.classList.add("shown");
+      canvasElement.width = width
+      canvasElement.height = height
+      context.drawImage(videoElement, 0, 0, width, height)
+      const data = canvasElement.toDataURL("image/png")
+      photoElement.setAttribute("src", data)
+      photoElement.classList.add("shown")
       setTimeout(() => {
-        hidePhoto = true;
-      }, 2000);
+        hidePhoto = true
+      }, 2000)
     }
-  };
+  }
 
   // ONMOUNT
   onMount(async () => {
     // Video
-    navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
-      videoElement.srcObject = stream;
-    });
-  });
+    navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
+      videoElement.srcObject = stream
+    })
+  })
 </script>
 
 <style lang="scss">
@@ -312,11 +310,10 @@
         <button
           class="consent"
           on:click={() => {
-            consented = true;
+            consented = true
           }}>
           OK
         </button>
-
       </div>
     </div>
   {/if}
@@ -329,9 +326,8 @@
         buttons={box.buttons}
         frequency={box.frequency}
         pan={box.pan}
-        on:reduceToneCounter={e => {
-          toneCounter--;
-          console.log(toneCounter);
+        on:reduceToneCounter={(e) => {
+          toneCounter--
         }}
         visible={i == toneCounter && toneCounter > 2}
         order={i} />
