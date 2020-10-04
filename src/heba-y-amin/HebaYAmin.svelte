@@ -7,13 +7,13 @@
 
   // *** IMPORT
   import { fade, scale } from "svelte/transition"
-  import { hebaClient, hebaRenderBlockText } from "../sanity.js"
-  import throttle from "lodash/throttle"
+  import { hebaClient, hebaRenderBlockText, urlForHeba } from "../sanity.js"
   import random from "lodash/random"
   import Draggable from "draggable"
 
   // *** COMPONENTS
   import Video from "./Video.svelte"
+  import PopUpImage from "./PopUpImage.svelte"
 
   // *** STORES
   import {
@@ -43,6 +43,7 @@
   let stopTweets = false
   let tweetsActive = false
   let activeVideo = false
+  let activeImage = false
   // ** CONSTANTS
   const query = "*[]"
   let highZ = 100
@@ -103,6 +104,15 @@
     activeVideo = link
   }
 
+  const showImage = (image) => {
+    const url = urlForHeba({ _ref: image, _type: "reference" })
+      .width(800)
+      .quality(90)
+      .auto("format")
+      .url()
+    activeImage = url
+  }
+
   post.then((post) => {
     setTimeout(() => {
       // Hashtags
@@ -121,6 +131,15 @@
       videoLinkElements.forEach((vl) => {
         vl.addEventListener("click", (e) => {
           showVideo(vl.dataset.link)
+        })
+      })
+      // Popup Image
+      let popUpImageElements = Array.from(
+        document.querySelectorAll(".popup-image")
+      )
+      popUpImageElements.forEach((pi) => {
+        pi.addEventListener("click", (e) => {
+          showImage(pi.dataset.image)
         })
       })
 
@@ -314,6 +333,13 @@
         url={activeVideo}
         on:close={(e) => {
           activeVideo = false
+        }} />
+    {/if}
+    {#if activeImage}
+      <PopUpImage
+        url={activeImage}
+        on:close={(e) => {
+          activeImage = false
         }} />
     {/if}
   {/await}

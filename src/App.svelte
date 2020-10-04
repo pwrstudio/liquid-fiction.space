@@ -365,6 +365,27 @@
       border-bottom: 1px solid rgba(0, 150, 255, 1);
     }
   }
+
+  .popup-image {
+    border-bottom: 1px dashed rgba(147, 101, 0, 1);
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(147, 101, 0, 1);
+      border-bottom: 1px solid rgba(147, 101, 0, 1);
+    }
+  }
+
+  .speech {
+    a {
+      border-bottom: 1px dotted rgba(0, 0, 0, 1);
+      cursor: pointer;
+
+      &:hover {
+        border-bottom: 1px solid rgba(0, 0, 0, 1);
+      }
+    }
+  }
 </style>
 
 <Orb />

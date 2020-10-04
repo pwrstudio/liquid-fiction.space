@@ -157,6 +157,18 @@ const hebaSerializers = {
         props.children
       )
     },
+    popUpImage: (props) => {
+      console.dir(props)
+      return h(
+        "span",
+        {
+          className: "popup-image",
+          "data-ref": get(props, "mark._key", ""),
+          "data-image": get(props, "mark.image.asset._ref", ""),
+        },
+        props.children
+      )
+    },
   },
   types: {
     block: (props) => {
@@ -249,3 +261,7 @@ export const urlFor = (source) => builder.image(source)
 const annaBuilder = imageUrlBuilder(annaClient)
 
 export const urlForAnna = (source) => annaBuilder.image(source)
+
+const hebaBuilder = imageUrlBuilder(hebaClient)
+
+export const urlForHeba = (source) => hebaBuilder.image(source)
