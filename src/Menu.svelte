@@ -325,7 +325,7 @@
               <span class="line-2 header">>>> 22222 >>></span>
             </Link>
           </div>
-          <div
+          <!-- <div
             class="sub-item"
             in:fly={{ duration: 400, y: 20, delay: 300, easing: quartOut }}
             out:fly={{ duration: 300, y: 60, delay: 200 }}>
@@ -333,7 +333,7 @@
               <span class="line-1">Hanni Kamaly</span>
               <span class="line-2">~~~~~_~~~~~~</span>
             </Link>
-          </div>
+          </div> -->
           <div
             class="sub-item"
             in:fly={{ duration: 400, y: 20, delay: 400, easing: quartOut }}
